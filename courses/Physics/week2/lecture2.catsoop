@@ -1,0 +1,342 @@
+<python>
+cs_content_header = "Kinematics (Motion)"
+
+</python>
+
+<style>
+    h1, h2, h3 {
+        color: #333;
+    }
+    h1 {
+        border-bottom: 3px solid #007acc;
+        padding-bottom: 10px;
+    }
+    h2 {
+        color: #007acc;
+        margin-top: 30px;
+    }
+    .highlight {
+        background-color: #e7f3ff;
+        border-left: 4px solid #007acc;
+        padding: 15px;
+        margin: 20px 0;
+        border-radius: 5px;
+    }
+    .highlight p {
+        margin: 0;
+        font-weight: bold;
+        color: #005580;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: left;
+    }
+    th {
+        background-color: #007acc;
+        color: white;
+    }
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+    .formula {
+        background-color: #f0f8ff;
+        border: 2px solid #007acc;
+        padding: 15px;
+        margin: 15px 0;
+        border-radius: 8px;
+        text-align: center;
+        font-family: 'Times New Roman', serif;
+        font-size: 1.2em;
+    }
+    .example {
+        background-color: #f8f9fa;
+        border: 1px solid #e9ecef;
+        border-radius: 5px;
+        padding: 15px;
+        margin: 15px 0;
+    }
+    .example h4 {
+        color: #28a745;
+        margin-top: 0;
+    }
+    ul, ol {
+        margin: 15px 0;
+    }
+    li {
+        margin: 8px 0;
+    }
+    .emoji {
+        font-size: 1.2em;
+        margin-right: 8px;
+    }
+    .warning {
+        background-color: #fff3cd;
+        border-left: 4px solid #ffc107;
+        padding: 15px;
+        margin: 20px 0;
+        border-radius: 5px;
+    }
+    .warning p {
+        margin: 0;
+        color: #856404;
+    }
+    .key-concept {
+        background-color: #d4edda;
+        border-left: 4px solid #28a745;
+        padding: 15px;
+        margin: 20px 0;
+        border-radius: 5px;
+    }
+</style>
+
+<h1>Kinematics (Motion)</h1>
+
+<p><strong>Kinematics</strong> is the branch of physics that describes the motion of objects without considering the forces that cause the motion. It focuses on concepts like position, velocity, acceleration, and time.</p>
+
+<div class="highlight">
+    <p>Kinematics answers the question: "How do objects move?" without asking "Why do they move?"</p>
+</div>
+
+<h2><span class="emoji">📍</span>Key Concepts and Definitions</h2>
+
+<h3>1. Position (x)</h3>
+<p><strong>Position</strong> tells us where an object is located relative to a reference point (origin). It can be positive or negative depending on direction.</p>
+
+<div class="key-concept">
+    <p><strong>Key Point:</strong> Position is measured from a chosen origin point. Moving right or up is typically positive, left or down is negative.</p>
+</div>
+
+<h3>2. Displacement (Δx)</h3>
+<p><strong>Displacement</strong> is the change in position. It's the straight-line distance from the starting point to the ending point.</p>
+
+<div class="formula">
+    Δx = x<sub>final</sub> - x<sub>initial</sub>
+</div>
+
+<h3>3. Velocity (v)</h3>
+<p><strong>Velocity</strong> is the rate of change of position with respect to time. It tells us how fast and in which direction an object is moving.</p>
+
+<div class="formula">
+    Average Velocity = Δx / Δt = (x<sub>final</sub> - x<sub>initial</sub>) / (t<sub>final</sub> - t<sub>initial</sub>)
+</div>
+
+<h3>4. Acceleration (a)</h3>
+<p><strong>Acceleration</strong> is the rate of change of velocity with respect to time. It tells us how quickly velocity is changing.</p>
+
+<div class="formula">
+    Average Acceleration = Δv / Δt = (v<sub>final</sub> - v<sub>initial</sub>) / (t<sub>final</sub> - t<sub>initial</sub>)
+</div>
+
+<h2><span class="emoji">📊</span>Key Quantities Summary</h2>
+
+<table>
+    <tr>
+        <th>Quantity</th>
+        <th>Symbol</th>
+        <th>Units (SI)</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>Position</td>
+        <td>x</td>
+        <td>meters (m)</td>
+        <td>Location relative to origin</td>
+    </tr>
+    <tr>
+        <td>Displacement</td>
+        <td>Δx</td>
+        <td>meters (m)</td>
+        <td>Change in position</td>
+    </tr>
+    <tr>
+        <td>Velocity</td>
+        <td>v</td>
+        <td>meters per second (m/s)</td>
+        <td>Rate of change of position</td>
+    </tr>
+    <tr>
+        <td>Acceleration</td>
+        <td>a</td>
+        <td>meters per second squared (m/s²)</td>
+        <td>Rate of change of velocity</td>
+    </tr>
+    <tr>
+        <td>Time</td>
+        <td>t</td>
+        <td>seconds (s)</td>
+        <td>Duration of motion</td>
+    </tr>
+</table>
+
+<h2><span class="emoji">📈</span>Kinematic Equations (Constant Acceleration)</h2>
+
+<p>When acceleration is constant, we can use these powerful equations to solve motion problems:</p>
+
+<div class="formula">
+    <strong>1.</strong> v = v₀ + at
+</div>
+
+<div class="formula">
+    <strong>2.</strong> x = x₀ + v₀t + ½at²
+</div>
+
+<div class="formula">
+    <strong>3.</strong> v² = v₀² + 2a(x - x₀)
+</div>
+
+<div class="formula">
+    <strong>4.</strong> x = x₀ + ½(v₀ + v)t
+</div>
+
+<p><strong>Where:</strong></p>
+<ul>
+    <li>v₀ = initial velocity</li>
+    <li>v = final velocity</li>
+    <li>a = acceleration (constant)</li>
+    <li>t = time</li>
+    <li>x₀ = initial position</li>
+    <li>x = final position</li>
+</ul>
+
+<h2><span class="emoji">🎯</span>Problem-Solving Strategy</h2>
+
+<ol>
+    <li><strong>Identify what you know:</strong> List given values</li>
+    <li><strong>Identify what you need to find:</strong> What is the question asking?</li>
+    <li><strong>Choose the right equation:</strong> Which kinematic equation contains your known and unknown variables?</li>
+    <li><strong>Substitute and solve:</strong> Plug in values and calculate</li>
+    <li><strong>Check your answer:</strong> Does it make physical sense?</li>
+</ol>
+
+<h2><span class="emoji">🚗</span>Practical Examples</h2>
+
+<h2><span class="emoji">🌍</span>Special Case: Free Fall</h2>
+
+<p>Free fall is motion under gravity alone, with no air resistance. Near Earth's surface:</p>
+
+<div class="key-concept">
+    <p><strong>Acceleration due to gravity:</strong> g = 9.8 m/s² (always downward)</p>
+</div>
+
+<p>For free fall problems:</p>
+<ul>
+    <li>Use a = -g = -9.8 m/s² (if up is positive)</li>
+    <li>Objects dropped start with v₀ = 0</li>
+    <li>Objects thrown upward eventually come back down</li>
+    <li>Time to go up equals time to come down (for same height)</li>
+</ul>
+
+<h2><span class="emoji">📋</span>Motion Graphs</h2>
+
+<h3>Position vs. Time Graph:</h3>
+<ul>
+    <li>Slope = velocity</li>
+    <li>Straight line = constant velocity</li>
+    <li>Curved line = changing velocity (acceleration)</li>
+</ul>
+
+<h3>Velocity vs. Time Graph:</h3>
+<ul>
+    <li>Slope = acceleration</li>
+    <li>Area under curve = displacement</li>
+    <li>Horizontal line = constant velocity</li>
+</ul>
+
+<div class="warning">
+    <p><strong>⚠️ Common Mistakes to Avoid:</strong></p>
+    <ul>
+        <li>Confusing distance with displacement</li>
+        <li>Forgetting to include direction (+ or -)</li>
+        <li>Using wrong units</li>
+        <li>Not checking if acceleration is constant</li>
+    </ul>
+</div>
+
+<h2><span class="emoji">💡</span>Real-World Applications</h2>
+
+<ul>
+    <li><strong>Traffic Safety:</strong> Calculating stopping distances for cars</li>
+    <li><strong>Sports:</strong> Analyzing projectile motion in basketball or soccer</li>
+    <li><strong>Engineering:</strong> Designing roller coasters and elevators</li>
+    <li><strong>Space Exploration:</strong> Planning rocket trajectories</li>
+    <li><strong>Safety:</strong> Designing airbags and safety equipment</li>
+</ul>
+
+<div class="highlight">
+    <p>Practice Tip: Start with simple problems involving constant acceleration, then work up to more complex scenarios. Always draw diagrams and define your coordinate system!</p>
+</div>
+<div id="live-file-panel" style="display:none;margin:20px 0;padding:16px;border:1px solid #ddd;border-radius:6px;background:#f9f9f9;">
+  <strong>Live File</strong>
+  <div id="live-file-content" style="margin-top:8px;color:#555;"></div>
+</div>
+<script>
+(function(){
+  const parts = window.location.pathname.split('/').filter(Boolean);
+  const apiBase = 'http://172.31.184.39:8000';
+  let course = '', week = '';
+  if(parts.length >= 3 && parts[0] === 'courses'){
+    course = parts[1];
+    week = parts[2];
+  } else if(parts.length >= 2 && parts[0] !== 'courses'){
+    course = parts[0];
+    week = parts[1];
+  } else {
+    return;
+  }
+  course = course.trim();
+  week = week.trim();
+  if(!course || !week) return;
+  const panel = document.getElementById('live-file-panel');
+  const content = document.getElementById('live-file-content');
+    function renderFile(meta){
+    if(!meta){
+      panel.style.display = 'none';
+      return;
+    }
+    const url = apiBase + '/live-file/' + course + '/' + week;
+    const dlUrl = url + '?download=1';
+    const type = meta.content_type || '';
+    const safeName = meta.filename || 'file';
+    let html = '<div><a href="' + dlUrl + '" style="color:#2572F5;text-decoration:underline;cursor:pointer;">Download ' + safeName + '</a></div>';
+    if(type.startsWith('image/')){
+      fetch(url).then(r=>r.blob()).then(b=>{
+        const el = document.getElementById('live-file-img');
+        if(el) el.src = URL.createObjectURL(b);
+      });
+      html += '<div style="margin-top:10px;"><img id="live-file-img" src="" alt="' + safeName + '" style="max-width:100%;height:auto;border:1px solid #ddd;border-radius:4px;"/></div>';
+    } else if(type === 'application/pdf'){
+      fetch(url).then(r=>r.blob()).then(b=>{
+        const el = document.getElementById('live-file-iframe');
+        if(el) el.src = URL.createObjectURL(b);
+      });
+      html += '<div style="margin-top:10px;"><iframe id="live-file-iframe" src="" style="width:100%;height:480px;border:1px solid #ddd;border-radius:4px;"></iframe></div>';
+    } else if(type.startsWith('text/')){
+      fetch(url).then(r=>r.blob()).then(b=>{
+        const el = document.getElementById('live-file-iframe');
+        if(el) el.src = URL.createObjectURL(b);
+      });
+      html += '<div style="margin-top:10px;"><iframe id="live-file-iframe" src="" style="width:100%;height:320px;border:1px solid #ddd;border-radius:4px;background:#fff;"></iframe></div>';
+    }
+    content.innerHTML = html;
+    panel.style.display = 'block';
+  }
+  async function load(){
+    try{
+      const r = await fetch(apiBase + '/admin/live-file/' + course + '/' + week);
+      if(!r.ok){renderFile(null);return;}
+      const d = await r.json();
+      renderFile(d || null);
+    }catch{
+      renderFile(null);
+    }
+  }
+  load();
+  setInterval(load, 15000);
+})();
+</script>

@@ -1,0 +1,42 @@
+<python>
+cs_content_header = "Engine Diagnostics"
+
+import catsoop_engine
+import sys
+import os
+
+cs_version = getattr(catsoop_engine, "__version__", "unknown")
+cs_codename = getattr(catsoop_engine, "__codename__", "unknown")
+data_root = globals().get("cs_data_root", "unknown")
+fs_root = globals().get("cs_fs_root", "unknown")
+username = globals().get("cs_username", "unknown")
+role = globals().get("cs_user_info", {}).get("role", "unknown")
+</python>
+
+## Engine Diagnostics
+
+**Engine Version:** <python>print(cs_version)</python>
+
+**Engine Codename:** <python>print(cs_codename)</python>
+
+**Data Root:** <python>print(data_root)</python>
+
+**FS Root:** <python>print(fs_root)</python>
+
+**User:** <python>print(username)</python>
+
+**Role:** <python>print(role)</python>
+
+---
+
+### Python Environment
+
+<python>
+print(sys.version)
+</python>
+
+### Working Directory
+
+<python>
+print(os.getcwd())
+</python>

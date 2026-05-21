@@ -1,0 +1,248 @@
+
+<python>
+cs_content_header = "Lecture 3: Forces and Newton's Laws"
+</python>
+
+<style>
+  h1, h2, h3 {
+      color: #333;
+  }
+  h1 {
+      border-bottom: 3px solid #007acc;
+      padding-bottom: 10px;
+  }
+  h2 {
+      color: #007acc;
+      margin-top: 30px;
+  }
+  .highlight {
+      background-color: #e7f3ff;
+      border-left: 4px solid #007acc;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 5px;
+  }
+  .highlight p {
+      margin: 0;
+      font-weight: bold;
+      color: #005580;
+  }
+  table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+  }
+  th, td {
+      border: 1px solid #ddd;
+      padding: 12px;
+      text-align: left;
+  }
+  th {
+      background-color: #007acc;
+      color: white;
+  }
+  tr:nth-child(even) {
+      background-color: #f2f2f2;
+  }
+  code {
+      background-color: #f4f4f4;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+      color: #d63384;
+  }
+  .emoji {
+      font-size: 1.2em;
+      margin-right: 8px;
+  }
+  ul, ol {
+      margin: 15px 0;
+  }
+  li {
+      margin: 8px 0;
+  }
+</style>
+
+<h1>Forces and Newton's Laws</h1>
+
+<p><strong>Force</strong> is a push or pull that can change the motion of an object. It's one of the most fundamental concepts in physics and is described using Newton's Laws of Motion.</p>
+
+<div class="highlight">
+    <p>In simple terms: Forces make things start moving, stop moving, or change direction.</p>
+</div>
+
+<h2><span class="emoji">💪</span>What is a Force?</h2>
+<p>Force is any interaction that, when unopposed, changes the motion of an object. It is a vector quantity, meaning it has both magnitude and direction.</p>
+
+<table>
+    <tr>
+        <th>Type of Force</th>
+        <th>Description</th>
+        <th>Example</th>
+    </tr>
+    <tr>
+        <td><strong>Gravitational</strong></td>
+        <td>Attraction between objects with mass</td>
+        <td>Earth pulling objects downward</td>
+    </tr>
+    <tr>
+        <td><strong>Friction</strong></td>
+        <td>Resistance between surfaces in contact</td>
+        <td>Brakes stopping a bicycle</td>
+    </tr>
+    <tr>
+        <td><strong>Normal Force</strong></td>
+        <td>Support force from a surface</td>
+        <td>Book resting on a table</td>
+    </tr>
+    <tr>
+        <td><strong>Tension</strong></td>
+        <td>Force through a string or rope</td>
+        <td>Pulling a bucket from a well</td>
+    </tr>
+    <tr>
+        <td><strong>Applied Force</strong></td>
+        <td>Force exerted by a person or object</td>
+        <td>Pushing a shopping cart</td>
+    </tr>
+</table>
+
+<h2><span class="emoji">📜</span>Newton's Three Laws of Motion</h2>
+
+<h3>1️⃣ First Law: Law of Inertia</h3>
+<p>An object will remain at rest or move in a straight line at constant speed unless acted on by a force.</p>
+<div class="highlight">
+  <p>Example: A ball on a flat surface stays still unless pushed.</p>
+</div>
+
+<h3>2️⃣ Second Law: F = ma</h3>
+<p>The force acting on an object is equal to its mass multiplied by its acceleration.</p>
+
+<table>
+  <tr>
+    <th>Formula</th>
+    <th>Meaning</th>
+  </tr>
+  <tr>
+    <td><code>F = m × a</code></td>
+    <td>Force = Mass × Acceleration</td>
+  </tr>
+</table>
+
+<p>This law explains how much an object will accelerate based on the force applied and its mass.</p>
+
+<div class="highlight">
+  <p>Example: A heavier object requires more force to move than a lighter one.</p>
+</div>
+
+<h3>3️⃣ Third Law: Action and Reaction</h3>
+<p>For every action, there is an equal and opposite reaction.</p>
+<div class="highlight">
+  <p>Example: When you jump off a boat, the boat moves in the opposite direction.</p>
+</div>
+
+<h2><span class="emoji">📌</span>Units of Force</h2>
+<p>The SI unit of force is the <strong>Newton (N)</strong>.</p>
+<p>1 Newton = Force required to accelerate 1 kg of mass by 1 m/s²</p>
+
+<h2><span class="emoji">💡</span>Key Formulas and Relationships</h2>
+<ul>
+  <li><code>F = m × a</code> — Newton’s Second Law</li>
+  <li><code>Weight = mass × gravity</code> (W = mg)</li>
+  <li>Gravity (on Earth) = <code>9.8 m/s²</code></li>
+</ul>
+
+<h2><span class="emoji">🧠</span>Concept Check</h2>
+<ul>
+  <li>If a car has a mass of 1000 kg and accelerates at 3 m/s², what is the force?</li>
+  <li>What happens when two people push a box from opposite sides with equal force?</li>
+</ul>
+
+<h2><span class="emoji">📈</span>Free Body Diagrams</h2>
+<p>These are diagrams that show all the forces acting on an object. Arrows represent the direction and size of forces.</p>
+
+<div class="highlight">
+  <p>Tip: Always include gravity, normal force, applied force, and friction (if present).</p>
+</div>
+
+<h2><span class="emoji">🔍</span>Summary</h2>
+<ul>
+  <li>Force is a push or pull that causes motion.</li>
+  <li>Newton’s Laws explain how forces affect objects.</li>
+  <li>Use <code>F = ma</code> to calculate force.</li>
+  <li>Friction, tension, and gravity are common types of forces.</li>
+  <li>Always represent forces clearly in diagrams.</li>
+</ul>
+
+<div class="highlight">
+  <p>Practice Tip: Solve simple problems using <code>F = m × a</code> and draw force diagrams to build understanding!</p>
+</div>
+<div id="live-file-panel" style="display:none;margin:20px 0;padding:16px;border:1px solid #ddd;border-radius:6px;background:#f9f9f9;">
+  <strong>Live File</strong>
+  <div id="live-file-content" style="margin-top:8px;color:#555;"></div>
+</div>
+<script>
+(function(){
+  const parts = window.location.pathname.split('/').filter(Boolean);
+  const apiBase = 'http://172.31.184.39:8000';
+  let course = '', week = '';
+  if(parts.length >= 3 && parts[0] === 'courses'){
+    course = parts[1];
+    week = parts[2];
+  } else if(parts.length >= 2 && parts[0] !== 'courses'){
+    course = parts[0];
+    week = parts[1];
+  } else {
+    return;
+  }
+  course = course.trim();
+  week = week.trim();
+  if(!course || !week) return;
+  const panel = document.getElementById('live-file-panel');
+  const content = document.getElementById('live-file-content');
+    function renderFile(meta){
+    if(!meta){
+      panel.style.display = 'none';
+      return;
+    }
+    const url = apiBase + '/live-file/' + course + '/' + week;
+    const dlUrl = url + '?download=1';
+    const type = meta.content_type || '';
+    const safeName = meta.filename || 'file';
+    let html = '<div><a href="' + dlUrl + '" style="color:#2572F5;text-decoration:underline;cursor:pointer;">Download ' + safeName + '</a></div>';
+    if(type.startsWith('image/')){
+      fetch(url).then(r=>r.blob()).then(b=>{
+        const el = document.getElementById('live-file-img');
+        if(el) el.src = URL.createObjectURL(b);
+      });
+      html += '<div style="margin-top:10px;"><img id="live-file-img" src="" alt="' + safeName + '" style="max-width:100%;height:auto;border:1px solid #ddd;border-radius:4px;"/></div>';
+    } else if(type === 'application/pdf'){
+      fetch(url).then(r=>r.blob()).then(b=>{
+        const el = document.getElementById('live-file-iframe');
+        if(el) el.src = URL.createObjectURL(b);
+      });
+      html += '<div style="margin-top:10px;"><iframe id="live-file-iframe" src="" style="width:100%;height:480px;border:1px solid #ddd;border-radius:4px;"></iframe></div>';
+    } else if(type.startsWith('text/')){
+      fetch(url).then(r=>r.blob()).then(b=>{
+        const el = document.getElementById('live-file-iframe');
+        if(el) el.src = URL.createObjectURL(b);
+      });
+      html += '<div style="margin-top:10px;"><iframe id="live-file-iframe" src="" style="width:100%;height:320px;border:1px solid #ddd;border-radius:4px;background:#fff;"></iframe></div>';
+    }
+    content.innerHTML = html;
+    panel.style.display = 'block';
+  }
+  async function load(){
+    try{
+      const r = await fetch(apiBase + '/admin/live-file/' + course + '/' + week);
+      if(!r.ok){renderFile(null);return;}
+      const d = await r.json();
+      renderFile(d || null);
+    }catch{
+      renderFile(null);
+    }
+  }
+  load();
+  setInterval(load, 15000);
+})();
+</script>

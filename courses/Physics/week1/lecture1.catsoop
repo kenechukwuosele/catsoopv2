@@ -1,0 +1,155 @@
+<python>
+cs_content_header = "Lecture 1: Introduction to Physics"
+</python>
+
+<h1>What is Physics?</h1>
+<p><strong>Physics</strong> is the branch of science concerned with the nature and properties of matter and energy. It explains how things move, interact, and behave in the universe.</p>
+
+<div class="highlight">
+    <p>In simple terms: Physics helps us understand how the world and universe work.</p>
+</div>
+
+<h2>Examples of where we see physics in everyday life:</h2>
+<ul>
+    <li>Electricity (e.g., turning on lights, using a phone)</li>
+    <li>Motion (e.g., cars driving, people walking)</li>
+    <li>Sound (e.g., playing music, speaking)</li>
+    <li>Light (e.g., vision, cameras, lasers)</li>
+    <li>Technology (e.g., X-rays, satellites, computers)</li>
+</ul>
+
+<h2><span class="emoji">🧠</span>Why is Physics Important?</h2>
+<ul>
+    <li>It explains how and why things happen in nature.</li>
+    <li>It forms the foundation for engineering, technology, and other sciences.</li>
+    <li>It helps develop problem-solving and analytical skills.</li>
+    <li>It drives innovation and scientific discovery.</li>
+</ul>
+
+<h2><span class="emoji">🔬</span>Branches of Physics</h2>
+<p>Physics is divided into several branches based on the areas they study. Here are some examples:</p>
+
+<table>
+    <tr>
+        <th>Branch</th>
+        <th>Focus</th>
+    </tr>
+    <tr>
+        <td><strong>Mechanics</strong></td>
+        <td>Motion, force, and energy of objects</td>
+    </tr>
+    <tr>
+        <td><strong>Thermodynamics</strong></td>
+        <td>Heat, temperature, and energy transfer</td>
+    </tr>
+    <tr>
+        <td><strong>Electromagnetism</strong></td>
+        <td>Electric and magnetic fields</td>
+    </tr>
+    <tr>
+        <td><strong>Optics</strong></td>
+        <td>Behavior of light and vision</td>
+    </tr>
+    <tr>
+        <td><strong>Quantum Physics</strong></td>
+        <td>Physics at the atomic and subatomic level</td>
+    </tr>
+    <tr>
+        <td><strong>Relativity</strong></td>
+        <td>Space, time, and gravity in extreme conditions</td>
+    </tr>
+</table>
+
+<h2><span class="emoji">🛠️</span>Getting Started with Physics</h2>
+<p>To study physics effectively, you’ll need a few basic tools and resources.</p>
+
+<h3>✅ Basic Setup:</h3>
+<ol>
+    <li>
+        <strong>Textbook or Online Resource</strong>
+        <ul>
+            <li>Use <strong>OpenStax Physics</strong> (Recommended): <a href="https://openstax.org/books/physics/pages/1-introduction">https://openstax.org/books/physics/pages/1-introduction</a></li>
+        </ul>
+    </li>
+    <li>
+        <strong>Scientific Calculator</strong>
+        <ul>
+            <li>Helps solve equations and numerical problems</li>
+        </ul>
+    </li>
+    <li>
+        <strong>Notebook or Note-taking App</strong>
+        <ul>
+            <li>For writing formulas, solving problems, and taking notes</li>
+        </ul>
+    </li>
+</ol>
+<div id="live-file-panel" style="display:none;margin:20px 0;padding:16px;border:1px solid #ddd;border-radius:6px;background:#f9f9f9;">
+  <strong>Live File</strong>
+  <div id="live-file-content" style="margin-top:8px;color:#555;"></div>
+</div>
+<script>
+(function(){
+  const parts = window.location.pathname.split('/').filter(Boolean);
+  const apiBase = 'http://172.31.184.39:8000';
+  let course = '', week = '';
+  if(parts.length >= 3 && parts[0] === 'courses'){
+    course = parts[1];
+    week = parts[2];
+  } else if(parts.length >= 2 && parts[0] !== 'courses'){
+    course = parts[0];
+    week = parts[1];
+  } else {
+    return;
+  }
+  course = course.trim();
+  week = week.trim();
+  if(!course || !week) return;
+  const panel = document.getElementById('live-file-panel');
+  const content = document.getElementById('live-file-content');
+    function renderFile(meta){
+    if(!meta){
+      panel.style.display = 'none';
+      return;
+    }
+    const url = apiBase + '/live-file/' + course + '/' + week;
+    const dlUrl = url + '?download=1';
+    const type = meta.content_type || '';
+    const safeName = meta.filename || 'file';
+    let html = '<div><a href="' + dlUrl + '" style="color:#2572F5;text-decoration:underline;cursor:pointer;">Download ' + safeName + '</a></div>';
+    if(type.startsWith('image/')){
+      fetch(url).then(r=>r.blob()).then(b=>{
+        const el = document.getElementById('live-file-img');
+        if(el) el.src = URL.createObjectURL(b);
+      });
+      html += '<div style="margin-top:10px;"><img id="live-file-img" src="" alt="' + safeName + '" style="max-width:100%;height:auto;border:1px solid #ddd;border-radius:4px;"/></div>';
+    } else if(type === 'application/pdf'){
+      fetch(url).then(r=>r.blob()).then(b=>{
+        const el = document.getElementById('live-file-iframe');
+        if(el) el.src = URL.createObjectURL(b);
+      });
+      html += '<div style="margin-top:10px;"><iframe id="live-file-iframe" src="" style="width:100%;height:480px;border:1px solid #ddd;border-radius:4px;"></iframe></div>';
+    } else if(type.startsWith('text/')){
+      fetch(url).then(r=>r.blob()).then(b=>{
+        const el = document.getElementById('live-file-iframe');
+        if(el) el.src = URL.createObjectURL(b);
+      });
+      html += '<div style="margin-top:10px;"><iframe id="live-file-iframe" src="" style="width:100%;height:320px;border:1px solid #ddd;border-radius:4px;background:#fff;"></iframe></div>';
+    }
+    content.innerHTML = html;
+    panel.style.display = 'block';
+  }
+  async function load(){
+    try{
+      const r = await fetch(apiBase + '/admin/live-file/' + course + '/' + week);
+      if(!r.ok){renderFile(null);return;}
+      const d = await r.json();
+      renderFile(d || null);
+    }catch{
+      renderFile(null);
+    }
+  }
+  load();
+  setInterval(load, 15000);
+})();
+</script>

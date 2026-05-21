@@ -1,0 +1,238 @@
+<python>
+cs_content_header = "Introduction to Volleyball"
+</python>
+
+<style>
+  h1, h2, h3 {
+      color: #333;
+  }
+  h1 {
+      border-bottom: 3px solid #007acc;
+      padding-bottom: 10px;
+  }
+  h2 {
+      color: #007acc;
+      margin-top: 30px;
+  }
+  .highlight {
+      background-color: #e7f3ff;
+      border-left: 4px solid #007acc;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 5px;
+  }
+  .highlight p {
+      margin: 0;
+      font-weight: bold;
+      color: #005580;
+  }
+  table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+  }
+  th, td {
+      border: 1px solid #ddd;
+      padding: 12px;
+      text-align: left;
+  }
+  th {
+      background-color: #007acc;
+      color: white;
+  }
+  tr:nth-child(even) {
+      background-color: #f2f2f2;
+  }
+  code {
+      background-color: #f4f4f4;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+      color: #d63384;
+  }
+  .emoji {
+      font-size: 1.2em;
+      margin-right: 8px;
+  }
+  ul, ol {
+      margin: 15px 0;
+  }
+  li {
+      margin: 8px 0;
+  }
+</style>
+
+<h1>Introduction to Volleyball</h1>
+
+<p><strong>Volleyball</strong> is a dynamic and fast-paced team sport played between two teams of six players each, separated by a net. The aim is to score points by sending the ball over the net and landing it in the opponent’s court.</p>
+
+<div class="highlight">
+  <p>Volleyball requires agility, teamwork, quick reflexes, and strong communication skills.</p>
+</div>
+
+<h2><span class="emoji">🏐</span>Basic Rules of Volleyball</h2>
+<ul>
+  <li>Each team has 6 players on the court.</li>
+  <li>A rally begins with a serve and continues until the ball touches the ground, goes out of bounds, or a fault is committed.</li>
+  <li>Teams can touch the ball a maximum of 3 times before sending it over the net.</li>
+  <li>The same player cannot touch the ball twice in a row (except for blocking).</li>
+  <li>A match is typically played as best of 5 sets. The first team to 25 points (with at least a 2-point lead) wins a set.</li>
+</ul>
+
+<h2><span class="emoji">🧍‍♀️</span>Player Positions</h2>
+
+<table>
+  <tr>
+    <th>Position</th>
+    <th>Role</th>
+  </tr>
+  <tr>
+    <td><strong>Setter</strong></td>
+    <td>Sets up the ball for attackers, acts like the "playmaker"</td>
+  </tr>
+  <tr>
+    <td><strong>Outside Hitter</strong></td>
+    <td>Attacks from the front-left, also helps in defense</td>
+  </tr>
+  <tr>
+    <td><strong>Middle Blocker</strong></td>
+    <td>Specializes in blocking and quick hits near the net</td>
+  </tr>
+  <tr>
+    <td><strong>Opposite Hitter</strong></td>
+    <td>Attacks from the right and supports the setter</td>
+  </tr>
+  <tr>
+    <td><strong>Libero</strong></td>
+    <td>Defensive specialist, cannot attack or serve, wears a different jersey</td>
+  </tr>
+</table>
+
+<h2><span class="emoji">💥</span>Key Skills</h2>
+<ul>
+  <li><strong>Serving:</strong> Starting the play by hitting the ball over the net</li>
+  <li><strong>Passing:</strong> Receiving the ball and directing it to the setter</li>
+  <li><strong>Setting:</strong> Placing the ball for an attacker to spike</li>
+  <li><strong>Spiking:</strong> Powerfully hitting the ball into the opponent's court</li>
+  <li><strong>Blocking:</strong> Preventing the ball from crossing the net during a spike</li>
+  <li><strong>Digging:</strong> Defending against a spike by diving or using reflexes</li>
+</ul>
+
+<h2><span class="emoji">⚖️</span>Common Violations</h2>
+<table>
+  <tr>
+    <th>Violation</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td><strong>Net Touch</strong></td>
+    <td>Touching the net during play is not allowed</td>
+  </tr>
+  <tr>
+    <td><strong>Foot Fault</strong></td>
+    <td>Stepping over the service line during a serve</td>
+  </tr>
+  <tr>
+    <td><strong>Double Hit</strong></td>
+    <td>Same player touches the ball twice in succession</td>
+  </tr>
+  <tr>
+    <td><strong>Carry</strong></td>
+    <td>Ball is held or thrown rather than hit cleanly</td>
+  </tr>
+</table>
+
+<h2><span class="emoji">🌍</span>Popular Competitions</h2>
+<ul>
+  <li><strong>FIVB Volleyball World Championship</strong></li>
+  <li><strong>Olympic Volleyball Tournament</strong></li>
+  <li><strong>Volleyball Nations League (VNL)</strong></li>
+  <li><strong>National Collegiate Athletic Association (NCAA)</strong> – USA</li>
+</ul>
+
+<h2><span class="emoji">🧠</span>Concept Check</h2>
+<ul>
+  <li>How many players are on a volleyball team?</li>
+  <li>What is the role of a Libero?</li>
+  <li>What is the maximum number of touches per team before sending the ball over?</li>
+</ul>
+
+<h2><span class="emoji">💡</span>Summary</h2>
+<ul>
+  <li>Volleyball is a team sport where players aim to score by grounding the ball on the opponent’s court.</li>
+  <li>It emphasizes coordination, timing, and strategic play.</li>
+  <li>Learning positions, rotations, and core skills is key to effective play.</li>
+</ul>
+
+<div class="highlight">
+  <p>Practice Tip: Start with basic passing and serving drills with a friend or against a wall to improve your control!</p>
+</div>
+<div id="live-file-panel" style="display:none;margin:20px 0;padding:16px;border:1px solid #ddd;border-radius:6px;background:#f9f9f9;">
+  <strong>Live File</strong>
+  <div id="live-file-content" style="margin-top:8px;color:#555;"></div>
+</div>
+<script>
+(function(){
+  const parts = window.location.pathname.split('/').filter(Boolean);
+  const apiBase = 'http://172.31.184.39:8000';
+  let course = '', week = '';
+  if(parts.length >= 3 && parts[0] === 'courses'){
+    course = parts[1];
+    week = parts[2];
+  } else if(parts.length >= 2 && parts[0] !== 'courses'){
+    course = parts[0];
+    week = parts[1];
+  } else {
+    return;
+  }
+  course = course.trim();
+  week = week.trim();
+  if(!course || !week) return;
+  const panel = document.getElementById('live-file-panel');
+  const content = document.getElementById('live-file-content');
+    function renderFile(meta){
+    if(!meta){
+      panel.style.display = 'none';
+      return;
+    }
+    const url = apiBase + '/live-file/' + course + '/' + week;
+    const dlUrl = url + '?download=1';
+    const type = meta.content_type || '';
+    const safeName = meta.filename || 'file';
+    let html = '<div><a href="' + dlUrl + '" style="color:#2572F5;text-decoration:underline;cursor:pointer;">Download ' + safeName + '</a></div>';
+    if(type.startsWith('image/')){
+      fetch(url).then(r=>r.blob()).then(b=>{
+        const el = document.getElementById('live-file-img');
+        if(el) el.src = URL.createObjectURL(b);
+      });
+      html += '<div style="margin-top:10px;"><img id="live-file-img" src="" alt="' + safeName + '" style="max-width:100%;height:auto;border:1px solid #ddd;border-radius:4px;"/></div>';
+    } else if(type === 'application/pdf'){
+      fetch(url).then(r=>r.blob()).then(b=>{
+        const el = document.getElementById('live-file-iframe');
+        if(el) el.src = URL.createObjectURL(b);
+      });
+      html += '<div style="margin-top:10px;"><iframe id="live-file-iframe" src="" style="width:100%;height:480px;border:1px solid #ddd;border-radius:4px;"></iframe></div>';
+    } else if(type.startsWith('text/')){
+      fetch(url).then(r=>r.blob()).then(b=>{
+        const el = document.getElementById('live-file-iframe');
+        if(el) el.src = URL.createObjectURL(b);
+      });
+      html += '<div style="margin-top:10px;"><iframe id="live-file-iframe" src="" style="width:100%;height:320px;border:1px solid #ddd;border-radius:4px;background:#fff;"></iframe></div>';
+    }
+    content.innerHTML = html;
+    panel.style.display = 'block';
+  }
+  async function load(){
+    try{
+      const r = await fetch(apiBase + '/admin/live-file/' + course + '/' + week);
+      if(!r.ok){renderFile(null);return;}
+      const d = await r.json();
+      renderFile(d || null);
+    }catch{
+      renderFile(null);
+    }
+  }
+  load();
+  setInterval(load, 15000);
+})();
+</script>

@@ -1,0 +1,107 @@
+<python>
+cs_content_header = "Submission Queue"
+cs_description = "View and manage quiz submissions"
+</python>
+
+<style>
+    .queue-container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    .queue-item {
+        border: 1px solid #ddd;
+        margin: 10px 0;
+        padding: 15px;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+    .queue-item.processing {
+        background-color: #fff3cd;
+        border-color: #ffeaa7;
+    }
+    .queue-item.completed {
+        background-color: #d4edda;
+        border-color: #c3e6cb;
+    }
+    .queue-item.error {
+        background-color: #f8d7da;
+        border-color: #f5c6cb;
+    }
+    .queue-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+    .status-badge {
+        padding: 4px 12px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+    .status-pending { background-color: #6c757d; color: white; }
+    .status-processing { background-color: #ffc107; color: black; }
+    .status-completed { background-color: #28a745; color: white; }
+    .status-error { background-color: #dc3545; color: white; }
+    
+    .empty-queue {
+        text-align: center;
+        color: #6c757d;
+        padding: 40px;
+        font-style: italic;
+    }
+    
+    .refresh-btn {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    .refresh-btn:hover {
+        background-color: #0056b3;
+    }
+    
+    .course-info {
+        background-color: #fff3e0;
+        border: 1px solid #ff9800;
+        padding: 15px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+    }
+</style>
+
+<div class="queue-container">
+    <div class="queue-header">
+        <h2>⚽ Sports - Submission Queue</h2>
+        <button class="refresh-btn" onclick="location.reload()">🔄 Refresh</button>
+    </div>
+    
+    <div class="course-info">
+        <h4>📚 Course: Sports</h4>
+        <p>This queue shows all submissions for Sports course assignments, quizzes, and assessments.</p>
+        <p>Submissions are processed automatically and students receive feedback through the affect detection system.</p>
+    </div>
+    
+    <div id="queueList">
+        <div class="empty-queue">
+            <h3>📥 No submissions in queue</h3>
+            <p>Sports quiz submissions will appear here when students submit their answers.</p>
+            <p>This queue system is integrated with the affect detection system to track student progress and emotional states during quiz submissions.</p>
+            <br>
+            <p><strong>🎯 To see the affect detection system in action:</strong></p>
+            <ul style="text-align: left; display: inline-block;">
+                <li><a href="http://localhost:7667/_static/affect_demo.html" target="_blank">Interactive Affect Detection Demo</a></li>
+                <li><a href="http://localhost:7667/_static/admin_affect.html" target="_blank">Affect Analytics Dashboard</a></li>
+                <li><a href="/Sports/week1/quiz1" target="_blank">Sports Quiz (if available)</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+console.log('Sports queue page loaded');
+</script>

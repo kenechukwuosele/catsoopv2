@@ -1,0 +1,56 @@
+cs_content_header = """
+<script>
+const API = "/api/questions";
+let start = Date.now();
+const user = cs_username || 'guest';
+
+// Track page
+function track() {
+    const payload = { user, page: location.pathname, time_spent: (Date.now() - start)/1000 };
+    navigator.sendBeacon("/api/track", new Blob([JSON.stringify(payload)], {type: 'application/json'}));
+    start = Date.now();
+}
+document.addEventListener("DOMContentLoaded", track);
+window.addEventListener("beforeunload", track);
+
+// Save question
+async function saveQuestion() {
+    const options = Array.from(document.querySelectorAll('.opt-input')).map(i => i.value).filter(x => x);
+    const correct = document.querySelector('input[name="correct"]:checked')?.value;
+
+    const payload = {
+        question_text: document.getElementById('qtext').value,
+        question_type: document.querySelector('input[name="type"]:checked').value,
+        options: options,
+        correct_answer: correct
+    };
+
+    try {
+        const res = await fetch(API, {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        document.getElementById('status').innerText = `Saved ID: ${data.id}`;
+        loadQuestions();
+    } catch (e) {
+        document.getElementById('status').innerText = "Failed";
+    }
+}
+
+// Load questions
+async function loadQuestions() {
+    try {
+        const res = await fetch(API);
+        const qs = await res.json();
+        document.getElementById('question-list').innerHTML = qs.map(q => 
+            `<li><b>${q.question_text}</b> (${q.question_type})</li>`
+        ).join('');
+    } catch (e) {
+        document.getElementById('question-list').innerHTML = "Load failed";
+    }
+}
+document.addEventListener("DOMContentLoaded", loadQuestions);
+</script>
+"""

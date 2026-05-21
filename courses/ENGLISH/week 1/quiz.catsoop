@@ -1,0 +1,350 @@
+<python>
+cs_content_header = "Quiz: ENGLISH - week 1"
+cs_show_due = True
+cs_update_questions_cache = True
+import json
+# Pass user info and question IDs to client JS
+print(f'<script data-username="{cs_username}">')
+print(f'window.__cs_username = "{cs_username}";')
+print(f'window.__cs_user_role = "{cs_user_info.get("role", "Student")}";')
+print(f'window.__quizQuestionIds = [7];')
+print(f'window.__course = "ENGLISH";')
+print(f'window.__week = "week 1";')
+print('</script>')
+</python>
+
+<style>
+.question { margin-bottom: 1.5em; }
+.hint-btn-container { margin-top: 8px; }
+</style>
+
+<div id="quiz-start-screen" style="text-align:center;padding:40px 20px;">
+  <h2 style="color:#2c3e50;margin-bottom:16px;">Quiz: week 1</h2>
+  <p style="font-size:1.1em;color:#555;margin-bottom:8px;">This quiz contains <strong>1</strong> question.</p>
+  <p style="font-size:0.95em;color:#777;margin-bottom:24px;">You can check and submit your answers when ready.</p>
+  <button onclick="document.getElementById('quiz-start-screen').style.display='none';document.getElementById('quiz-questions').style.display='block';window.__quizStarted=true;" style="background:#4CAF50;color:white;padding:14px 36px;border:none;border-radius:6px;cursor:pointer;font-size:1.1em;">Start Quiz</button>
+</div>
+<div id="quiz-questions" style="display:none;">
+<question smallbox>
+csq_prompt = '**what year did english become a major?**'
+csq_soln = '1940'
+csq_name = 'q_7'
+csq_npoints = 1
+csq_size = 30
+</question>
+</div>
+<script>
+(function() {
+    const apiBase = 'ENGLISH';
+    const hintCache = {};
+    const hintLevel = {};
+
+    async function fetchHints(qid) {
+        if (hintCache[qid]) return hintCache[qid];
+        try {
+            const r = await fetch('/admin/hints/' + qid);
+            if (!r.ok) throw new Error();
+            const d = await r.json();
+            hintCache[qid] = d.hints || [];
+        } catch {
+            hintCache[qid] = [];
+        }
+        return hintCache[qid];
+    }
+
+    function addHintButton(qid, container) {
+        const btn = document.createElement('button');
+        btn.textContent = '💡 Hint';
+        btn.className = 'hint-btn';
+        btn.style.cssText = 'background:#f59e0b;color:white;padding:6px 12px;border:none;border-radius:4px;cursor:pointer;font-size:12px;margin-top:8px;';
+
+        const hintBox = document.createElement('div');
+        hintBox.className = 'hint-container';
+        hintBox.style.cssText = 'display:none;margin-top:6px;padding:10px;border-radius:4px;background:#fffbeb;border:1px solid #fde68a;';
+
+        btn.onclick = async function() {
+            const hints = await fetchHints(qid);
+            if (!hints.length) {
+                hintBox.style.display = 'block';
+                hintBox.innerHTML = '<div style="font-size:13px;color:#92400e;">No hints available.</div>';
+                btn.disabled = true;
+                btn.textContent = 'No hints';
+                return;
+            }
+            if (!hintLevel[qid]) hintLevel[qid] = 0;
+            if (hintLevel[qid] >= hints.length) return;
+            hintLevel[qid]++;
+            hintBox.style.display = 'block';
+            const div = document.createElement('div');
+            div.style.cssText = 'margin-bottom:6px;font-size:13px;color:#92400e;';
+            div.innerHTML = '<b>Hint ' + hintLevel[qid] + ' of ' + hints.length + ':</b> ' + hints[hintLevel[qid]-1].text;
+            hintBox.appendChild(div);
+            if (hintLevel[qid] >= hints.length) {
+                btn.textContent = 'No more hints';
+                btn.disabled = true;
+            } else {
+                btn.textContent = 'Next Hint (' + hintLevel[qid] + '/' + hints.length + ')';
+            }
+        };
+
+        container.appendChild(btn);
+        container.appendChild(hintBox);
+    }
+
+    function initHints() {
+        const qids = window.__quizQuestionIds || [];
+        qids.forEach(function(qid) {
+            const name = 'q_' + qid;
+            const div = document.getElementById('cs_qdiv_' + name);
+            if (div) {
+                const container = document.createElement('div');
+                container.className = 'hint-btn-container';
+                container.style.cssText = 'margin-top:8px;';
+                div.appendChild(container);
+                addHintButton(qid, container);
+            }
+        });
+    }
+
+    function initWS() {
+        if (window.__liveWS) return;
+        const room = (window.__course || 'unknown') + '/' + (window.__week || 'unknown');
+        const username = window.__cs_username || 'anon';
+        const proto = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+        const host = window.location.hostname + (window.location.port ? ':' + window.location.port : '');
+        try {
+            const ws = new WebSocket(proto + '//' + host + '/ws');
+            ws.onopen = function() {
+                ws.send(JSON.stringify({ type: 'JOIN', username: username, room: room }));
+                window.__liveWS = ws;
+            };
+            ws.onmessage = function(e) {
+                try {
+                    const msg = JSON.parse(e.data);
+                    if (msg.type === 'PUSH_HINT' && msg.target_username === username) {
+                        const el = document.createElement('div');
+                        el.style.cssText = 'position:fixed;bottom:20px;right:20px;background:#fffbeb;border:1px solid #fde68a;border-radius:6px;padding:14px;font-size:14px;color:#92400e;z-index:9999;max-width:320px;box-shadow:0 4px 12px rgba(0,0,0,0.15);';
+                        el.innerHTML = '<b>💡 Instructor Hint:</b><br>' + msg.hint_text + '<br><button onclick="this.parentElement.remove()" style="margin-top:6px;padding:2px 10px;">Dismiss</button>';
+                        document.body.appendChild(el);
+                    }
+                } catch {}
+            };
+            ws.onclose = function() { window.__liveWS = null; };
+        } catch {}
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() { initHints(); initWS(); });
+    } else {
+        initHints();
+        initWS();
+    }
+})();
+</script>
+
+<script>
+(function() {
+if (window.__affectInjected) return;
+window.__affectInjected = true;
+
+const API = '';
+const attemptSessionId = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : String(Date.now()) + '-' + Math.random().toString(36).slice(2);
+let engagementTimer = null;
+let videoStream = null;
+let videoEl = null;
+let faceDetector = null;
+let faceModelLoaded = false;
+let lastInteractionTime = Date.now();
+let lastEngagementSent = 0;
+let pageClicks = 0;
+let keypressCount = 0;
+let totalActiveSeconds = 0;
+let lastAffectState = null;
+
+document.addEventListener('click', () => { pageClicks++; lastInteractionTime = Date.now(); });
+document.addEventListener('keydown', () => { keypressCount++; lastInteractionTime = Date.now(); });
+
+const pathParts = window.location.pathname.split('/').filter(Boolean);
+let course = '', week = '';
+if (pathParts.length >= 2 && pathParts[0] !== 'courses') { course = pathParts[0]; week = pathParts[1]; }
+else if (pathParts.length >= 3 && pathParts[0] === 'courses') { course = pathParts[1]; week = pathParts[2]; }
+if (!course) course = 'unknown';
+if (!week) week = 'unknown';
+
+async function loadTFJS() {
+  if (window.tf) return true;
+  return new Promise(resolve => {
+    const s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0/dist/tf.min.js';
+    s.onload = () => {
+      const s2 = document.createElement('script');
+      s2.src = 'https://cdn.jsdelivr.net/npm/@tensorflow-models/face-detection@1.0.3/dist/face-detection.min.js';
+      s2.onload = () => resolve(true);
+      s2.onerror = () => resolve(false);
+      document.head.appendChild(s2);
+    };
+    s.onerror = () => resolve(false);
+    document.head.appendChild(s);
+  });
+}
+
+async function ensureStream() {
+  if (videoStream) return true;
+  try {
+    videoStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+    videoEl = document.createElement('video');
+    videoEl.srcObject = videoStream;
+    videoEl.setAttribute('playsinline', 'true');
+    await videoEl.play();
+    return true;
+  } catch { return false; }
+}
+
+async function loadDetector() {
+  if (faceModelLoaded) return true;
+  if (!window.faceDetection) return false;
+  try {
+    faceDetector = await faceDetection.createDetector(
+      faceDetection.SupportedModels.MediaPipeFaceDetector,
+      { runtime: 'tfjs', maxFaces: 1 }
+    );
+    faceModelLoaded = true;
+    return true;
+  } catch { return false; }
+}
+
+function computeEAR(eye) {
+  if (!eye || eye.length < 6) return 0.35;
+  const v1 = Math.hypot(eye[1].x - eye[5].x, eye[1].y - eye[5].y);
+  const v2 = Math.hypot(eye[2].x - eye[4].x, eye[2].y - eye[4].y);
+  const h = Math.hypot(eye[0].x - eye[3].x, eye[0].y - eye[3].y);
+  return h > 0 ? (v1 + v2) / (2 * h) : 0.35;
+}
+
+function computeMouthRatio(face) {
+  if (!face || !face.keypoints) return 0;
+  const upper = face.keypoints.find(k => k.name === 'upperLipTop' || k.name === 'lipsUpperOuter');
+  const lower = face.keypoints.find(k => k.name === 'lowerLipBottom' || k.name === 'lipsLowerOuter');
+  const left = face.keypoints.find(k => k.name === 'mouthLeft' || k.name === 'lipsLeftOuter');
+  const right = face.keypoints.find(k => k.name === 'mouthRight' || k.name === 'lipsRightOuter');
+  if (!upper || !lower || !left || !right) return 0;
+  const mh = Math.hypot(upper.x - lower.x, upper.y - lower.y);
+  const mw = Math.hypot(left.x - right.x, left.y - right.y);
+  return mw > 0 ? mh / mw : 0;
+}
+
+function estimateHeadPose(face) {
+  if (!face || !face.keypoints) return { pose: 'center', yaw: 0, pitch: 0, roll: 0 };
+  const nose = face.keypoints.find(k => k.name === 'noseTip') || face.keypoints[0];
+  const lEye = face.keypoints.find(k => k.name === 'leftEye') || face.keypoints[1];
+  const rEye = face.keypoints.find(k => k.name === 'rightEye') || face.keypoints[2];
+  if (!nose || !lEye || !rEye) return { pose: 'center', yaw: 0, pitch: 0, roll: 0 };
+  const eyeMidX = (lEye.x + rEye.x) / 2;
+  const eyeMidY = (lEye.y + rEye.y) / 2;
+  const dx = nose.x - eyeMidX;
+  const dy = nose.y - eyeMidY;
+  let pose = 'center';
+  if (dy > 12) pose = 'down';
+  else if (dx > 12) pose = 'right';
+  else if (dx < -12) pose = 'left';
+  return { pose, yaw: dx, pitch: dy, roll: 0 };
+}
+
+function computeEngagement(faceData, inactivity) {
+  let score = 100;
+  if (!faceData.present) score -= 45;
+  if (!faceData.gaze) score -= 20;
+  if (faceData.headPose === 'down') score -= 15;
+  else if (faceData.headPose === 'left' || faceData.headPose === 'right') score -= 10;
+  if (inactivity > 120) score -= 30;
+  else if (inactivity > 60) score -= 15;
+  score = Math.max(0, Math.min(100, score));
+  return score;
+}
+
+function computeAffectState(score, ear, mouthRatio, inactivity) {
+  if (inactivity > 120) return 'distracted';
+  if (score < 30) return 'disengaged';
+  if (score < 50 && ear < 0.2) return 'fatigued';
+  if (score >= 40 && score < 70 && mouthRatio > 0.15) return 'confused';
+  if (score >= 70) return 'focused';
+  if (score >= 50) return 'focused';
+  return 'disengaged';
+}
+
+async function collectSample() {
+  const now = Date.now();
+  if (now - lastEngagementSent < 20000) return;
+  lastEngagementSent = now;
+
+  const inactivity = Math.floor((now - lastInteractionTime) / 1000);
+  let facePresent = false, gazeCentered = false, headPose = 'center';
+  let ear = null, mouthRatio = null, yaw = null, pitch = null, roll = null;
+  let affectState = null;
+
+  if (await loadTFJS() && await ensureStream() && await loadDetector()) {
+    try {
+      const faces = await faceDetector.estimateFaces(videoEl);
+      if (faces && faces.length) {
+        facePresent = true;
+        const f = faces[0];
+        const hp = estimateHeadPose(f);
+        headPose = hp.pose; yaw = hp.yaw; pitch = hp.pitch; roll = hp.roll;
+        if (f.keypoints) {
+          const leftEye = f.keypoints.filter(k => k.name && k.name.includes('leftEye'));
+          const rightEye = f.keypoints.filter(k => k.name && k.name.includes('rightEye'));
+          if (leftEye.length >= 6 && rightEye.length >= 6) {
+            ear = (computeEAR(leftEye) + computeEAR(rightEye)) / 2;
+          }
+        }
+        gazeCentered = headPose === 'center';
+        mouthRatio = computeMouthRatio(f);
+      }
+    } catch {}
+  }
+
+  const score = computeEngagement({ present: facePresent, gaze: gazeCentered, headPose }, inactivity);
+  affectState = computeAffectState(score, ear || 0.35, mouthRatio || 0, inactivity);
+
+  // Notify live dashboard on affect state change
+  if (affectState !== lastAffectState && window.__liveWS && window.__liveWS.readyState === WebSocket.OPEN) {
+    window.__liveWS.send(JSON.stringify({
+      type: 'AFFECT_CHANGE',
+      username: window.__cs_username || 'unknown',
+      affect_state: affectState,
+    }));
+  }
+  lastAffectState = affectState;
+
+  // Adaptive UI triggers
+  const simplifyEl = document.getElementById('adaptiveSimplify');
+  const advancedEl = document.getElementById('adaptiveAdvanced');
+  const promptEl = document.getElementById('attentionPrompt');
+  if (simplifyEl) simplifyEl.style.display = score < 40 ? 'block' : 'none';
+  if (advancedEl) advancedEl.style.display = score > 80 ? 'block' : 'none';
+  if (promptEl) promptEl.style.display = inactivity > 120 ? 'block' : 'none';
+
+  fetch(API + '/' + course + '/' + week + '/engagement', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      attemptSessionId, username: window.__cs_username || 'unknown',
+      course, week, timestamp: new Date().toISOString(),
+      facePresent, gazeCentered, headPose,
+      inactivitySeconds: inactivity, engagementScore: score,
+      focusState: score >= 70 ? 'High' : score >= 40 ? 'Medium' : 'Low',
+      clickCount: pageClicks, typingCount: keypressCount,
+      eyeAspectRatio: ear, mouthOpenRatio: mouthRatio,
+      smileScore: null, headYaw: yaw, headPitch: pitch, headRoll: roll,
+      affectState
+    })
+  }).catch(() => {});
+}
+
+// Inject username from server-side if available
+const unameScript = document.querySelector('script[data-username]');
+if (unameScript) window.__cs_username = unameScript.dataset.username;
+
+engagementTimer = setInterval(collectSample, 20000);
+})();
+</script>

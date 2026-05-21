@@ -1,0 +1,250 @@
+<python>
+cs_content_header = "Introduction to Basketball"
+</python>
+
+<style>
+  h1, h2, h3 {
+      color: #333;
+  }
+  h1 {
+      border-bottom: 3px solid #007acc;
+      padding-bottom: 10px;
+  }
+  h2 {
+      color: #007acc;
+      margin-top: 30px;
+  }
+  .highlight {
+      background-color: #e7f3ff;
+      border-left: 4px solid #007acc;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 5px;
+  }
+  .highlight p {
+      margin: 0;
+      font-weight: bold;
+      color: #005580;
+  }
+  table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+  }
+  th, td {
+      border: 1px solid #ddd;
+      padding: 12px;
+      text-align: left;
+  }
+  th {
+      background-color: #007acc;
+      color: white;
+  }
+  tr:nth-child(even) {
+      background-color: #f2f2f2;
+  }
+  code {
+      background-color: #f4f4f4;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+      color: #d63384;
+  }
+  .emoji {
+      font-size: 1.2em;
+      margin-right: 8px;
+  }
+  ul, ol {
+      margin: 15px 0;
+  }
+  li {
+      margin: 8px 0;
+  }
+</style>
+
+<h1>Introduction to Basketball</h1>
+
+<p><strong>Basketball</strong> is a high-paced, energetic team sport played by two teams of five players each. The objective is to score points by throwing the ball through the opponent's hoop.</p>
+
+<div class="highlight">
+  <p>Basketball is a blend of speed, skill, strategy, and teamwork — and it’s one of the most widely watched sports in the world.</p>
+</div>
+
+<h2><span class="emoji">🏀</span>Basic Rules of Basketball</h2>
+<ul>
+  <li>A game is typically played in 4 quarters of 12 minutes each (NBA rules).</li>
+  <li>The court has two hoops — one at each end — and players score by shooting the ball through the opposing team's hoop.</li>
+  <li>Each basket scored inside the arc is worth 2 points, outside the arc is 3 points, and free throws are worth 1 point.</li>
+  <li>Players can move the ball by dribbling (bouncing while running) or passing to teammates.</li>
+</ul>
+
+<h2><span class="emoji">🧍‍♂️</span>Player Positions</h2>
+<p>Each player has a unique role on the court:</p>
+
+<table>
+  <tr>
+    <th>Position</th>
+    <th>Role</th>
+    <th>Example</th>
+  </tr>
+  <tr>
+    <td><strong>Point Guard</strong></td>
+    <td>Leads the team, handles the ball, sets up plays</td>
+    <td>Stephen Curry</td>
+  </tr>
+  <tr>
+    <td><strong>Shooting Guard</strong></td>
+    <td>Scores from distance, strong in offense</td>
+    <td>Devin Booker</td>
+  </tr>
+  <tr>
+    <td><strong>Small Forward</strong></td>
+    <td>Versatile — scores, defends, and rebounds</td>
+    <td>LeBron James</td>
+  </tr>
+  <tr>
+    <td><strong>Power Forward</strong></td>
+    <td>Strong in rebounds and inside scoring</td>
+    <td>Giannis Antetokounmpo</td>
+  </tr>
+  <tr>
+    <td><strong>Center</strong></td>
+    <td>Tallest player — blocks shots, scores close to the basket</td>
+    <td>Joel Embiid</td>
+  </tr>
+</table>
+
+<h2><span class="emoji">🏆</span>Major Basketball Leagues</h2>
+<ul>
+  <li><strong>NBA</strong> (USA) – The most popular and competitive league in the world.</li>
+  <li><strong>WNBA</strong> – Women’s National Basketball Association.</li>
+  <li><strong>FIBA World Cup</strong> – International competition for national teams.</li>
+  <li><strong>EuroLeague</strong> – Top professional league in Europe.</li>
+</ul>
+
+<h2><span class="emoji">💪</span>Core Skills in Basketball</h2>
+<ul>
+  <li><strong>Dribbling:</strong> Moving the ball while maintaining control.</li>
+  <li><strong>Shooting:</strong> Putting the ball in the hoop.</li>
+  <li><strong>Passing:</strong> Moving the ball between teammates.</li>
+  <li><strong>Rebounding:</strong> Grabbing the ball after a missed shot.</li>
+  <li><strong>Defense:</strong> Preventing the other team from scoring.</li>
+</ul>
+
+<h2><span class="emoji">📋</span>Common Terms and Violations</h2>
+<table>
+  <tr>
+    <th>Term</th>
+    <th>Meaning</th>
+  </tr>
+  <tr>
+    <td><strong>Traveling</strong></td>
+    <td>Moving without dribbling the ball</td>
+  </tr>
+  <tr>
+    <td><strong>Double Dribble</strong></td>
+    <td>Stopping and starting dribble again</td>
+  </tr>
+  <tr>
+    <td><strong>Foul</strong></td>
+    <td>Illegal physical contact with an opponent</td>
+  </tr>
+  <tr>
+    <td><strong>Shot Clock</strong></td>
+    <td>Time limit (usually 24 seconds) to attempt a shot</td>
+  </tr>
+</table>
+
+<h2><span class="emoji">📊</span>Scoring Overview</h2>
+<ul>
+  <li><strong>Field Goal:</strong> 2 points (inside arc) or 3 points (outside arc)</li>
+  <li><strong>Free Throw:</strong> 1 point, awarded after certain fouls</li>
+</ul>
+
+<h2><span class="emoji">🧠</span>Concept Check</h2>
+<ul>
+  <li>What is the role of a Point Guard?</li>
+  <li>How many points is a shot made from outside the arc?</li>
+  <li>What happens if a player double dribbles?</li>
+</ul>
+
+<h2><span class="emoji">💡</span>Summary</h2>
+<ul>
+  <li>Basketball is a fast-paced, team-oriented sport with global popularity.</li>
+  <li>It involves 5 players per team on the court.</li>
+  <li>Skills include dribbling, passing, shooting, and defending.</li>
+  <li>Understanding positions and rules helps improve gameplay and enjoyment.</li>
+</ul>
+
+<div class="highlight">
+  <p>Practice Tip: Grab a ball and try basic dribbling, layups, and shooting drills to build your confidence!</p>
+</div>
+<div id="live-file-panel" style="display:none;margin:20px 0;padding:16px;border:1px solid #ddd;border-radius:6px;background:#f9f9f9;">
+  <strong>Live File</strong>
+  <div id="live-file-content" style="margin-top:8px;color:#555;"></div>
+</div>
+<script>
+(function(){
+  const parts = window.location.pathname.split('/').filter(Boolean);
+  const apiBase = 'http://172.31.184.39:8000';
+  let course = '', week = '';
+  if(parts.length >= 3 && parts[0] === 'courses'){
+    course = parts[1];
+    week = parts[2];
+  } else if(parts.length >= 2 && parts[0] !== 'courses'){
+    course = parts[0];
+    week = parts[1];
+  } else {
+    return;
+  }
+  course = course.trim();
+  week = week.trim();
+  if(!course || !week) return;
+  const panel = document.getElementById('live-file-panel');
+  const content = document.getElementById('live-file-content');
+    function renderFile(meta){
+    if(!meta){
+      panel.style.display = 'none';
+      return;
+    }
+    const url = apiBase + '/live-file/' + course + '/' + week;
+    const dlUrl = url + '?download=1';
+    const type = meta.content_type || '';
+    const safeName = meta.filename || 'file';
+    let html = '<div><a href="' + dlUrl + '" style="color:#2572F5;text-decoration:underline;cursor:pointer;">Download ' + safeName + '</a></div>';
+    if(type.startsWith('image/')){
+      fetch(url).then(r=>r.blob()).then(b=>{
+        const el = document.getElementById('live-file-img');
+        if(el) el.src = URL.createObjectURL(b);
+      });
+      html += '<div style="margin-top:10px;"><img id="live-file-img" src="" alt="' + safeName + '" style="max-width:100%;height:auto;border:1px solid #ddd;border-radius:4px;"/></div>';
+    } else if(type === 'application/pdf'){
+      fetch(url).then(r=>r.blob()).then(b=>{
+        const el = document.getElementById('live-file-iframe');
+        if(el) el.src = URL.createObjectURL(b);
+      });
+      html += '<div style="margin-top:10px;"><iframe id="live-file-iframe" src="" style="width:100%;height:480px;border:1px solid #ddd;border-radius:4px;"></iframe></div>';
+    } else if(type.startsWith('text/')){
+      fetch(url).then(r=>r.blob()).then(b=>{
+        const el = document.getElementById('live-file-iframe');
+        if(el) el.src = URL.createObjectURL(b);
+      });
+      html += '<div style="margin-top:10px;"><iframe id="live-file-iframe" src="" style="width:100%;height:320px;border:1px solid #ddd;border-radius:4px;background:#fff;"></iframe></div>';
+    }
+    content.innerHTML = html;
+    panel.style.display = 'block';
+  }
+  async function load(){
+    try{
+      const r = await fetch(apiBase + '/admin/live-file/' + course + '/' + week);
+      if(!r.ok){renderFile(null);return;}
+      const d = await r.json();
+      renderFile(d || null);
+    }catch{
+      renderFile(null);
+    }
+  }
+  load();
+  setInterval(load, 15000);
+})();
+</script>

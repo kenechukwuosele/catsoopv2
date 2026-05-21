@@ -1,0 +1,11 @@
+questions.db
+venv/
+__pycache__/
+*.pyc
+*.log
+*:Zone.Identifier
+.DS_Store
+Thumbs.db
+_cached/
+_locks/
+_logs/

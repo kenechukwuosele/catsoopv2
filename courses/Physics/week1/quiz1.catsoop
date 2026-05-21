@@ -1,0 +1,876 @@
+<python>
+cs_content_header = "Interactive Quiz"
+cs_description = "Interactive quiz with custom elements"
+cs_content_type = "text/html"
+#print(cs_user_info)
+role = cs_user_info["role"]
+print(f'<script>var userRole = "{role}";</script>')
+username = cs_username
+print(f'<script>var userName = "{username}";</script>')
+</python>
+
+<style>
+        .panel {
+            flex: 1;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px 0;
+            font-size: 14px;
+        }
+        
+        button:hover {
+            background-color: #45a049;
+        }
+        
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        
+        input[type="text"], input[type="file"], textarea, select {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        
+        .question-form {
+            margin-bottom: 20px;
+        }
+        
+        .option-group {
+            margin: 10px 0;
+        }
+        
+        .option-input {
+            display: flex;
+            margin-bottom: 5px;
+        }
+        
+        .option-input input[type="text"] {
+            flex-grow: 1;
+            margin-right: 10px;
+        }
+        
+        #questionsDisplay, #quizContainer {
+            margin-top: 20px;
+        }
+        
+        .question-block {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            background-color: white;
+        }
+        
+        .question-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .question-option {
+            margin: 5px 0;
+        }
+        
+        .feedback {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 4px;
+            display: none;
+        }
+        
+        .correct {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .incorrect {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        
+        .tab {
+            overflow: hidden;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+            border-radius: 5px 5px 0 0;
+        }
+        
+        .tab button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+            color: #333;
+        }
+        
+        .tab button:hover {
+            background-color: #ddd;
+        }
+        
+        .tab button.active {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        .tabcontent {
+            display: none;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-top: none;
+            border-radius: 0 0 5px 5px;
+        }
+        
+        .action-buttons {
+            margin-top: 15px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .results-container {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f0f7ff;
+        }
+        
+        #attemptsList ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        #attemptsList li {
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: white;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+</style>
+
+<div class="tab">
+    <button class="tablinks active" onclick="openTab(event, 'createTab')">Create Questions</button>
+    <button class="tablinks" onclick="openTab(event, 'takeTab')">Take Quiz</button>
+    <button class="tablinks" onclick="openTab(event, 'importExportTab')">Import/Export</button>
+</div>
+
+<div id="createTab" class="tabcontent" style="display: block;">
+    <h2>Create Quiz Questions</h2>     
+    <div class="question-form">
+        <h3>New Question</h3>
+        <label for="questionText">Question:</label>
+        <textarea id="questionText" rows="3" placeholder="Enter your question here"></textarea>         
+        <label for="questionType">Question Type:</label>
+        <select id="questionType" onchange="handleQuestionTypeChange()">
+            <option value="multiple-choice">Multiple Choice</option>
+            <option value="checkbox">Multiple Select</option>
+            <option value="short-answer">Short Answer</option>
+        </select>          
+        <div id="options-container">
+            <h4>Options</h4>
+            <div class="option-group" id="optionsGroup">
+                <div class="option-input">
+                    <input type="text" placeholder="Option 1" class="option-text">
+                    <input type="radio" name="correctOption" class="correctOption" checked>
+                    <label>Correct</label>
+                </div>
+                <div class="option-input">
+                    <input type="text" placeholder="Option 2" class="option-text">
+                    <input type="radio" name="correctOption" class="correctOption">
+                    <label>Correct</label>
+                </div>
+            </div>
+            <button type="button" onclick="addOption()">Add Option</button>
+        </div>          
+        <div id="short-answer-container" style="display: none;">
+            <label for="shortAnswer">Correct Answer:</label>
+            <input type="text" id="shortAnswer" placeholder="Enter the correct answer">
+        </div>           
+        <div class="action-buttons">
+            <button type="button" onclick="addQuestion()">Add Question</button>
+            <button type="button" onclick="clearForm()">Clear Form</button>
+        </div>          
+    </div>        
+    <h3>Current Questions</h3>
+    <div id="questionsDisplay">
+        <p>No questions added yet.</p>
+    </div>      
+</div>
+   
+<div id="takeTab" class="tabcontent">
+    <div id="quizContainer">
+        <p>No questions available. Create some questions first!</p>
+    </div>
+    <div class="action-buttons">
+        <button id="submitQuizBtn" onclick="submitQuiz()" style="display: none;">Submit Quiz</button>
+    </div>
+    <div id="resultsContainer" class="results-container" style="display: none;">
+        <h3>Quiz Results</h3>
+        <p id="scoreDisplay"></p>
+        <div id="detailedResults"></div>
+    </div>
+    <div id="previousAttemptsContainer" class="results-container" style="display: none;">
+        <h3>Your Previous Attempts</h3>
+        <div id="attemptsList"></div>
+    </div>
+</div>
+ 
+<div id="importExportTab" class="tabcontent">
+    <h2>Import/Export Quiz</h2>      
+    <div class="panel">
+        <h3>Export Quiz</h3>
+        <p>Download your current quiz as a JSON file:</p>
+        <button onclick="exportQuiz()">Export Quiz</button>
+    </div> 
+    <div class="panel">
+        <h3>Import Quiz</h3>
+        <p>Upload a previously exported quiz file:</p>
+        <input type="file" id="importFile" accept=".json">
+        <button onclick="importQuiz()">Import Quiz</button>
+    </div>
+</div>  
+
+<script>
+    if (typeof userRole !== "undefined" && userRole === "Student") {
+        document.getElementById('createTab').style.display = "none";
+        document.getElementById('takeTab').style.display = "block";
+        document.querySelector('.tablinks[onclick*="createTab"]').style.display = "none";
+        document.querySelector('.tablinks[onclick*="takeTab"]').classList.add('active');
+        document.querySelector('.tablinks[onclick*="createTab"]').classList.remove('active');
+        document.getElementById('importExportTab').style.display = "none";
+        document.querySelector('.tablinks[onclick*="importExportTab"]').style.display = "none";
+        
+        // Load quiz immediately for students
+        setTimeout(() => {
+            renderQuiz();
+            renderPreviousAttempts();
+        }, 100);
+    } else if (typeof userRole !== "undefined" && userRole === "Instructor") {
+        document.getElementById('takeTab').style.display = "none";
+        document.getElementById('importExportTab').style.display = "none";
+        document.querySelector('.tablinks[onclick*="takeTab"]').style.display = "none";
+        document.querySelector('.tablinks[onclick*="importExportTab"]').style.display = "none";
+    } else {
+        document.getElementById('createTab').style.display = "none";
+        document.getElementById('takeTab').style.display = "none";
+        document.getElementById('importExportTab').style.display = "none";
+        document.querySelector('.tablinks[onclick*="createTab"]').style.display = "none";
+        document.querySelector('.tablinks[onclick*="takeTab"]').style.display = "none";
+        document.querySelector('.tablinks[onclick*="importExportTab"]').style.display = "none";
+    }
+</script>
+
+<script>
+    // Store questions in an array
+    let questions = [];
+    
+    // Open default tab
+    function openTab(evt, tabName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.className += " active";
+        
+        // If switching to take quiz tab, render the quiz
+        if (tabName === 'takeTab') {
+            renderQuiz();
+            renderPreviousAttempts();
+        }
+    }
+
+    function handleQuestionTypeChange() {
+        const questionType = document.getElementById('questionType').value;
+        const optionsContainer = document.getElementById('options-container');
+        const shortAnswerContainer = document.getElementById('short-answer-container');
+        
+        if (questionType === 'short-answer') {
+            optionsContainer.style.display = 'none';
+            shortAnswerContainer.style.display = 'block';
+            
+            // Change radio buttons to checkboxes for multiple select
+            document.querySelectorAll('.correctOption').forEach(el => {
+                if (el.type === 'checkbox') {
+                    el.type = 'radio';
+                    el.name = 'correctOption';
+                }
+            });
+        } else {
+            optionsContainer.style.display = 'block';
+            shortAnswerContainer.style.display = 'none';
+            
+            if (questionType === 'checkbox') {
+                // Change radio buttons to checkboxes for multiple select
+                document.querySelectorAll('.correctOption').forEach(el => {
+                    if (el.type === 'radio') {
+                        el.type = 'checkbox';
+                        el.name = 'correctOption_' + Math.random().toString(36).substr(2, 9);
+                    }
+                });
+            } else {
+                // Change back to radio buttons for single select
+                document.querySelectorAll('.correctOption').forEach(el => {
+                    if (el.type === 'checkbox') {
+                        el.type = 'radio';
+                        el.name = 'correctOption';
+                    }
+                });
+            }
+        }
+    }
+
+    function addOption() {
+        const optionsGroup = document.getElementById('optionsGroup');
+        const questionType = document.getElementById('questionType').value;
+        const optionCount = optionsGroup.children.length + 1;
+        
+        const newOption = document.createElement('div');
+        newOption.className = 'option-input';
+        
+        if (questionType === 'checkbox') {
+            newOption.innerHTML = `
+                <input type="text" placeholder="Option ${optionCount}" class="option-text">
+                <input type="checkbox" name="correctOption_${Math.random().toString(36).substr(2, 9)}" class="correctOption">
+                <label>Correct</label>
+            `;
+        } else {
+            newOption.innerHTML = `
+                <input type="text" placeholder="Option ${optionCount}" class="option-text">
+                <input type="radio" name="correctOption" class="correctOption">
+                <label>Correct</label>
+            `;
+        }
+        
+        optionsGroup.appendChild(newOption);
+    }
+
+      // Add a question to the quiz
+    function addQuestion() {
+        const questionText = document.getElementById('questionText').value.trim();
+        const questionType = document.getElementById('questionType').value;
+        
+        if (!questionText) {
+            alert('Please enter a question.');
+            return;
+        }
+        
+        let options = [];
+        let correctAnswers = [];
+        
+        if (questionType === 'short-answer') {
+            const answer = document.getElementById('shortAnswer').value.trim();
+            if (!answer) {
+                alert('Please enter the correct answer.');
+                return;
+            }
+            correctAnswers = [answer];
+        } else {
+            const optionInputs = document.querySelectorAll('.option-input');
+            
+            for (let i = 0; i < optionInputs.length; i++) {
+                const optionText = optionInputs[i].querySelector('.option-text').value.trim();
+                const isCorrect = optionInputs[i].querySelector('.correctOption').checked;
+                
+                if (optionText) {
+                    options.push(optionText);
+                    if (isCorrect) {
+                        correctAnswers.push(i);
+                    }
+                }
+            }
+            
+            if (options.length < 2) {
+                alert('Please add at least two options.');
+                return;
+            }
+            
+            if (correctAnswers.length === 0) {
+                alert('Please select at least one correct answer.');
+                return;
+            }
+        }
+        
+        const question = {
+            id: Date.now().toString(),
+            text: questionText,
+            type: questionType,
+            options: options,
+            correctAnswers: correctAnswers
+        };
+        
+        questions.push(question);
+        updateQuestionsDisplay();
+        clearForm();
+        
+        // Save to local storage
+        saveQuestionsToLocalStorage();
+    }
+    
+    // Update the questions display area
+    function updateQuestionsDisplay() {
+        const questionsDisplay = document.getElementById('questionsDisplay');
+        
+        if (questions.length === 0) {
+            questionsDisplay.innerHTML = '<p>No questions added yet.</p>';
+            return;
+        }
+        
+        let html = '';
+        
+        questions.forEach((question, index) => {
+            html += `<div class="question-block">
+                <div class="question-title">${index + 1}. ${question.text}</div>
+                <div>Type: ${formatQuestionType(question.type)}</div>`;
+            
+            if (question.type !== 'short-answer') {
+                html += '<div>Options:</div><ul>';
+                question.options.forEach((option, i) => {
+                    const isCorrect = question.correctAnswers.includes(i);
+                    html += `<li${isCorrect ? ' style="font-weight: bold; color: green;"' : ''}>${option}${isCorrect ? ' ✓' : ''}</li>`;
+                });
+                html += '</ul>';
+            } else {
+                html += `<div>Correct Answer: <span style="font-weight: bold; color: green;">${question.correctAnswers[0]}</span></div>`;
+            }
+            
+            html += `<div class="action-buttons">
+                <button onclick="editQuestion('${question.id}')">Edit</button>
+                <button onclick="deleteQuestion('${question.id}')">Delete</button>
+            </div></div>`;
+        });
+        
+        questionsDisplay.innerHTML = html;
+    }
+    
+    // Format question type for display
+    function formatQuestionType(type) {
+        switch(type) {
+            case 'multiple-choice': return 'Multiple Choice';
+            case 'checkbox': return 'Multiple Select';
+            case 'short-answer': return 'Short Answer';
+            default: return type;
+        }
+    }
+    
+    // Clear the form
+    function clearForm() {
+        document.getElementById('questionText').value = '';
+        document.getElementById('shortAnswer').value = '';
+        
+        // Reset options
+        const optionsGroup = document.getElementById('optionsGroup');
+        optionsGroup.innerHTML = `
+            <div class="option-input">
+                <input type="text" placeholder="Option 1" class="option-text">
+                <input type="radio" name="correctOption" class="correctOption" checked>
+                <label>Correct</label>
+            </div>
+            <div class="option-input">
+                <input type="text" placeholder="Option 2" class="option-text">
+                <input type="radio" name="correctOption" class="correctOption">
+                <label>Correct</label>
+            </div>
+        `;
+        
+        // Reset question type
+        document.getElementById('questionType').value = 'multiple-choice';
+        handleQuestionTypeChange();
+    }
+    
+    // Edit a question
+    function editQuestion(id) {
+        const question = questions.find(q => q.id === id);
+        if (!question) return;
+        
+        document.getElementById('questionText').value = question.text;
+        document.getElementById('questionType').value = question.type;
+        
+        if (question.type === 'short-answer') {
+            document.getElementById('shortAnswer').value = question.correctAnswers[0];
+        } else {
+            // Clear existing options
+            const optionsGroup = document.getElementById('optionsGroup');
+            optionsGroup.innerHTML = '';
+            
+            // Add options from the question
+            question.options.forEach((option, index) => {
+                const newOption = document.createElement('div');
+                newOption.className = 'option-input';
+                
+                const isCorrect = question.correctAnswers.includes(index);
+                
+                if (question.type === 'multiple-choice') {
+                    newOption.innerHTML = `
+                        <input type="text" value="${option}" class="option-text">
+                        <input type="radio" name="correctOption" class="correctOption" ${isCorrect ? 'checked' : ''}>
+                        <label>Correct</label>
+                    `;
+                } else if (question.type === 'checkbox') {
+                    newOption.innerHTML = `
+                        <input type="text" value="${option}" class="option-text">
+                        <input type="checkbox" name="correctOption_${index}" class="correctOption" ${isCorrect ? 'checked' : ''}>
+                        <label>Correct</label>
+                    `;
+                }
+                
+                optionsGroup.appendChild(newOption);
+            });
+        }
+        
+        handleQuestionTypeChange();
+        
+        // Remove the question from the array (it will be added back when saved)
+        deleteQuestion(id, false);
+        
+        // Scroll to the form
+        document.querySelector('.question-form').scrollIntoView({ behavior: 'smooth' });
+    }
+    
+    // Delete a question
+    function deleteQuestion(id, confirm = true) {
+        if (confirm && !window.confirm('Are you sure you want to delete this question?')) {
+            return;
+        }
+        
+        questions = questions.filter(q => q.id !== id);
+        updateQuestionsDisplay();
+        saveQuestionsToLocalStorage();
+    }
+    
+    // Save questions to local storage
+    function saveQuestionsToLocalStorage() {
+        localStorage.setItem('quizQuestions', JSON.stringify(questions));
+    }
+    
+    // Load questions from local storage
+    function loadQuestionsFromLocalStorage() {
+        const storedQuestions = localStorage.getItem('quizQuestions');
+        if (storedQuestions) {
+            questions = JSON.parse(storedQuestions);
+            updateQuestionsDisplay();
+        }
+    }
+    
+    // Track quiz attempts by username in localStorage
+    function saveQuizAttempt(score, results) {
+        const allAttempts = JSON.parse(localStorage.getItem('quizAttemptsByUser')) || {};
+        const userAttempts = allAttempts[userName] || [];
+        
+        const attempt = {
+            date: new Date().toISOString(),
+            score: score,
+            total: questions.length,
+            results: results
+        };
+        
+        userAttempts.push(attempt);
+        allAttempts[userName] = userAttempts;
+        localStorage.setItem('quizAttemptsByUser', JSON.stringify(allAttempts));
+    }
+    
+    function loadUserAttempts() {
+        const allAttempts = JSON.parse(localStorage.getItem('quizAttemptsByUser')) || {};
+        return allAttempts[userName] || [];
+    }
+    
+    function hasUserAttemptedQuiz() {
+        const userAttempts = loadUserAttempts();
+        return userAttempts.length > 0;
+    }
+    
+    function renderPreviousAttempts() {
+        const attempts = loadUserAttempts();
+        const attemptsList = document.getElementById('attemptsList');
+        
+        if (attempts.length === 0) {
+            attemptsList.innerHTML = '<p>No previous attempts found.</p>';
+            document.getElementById('previousAttemptsContainer').style.display = 'none';
+            return;
+        }
+        
+        let html = '<ul>';
+        attempts.forEach((attempt, index) => {
+            html += `
+                <li>
+                    <strong>Attempt ${index + 1}:</strong> ${new Date(attempt.date).toLocaleString()}
+                    <br>Score: ${attempt.score}/${attempt.total} (${Math.round((attempt.score / attempt.total) * 100)}%)
+                    <button onclick="viewAttemptDetails(${index})">View Details</button>
+                </li>
+            `;
+        });
+        html += '</ul>';
+        
+        attemptsList.innerHTML = html;
+        document.getElementById('previousAttemptsContainer').style.display = 'block';
+    }
+    
+    function viewAttemptDetails(attemptIndex) {
+        const attempts = loadUserAttempts();
+        const attempt = attempts[attemptIndex];
+        
+        let html = '<h4>Detailed Results</h4><ul>';
+        attempt.results.forEach((result, index) => {
+            html += `
+                <li>
+                    <strong>Question ${index + 1}:</strong> ${result.question}<br>
+                    <strong>Your answer:</strong> ${result.userAnswer}<br>
+                    <strong>Correct answer:</strong> ${result.correctAnswer}<br>
+                    <strong>Result:</strong> ${result.isCorrect ? 'Correct ✅' : 'Incorrect ❌'}
+                    <p></p>
+                </li>
+            `;
+        });
+        html += '</ul>';
+        
+        // Create a modal or dialog to display the details
+        const modal = document.createElement('div');
+        modal.style.position = 'fixed';
+        modal.style.top = '0';
+        modal.style.left = '0';
+        modal.style.width = '100%';
+        modal.style.height = '100%';
+        modal.style.backgroundColor = 'rgba(0,0,0,0.5)';
+        modal.style.display = 'flex';
+        modal.style.justifyContent = 'center';
+        modal.style.alignItems = 'center';
+        modal.style.zIndex = '1000';
+        
+        const modalContent = document.createElement('div');
+        modalContent.style.backgroundColor = 'white';
+        modalContent.style.padding = '20px';
+        modalContent.style.borderRadius = '5px';
+        modalContent.style.maxWidth = '80%';
+        modalContent.style.maxHeight = '80%';
+        modalContent.style.overflow = 'auto';
+        modalContent.innerHTML = html;
+        
+        const closeButton = document.createElement('button');
+        closeButton.textContent = 'Close';
+        closeButton.style.marginTop = '15px';
+        closeButton.onclick = function() {
+            document.body.removeChild(modal);
+        };
+        
+        modalContent.appendChild(closeButton);
+        modal.appendChild(modalContent);
+        document.body.appendChild(modal);
+    }
+    
+    // Render the quiz for taking
+    function renderQuiz() {
+        const quizContainer = document.getElementById('quizContainer');
+        const submitBtn = document.getElementById('submitQuizBtn');
+        
+        if (questions.length === 0) {
+            quizContainer.innerHTML = '<p>No questions available. Create some questions first!</p>';
+            submitBtn.style.display = 'none';
+            return;
+        }
+        
+        // Check if this user has already attempted
+        if (hasUserAttemptedQuiz()) {
+            quizContainer.innerHTML = '<p>You have already completed this quiz.</p>';
+            submitBtn.style.display = 'none';
+            return;
+        }
+        
+        let html = '';
+        
+        questions.forEach((question, index) => {
+            html += `<div class="question-block" id="quiz-q-${question.id}">
+                <div class="question-title">${index + 1}. ${question.text}</div>`;
+            
+            if (question.type === 'multiple-choice') {
+                html += '<div class="options">';
+                question.options.forEach((option, i) => {
+                    html += `
+                        <div class="question-option">
+                            <input type="radio" id="q${question.id}_o${i}" name="q${question.id}" value="${i}">
+                            <label for="q${question.id}_o${i}">${option}</label>
+                        </div>
+                    `;
+                });
+                html += '</div>';
+            } else if (question.type === 'checkbox') {
+                html += '<div class="options">';
+                question.options.forEach((option, i) => {
+                    html += `
+                        <div class="question-option">
+                            <input type="checkbox" id="q${question.id}_o${i}" name="q${question.id}" value="${i}">
+                            <label for="q${question.id}_o${i}">${option}</label>
+                        </div>
+                    `;
+                });
+                html += '</div>';
+            } else if (question.type === 'short-answer') {
+                html += `
+                    <div class="short-answer">
+                        <input type="text" id="q${question.id}_answer" placeholder="Your answer">
+                    </div>
+                `;
+            }
+            
+            html += `<div class="feedback" id="feedback-${question.id}"></div></div>`;
+        });
+        
+        quizContainer.innerHTML = html;
+        submitBtn.style.display = 'block';
+        
+        // Reset results container
+        document.getElementById('resultsContainer').style.display = 'none';
+    }
+    
+    // Submit the quiz
+    function submitQuiz() {
+        if (questions.length === 0) return;
+        
+        let score = 0;
+        const results = [];
+        
+        questions.forEach((question) => {
+            const feedbackDiv = document.getElementById(`feedback-${question.id}`);
+            let isCorrect = false;
+            let userAnswer = '';
+            
+            if (question.type === 'multiple-choice') {
+                const selectedOption = document.querySelector(`input[name="q${question.id}"]:checked`);
+                
+                if (selectedOption) {
+                    const selectedValue = parseInt(selectedOption.value);
+                    isCorrect = question.correctAnswers.includes(selectedValue);
+                    userAnswer = question.options[selectedValue];
+                } else {
+                    userAnswer = 'No answer';
+                }
+            } else if (question.type === 'checkbox') {
+                const checkboxes = document.querySelectorAll(`input[name="q${question.id}"]:checked`);
+                const selectedValues = Array.from(checkboxes).map(cb => parseInt(cb.value));
+                
+                // Check if selected options match correct answers
+                isCorrect = selectedValues.length === question.correctAnswers.length && 
+                            selectedValues.every(val => question.correctAnswers.includes(val));
+                
+                if (checkboxes.length > 0) {
+                    userAnswer = Array.from(checkboxes).map(cb => question.options[parseInt(cb.value)]).join(', ');
+                } else {
+                    userAnswer = 'No answer';
+                }
+            } else if (question.type === 'short-answer') {
+                const answerInput = document.getElementById(`q${question.id}_answer`);
+                
+                if (answerInput && answerInput.value.trim()) {
+                    // Case insensitive comparison
+                    isCorrect = answerInput.value.trim().toLowerCase() === question.correctAnswers[0].toLowerCase();
+                    userAnswer = answerInput.value.trim();
+                } else {
+                    userAnswer = 'No answer';
+                }
+            }
+            
+            if (isCorrect) {
+                score++;
+                feedbackDiv.textContent = 'Correct!';
+                feedbackDiv.className = 'feedback correct';
+            } else {
+                feedbackDiv.textContent = 'Incorrect';
+                feedbackDiv.className = 'feedback incorrect';
+            }
+            
+            feedbackDiv.style.display = 'block';
+            
+            // Store result for detailed feedback
+            results.push({
+                question: question.text,
+                userAnswer: userAnswer,
+                correctAnswer: formatCorrectAnswer(question),
+                isCorrect: isCorrect
+            });
+        });
+        
+        // Save the attempt for this user
+        saveQuizAttempt(score, results);
+        
+        // Display results
+        const resultsContainer = document.getElementById('resultsContainer');
+        const scoreDisplay = document.getElementById('scoreDisplay');
+        const detailedResults = document.getElementById('detailedResults');
+        
+        scoreDisplay.textContent = `You scored ${score} out of ${questions.length} (${Math.round((score / questions.length) * 100)}%)`;
+        
+        let resultsHtml = '<ul>';
+        results.forEach((result, index) => {
+            resultsHtml += `
+                <li>
+                    <strong>Question ${index + 1}:</strong> ${result.question}<br>
+                    <strong>Your answer:</strong> ${result.userAnswer}<br>
+                    <strong>Correct answer:</strong> ${result.correctAnswer}<br>
+                    <strong>Result:</strong> ${result.isCorrect ? 'Correct ✅' : 'Incorrect ❌'}
+                    <p></p>
+                </li>
+            `;
+        });
+        resultsHtml += '</ul>';
+        
+        detailedResults.innerHTML = resultsHtml;
+        resultsContainer.style.display = 'block';
+        
+        // Disable the quiz after submission
+        document.getElementById('submitQuizBtn').disabled = true;
+        
+        // Show previous attempts
+        renderPreviousAttempts();
+        
+        // Scroll to results
+        resultsContainer.scrollIntoView({ behavior: 'smooth' });
+    }
+    
+    // Format correct answer for display
+    function formatCorrectAnswer(question) {
+        if (question.type === 'short-answer') {
+            return question.correctAnswers[0];
+        } else {
+            return question.correctAnswers.map(i => question.options[i]).join(', ');
+        }
+    }
+    
+    // Load questions on page load
+    window.onload = function() {
+        loadQuestionsFromLocalStorage();
+        handleQuestionTypeChange();
+        
+        // For students, check attempts immediately
+        if (userRole === "Student") {
+            renderQuiz();
+            renderPreviousAttempts();
+        }
+    };
+</script>

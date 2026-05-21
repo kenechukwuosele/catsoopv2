@@ -1,0 +1,273 @@
+<python>
+cs_content_header = "Lecture 2: Basic Concepts"
+
+</python>
+
+<style>
+  h1, h2, h3 {
+      color: #333;
+  }
+  h1 {
+      border-bottom: 3px solid #007acc;
+      padding-bottom: 10px;
+  }
+  h2 {
+      color: #007acc;
+      margin-top: 30px;
+  }
+  .highlight {
+      background-color: #e7f3ff;
+      border-left: 4px solid #007acc;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 5px;
+  }
+  .highlight p {
+      margin: 0;
+      font-weight: bold;
+      color: #005580;
+  }
+  table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+  }
+  th, td {
+      border: 1px solid #ddd;
+      padding: 12px;
+      text-align: left;
+  }
+  th {
+      background-color: #007acc;
+      color: white;
+  }
+  tr:nth-child(even) {
+      background-color: #f2f2f2;
+  }
+  code {
+      background-color: #f4f4f4;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+      color: #d63384;
+  }
+  .code-block {
+      background-color: #f8f9fa;
+      border: 1px solid #e9ecef;
+      border-radius: 5px;
+      padding: 15px;
+      margin: 15px 0;
+      font-family: 'Courier New', monospace;
+      overflow-x: auto;
+  }
+  ul, ol {
+      margin: 15px 0;
+  }
+  li {
+      margin: 8px 0;
+  }
+  .emoji {
+      font-size: 1.2em;
+      margin-right: 8px;
+  }
+</style>
+
+<h1>Basic Concepts</h1>
+
+<p>Now that we understand what programming is, let's explore the fundamental building blocks that make up every program. These basic concepts form the foundation of all programming languages.</p>
+
+<div class="highlight">
+    <p>Think of these concepts as the grammar and vocabulary of programming languages.</p>
+</div>
+
+<h2><span class="emoji">📦</span>Variables and Data Types</h2>
+<p><strong>Variables</strong> are containers that store data values. Think of them as labeled boxes where you can put different types of information.</p>
+
+<h3>Common Data Types:</h3>
+<table>
+    <tr>
+        <th>Data Type</th>
+        <th>Description</th>
+        <th>Example</th>
+    </tr>
+    <tr>
+        <td><strong>Integer</strong></td>
+        <td>Whole numbers</td>
+        <td><code>age = 25</code></td>
+    </tr>
+    <tr>
+        <td><strong>Float</strong></td>
+        <td>Decimal numbers</td>
+        <td><code>price = 19.99</code></td>
+    </tr>
+    <tr>
+        <td><strong>String</strong></td>
+        <td>Text/characters</td>
+        <td><code>name = "John"</code></td>
+    </tr>
+    <tr>
+        <td><strong>Boolean</strong></td>
+        <td>True or False values</td>
+        <td><code>is_student = True</code></td>
+    </tr>
+</table>
+
+<h2><span class="emoji">🔄</span>Control Structures</h2>
+<p>Control structures determine the flow of your program - they decide which code runs when.</p>
+
+<h3>1. Conditional Statements (if/else)</h3>
+<p>Used to make decisions in your code.</p>
+<div class="code-block">
+  if age >= 18:
+      print("You can vote!")
+  else:
+      print("Too young to vote")
+</div>
+
+<h3>2. Loops</h3>
+<p>Used to repeat code multiple times.</p>
+<div class="code-block">
+  # For loop - repeat a specific number of times
+  for i in range(5):
+    print("Hello", i)
+
+  # While loop - repeat while a condition is true
+  count = 0
+  while count < 3:
+    print("Count is", count)
+    count += 1
+</div>
+
+<h2><span class="emoji">🔧</span>Functions</h2>
+<p><strong>Functions</strong> are reusable blocks of code that perform specific tasks. They help organize your code and avoid repetition.</p>
+
+<div class="code-block">
+  def greet_user(name):
+      return f"Hello, {name}! Welcome!"
+
+  # Using the function
+  message = greet_user("Alice")
+  print(message)
+</div>
+
+<h2><span class="emoji">📋</span>Data Structures</h2>
+<p>Ways to organize and store multiple pieces of data.</p>
+
+<table>
+  <tr>
+      <th>Structure</th>
+      <th>Description</th>
+      <th>Example</th>
+  </tr>
+  <tr>
+      <td><strong>List</strong></td>
+      <td>Ordered collection of items</td>
+      <td><code>fruits = ["apple", "banana", "orange"]</code></td>
+  </tr>
+  <tr>
+      <td><strong>Dictionary</strong></td>
+      <td>Key-value pairs</td>
+      <td><code>student = {"name": "John", "age": 20}</code></td>
+  </tr>
+  <tr>
+      <td><strong>Tuple</strong></td>
+      <td>Ordered, unchangeable collection</td>
+      <td><code>coordinates = (10, 20)</code></td>
+  </tr>
+</table>
+
+<h2><span class="emoji">⚠️</span>Error Handling</h2>
+<p>Programs don't always work perfectly. Error handling helps your program deal with unexpected situations gracefully.</p>
+
+<div class="code-block">
+  try:
+      number = int(input("Enter a number: "))
+      result = 10 / number
+      print("Result:", result)
+  except ValueError:
+      print("That's not a valid number!")
+  except ZeroDivisionError:
+      print("Cannot divide by zero!")
+</div>
+
+<h2><span class="emoji">💡</span>Best Practices</h2>
+<ul>
+  <li><strong>Use meaningful variable names:</strong> <code>student_age</code> instead of <code>x</code></li>
+  <li><strong>Write comments:</strong> Explain what your code does</li>
+  <li><strong>Keep functions small:</strong> Each function should do one thing well</li>
+  <li><strong>Test your code:</strong> Make sure it works with different inputs</li>
+  <li><strong>Follow consistent formatting:</strong> Use proper indentation and spacing</li>
+</ul>
+
+<div class="highlight">
+  <p>Practice Tip: Start with simple programs using these concepts. Try creating a basic calculator or a program that asks for user input and responds accordingly!</p>
+</div>
+<div id="live-file-panel" style="display:none;margin:20px 0;padding:16px;border:1px solid #ddd;border-radius:6px;background:#f9f9f9;">
+  <strong>Live File</strong>
+  <div id="live-file-content" style="margin-top:8px;color:#555;"></div>
+</div>
+<script>
+(function(){
+  const parts = window.location.pathname.split('/').filter(Boolean);
+  const apiBase = 'http://172.31.184.39:8000';
+  let course = '', week = '';
+  if(parts.length >= 3 && parts[0] === 'courses'){
+    course = parts[1];
+    week = parts[2];
+  } else if(parts.length >= 2 && parts[0] !== 'courses'){
+    course = parts[0];
+    week = parts[1];
+  } else {
+    return;
+  }
+  course = course.trim();
+  week = week.trim();
+  if(!course || !week) return;
+  const panel = document.getElementById('live-file-panel');
+  const content = document.getElementById('live-file-content');
+    function renderFile(meta){
+    if(!meta){
+      panel.style.display = 'none';
+      return;
+    }
+    const url = apiBase + '/live-file/' + course + '/' + week;
+    const dlUrl = url + '?download=1';
+    const type = meta.content_type || '';
+    const safeName = meta.filename || 'file';
+    let html = '<div><a href="' + dlUrl + '" style="color:#2572F5;text-decoration:underline;cursor:pointer;">Download ' + safeName + '</a></div>';
+    if(type.startsWith('image/')){
+      fetch(url).then(r=>r.blob()).then(b=>{
+        const el = document.getElementById('live-file-img');
+        if(el) el.src = URL.createObjectURL(b);
+      });
+      html += '<div style="margin-top:10px;"><img id="live-file-img" src="" alt="' + safeName + '" style="max-width:100%;height:auto;border:1px solid #ddd;border-radius:4px;"/></div>';
+    } else if(type === 'application/pdf'){
+      fetch(url).then(r=>r.blob()).then(b=>{
+        const el = document.getElementById('live-file-iframe');
+        if(el) el.src = URL.createObjectURL(b);
+      });
+      html += '<div style="margin-top:10px;"><iframe id="live-file-iframe" src="" style="width:100%;height:480px;border:1px solid #ddd;border-radius:4px;"></iframe></div>';
+    } else if(type.startsWith('text/')){
+      fetch(url).then(r=>r.blob()).then(b=>{
+        const el = document.getElementById('live-file-iframe');
+        if(el) el.src = URL.createObjectURL(b);
+      });
+      html += '<div style="margin-top:10px;"><iframe id="live-file-iframe" src="" style="width:100%;height:320px;border:1px solid #ddd;border-radius:4px;background:#fff;"></iframe></div>';
+    }
+    content.innerHTML = html;
+    panel.style.display = 'block';
+  }
+  async function load(){
+    try{
+      const r = await fetch(apiBase + '/admin/live-file/' + course + '/' + week);
+      if(!r.ok){renderFile(null);return;}
+      const d = await r.json();
+      renderFile(d || null);
+    }catch{
+      renderFile(null);
+    }
+  }
+  load();
+  setInterval(load, 15000);
+})();
+</script>

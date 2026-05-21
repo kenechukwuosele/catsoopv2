@@ -1,0 +1,156 @@
+<python>
+cs_content_header = "Lecture 1: Introduction"
+
+</python>
+
+<h1>What is Programming?</h1>
+<p><strong>Programming</strong> is the process of giving instructions to a computer to perform specific tasks. These instructions are written in a language that computers can understand, known as a <strong>programming language</strong>.</p>
+
+<div class="highlight">
+    <p>In simple terms: Programming is how we tell computers what to do.</p>
+</div>
+
+<h2>Examples of what we can build with programming:</h2>
+<ul>
+    <li>Websites (e.g., Facebook, Instagram)</li>
+    <li>Mobile apps (e.g., WhatsApp, TikTok)</li>
+    <li>Games (e.g., Fortnite, FIFA)</li>
+    <li>Software tools (e.g., Microsoft Word, Excel)</li>
+    <li>AI systems (e.g., ChatGPT, voice assistants)</li>
+</ul>
+
+<h2><span class="emoji">🧠</span>Why is Programming Important?</h2>
+<ul>
+    <li>It automates tasks and increases efficiency.</li>
+    <li>It powers nearly all modern technology.</li>
+    <li>It helps solve complex problems.</li>
+    <li>It's a valuable skill for careers in tech and beyond.</li>
+</ul>
+
+<h2><span class="emoji">🧪</span>Types of Programming Languages</h2>
+<p>There are many programming languages, each with its own use case. Here are some examples:</p>
+
+<table>
+    <tr>
+        <th>Language</th>
+        <th>Usage</th>
+    </tr>
+    <tr>
+        <td><strong>Python</strong></td>
+        <td>Web development, AI, automation</td>
+    </tr>
+    <tr>
+        <td><strong>JavaScript</strong></td>
+        <td>Web apps, front-end development</td>
+    </tr>
+    <tr>
+        <td><strong>Java</strong></td>
+        <td>Android apps, enterprise software</td>
+    </tr>
+    <tr>
+        <td><strong>C/C++</strong></td>
+        <td>System programming, embedded systems</td>
+    </tr>
+    <tr>
+        <td><strong>PHP</strong></td>
+        <td>Server-side web development</td>
+    </tr>
+    <tr>
+        <td><strong>SQL</strong></td>
+        <td>Database management</td>
+    </tr>
+</table>
+
+<h2><span class="emoji">🛠️</span>Setting Up Your Development Environment</h2>
+<p>Before we start coding, you need the right tools.</p>
+
+<h3>✅ Basic Setup:</h3>
+<ol>
+    <li>
+        <strong>Text Editor or IDE</strong>
+        <ul>
+            <li>Install <strong>VS Code</strong> (Recommended): <a href="https://code.visualstudio.com/">https://code.visualstudio.com/</a></li>
+        </ul>
+    </li>
+    <li>
+        <strong>Programming Language</strong>
+        <ul>
+            <li>Install <strong>Python</strong>: <a href="https://www.python.org/downloads/">https://www.python.org/downloads/</a></li>
+        </ul>
+    </li>
+    <li>
+        <strong>Command Line/Terminal</strong>
+        <ul>
+            <li>Learn basic terminal commands (e.g., <code>cd</code>, <code>dir</code>/<code>ls</code>, <code>python filename.py</code>)</li>
+        </ul>
+    </li>
+</ol>
+<div id="live-file-panel" style="display:none;margin:20px 0;padding:16px;border:1px solid #ddd;border-radius:6px;background:#f9f9f9;">
+  <strong>Live File</strong>
+  <div id="live-file-content" style="margin-top:8px;color:#555;"></div>
+</div>
+<script>
+(function(){
+  const parts = window.location.pathname.split('/').filter(Boolean);
+  const apiBase = 'http://172.31.184.39:8000';
+  let course = '', week = '';
+  if(parts.length >= 3 && parts[0] === 'courses'){
+    course = parts[1];
+    week = parts[2];
+  } else if(parts.length >= 2 && parts[0] !== 'courses'){
+    course = parts[0];
+    week = parts[1];
+  } else {
+    return;
+  }
+  course = course.trim();
+  week = week.trim();
+  if(!course || !week) return;
+  const panel = document.getElementById('live-file-panel');
+  const content = document.getElementById('live-file-content');
+    function renderFile(meta){
+    if(!meta){
+      panel.style.display = 'none';
+      return;
+    }
+    const url = apiBase + '/live-file/' + course + '/' + week;
+    const dlUrl = url + '?download=1';
+    const type = meta.content_type || '';
+    const safeName = meta.filename || 'file';
+    let html = '<div><a href="' + dlUrl + '" style="color:#2572F5;text-decoration:underline;cursor:pointer;">Download ' + safeName + '</a></div>';
+    if(type.startsWith('image/')){
+      fetch(url).then(r=>r.blob()).then(b=>{
+        const el = document.getElementById('live-file-img');
+        if(el) el.src = URL.createObjectURL(b);
+      });
+      html += '<div style="margin-top:10px;"><img id="live-file-img" src="" alt="' + safeName + '" style="max-width:100%;height:auto;border:1px solid #ddd;border-radius:4px;"/></div>';
+    } else if(type === 'application/pdf'){
+      fetch(url).then(r=>r.blob()).then(b=>{
+        const el = document.getElementById('live-file-iframe');
+        if(el) el.src = URL.createObjectURL(b);
+      });
+      html += '<div style="margin-top:10px;"><iframe id="live-file-iframe" src="" style="width:100%;height:480px;border:1px solid #ddd;border-radius:4px;"></iframe></div>';
+    } else if(type.startsWith('text/')){
+      fetch(url).then(r=>r.blob()).then(b=>{
+        const el = document.getElementById('live-file-iframe');
+        if(el) el.src = URL.createObjectURL(b);
+      });
+      html += '<div style="margin-top:10px;"><iframe id="live-file-iframe" src="" style="width:100%;height:320px;border:1px solid #ddd;border-radius:4px;background:#fff;"></iframe></div>';
+    }
+    content.innerHTML = html;
+    panel.style.display = 'block';
+  }
+  async function load(){
+    try{
+      const r = await fetch(apiBase + '/admin/live-file/' + course + '/' + week);
+      if(!r.ok){renderFile(null);return;}
+      const d = await r.json();
+      renderFile(d || null);
+    }catch{
+      renderFile(null);
+    }
+  }
+  load();
+  setInterval(load, 15000);
+})();
+</script>

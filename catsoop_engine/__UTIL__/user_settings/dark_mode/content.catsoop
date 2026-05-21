@@ -1,0 +1,94 @@
+<python>
+log_location = (cs_username, ["_user_settings"], "dark_mode")
+current_settings = cslog.most_recent(*log_location, cs_dark_mode_default_settings)
+
+KEYS = "mode", "brightness", "contrast", "sepia", "grayscale"
+
+MODE_DESCRIPTIONS = {
+    "disabled": "Light Background",
+    "enabled": "Dark Background",
+    "auto": "Use Default OS- or Browser-level Setting",
+}
+
+if cs_form.get("settingsaction", None) == "set":
+    # the form was submitted here
+    new_settings = {
+        k.split("_")[-1]: v for k, v in cs_form.items() if k.startswith("dark_mode_")
+    }
+    new_settings = {k: v for k, v in new_settings.items() if k in KEYS}
+    for k in KEYS:
+        if k == "mode":
+            continue
+        try:
+            new_settings[k] = min(100, max(0, int(new_settings[k])))
+        except:
+            del new_settings[k]
+    cslog.overwrite_log(*log_location, current_settings | new_settings)
+    cs_handler = "redirect"
+    redirect_location = "/".join([cs_url_root, *cs_path_info]) + "?updated=yes"
+else:
+    if cs_form.get("updated", "no") == "yes":
+        print('<center><font color="blue">Settings Updated!</font></center>')
+    # not submitted, just show the form
+    print('<form method="POST" onsubmit="storeDarkModeSettings()">')
+    print('<label for="dark_mode_selector"><b>Default Page Style:</b></label>')
+    print('<fieldset id="dark_mode_selector">')
+    for mode, desc in MODE_DESCRIPTIONS.items():
+        print(
+            f'<input type="radio" name="dark_mode_mode" id="dark_mode_mode_{mode}" value="{mode}" {"checked" if current_settings["mode"] == mode else ""}/>'
+        )
+        print(f'<label for="dark_mode_mode_{mode}">{desc}</label>')
+        print("<br/>")
+    print("</fieldset>")
+    print('<label for="dark_mode_details"><b>Detailed Color Settings:</b></label><br/>')
+    print('<fieldset id="dark_mode_details">')
+    for value in KEYS:
+        if value == "mode":
+            continue
+        print(
+            f'<label for="dark_mode_{value}">{value.title()} (0-100)</label>: <input type="number" id="dark_mode_{value}" name="dark_mode_{value}" value="{current_settings[value]}" /><br/>'
+        )
+
+    print('<input type="hidden" name="settingsaction" value="set" />')
+
+    print('<script type="text/javascript">')
+    print(
+        "// @license magnet:?xt=urn:btih:0b31508aeb0634b347b8270c7bee4d411b5d4109&dn=agpl-3.0.txt AGPL-v3"
+    )
+    print("function storeDarkModeSettings(){")
+    print(f"    var out = {current_settings!r};")
+    print(
+        f'    out.mode = document.querySelector("input[name^=dark_mode_mode]:checked").value'
+    )
+    print(f"    for (var i of {KEYS!r}) {{")
+    print(f"        try {{")
+    print(
+        f'            out[i] = Math.parseInt(document.getElementById("dark_mode_" + i).value);'
+    )
+    print(f"        }} catch(e) {{")
+    print(f"        }}")
+    print(f"    }}")
+    print(f"    return true;")
+    print(f"}}")
+    print("// @license-end")
+    print("</script>")
+
+    print("<br/>")
+    print(f'<input type="Submit" value="Update Settings" class="btn btn-catsoop" />')
+    print("</fieldset>")
+    print("</form>")
+</python>
+
+<a href="CURRENT/..">Back to Settings Menu</a><br/>
+<a id="nonSettings"></a>
+
+<script type="text/javascript">
+// @license magnet:?xt=urn:btih:0b31508aeb0634b347b8270c7bee4d411b5d4109&dn=agpl-3.0.txt AGPL-v3
+var last_non_settings = sessionStorage.getItem('last-non-settings');
+if (last_non_settings !== null){
+    var link = document.getElementById("nonSettings");
+    link.href = last_non_settings;
+    link.innerText = 'Exit Settings Menu';
+}
+// @license-end
+</script>

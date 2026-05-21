@@ -1,0 +1,95 @@
+<python>
+cs_content_header = "Basketball Practice Questions"
+</python>
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background: #f9f9f9;
+  }
+  .card {
+    background: white;
+    border: 1px solid #ccc;
+    padding: 16px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  }
+  .correct {
+    color: green;
+    font-weight: bold;
+  }
+  .incorrect {
+    color: red;
+    font-weight: bold;
+  }
+  input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    margin-top: 10px;
+  }
+  button {
+    margin-top: 10px;
+    padding: 8px 16px;
+  }
+</style>
+
+<!-- Question 1 -->
+<div class="card">
+  <h2>Question 1</h2>
+  <p><strong>Question:</strong> How many players from one team are on the court during a standard basketball game?</p>
+  <input type="text" id="answer1" placeholder='Type your answer here'>
+  <button onclick="checkAnswer('answer1', 'result1', '5')">Submit</button>
+  <div id="result1"></div>
+</div>
+
+<!-- Question 2 -->
+<div class="card">
+  <h2>Question 2</h2>
+  <p><strong>Question:</strong> What does NBA stand for?</p>
+  <input type="text" id="answer2" placeholder='Type your answer here'>
+  <button onclick="checkAnswer('answer2', 'result2', 'National Basketball Association')">Submit</button>
+  <div id="result2"></div>
+</div>
+
+<!-- Question 3 -->
+<div class="card">
+  <h2>Question 3</h2>
+  <p><strong>Question:</strong> Who is often called "The King" in basketball?</p>
+  <input type="text" id="answer3" placeholder='Type your answer here'>
+  <button onclick="checkAnswer('answer3', 'result3', 'LeBron James')">Submit</button>
+  <div id="result3"></div>
+</div>
+
+<!-- Question 4 -->
+<div class="card">
+  <h2>Question 4</h2>
+  <p><strong>Question:</strong> How many points is a shot worth if made from behind the three-point line?</p>
+  <input type="text" id="answer4" placeholder='Type your answer here'>
+  <button onclick="checkAnswer('answer4', 'result4', '3')">Submit</button>
+  <div id="result4"></div>
+</div>
+
+<!-- Question 5 -->
+<div class="card">
+  <h2>Question 5</h2>
+  <p><strong>Question:</strong> Which team won the 2023 NBA Championship?</p>
+  <input type="text" id="answer5" placeholder='Type your answer here'>
+  <button onclick="checkAnswer('answer5', 'result5', 'Denver Nuggets')">Submit</button>
+  <div id="result5"></div>
+</div>
+
+<script>
+  function checkAnswer(inputId, resultId, correctAnswer) {
+    const userInput = document.getElementById(inputId).value.trim().toLowerCase();
+    const resultDiv = document.getElementById(resultId);
+    const expected = correctAnswer.toLowerCase();
+
+    if (userInput === expected) {
+      resultDiv.innerHTML = '<p class="correct">✅ Correct!</p>';
+    } else {
+      resultDiv.innerHTML = `<p class="incorrect">❌ Incorrect.</p><p>The correct answer is: <code>${correctAnswer}</code></p>`;
+    }
+  }
+</script>

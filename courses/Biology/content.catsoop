@@ -1,0 +1,10 @@
+<python>
+cs_content_header = "Welcome to Biology"
+</python>
+This is the main page for the Biology course.
+
+
+## Course Materials
+* [Week 1](Biology/week1)
+
+* [The Human Brain](Biology/week2)

@@ -1,0 +1,75 @@
+The following table contains information about the various Javascript files
+that are loaded by CAT-SOOP, including licensing information.
+
+<p>&nbsp;</p>
+
+<center>
+    <table id="jslicense-labels1" border=1>
+        <thead>
+            <tr><th>Script</th><th>License</th><th>Source</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><a href="_handler/default/cs_ajax.js">cs_ajax.js</a></td>
+                <td><a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL-3.0</a></td>
+                <td><a href="_handler/default/cs_ajax.js">cs_ajax.js</a></td>
+            </tr>
+            <tr>
+                <td><a href="_handler/default/cs_groups.js">cs_groups.js</a></td>
+                <td><a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL-3.0</a></td>
+                <td><a href="_handler/default/cs_groups.js">cs_groups.js</a></td>
+            </tr>
+            <tr>
+                <td><a href="_auth/login/cs_hash.js">cs_hash.js</a></td>
+                <td><a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL-3.0</a></td>
+                <td><a href="_auth/login/cs_hash.js">cs_hash.js</a></td>
+            </tr>
+            <tr>
+                <td><a href="BASE/js/cs_diagrams.js">cs_diagrams.js</a></td>
+                <td><a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL-3.0</a></td>
+                <td><a href="BASE/js/cs_diagrams.js">cs_diagrams.js</a></td>
+            </tr>
+            <tr>
+                <td><a href="_handler/default/cs_timer.js">cs_timer.js</a></td>
+                <td><a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL-3.0</a></td>
+                <td><a href="_handler/default/cs_timer.js">cs_timer.js</a></td>
+            </tr>
+            <tr>
+                <td><a href="BASE/js/codemirror/codemirror.bundle.min.js">codemirror.bundle.min.js</a></td>
+                <td><a href="http://www.jclark.com/xml/copying.txt">Expat</a></td>
+                <td><a href="BASE/js/codemirror/codemirror.bundle.js">codemirror.bundle.js</a></td>
+            </tr>
+            <tr>
+                <td><a href="BASE/js/darkreader/darkreader.min.js">darkreader.min.js</a></td>
+                <td><a href="http://www.jclark.com/xml/copying.txt">Expat</a></td>
+                <td><a href="BASE/js/darkreader/darkreader.js">darkreader.js</a></td>
+            </tr>
+            <tr>
+                <td><a href="BASE/js/highlight/highlight.min.js">highlight.min.js</a></td>
+                <td><a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL-3.0</a></td>
+                <td><a href="BASE/js/highlight/highlight.js">highlight.js</a></td>
+            </tr>
+            <tr>
+                <td><a href="BASE/js/highlightjs-line-numbers.js">highlightjs-line-numbers.js</a></td>
+                <td><a href="http://www.jclark.com/xml/copying.txt">Expat</a></td>
+                <td><a href="BASE/js/highlightjs-line-numbers.js">highlightjs-line-numbers.js</a></td>
+            </tr>
+<python>
+mathjax_root = os.path.join(cs_fs_root, '__STATIC__', 'js', 'mathjax')
+for root, dirs, files in os.walk(mathjax_root):
+    dirs.sort()
+    files.sort()
+    for f in files:
+        if not f.endswith('.js'):
+            continue
+        link = os.path.join(root, f).replace(mathjax_root, 'mathjax')
+        print("""\
+              <tr>
+                  <td><a href="BASE/js/%s">%s</a></td>
+                  <td><a href="http://www.apache.org/licenses/LICENSE-2.0">Apache-2.0</a></td>
+                  <td><a href="BASE/js/%s">%s</a></td>
+              </tr>""" % (link, f, link, f))
+</python>
+        </tbody>
+    </table>
+<center>

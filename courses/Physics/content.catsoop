@@ -1,0 +1,17 @@
+<python>
+cs_content_header = "Welcome to Physics"
+
+</python>
+
+
+This is the main page for the course. Here you can add course descriptions,
+announcements, and links to course materials.
+
+
+## Course Materials
+
+* [Week 1: Introduction to Physics](Physics/week1)
+* [Week 2: Kinematics](Physics/week2)
+* [Week 3: Forces and Newton's Law](Physics/week3)
+
+* [kinetic theory](Physics/week4)

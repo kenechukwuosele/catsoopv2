@@ -1,0 +1,16 @@
+<python>
+cs_content_header = "Welcome to My Course"
+
+</python>
+
+# Welcome to My First CAT-SOOP Course!
+
+This is the main page for the course. Here you can add course descriptions,
+announcements, and links to course materials.
+
+
+## Course Materials
+
+* [Week 1: Football](Sports/week1)
+* [Week 2: Basketball](Sports/week2)
+* [Week 3: Volleyball](Sports/week3)

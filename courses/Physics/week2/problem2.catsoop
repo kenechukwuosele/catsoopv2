@@ -1,0 +1,114 @@
+<python>
+cs_content_header = "Kinematics Practice Problems"
+</python>
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background: #f9f9f9;
+  }
+  .card {
+    background: white;
+    border: 1px solid #ccc;
+    padding: 16px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  }
+  .correct {
+    color: green;
+    font-weight: bold;
+  }
+  .incorrect {
+    color: red;
+    font-weight: bold;
+  }
+  input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    margin-top: 10px;
+  }
+  button {
+    margin-top: 10px;
+    padding: 8px 16px;
+  }
+</style>
+
+<!-- Example -->
+<div class="card">
+  <h2>Example</h2>
+  <p><strong>Example:</strong></p>
+  <pre>
+Kinematics is the branch of physics that describes the motion of objects without considering the causes of motion.
+
+The first equation of motion is: 
+v = u + at 
+Where:
+  u = initial velocity
+  v = final velocity
+  a = acceleration
+  t = time
+</pre>
+  <p>For example, if a car starts at 5 m/s and accelerates at 2 m/s² for 3 seconds, its final velocity is:<br>
+  <code>v = 5 + 2×3 = 11 m/s</code></p>
+</div>
+
+<!-- Question 1 -->
+<div class="card">
+  <h2>Question 1</h2>
+  <p><strong>Question:</strong> What does the symbol "u" represent in the equation of motion?</p>
+  <input type="text" id="answer1" placeholder='Type your answer here'>
+  <button onclick="checkAnswer('answer1', 'result1', 'initial velocity')">Submit</button>
+  <div id="result1"></div>
+</div>
+
+<!-- Question 2 -->
+<div class="card">
+  <h2>Question 2</h2>
+  <p><strong>Question:</strong> If an object starts from rest and accelerates at 4 m/s² for 5 seconds, what is its final velocity?</p>
+  <input type="text" id="answer2" placeholder='Type your answer here'>
+  <button onclick="checkAnswer('answer2', 'result2', '20')">Submit</button>
+  <div id="result2"></div>
+</div>
+
+<!-- Question 3 -->
+<div class="card">
+  <h2>Question 3</h2>
+  <p><strong>Question:</strong> What is the SI unit of acceleration?</p>
+  <input type="text" id="answer3" placeholder='Type your answer here'>
+  <button onclick="checkAnswer('answer3', 'result3', 'm/s²')">Submit</button>
+  <div id="result3"></div>
+</div>
+
+<!-- Question 4 -->
+<div class="card">
+  <h2>Question 4</h2>
+  <p><strong>Question:</strong> What kinematic equation relates displacement (s), initial velocity (u), time (t), and acceleration (a)?</p>
+  <input type="text" id="answer4" placeholder='Type your answer here'>
+  <button onclick="checkAnswer('answer4', 'result4', 's = ut + ½at²')">Submit</button>
+  <div id="result4"></div>
+</div>
+
+<!-- Question 5 -->
+<div class="card">
+  <h2>Question 5</h2>
+  <p><strong>Question:</strong> If an object travels with a constant speed of 10 m/s for 6 seconds, what distance does it cover?</p>
+  <input type="text" id="answer5" placeholder='Type your answer here'>
+  <button onclick="checkAnswer('answer5', 'result5', '60')">Submit</button>
+  <div id="result5"></div>
+</div>
+
+<script>
+  function checkAnswer(inputId, resultId, correctAnswer) {
+    const userInput = document.getElementById(inputId).value.trim().toLowerCase();
+    const resultDiv = document.getElementById(resultId);
+    const expected = correctAnswer.toLowerCase();
+
+    if (userInput === expected) {
+      resultDiv.innerHTML = '<p class="correct">✅ Correct!</p>';
+    } else {
+      resultDiv.innerHTML = `<p class="incorrect">❌ Incorrect.</p><p>The correct answer is: <code>${correctAnswer}</code></p>`;
+    }
+  }
+</script>
