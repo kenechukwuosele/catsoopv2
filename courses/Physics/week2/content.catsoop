@@ -1,15 +1,11 @@
 <python>
-cs_content_header = "Week 2: Kinematics"
+cs_content_header = "Week 2: Newton's Laws of Motion"
 </python>
 
-Welcome to the second week of our course! In this section, you'll learn about:
-
-* Course objectives
-* Learning approach
-* Assessment methods
+<p>This week we study <strong>Newton's three laws of motion</strong> — the cornerstone of classical mechanics. You will learn what forces are, how to draw free-body diagrams, apply F = ma to solve problems, understand friction and the normal force, and explore how the action-reaction principle explains everyday phenomena from rocket propulsion to swimming.</p>
 
 ## Learning Materials
 
 * [Lecture Notes](week2/lecture2)
-* [Practice Problem](week2/problem2)
+* [Practice Problems](week2/problem2)
 * [Quiz](week2/example_questions)

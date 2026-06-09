@@ -29,7 +29,9 @@ class RAGService:
         except ImportError:
             self._vector_store = None
         try:
+            import os
             from sentence_transformers import SentenceTransformer
+            os.environ.setdefault("HF_HUB_OFFLINE", "1")
             self._embed_model = SentenceTransformer(EMBED_MODEL_NAME)
         except ImportError:
             self._embed_model = None
@@ -154,45 +156,54 @@ class RAGService:
         return total_chunks
 
     def ingest_questions_with_hints(self, course: str, week: str):
-        """Embed existing questions and their hints from SQLite."""
-        from .. import models
-        from ..database import SessionLocal
+        """Embed existing questions and their hints from .catsoop files + _hint_store JSON."""
+        import json
+        from ..routes.file_questions import parse_questions
+        from ..config import CATSOOP_COURSES_DIR
 
         col = self._get_collection("qa_hints")
         if not col:
             return 0
 
-        db = SessionLocal()
+        quiz_path = os.path.join(CATSOOP_COURSES_DIR, course, week, "quiz.catsoop")
+        questions = parse_questions(quiz_path)
+
+        hint_store_base = os.path.join(
+            os.path.dirname(CATSOOP_COURSES_DIR), "_hint_store", course, week
+        )
+
         total = 0
-        try:
-            questions = db.query(models.Question).filter(
-                models.Question.course == course,
-                models.Question.week == week,
-            ).all()
-            for q in questions:
-                hints = db.query(models.Hint).filter(
-                    models.Hint.question_id == q.id
-                ).order_by(models.Hint.hint_number).all()
-                hint_texts = [h.hint_text for h in hints]
-                combined = f"Q: {q.question_text}\nHints: {' | '.join(hint_texts)}" if hint_texts else q.question_text
-                doc_id = f"qa_{course}_{week}_{q.id}"
-                emb = self._get_embedding(combined)
-                col.add(
-                    ids=[doc_id],
-                    embeddings=[emb],
-                    metadatas=[{
-                        "course": course,
-                        "week": week,
-                        "question_id": q.id,
-                        "hint_count": len(hints),
-                    }],
-                    documents=[combined],
-                )
-                total += 1
-            db.close()
-        except Exception:
-            db.close()
-            raise
+        for q in questions:
+            csq_name = q.get("csq_name", "")
+            question_text = q.get("question_text", "")
+            if not question_text:
+                continue
+
+            hint_texts = []
+            hint_file = os.path.join(hint_store_base, f"{csq_name}.json")
+            if os.path.exists(hint_file):
+                try:
+                    with open(hint_file) as f:
+                        hints = json.load(f)
+                    hint_texts = [h.get("text", "") for h in hints if h.get("text")]
+                except Exception:
+                    pass
+
+            combined = f"Q: {question_text}\nHints: {' | '.join(hint_texts)}" if hint_texts else question_text
+            doc_id = f"qa_{course}_{week}_{csq_name}"
+            emb = self._get_embedding(combined)
+            col.add(
+                ids=[doc_id],
+                embeddings=[emb],
+                metadatas=[{
+                    "course": course,
+                    "week": week,
+                    "csq_name": csq_name,
+                    "hint_count": len(hint_texts),
+                }],
+                documents=[combined],
+            )
+            total += 1
         return total
 
     def retrieve_similar(self, query: str, collection: str = "qa_hints", n: int = 3) -> list[dict]:
@@ -241,6 +252,36 @@ Generate {desc}
 
 Respond with ONLY the hint text, no JSON, no markdown formatting."""
         return prompt
+
+    def build_question_generation_prompt(self, content_chunks: list[dict], question_type: str, topic: str = "") -> str:
+        type_instructions = {
+            "multiple-choice": (
+                'Required JSON keys: "text" (question string), "options" (list of exactly 4 strings), '
+                '"correct_answer" (one of the 4 option strings), "hints" (list of exactly 3 progressive hint strings).'
+            ),
+            "short-answer": (
+                'Required JSON keys: "text" (question string), "correct_answer" (expected short answer), '
+                '"hints" (list of exactly 3 progressive hint strings). Omit "options".'
+            ),
+            "numerical": (
+                'Required JSON keys: "text" (question string), "correct_answer" (numeric value as string), '
+                '"hints" (list of exactly 3 progressive hint strings). Omit "options".'
+            ),
+            "checkbox": (
+                'Required JSON keys: "text" (question string), "options" (list of 4-5 strings), '
+                '"correct_answer" (comma-separated correct option strings), "hints" (list of exactly 3 progressive hint strings).'
+            ),
+        }
+        instructions = type_instructions.get(question_type, type_instructions["short-answer"])
+        topic_clause = f' focused on "{topic}"' if topic else ""
+        context = "\n".join(f"- {c['text'][:400]}" for c in content_chunks[:6])
+        return (
+            f"Based on the following course material, write one {question_type} university exam question{topic_clause}.\n"
+            f"Output ONLY a valid JSON object , no explanation, no markdown, no code fences.\n"
+            f"{instructions}\n\n"
+            f"Course material:\n{context}\n\n"
+            f"JSON:"
+        )
 
     def status(self) -> dict:
         self._lazy_init()

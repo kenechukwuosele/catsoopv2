@@ -1,68 +1,7 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, JSON, Float, Text, DateTime, UniqueConstraint
-from sqlalchemy.orm import relationship
+from sqlalchemy import Column, Integer, String, Float, Text, UniqueConstraint, Boolean
 from datetime import datetime
-from .database import Base  
+from .database import Base
 
-class User(Base):
-    __tablename__ = "users"
-    id = Column(Integer, primary_key=True, index=True)
-    username = Column(String, unique=True, index=True)
-    role = Column(String)  # "student" or "instructor"
-    
-    # Relationship: One user has many quiz attempts
-    attempts = relationship("Attempt", back_populates="user")
-
-class Lecture(Base):
-    __tablename__ = "lectures"
-    id = Column(Integer, primary_key=True, index=True)
-    title = Column(String)
-    course = Column(String)
-    week = Column(String)
-
-    # Relationship: One lecture has many questions
-    questions = relationship("Question", back_populates="lecture")
-
-
-class Question(Base):
-    __tablename__ = "questions"
-    
-    id = Column(Integer, primary_key=True, index=True)
-    lecture_id = Column(Integer, ForeignKey("lectures.id"))
-    question_text = Column(String, nullable=False)
-    question_type = Column(String, nullable=False)  # 'short-answer' or 'multiple-choice'
-    options = Column(JSON, nullable=True)           # Only for multiple-choice questions
-    correct_answers = Column(JSON, nullable=False)
-    username = Column(String, nullable=False)  
-    course = Column(String, nullable=False)  
-    week = Column(String, nullable=False)  
-    created_at = Column(String, nullable=False)     # ISO format string
-    lecture = relationship("Lecture", back_populates="questions")
-
-class Attempt(Base):
-    __tablename__ = 'attempts'
-
-    id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(Integer, ForeignKey("users.id"))
-    username = Column(String, nullable=False)
-    course = Column(String, nullable=False)
-    week = Column(String, nullable=False)
-    score = Column(Integer, nullable=False)
-    total = Column(Integer, nullable=False)
-    submitted_at = Column(String, nullable=False)
-    attempt_session_id = Column(String, nullable=True)
-    # Corrected: results is now a JSON column, not a relationship
-    results = Column(JSON, nullable=False)
-    seconds_spent = Column(Integer, default=0)
-    click_count = Column(Integer, default=0)
-    hint_count = Column(Integer, default=0)
-    user = relationship("User", back_populates="attempts")
-    
-class Hint(Base):
-    __tablename__ = "hints"
-    id = Column(Integer, primary_key=True, index=True)
-    question_id = Column(Integer, index=True)
-    hint_number = Column(Integer)
-    hint_text = Column(String)
 
 class LiveFile(Base):
     __tablename__ = "live_files"
@@ -104,7 +43,6 @@ class EngagementSample(Base):
     focus_state = Column(String, default="Low")
     click_count = Column(Integer, default=0)
     typing_count = Column(Integer, default=0)
-    # Enhanced affect fields
     eye_aspect_ratio = Column(Float, nullable=True)
     mouth_open_ratio = Column(Float, nullable=True)
     smile_score = Column(Float, nullable=True)
@@ -112,3 +50,54 @@ class EngagementSample(Base):
     head_pitch = Column(Float, nullable=True)
     head_roll = Column(Float, nullable=True)
     affect_state = Column(String, nullable=True)
+
+
+class StudentProfile(Base):
+    __tablename__ = "student_profiles"
+    __table_args__ = (UniqueConstraint("username", "course", name="uq_profile_username_course"),)
+    id = Column(Integer, primary_key=True, index=True)
+    username = Column(String, nullable=False)
+    course = Column(String, nullable=False)
+    xp = Column(Integer, default=0)
+    streak = Column(Integer, default=0)
+    last_active = Column(String, nullable=True)
+
+
+class Badge(Base):
+    __tablename__ = "badges"
+    __table_args__ = (UniqueConstraint("username", "course", "badge_type", name="uq_badge"),)
+    id = Column(Integer, primary_key=True, index=True)
+    username = Column(String, nullable=False)
+    course = Column(String, nullable=False)
+    badge_type = Column(String, nullable=False)
+    earned_at = Column(String, nullable=False)
+
+
+class ProcessedQuizEvent(Base):
+    __tablename__ = "processed_quiz_events"
+    __table_args__ = (UniqueConstraint("username", "course", "week", name="uq_quiz_event"),)
+    id = Column(Integer, primary_key=True, index=True)
+    username = Column(String, nullable=False)
+    course = Column(String, nullable=False)
+    week = Column(String, nullable=False)
+    processed_at = Column(String, nullable=False)
+    xp_awarded = Column(Integer, default=0)
+
+
+class FaceEnrollment(Base):
+    __tablename__ = "face_enrollments"
+    id = Column(Integer, primary_key=True, index=True)
+    username = Column(String, nullable=False, unique=True)
+    descriptor = Column(Text, nullable=False)   # JSON array of 128 floats
+    enrolled_at = Column(String, nullable=False)
+
+
+class Lecturer(Base):
+    __tablename__ = "lecturers"
+    id = Column(Integer, primary_key=True, index=True)
+    username = Column(String, nullable=False, unique=True)
+    name = Column(String, nullable=False)
+    email = Column(String, nullable=True)
+    password_hash = Column(String, nullable=False)
+    courses = Column(Text, nullable=True)   # JSON array of course IDs
+    registered_at = Column(String, nullable=False)

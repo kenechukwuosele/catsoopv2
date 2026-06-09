@@ -1,17 +1,11 @@
 <python>
-cs_content_header = "Week 1: Introduction"
+cs_content_header = "Week 3: Introduction to Volleyball"
 </python>
 
-# Introduction to the Course
-
-Welcome to the first week of our course! In this section, you'll learn about:
-
-* Course objectives
-* Learning approach
-* Assessment methods
+<p>This week covers <strong>volleyball</strong> — a sport that demands explosive athleticism, precise coordination, and seamless teamwork. You will learn the history of volleyball, the dimensions of the court and net, the rally scoring system, player positions (including the unique libero role), the six fundamental skills, and the differences between indoor and beach volleyball.</p>
 
 ## Learning Materials
 
 * [Lecture Notes](week3/lecture3)
-* [Practice Problem](week3/problem3)
+* [Practice Problems](week3/problem3)
 * [Quiz](week3/example_questions)

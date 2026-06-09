@@ -1,206 +1,202 @@
 <python>
-cs_content_header = "Lecture 2: Basic Concepts"
-
+cs_content_header = "Lecture 2: Control Flow — Conditionals and Loops"
 </python>
 
 <style>
-  h1, h2, h3 {
-      color: #333;
-  }
-  h1 {
-      border-bottom: 3px solid #007acc;
-      padding-bottom: 10px;
-  }
-  h2 {
-      color: #007acc;
-      margin-top: 30px;
-  }
-  .highlight {
-      background-color: #e7f3ff;
-      border-left: 4px solid #007acc;
-      padding: 15px;
-      margin: 20px 0;
-      border-radius: 5px;
-  }
-  .highlight p {
-      margin: 0;
-      font-weight: bold;
-      color: #005580;
-  }
-  table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 20px 0;
-  }
-  th, td {
-      border: 1px solid #ddd;
-      padding: 12px;
-      text-align: left;
-  }
-  th {
-      background-color: #007acc;
-      color: white;
-  }
-  tr:nth-child(even) {
-      background-color: #f2f2f2;
-  }
-  code {
-      background-color: #f4f4f4;
-      padding: 2px 6px;
-      border-radius: 3px;
-      font-family: 'Courier New', monospace;
-      color: #d63384;
-  }
-  .code-block {
-      background-color: #f8f9fa;
-      border: 1px solid #e9ecef;
-      border-radius: 5px;
-      padding: 15px;
-      margin: 15px 0;
-      font-family: 'Courier New', monospace;
-      overflow-x: auto;
-  }
-  ul, ol {
-      margin: 15px 0;
-  }
-  li {
-      margin: 8px 0;
-  }
-  .emoji {
-      font-size: 1.2em;
-      margin-right: 8px;
-  }
+h1,h2,h3{color:#333;}
+h1{border-bottom:3px solid #2572F5;padding-bottom:10px;}
+h2{color:#2572F5;margin-top:30px;}
+.highlight{background:#e7f3ff;border-left:4px solid #2572F5;padding:15px;margin:20px 0;border-radius:5px;}
+table{width:100%;border-collapse:collapse;margin:20px 0;}
+th,td{border:1px solid #ddd;padding:12px;text-align:left;}
+th{background:#2572F5;color:white;}
+tr:nth-child(even){background:#f2f2f2;}
+code{background:#f4f4f4;padding:2px 6px;border-radius:3px;color:#d63384;}
+pre{background:#f4f4f4;padding:16px;border-radius:6px;overflow-x:auto;}
 </style>
 
-<h1>Basic Concepts</h1>
+<h1>Control Flow: Conditionals and Loops</h1>
 
-<p>Now that we understand what programming is, let's explore the fundamental building blocks that make up every program. These basic concepts form the foundation of all programming languages.</p>
+<p><strong>Control flow</strong> refers to the order in which a program's instructions are executed. Without control flow, a program would simply execute every line from top to bottom in sequence. With control flow, a program can make decisions and repeat actions — which is what makes programs truly useful.</p>
 
-<div class="highlight">
-    <p>Think of these concepts as the grammar and vocabulary of programming languages.</p>
-</div>
+<h2>Part 1: Conditional Statements</h2>
 
-<h2><span class="emoji">📦</span>Variables and Data Types</h2>
-<p><strong>Variables</strong> are containers that store data values. Think of them as labeled boxes where you can put different types of information.</p>
+<h3>The if Statement</h3>
+<p>An <code>if</code> statement executes a block of code only if a condition is <code>True</code>.</p>
+<pre><code>score = 75
 
-<h3>Common Data Types:</h3>
+if score >= 50:
+    print("You passed!")
+</code></pre>
+<p>The indented block (4 spaces) is the body of the <code>if</code> statement. Python uses indentation — not curly braces — to define blocks.</p>
+
+<h3>The if-else Statement</h3>
+<p>An <code>else</code> clause provides an alternative when the condition is <code>False</code>.</p>
+<pre><code>score = 40
+
+if score >= 50:
+    print("You passed!")
+else:
+    print("You failed. Please try again.")
+</code></pre>
+
+<h3>The if-elif-else Statement</h3>
+<p>Use <code>elif</code> (short for "else if") to check multiple conditions in sequence. Only the first matching block executes.</p>
+<pre><code>score = 72
+
+if score >= 70:
+    grade = "A"
+elif score >= 60:
+    grade = "B"
+elif score >= 50:
+    grade = "C"
+elif score >= 45:
+    grade = "D"
+else:
+    grade = "F"
+
+print(f"Your grade is: {grade}")   # Output: Your grade is: A
+</code></pre>
+
+<h2>Part 2: Comparison Operators</h2>
+<p>Conditions are built using comparison operators that return <code>True</code> or <code>False</code>:</p>
 <table>
-    <tr>
-        <th>Data Type</th>
-        <th>Description</th>
-        <th>Example</th>
-    </tr>
-    <tr>
-        <td><strong>Integer</strong></td>
-        <td>Whole numbers</td>
-        <td><code>age = 25</code></td>
-    </tr>
-    <tr>
-        <td><strong>Float</strong></td>
-        <td>Decimal numbers</td>
-        <td><code>price = 19.99</code></td>
-    </tr>
-    <tr>
-        <td><strong>String</strong></td>
-        <td>Text/characters</td>
-        <td><code>name = "John"</code></td>
-    </tr>
-    <tr>
-        <td><strong>Boolean</strong></td>
-        <td>True or False values</td>
-        <td><code>is_student = True</code></td>
-    </tr>
+  <tr><th>Operator</th><th>Meaning</th><th>Example</th><th>Result</th></tr>
+  <tr><td><code>==</code></td><td>Equal to</td><td><code>5 == 5</code></td><td>True</td></tr>
+  <tr><td><code>!=</code></td><td>Not equal to</td><td><code>5 != 3</code></td><td>True</td></tr>
+  <tr><td><code>&gt;</code></td><td>Greater than</td><td><code>7 &gt; 5</code></td><td>True</td></tr>
+  <tr><td><code>&lt;</code></td><td>Less than</td><td><code>3 &lt; 8</code></td><td>True</td></tr>
+  <tr><td><code>&gt;=</code></td><td>Greater than or equal</td><td><code>5 &gt;= 5</code></td><td>True</td></tr>
+  <tr><td><code>&lt;=</code></td><td>Less than or equal</td><td><code>4 &lt;= 6</code></td><td>True</td></tr>
 </table>
 
-<h2><span class="emoji">🔄</span>Control Structures</h2>
-<p>Control structures determine the flow of your program - they decide which code runs when.</p>
-
-<h3>1. Conditional Statements (if/else)</h3>
-<p>Used to make decisions in your code.</p>
-<div class="code-block">
-  if age >= 18:
-      print("You can vote!")
-  else:
-      print("Too young to vote")
+<div class="highlight">
+  <strong>Common mistake:</strong> Do not confuse <code>=</code> (assignment) with <code>==</code> (comparison). Writing <code>if x = 5:</code> is a syntax error in Python.
 </div>
 
-<h3>2. Loops</h3>
-<p>Used to repeat code multiple times.</p>
-<div class="code-block">
-  # For loop - repeat a specific number of times
-  for i in range(5):
-    print("Hello", i)
-
-  # While loop - repeat while a condition is true
-  count = 0
-  while count < 3:
-    print("Count is", count)
-    count += 1
-</div>
-
-<h2><span class="emoji">🔧</span>Functions</h2>
-<p><strong>Functions</strong> are reusable blocks of code that perform specific tasks. They help organize your code and avoid repetition.</p>
-
-<div class="code-block">
-  def greet_user(name):
-      return f"Hello, {name}! Welcome!"
-
-  # Using the function
-  message = greet_user("Alice")
-  print(message)
-</div>
-
-<h2><span class="emoji">📋</span>Data Structures</h2>
-<p>Ways to organize and store multiple pieces of data.</p>
-
+<h2>Part 3: Logical Operators</h2>
+<p>Logical operators combine multiple conditions:</p>
 <table>
-  <tr>
-      <th>Structure</th>
-      <th>Description</th>
-      <th>Example</th>
-  </tr>
-  <tr>
-      <td><strong>List</strong></td>
-      <td>Ordered collection of items</td>
-      <td><code>fruits = ["apple", "banana", "orange"]</code></td>
-  </tr>
-  <tr>
-      <td><strong>Dictionary</strong></td>
-      <td>Key-value pairs</td>
-      <td><code>student = {"name": "John", "age": 20}</code></td>
-  </tr>
-  <tr>
-      <td><strong>Tuple</strong></td>
-      <td>Ordered, unchangeable collection</td>
-      <td><code>coordinates = (10, 20)</code></td>
-  </tr>
+  <tr><th>Operator</th><th>Meaning</th><th>Example</th><th>Result</th></tr>
+  <tr><td><code>and</code></td><td>Both must be True</td><td><code>x &gt; 0 and x &lt; 10</code></td><td>True if x is between 0 and 10</td></tr>
+  <tr><td><code>or</code></td><td>At least one must be True</td><td><code>x == 0 or x == 1</code></td><td>True if x is 0 or 1</td></tr>
+  <tr><td><code>not</code></td><td>Reverses the boolean</td><td><code>not (x &gt; 5)</code></td><td>True if x is 5 or less</td></tr>
 </table>
 
-<h2><span class="emoji">⚠️</span>Error Handling</h2>
-<p>Programs don't always work perfectly. Error handling helps your program deal with unexpected situations gracefully.</p>
+<pre><code>age = 22
+has_id = True
 
-<div class="code-block">
-  try:
-      number = int(input("Enter a number: "))
-      result = 10 / number
-      print("Result:", result)
-  except ValueError:
-      print("That's not a valid number!")
-  except ZeroDivisionError:
-      print("Cannot divide by zero!")
-</div>
+if age >= 18 and has_id:
+    print("Entry permitted.")
+else:
+    print("Entry denied.")
+</code></pre>
 
-<h2><span class="emoji">💡</span>Best Practices</h2>
-<ul>
-  <li><strong>Use meaningful variable names:</strong> <code>student_age</code> instead of <code>x</code></li>
-  <li><strong>Write comments:</strong> Explain what your code does</li>
-  <li><strong>Keep functions small:</strong> Each function should do one thing well</li>
-  <li><strong>Test your code:</strong> Make sure it works with different inputs</li>
-  <li><strong>Follow consistent formatting:</strong> Use proper indentation and spacing</li>
-</ul>
+<h2>Part 4: for Loops</h2>
+<p>A <code>for</code> loop iterates over a sequence (list, string, range, etc.), executing the body once for each item.</p>
+
+<h3>for loop with range()</h3>
+<pre><code># Print numbers 1 through 5
+for i in range(1, 6):
+    print(i)
+# Output: 1  2  3  4  5
+</code></pre>
+<p><code>range(start, stop)</code> generates integers from <code>start</code> up to (but not including) <code>stop</code>. <code>range(5)</code> gives 0, 1, 2, 3, 4.</p>
+
+<h3>for loop over a list</h3>
+<pre><code>courses = ["Physics", "Maths", "Economics", "Programming"]
+
+for course in courses:
+    print(f"Studying: {course}")
+</code></pre>
+
+<h3>for loop over a string</h3>
+<pre><code>word = "NIGERIA"
+for letter in word:
+    print(letter)
+# Output: N I G E R I A (each on a new line)
+</code></pre>
+
+<h3>Nested for loops</h3>
+<pre><code># Multiplication table for 3
+for i in range(1, 11):
+    print(f"3 x {i} = {3 * i}")
+</code></pre>
+
+<h2>Part 5: while Loops</h2>
+<p>A <code>while</code> loop repeats its body as long as a condition remains <code>True</code>.</p>
+<pre><code>count = 1
+while count <= 5:
+    print(f"Count: {count}")
+    count += 1     # IMPORTANT: update the counter or the loop never ends
+print("Done!")
+</code></pre>
 
 <div class="highlight">
-  <p>Practice Tip: Start with simple programs using these concepts. Try creating a basic calculator or a program that asks for user input and responds accordingly!</p>
+  <strong>Infinite Loop Warning:</strong> If the loop condition never becomes False, the program will run forever and hang. Always ensure the loop variable is updated inside the loop body.
+</div>
+
+<h3>while loop for input validation</h3>
+<pre><code>password = ""
+while password != "secret123":
+    password = input("Enter the password: ")
+print("Access granted!")
+</code></pre>
+
+<h2>Part 6: break and continue</h2>
+
+<h3>break — exit the loop immediately</h3>
+<pre><code>for i in range(1, 11):
+    if i == 6:
+        break          # Stop the loop when i reaches 6
+    print(i)
+# Output: 1 2 3 4 5
+</code></pre>
+
+<h3>continue — skip the current iteration and move to the next</h3>
+<pre><code>for i in range(1, 11):
+    if i % 2 == 0:
+        continue       # Skip even numbers
+    print(i)
+# Output: 1 3 5 7 9
+</code></pre>
+
+<h2>Putting It All Together: Practical Example</h2>
+<pre><code># Guess the number game
+import random
+
+secret = random.randint(1, 10)
+attempts = 0
+max_attempts = 3
+
+print("Guess a number between 1 and 10. You have 3 tries.")
+
+while attempts < max_attempts:
+    guess = int(input("Your guess: "))
+    attempts += 1
+
+    if guess == secret:
+        print(f"Correct! You got it in {attempts} attempt(s).")
+        break
+    elif guess < secret:
+        print("Too low!")
+    else:
+        print("Too high!")
+else:
+    # The else clause of a while loop runs if the loop ended normally (no break)
+    print(f"Sorry, the number was {secret}.")
+</code></pre>
+
+<div class="highlight">
+  <strong>Key Points:</strong>
+  <ul>
+    <li><code>if/elif/else</code> — make decisions based on conditions</li>
+    <li><code>for</code> — iterate a known number of times or over a collection</li>
+    <li><code>while</code> — repeat while a condition holds</li>
+    <li><code>break</code> — exit a loop early</li>
+    <li><code>continue</code> — skip the rest of the current iteration</li>
+    <li>Python uses <strong>indentation</strong> (4 spaces) to define code blocks — this is required, not optional</li>
+  </ul>
 </div>
 <div id="live-file-panel" style="display:none;margin:20px 0;padding:16px;border:1px solid #ddd;border-radius:6px;background:#f9f9f9;">
   <strong>Live File</strong>

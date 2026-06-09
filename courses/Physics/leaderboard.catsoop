@@ -1,0 +1,91 @@
+<python>
+cs_content_header = "Leaderboard"
+try:
+    cs_username = cs_user_info.get('username', '')
+except Exception:
+    cs_username = ''
+print('<script>window.__cs_username = "' + cs_username + '";</script>')
+</python>
+
+<style>
+#__lb-wrap { font-family: sans-serif; max-width: 700px; margin: 0 auto; }
+#__lb-wrap table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+#__lb-wrap th { text-align: left; padding: 10px 12px; border-bottom: 2px solid #e5e7eb; color: #6b7280; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; }
+#__lb-wrap td { padding: 10px 12px; border-bottom: 1px solid #f3f4f6; font-size: 15px; }
+#__lb-wrap tr.me td { background: #f0fdf4; font-weight: 600; }
+#__lb-wrap .rank-1 td:first-child { color: #f59e0b; font-weight: 700; font-size: 18px; }
+#__lb-wrap .rank-2 td:first-child { color: #9ca3af; font-weight: 700; font-size: 16px; }
+#__lb-wrap .rank-3 td:first-child { color: #b45309; font-weight: 700; font-size: 16px; }
+#__my-card { margin-top: 24px; padding: 16px 20px; border-radius: 10px; background: #f9fafb; border: 1px solid #e5e7eb; }
+#__my-card h3 { margin: 0 0 10px; font-size: 15px; color: #374151; }
+#__badges-list { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
+.badge-chip { padding: 4px 12px; border-radius: 20px; background: #dbeafe; color: #1d4ed8; font-size: 13px; }
+</style>
+
+<div id="__lb-wrap">
+  <h2 style="margin-bottom:4px;">Physics — Leaderboard</h2>
+  <p style="color:#6b7280;font-size:14px;margin-top:0;">Top students by XP this course</p>
+  <div id="__lb-table"><em style="color:#9ca3af;">Loading...</em></div>
+  <div id="__my-card" style="display:none;">
+    <h3>Your Stats</h3>
+    <div id="__my-summary"></div>
+    <div id="__badges-list"></div>
+  </div>
+</div>
+
+<script>
+(function() {
+  const BASE = 'http://localhost:8000';
+  const COURSE = 'Physics';
+  const username = window.__cs_username || '';
+
+  fetch(BASE + '/' + COURSE + '/leaderboard')
+    .then(function(r) { return r.json(); })
+    .then(function(d) {
+      const rows = d.leaderboard || [];
+      if (!rows.length) {
+        document.getElementById('__lb-table').innerHTML = '<p style="color:#9ca3af;">No scores yet. Be the first to complete a quiz!</p>';
+        return;
+      }
+      let html = '<table><thead><tr><th>#</th><th>Student</th><th>XP</th><th>Streak</th><th>Badges</th></tr></thead><tbody>';
+      rows.forEach(function(row) {
+        const isMe = row.username === username;
+        const rankClass = 'rank-' + row.rank;
+        const meClass = isMe ? ' me' : '';
+        const medal = row.rank === 1 ? '🥇' : row.rank === 2 ? '🥈' : row.rank === 3 ? '🥉' : row.rank;
+        html += '<tr class="' + rankClass + meClass + '">';
+        html += '<td>' + medal + '</td>';
+        html += '<td>' + row.username + (isMe ? ' <span style="font-size:11px;color:#6b7280;">(you)</span>' : '') + '</td>';
+        html += '<td>⭐ ' + row.xp + '</td>';
+        html += '<td>🔥 ' + row.streak + '</td>';
+        html += '<td>' + (row.badges || 0) + (row.badges === 1 ? ' badge' : ' badges') + '</td>';
+        html += '</tr>';
+      });
+      html += '</tbody></table>';
+      document.getElementById('__lb-table').innerHTML = html;
+    }).catch(function() {
+      document.getElementById('__lb-table').innerHTML = '<p style="color:#ef4444;">Could not load leaderboard.</p>';
+    });
+
+  if (username) {
+    fetch(BASE + '/' + COURSE + '/my-stats?username=' + encodeURIComponent(username))
+      .then(function(r) { return r.json(); })
+      .then(function(d) {
+        const card = document.getElementById('__my-card');
+        card.style.display = 'block';
+        document.getElementById('__my-summary').innerHTML =
+          'Rank: <strong>#' + (d.rank || '—') + '</strong> &nbsp;·&nbsp; ' +
+          '⭐ <strong>' + (d.xp || 0) + ' XP</strong> &nbsp;·&nbsp; ' +
+          '🔥 <strong>' + (d.streak || 0) + '-day streak</strong>';
+        const bl = document.getElementById('__badges-list');
+        if (d.badges && d.badges.length > 0) {
+          bl.innerHTML = d.badges.map(function(b) {
+            return '<span class="badge-chip">' + b.icon + ' ' + b.label + '</span>';
+          }).join('');
+        } else {
+          bl.innerHTML = '<span style="color:#9ca3af;font-size:13px;">No badges yet — complete quizzes to earn them!</span>';
+        }
+      }).catch(function() {});
+  }
+})();
+</script>

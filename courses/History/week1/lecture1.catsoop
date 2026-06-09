@@ -1,5 +1,5 @@
 <python>
-cs_content_header = "Lecture 1: Biblical history"
+cs_content_header = "Lecture 1: Biblical History — Ancient Near East to the Formation of Israel"
 </python>
 <style>
 h1,h2,h3{color:#333;}
@@ -11,9 +11,150 @@ th,td{border:1px solid #ddd;padding:12px;text-align:left;}
 th{background:#2572F5;color:white;}
 tr:nth-child(even){background:#f2f2f2;}
 code{background:#f4f4f4;padding:2px 6px;border-radius:3px;color:#d63384;}
+pre{background:#f4f4f4;padding:16px;border-radius:6px;overflow-x:auto;}
 </style>
-<h1>Lecture 1: Biblical history</h1>
-<p>Lecture content goes here.</p>
+
+<h1>Biblical History: From the Ancient Near East to the Formation of Israel</h1>
+
+<p>To understand the Bible as a historical document, we must first understand the world in which it was written and the events it describes. The stories of Genesis, Exodus, and the formation of Israel did not occur in a vacuum — they unfolded within the rich and complex civilizations of the <strong>Ancient Near East</strong>.</p>
+
+<h2>Part 1: The Ancient Near East — The Stage of Biblical History</h2>
+
+<h3>Mesopotamia</h3>
+<p><strong>Mesopotamia</strong> (Greek: "land between the rivers") refers to the region between the Tigris and Euphrates rivers, in present-day Iraq. It is one of the cradles of human civilization, home to some of the world's earliest cities, writing systems, and legal codes.</p>
+
+<ul>
+  <li><strong>Sumer</strong> (c. 4500–1900 BC): The earliest civilisation in Mesopotamia. The Sumerians invented cuneiform writing (around 3200 BC), one of the first writing systems in human history. Cities like Ur and Eridu were centres of Sumerian culture. The biblical city of Ur — birthplace of Abraham — was a Sumerian city.</li>
+  <li><strong>Akkad and Babylon</strong>: Sargon of Akkad (c. 2334–2279 BC) built the world's first empire. Later, Babylon became the dominant power in Mesopotamia, and its legal tradition (e.g., the Code of Hammurabi, c. 1754 BC) influenced ancient Near Eastern societies widely.</li>
+  <li><strong>Assyria</strong>: A powerful empire in northern Mesopotamia, the Assyrians eventually conquered the Northern Kingdom of Israel in 722 BC.</li>
+</ul>
+
+<h3>Egypt</h3>
+<p>Egypt's civilization arose along the Nile River valley in northeastern Africa. The pharaohs ruled a highly organised society with advanced agriculture, architecture (the pyramids), and religion. Egypt features prominently in biblical history: Abraham visited Egypt (Genesis 12), Joseph was sold into slavery there (Genesis 37), and the entire nation of Israel lived as slaves in Egypt before the Exodus (Exodus 1–15).</p>
+
+<h3>Canaan</h3>
+<p><strong>Canaan</strong> refers roughly to the region of present-day Israel, Palestine, Lebanon, and parts of Syria and Jordan. It was a crossroads between Egypt to the south and Mesopotamia to the northeast. Various city-states (including Jericho, Jerusalem, Hebron, and Shechem) dotted the landscape. God promised this land to Abraham and his descendants (Genesis 12:7), making it the central theatre of Israel's history.</p>
+
+<h2>Part 2: Biblical Timeline</h2>
+
+<table>
+  <tr>
+    <th>Period</th>
+    <th>Approximate Date</th>
+    <th>Key Events and Figures</th>
+  </tr>
+  <tr>
+    <td>Creation and Primeval History</td>
+    <td>Genesis 1–11</td>
+    <td>Creation, the Fall, Noah and the Flood, Tower of Babel</td>
+  </tr>
+  <tr>
+    <td>Patriarchal Period</td>
+    <td>c. 2000–1600 BC</td>
+    <td>Abraham, Isaac, Jacob, Joseph; covenant promises; migration to Egypt</td>
+  </tr>
+  <tr>
+    <td>Egyptian Sojourn and Slavery</td>
+    <td>c. 1600–1300 BC</td>
+    <td>Israel multiplies in Egypt; a pharaoh "who did not know Joseph" enslaves them</td>
+  </tr>
+  <tr>
+    <td>The Exodus</td>
+    <td>c. 1446 BC (early date) or c. 1270 BC (late date)</td>
+    <td>Moses, the Ten Plagues, Passover, crossing the Red Sea</td>
+  </tr>
+  <tr>
+    <td>Wilderness Wandering</td>
+    <td>c. 40 years after Exodus</td>
+    <td>Sinai covenant, Ten Commandments, tabernacle construction</td>
+  </tr>
+  <tr>
+    <td>Conquest and Settlement of Canaan</td>
+    <td>c. 1400–1200 BC</td>
+    <td>Joshua leads Israel into Canaan; conquest of Jericho and other cities</td>
+  </tr>
+</table>
+
+<h2>Part 3: Creation Accounts in Genesis</h2>
+
+<p>The opening two chapters of Genesis present creation from two complementary perspectives. Scholars distinguish:</p>
+<ul>
+  <li><strong>Genesis 1:1–2:3</strong>: A structured, liturgical account presenting creation in six days, culminating in the Sabbath rest. God (Elohim) speaks the universe into existence with order and purpose.</li>
+  <li><strong>Genesis 2:4–25</strong>: A more personal, narrative account focusing on the creation of humanity (Adam and Eve), the Garden of Eden, and the human vocation to "work and keep" the garden.</li>
+</ul>
+
+<div class="highlight">
+  <strong>Historical Context:</strong> Contemporary Mesopotamian creation myths — such as the <em>Enuma Elish</em> (Babylonian creation epic) — describe creation as resulting from conflict between gods. Genesis presents a radically different view: one God, acting freely, creates an orderly, good world. This was a counter-cultural theological statement in its ancient Near Eastern context.
+</div>
+
+<h2>Part 4: The Patriarchal Period</h2>
+
+<h3>Abraham (c. 2000 BC)</h3>
+<p>Abraham (originally Abram) is the founding father of the nation of Israel. God called him out of <strong>Ur of the Chaldeans</strong> (in Mesopotamia) to journey to a land God would show him (Genesis 12:1). God made a covenant (a binding agreement) with Abraham, promising:</p>
+<ul>
+  <li>A great nation would descend from him</li>
+  <li>His descendants would possess the land of Canaan</li>
+  <li>Through him all families of the earth would be blessed (a prophecy ultimately fulfilled in Jesus Christ)</li>
+</ul>
+<p>The sign of this covenant was circumcision (Genesis 17). Abraham's faith — demonstrated most dramatically when he was willing to sacrifice his son Isaac (Genesis 22) — is held up throughout Scripture as the model of trust in God (Romans 4; Hebrews 11).</p>
+
+<h3>Isaac and Jacob</h3>
+<p><strong>Isaac</strong> was the child of promise, born to Abraham and Sarah in their old age. He inherited the covenant promises. His son <strong>Jacob</strong> (later renamed Israel by God, Genesis 32:28) had twelve sons who became the ancestors of the twelve tribes of Israel. Jacob's story is marked by struggle, deception, and ultimately transformation through encounter with God at Peniel.</p>
+
+<h3>Joseph</h3>
+<p><strong>Joseph</strong>, Jacob's eleventh son, was sold by his jealous brothers into slavery in Egypt. Through remarkable twists of divine providence — including false accusation, imprisonment, and the interpretation of Pharaoh's dreams — Joseph rose to become second-in-command of Egypt. When famine struck Canaan, his brothers came to Egypt for food, and Joseph was eventually reconciled with them. The entire family of Jacob (70 persons) migrated to Egypt (Genesis 46), setting the stage for the Exodus.</p>
+
+<h2>Part 5: The Exodus Narrative</h2>
+
+<p>The <strong>Exodus</strong> — Israel's deliverance from slavery in Egypt — is the defining event of the Old Testament. It is celebrated in Passover, referenced throughout the Psalms and the Prophets, and provides the pattern for the New Testament's understanding of salvation through Jesus Christ.</p>
+
+<h3>Historical Setting</h3>
+<p>After Joseph's death, a new dynasty arose in Egypt that did not remember him. Fearing the growing Israelite population, Pharaoh enslaved them and ordered the killing of all newborn Hebrew boys (Exodus 1). <strong>Moses</strong> was born during this persecution, hidden by his mother, discovered by Pharaoh's daughter, and raised in the Egyptian royal court — yet he never forgot his identity as a Hebrew.</p>
+
+<h3>The Call of Moses</h3>
+<p>After killing an Egyptian who was beating a Hebrew slave, Moses fled to the desert of Midian where he lived as a shepherd for forty years. God appeared to him in a burning bush (Exodus 3) and commissioned him to return to Egypt and lead Israel to freedom. God revealed His personal name to Moses: <strong>YHWH</strong> (often rendered LORD in English Bibles), meaning "I AM WHO I AM."</p>
+
+<h3>The Ten Plagues and the Passover</h3>
+<p>Moses confronted Pharaoh with the demand "Let my people go." When Pharaoh repeatedly refused, God sent ten plagues upon Egypt (Exodus 7–12): water turned to blood, frogs, gnats, flies, death of livestock, boils, hail, locusts, darkness, and finally the death of all firstborn sons. Israel was protected from the final plague by smearing lamb's blood on their doorposts — the first <strong>Passover</strong>, which Israel has celebrated annually ever since.</p>
+
+<h3>The Crossing of the Red Sea</h3>
+<p>After the death of the firstborn, Pharaoh relented and released Israel. When he changed his mind and pursued them with his army, God divided the waters of the Red Sea (or Reed Sea) so that Israel crossed on dry ground, while the Egyptian army was drowned (Exodus 14). This miraculous deliverance became the central confession of Israel's faith.</p>
+
+<h2>Part 6: Formation of Israel as a Nation</h2>
+
+<p>The Exodus from Egypt was not merely a political liberation — it was the birth of a covenant nation. At <strong>Mount Sinai</strong>, God entered into a formal covenant with Israel, constituting them as His people and giving them His law.</p>
+
+<h3>The Sinai Covenant and the Ten Commandments</h3>
+<p>God appeared at Mount Sinai in fire and thunder (Exodus 19). Moses received the <strong>Ten Commandments</strong> (Exodus 20), which structured Israel's relationship with God (commandments 1–4) and with one another (commandments 5–10). The broader Mosaic law covered worship, social justice, food, and civil matters, shaping Israel into a distinct covenant community.</p>
+
+<h3>The Tabernacle</h3>
+<p>God instructed Moses to build a portable sanctuary — the <strong>tabernacle</strong> — in which His presence (the Shekinah glory) would dwell in the midst of the Israelite camp. This symbolised God's desire to dwell with His people and foreshadowed both the Jerusalem Temple and, in Christian theology, the Incarnation of Jesus (John 1:14 — "The Word became flesh and dwelt among us").</p>
+
+<h3>Wilderness Wandering and Entry into Canaan</h3>
+<p>Israel's failure of faith at Kadesh-Barnea (Numbers 13–14) — when they refused to trust God's promise to give them Canaan — resulted in forty years of wilderness wandering. The generation that had left Egypt died in the wilderness; their children, led by <strong>Joshua</strong>, entered and conquered the land of Canaan. Joshua's campaigns (described in the book bearing his name) fulfilled the land promise made to Abraham.</p>
+
+<h2>Part 7: Significance of Biblical History for the Christian Worldview</h2>
+
+<div class="highlight">
+  <strong>Why does this history matter for Christians?</strong>
+  <ul>
+    <li><strong>It grounds faith in reality.</strong> Christianity is not a philosophical system built on timeless truths alone — it is a faith rooted in specific historical events: the Exodus, the covenant, the Incarnation, the Resurrection. To dismiss biblical history is to undermine the very basis of Christian belief.</li>
+    <li><strong>It reveals God's character.</strong> The God of the Bible is a God who acts in history — who calls, delivers, judges, forgives, and restores. The Old Testament record is the foundation for understanding who God is.</li>
+    <li><strong>It provides the framework for understanding Jesus.</strong> Jesus' death is interpreted in the New Testament as the ultimate Passover sacrifice (1 Corinthians 5:7). His resurrection inaugurates a new creation. Without the Old Testament backstory, these claims are incomprehensible.</li>
+    <li><strong>It shapes Christian values.</strong> The covenant obligations — justice, care for the poor, love of neighbour — embedded in the Mosaic law continue to shape Christian ethics and the vision of a just society.</li>
+  </ul>
+</div>
+
+<h2>Key Figures Summary</h2>
+<table>
+  <tr><th>Figure</th><th>Period</th><th>Significance</th></tr>
+  <tr><td>Abraham</td><td>c. 2000 BC</td><td>Father of the Hebrew nation; recipient of the covenant promises</td></tr>
+  <tr><td>Isaac</td><td>c. 1950 BC</td><td>Child of promise; heir of the Abrahamic covenant</td></tr>
+  <tr><td>Jacob (Israel)</td><td>c. 1900 BC</td><td>Father of the twelve tribes; wrestled with God at Peniel</td></tr>
+  <tr><td>Joseph</td><td>c. 1850 BC</td><td>Led family to Egypt; model of forgiveness and divine providence</td></tr>
+  <tr><td>Moses</td><td>c. 1446–1406 BC</td><td>Mediator of the Exodus and the Sinai covenant; gave Israel the Law</td></tr>
+  <tr><td>Joshua</td><td>c. 1406–1380 BC</td><td>Led Israel into Canaan; fulfilled the land promise</td></tr>
+</table>
 
 <div id="live-file-panel" style="display:none;margin:20px 0;padding:16px;border:1px solid #ddd;border-radius:6px;background:#f9f9f9;">
   <strong>Live File</strong>
@@ -22,7 +163,7 @@ code{background:#f4f4f4;padding:2px 6px;border-radius:3px;color:#d63384;}
 <script>
 (function(){
   const parts = window.location.pathname.split('/').filter(Boolean);
-  const apiBase = 'http://localhost:8000';
+  const apiBase = 'http://172.31.184.39:8000';
   let course = '', week = '';
   if(parts.length >= 3 && parts[0] === 'courses'){
     course = parts[1];

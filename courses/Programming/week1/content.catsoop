@@ -1,17 +1,11 @@
 <python>
-cs_content_header = "Week 1: Introduction"
+cs_content_header = "Week 1: Python Basics"
 </python>
 
-# Introduction to the Course
-
-Welcome to the first week of our course! In this section, you'll learn about:
-
-* Course objectives
-* Learning approach
-* Assessment methods
+<p>This week introduces the Python programming language and the fundamental building blocks of all programs. You will learn what programming is, how to set up Python on your computer, and how to write programs using variables, data types, operators, and basic input/output functions. By the end of this week you will be able to write simple Python programs from scratch.</p>
 
 ## Learning Materials
 
 * [Lecture Notes](week1/lecture1)
-* [Practice Problem](week1/problem1)
+* [Practice Problems](week1/problem1)
 * [Quiz](week1/example_questions)

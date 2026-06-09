@@ -1,6 +1,11 @@
 <python>
-cs_content_header = "kinetic theory"
+cs_content_header = "Week 4: Kinetic Theory of Gases"
 </python>
 
-# kinetic theory 
-## The kinetic theory (or kinetic molecular theory) states that all matter is composed of tiny particles (atoms or molecules) in constant, random motion. It explains macroscopic properties—like pressure, temperature, and volume—as the result of these particles colliding with each other and their container.
+<p>This week we study the <strong>kinetic theory of gases</strong>, which explains the macroscopic properties of gases — pressure, temperature, and volume — in terms of the microscopic motion of their constituent atoms and molecules. You will learn the ideal gas law, understand how temperature relates to molecular kinetic energy, and explore the assumptions that underpin the kinetic molecular model.</p>
+
+<p>The kinetic theory (or kinetic molecular theory) states that all matter is composed of tiny particles (atoms or molecules) in constant, random motion. It explains macroscopic properties — like pressure, temperature, and volume — as the result of these particles colliding with each other and with the walls of their container.</p>
+
+## Learning Materials
+
+* [Quiz](week4/example_questions)

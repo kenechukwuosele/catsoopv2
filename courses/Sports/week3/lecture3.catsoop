@@ -1,171 +1,185 @@
 <python>
-cs_content_header = "Introduction to Volleyball"
+cs_content_header = "Lecture 3: Introduction to Volleyball"
 </python>
 
 <style>
-  h1, h2, h3 {
-      color: #333;
-  }
-  h1 {
-      border-bottom: 3px solid #007acc;
-      padding-bottom: 10px;
-  }
-  h2 {
-      color: #007acc;
-      margin-top: 30px;
-  }
-  .highlight {
-      background-color: #e7f3ff;
-      border-left: 4px solid #007acc;
-      padding: 15px;
-      margin: 20px 0;
-      border-radius: 5px;
-  }
-  .highlight p {
-      margin: 0;
-      font-weight: bold;
-      color: #005580;
-  }
-  table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 20px 0;
-  }
-  th, td {
-      border: 1px solid #ddd;
-      padding: 12px;
-      text-align: left;
-  }
-  th {
-      background-color: #007acc;
-      color: white;
-  }
-  tr:nth-child(even) {
-      background-color: #f2f2f2;
-  }
-  code {
-      background-color: #f4f4f4;
-      padding: 2px 6px;
-      border-radius: 3px;
-      font-family: 'Courier New', monospace;
-      color: #d63384;
-  }
-  .emoji {
-      font-size: 1.2em;
-      margin-right: 8px;
-  }
-  ul, ol {
-      margin: 15px 0;
-  }
-  li {
-      margin: 8px 0;
-  }
+h1,h2,h3{color:#333;}
+h1{border-bottom:3px solid #2572F5;padding-bottom:10px;}
+h2{color:#2572F5;margin-top:30px;}
+.highlight{background:#e7f3ff;border-left:4px solid #2572F5;padding:15px;margin:20px 0;border-radius:5px;}
+table{width:100%;border-collapse:collapse;margin:20px 0;}
+th,td{border:1px solid #ddd;padding:12px;text-align:left;}
+th{background:#2572F5;color:white;}
+tr:nth-child(even){background:#f2f2f2;}
+code{background:#f4f4f4;padding:2px 6px;border-radius:3px;color:#d63384;}
+pre{background:#f4f4f4;padding:16px;border-radius:6px;overflow-x:auto;}
 </style>
 
 <h1>Introduction to Volleyball</h1>
 
-<p><strong>Volleyball</strong> is a dynamic and fast-paced team sport played between two teams of six players each, separated by a net. The aim is to score points by sending the ball over the net and landing it in the opponent’s court.</p>
+<p><strong>Volleyball</strong> is a team sport in which two teams of six players are separated by a net. Each team tries to score points by grounding the ball on the opponent’s side of the court. Volleyball combines explosive jumping, precise ball control, and seamless communication between players.</p>
 
-<div class="highlight">
-  <p>Volleyball requires agility, teamwork, quick reflexes, and strong communication skills.</p>
-</div>
+<h2>History of Volleyball</h2>
 
-<h2><span class="emoji">🏐</span>Basic Rules of Volleyball</h2>
+<p>Volleyball was invented in <strong>1895</strong> by <strong>William G. Morgan</strong>, a physical education director at the YMCA in Holyoke, Massachusetts, USA. Morgan originally called the game "Mintonette" and designed it as a less strenuous indoor sport for older YMCA members who found basketball too physically demanding. The game involved hitting a ball back and forth over a raised net — using the hands, not a racket.</p>
+
+<p>The name was changed to <strong>volleyball</strong> — reflecting the "volleying" action of hitting the ball before it touches the ground — at the suggestion of a fellow YMCA physical education director who observed the game.</p>
+
+<p>Key historical milestones:</p>
 <ul>
-  <li>Each team has 6 players on the court.</li>
-  <li>A rally begins with a serve and continues until the ball touches the ground, goes out of bounds, or a fault is committed.</li>
-  <li>Teams can touch the ball a maximum of 3 times before sending it over the net.</li>
-  <li>The same player cannot touch the ball twice in a row (except for blocking).</li>
-  <li>A match is typically played as best of 5 sets. The first team to 25 points (with at least a 2-point lead) wins a set.</li>
+  <li><strong>1895</strong> — William Morgan invents volleyball at YMCA, Holyoke, Massachusetts</li>
+  <li><strong>1900</strong> — A special ball designed specifically for volleyball was created</li>
+  <li><strong>1947</strong> — FIVB (Fédération Internationale de Volleyball) founded in Paris</li>
+  <li><strong>1964</strong> — Volleyball introduced as an Olympic sport at the Tokyo Games (both men’s and women’s)</li>
+  <li><strong>1996</strong> — Beach volleyball added to the Olympics at the Atlanta Games</li>
+  <li><strong>1999</strong> — Rally scoring system adopted, replacing the old side-out scoring system</li>
 </ul>
 
-<h2><span class="emoji">🧍‍♀️</span>Player Positions</h2>
+<h2>Court and Net Dimensions</h2>
+
+<table>
+  <tr><th>Feature</th><th>Indoor Volleyball</th><th>Beach Volleyball</th></tr>
+  <tr><td>Court length</td><td>18 m</td><td>16 m</td></tr>
+  <tr><td>Court width</td><td>9 m (9 m per side)</td><td>8 m</td></tr>
+  <tr><td>Net height (men)</td><td>2.43 m</td><td>2.43 m</td></tr>
+  <tr><td>Net height (women)</td><td>2.24 m</td><td>2.24 m</td></tr>
+  <tr><td>Team size on court</td><td>6 players</td><td>2 players</td></tr>
+  <tr><td>Attack line</td><td>3 m from the net (separates front and back row)</td><td>No attack line</td></tr>
+</table>
+
+<h2>Scoring System — Rally Scoring</h2>
+
+<p>Volleyball uses the <strong>rally scoring system</strong>, adopted by FIVB in 1999. Under rally scoring, a point is awarded on <em>every</em> rally, regardless of which team served. (Under the old system, only the serving team could score.)</p>
+
+<ul>
+  <li>Each set is played to <strong>25 points</strong>, with a minimum 2-point lead required to win (if tied at 24–24, play continues until one team leads by 2).</li>
+  <li>A match is usually <strong>best of 5 sets</strong>. The first team to win 3 sets wins the match.</li>
+  <li>The fifth set (if needed) is played to only <strong>15 points</strong> (again with a 2-point lead required).</li>
+</ul>
+
+<div class="highlight">
+  <strong>How a rally ends (and a point is awarded):</strong>
+  <ul>
+    <li>The ball lands inside the court on one side — the opposing team scores</li>
+    <li>The ball lands out of bounds — the team that last touched it loses the point</li>
+    <li>A team commits a violation (net touch, carrying, double hit, four touches, etc.)</li>
+  </ul>
+</div>
+
+<h2>Player Positions and Rotation</h2>
+
+<p>Volleyball uses a rotation system. When a team wins the serve from the opponent, all players rotate one position clockwise. This means every player will serve and play every position during a match.</p>
 
 <table>
   <tr>
     <th>Position</th>
+    <th>Abbreviation</th>
     <th>Role</th>
+    <th>Restrictions</th>
   </tr>
   <tr>
     <td><strong>Setter</strong></td>
-    <td>Sets up the ball for attackers, acts like the "playmaker"</td>
+    <td>S</td>
+    <td>The "quarterback" of the team — sets the ball for attackers; determines which attacker receives each set</td>
+    <td>None</td>
   </tr>
   <tr>
-    <td><strong>Outside Hitter</strong></td>
-    <td>Attacks from the front-left, also helps in defense</td>
+    <td><strong>Outside Hitter (Left Side Hitter)</strong></td>
+    <td>OH</td>
+    <td>Primary attacker from the left front position; handles most offensive attacks; receives serve</td>
+    <td>None</td>
+  </tr>
+  <tr>
+    <td><strong>Opposite Hitter (Right Side Hitter)</strong></td>
+    <td>OPP</td>
+    <td>Attacks from the right side; often covers the setter’s position; strong from the back row</td>
+    <td>None</td>
   </tr>
   <tr>
     <td><strong>Middle Blocker</strong></td>
-    <td>Specializes in blocking and quick hits near the net</td>
-  </tr>
-  <tr>
-    <td><strong>Opposite Hitter</strong></td>
-    <td>Attacks from the right and supports the setter</td>
+    <td>MB</td>
+    <td>Specialises in blocking; runs quick attack plays close to the setter; protects the middle of the net</td>
+    <td>Back-row middle blockers cannot block or attack above the net</td>
   </tr>
   <tr>
     <td><strong>Libero</strong></td>
-    <td>Defensive specialist, cannot attack or serve, wears a different jersey</td>
+    <td>L</td>
+    <td>Defensive specialist — plays only in the back row; receives serve; digs; passes. Wears a distinctly different coloured jersey to all other players.</td>
+    <td>Cannot serve (in international play), cannot attack above the net height, cannot set in front of the attack line</td>
+  </tr>
+  <tr>
+    <td><strong>Defensive Specialist (DS)</strong></td>
+    <td>DS</td>
+    <td>Substitutes in for back-row play to strengthen passing and defence</td>
+    <td>Subject to normal substitution rules</td>
   </tr>
 </table>
 
-<h2><span class="emoji">💥</span>Key Skills</h2>
+<h2>The Six Fundamental Skills</h2>
+
+<h3>1. Serve</h3>
+<p>The serve starts each rally. The server must stand behind the end line and hit the ball over the net. Types of serves:</p>
 <ul>
-  <li><strong>Serving:</strong> Starting the play by hitting the ball over the net</li>
-  <li><strong>Passing:</strong> Receiving the ball and directing it to the setter</li>
-  <li><strong>Setting:</strong> Placing the ball for an attacker to spike</li>
-  <li><strong>Spiking:</strong> Powerfully hitting the ball into the opponent's court</li>
-  <li><strong>Blocking:</strong> Preventing the ball from crossing the net during a spike</li>
-  <li><strong>Digging:</strong> Defending against a spike by diving or using reflexes</li>
+  <li><strong>Underhand serve:</strong> Beginner-level; ball tossed up and struck with the lower forearm or palm. Easier to control but slower and easier to receive.</li>
+  <li><strong>Overhand serve (float serve):</strong> Ball tossed and struck with an open hand, deliberately not spinning, causing an unpredictable floating trajectory — difficult to receive.</li>
+  <li><strong>Jump serve:</strong> Advanced technique — player tosses ball high, jumps, and strikes it hard with maximum power and topspin. Used by elite players.</li>
 </ul>
 
-<h2><span class="emoji">⚖️</span>Common Violations</h2>
+<h3>2. Passing (Bump / Forearm Pass)</h3>
+<p>The first touch after the serve or an attack. The passer links forearms together to form a platform and angles it toward the setter. Good passing is the foundation of effective offence. Key technique: bend knees, keep arms straight and parallel, use legs to direct the ball rather than swinging the arms.</p>
+
+<h3>3. Setting</h3>
+<p>The second touch, typically performed by the setter. The setter uses fingertip contact (with both hands simultaneously above the head) to deliver an accurate, well-placed ball to an attacker. The setter reads the pass and decides instantaneously which attacker to set — creating deception for the opposing blockers.</p>
+
+<h3>4. Spike (Attack / Hit)</h3>
+<p>The offensive strike intended to score a point. The attacker approaches the net, jumps, and strikes the ball powerfully downward into the opponent’s court. Key technique: a 3- or 4-step approach, a two-footed takeoff, arm swing, and snapping the wrist downward through contact to generate topspin.</p>
+
+<h3>5. Block</h3>
+<p>The defensive action at the net to prevent or redirect an attack. Front-row players jump with arms raised above the net to form a "wall." A successful block can score a point directly or "channeling" the ball to where defenders can dig it. Timing and reading the setter are critical.</p>
+
+<h3>6. Dig</h3>
+<p>A defensive save of a hard-driven attack, typically with the forearm platform when the ball is near the floor. Digging requires exceptional reflexes, low body position, and the ability to read where the attacker is targeting. The best defensive players (liberos) specialise in digging.</p>
+
+<h2>Common Violations</h2>
+
 <table>
-  <tr>
-    <th>Violation</th>
-    <th>Description</th>
-  </tr>
-  <tr>
-    <td><strong>Net Touch</strong></td>
-    <td>Touching the net during play is not allowed</td>
-  </tr>
-  <tr>
-    <td><strong>Foot Fault</strong></td>
-    <td>Stepping over the service line during a serve</td>
-  </tr>
-  <tr>
-    <td><strong>Double Hit</strong></td>
-    <td>Same player touches the ball twice in succession</td>
-  </tr>
-  <tr>
-    <td><strong>Carry</strong></td>
-    <td>Ball is held or thrown rather than hit cleanly</td>
-  </tr>
+  <tr><th>Violation</th><th>Description</th><th>Consequence</th></tr>
+  <tr><td>Four touches</td><td>A team touches the ball 4 or more times before sending it over</td><td>Point to opposing team</td></tr>
+  <tr><td>Double contact</td><td>The same player touches the ball twice consecutively</td><td>Point to opposing team</td></tr>
+  <tr><td>Carry / Lift</td><td>Ball is caught, held, or thrown rather than cleanly hit</td><td>Point to opposing team</td></tr>
+  <tr><td>Net touch</td><td>Any player touches the net during play (at the top of the net or the antenna)</td><td>Point to opposing team</td></tr>
+  <tr><td>Foot fault</td><td>Server steps on or over the end line before striking the ball</td><td>Point to opposing team</td></tr>
+  <tr><td>Back-row attack</td><td>A back-row player attacks the ball while completely above the net height from in front of the 3 m attack line</td><td>Point to opposing team</td></tr>
+  <tr><td>Rotation error</td><td>Team is in wrong rotation order when the server contacts the ball</td><td>Point and loss of serve to opposing team</td></tr>
 </table>
 
-<h2><span class="emoji">🌍</span>Popular Competitions</h2>
-<ul>
-  <li><strong>FIVB Volleyball World Championship</strong></li>
-  <li><strong>Olympic Volleyball Tournament</strong></li>
-  <li><strong>Volleyball Nations League (VNL)</strong></li>
-  <li><strong>National Collegiate Athletic Association (NCAA)</strong> – USA</li>
-</ul>
+<h2>Indoor Volleyball vs Beach Volleyball</h2>
 
-<h2><span class="emoji">🧠</span>Concept Check</h2>
-<ul>
-  <li>How many players are on a volleyball team?</li>
-  <li>What is the role of a Libero?</li>
-  <li>What is the maximum number of touches per team before sending the ball over?</li>
-</ul>
+<table>
+  <tr><th>Feature</th><th>Indoor Volleyball</th><th>Beach Volleyball</th></tr>
+  <tr><td>Team size</td><td>6 players per side</td><td>2 players per side</td></tr>
+  <tr><td>Surface</td><td>Hardwood or synthetic floor</td><td>Sand</td></tr>
+  <tr><td>Court size</td><td>18 × 9 m</td><td>16 × 8 m</td></tr>
+  <tr><td>Substitutions</td><td>Up to 6 per set</td><td>No substitutions</td></tr>
+  <tr><td>Libero</td><td>Yes</td><td>No (each player does everything)</td></tr>
+  <tr><td>Scoring</td><td>Best of 5, sets to 25 (5th to 15)</td><td>Best of 3, sets to 21 (3rd to 15)</td></tr>
+  <tr><td>Setting rules</td><td>Open-hand setting allowed on serve receive</td><td>More restrictive — overhand setting on serve receive must be clean</td></tr>
+</table>
 
-<h2><span class="emoji">💡</span>Summary</h2>
-<ul>
-  <li>Volleyball is a team sport where players aim to score by grounding the ball on the opponent’s court.</li>
-  <li>It emphasizes coordination, timing, and strategic play.</li>
-  <li>Learning positions, rotations, and core skills is key to effective play.</li>
-</ul>
+<h2>Summary</h2>
+<table>
+  <tr><th>Topic</th><th>Key Points</th></tr>
+  <tr><td>Invention</td><td>William Morgan, 1895, YMCA Holyoke Massachusetts</td></tr>
+  <tr><td>Team size (indoor)</td><td>6 players per side; libero wears different jersey</td></tr>
+  <tr><td>Scoring</td><td>Rally scoring; sets to 25 (2-point lead); match best of 5</td></tr>
+  <tr><td>Court</td><td>18 × 9 m; net height 2.43 m (men), 2.24 m (women)</td></tr>
+  <tr><td>Max touches</td><td>3 per team per rally (block touch not counted)</td></tr>
+  <tr><td>Libero</td><td>Defensive specialist; cannot attack above net; different jersey</td></tr>
+  <tr><td>6 fundamental skills</td><td>Serve, Pass/Bump, Set, Spike, Block, Dig</td></tr>
+</table>
 
 <div class="highlight">
-  <p>Practice Tip: Start with basic passing and serving drills with a friend or against a wall to improve your control!</p>
+  <strong>Practice Tip:</strong> The two most important skills for beginners are <strong>passing</strong> (forearm platform) and <strong>serving</strong>. Practise passing against a wall with a partner — aim for consistent, controlled contact every time before worrying about power.
 </div>
 <div id="live-file-panel" style="display:none;margin:20px 0;padding:16px;border:1px solid #ddd;border-radius:6px;background:#f9f9f9;">
   <strong>Live File</strong>

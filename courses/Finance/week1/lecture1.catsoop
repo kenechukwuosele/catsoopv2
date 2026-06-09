@@ -1,0 +1,238 @@
+<python>
+cs_content_header = "Lecture 1: The Richest Man in Babylon — Seven Cures to a Lean Purse"
+</python>
+<style>
+h1,h2,h3{color:#333;}
+h1{border-bottom:3px solid #2572F5;padding-bottom:10px;}
+h2{color:#2572F5;margin-top:30px;}
+.highlight{background:#e7f3ff;border-left:4px solid #2572F5;padding:15px;margin:20px 0;border-radius:5px;}
+table{width:100%;border-collapse:collapse;margin:20px 0;}
+th,td{border:1px solid #ddd;padding:12px;text-align:left;}
+th{background:#2572F5;color:white;}
+tr:nth-child(even){background:#f2f2f2;}
+code{background:#f4f4f4;padding:2px 6px;border-radius:3px;color:#d63384;}
+pre{background:#f4f4f4;padding:16px;border-radius:6px;overflow-x:auto;}
+</style>
+
+<h1>The Richest Man in Babylon: Seven Cures to a Lean Purse</h1>
+
+<h2>About the Book and Its Author</h2>
+<p><em>The Richest Man in Babylon</em> was written by <strong>George Samuel Clason</strong> (1874–1957), an American author and entrepreneur. First published in 1926 as a series of pamphlets distributed by banks and insurance companies, the book was later compiled into its current form and has since sold tens of millions of copies worldwide.</p>
+
+<p>Clason chose Babylon — the ancient Mesopotamian city renowned as one of the wealthiest in the ancient world — as a metaphor for prosperity. The city of Babylon sat near the Euphrates river in present-day Iraq. Its citizens built the famous Hanging Gardens, constructed massive walls, and accumulated great wealth — not through natural resources, but through <strong>financial wisdom and disciplined habits</strong>.</p>
+
+<div class="highlight">
+  <strong>Central message of the book:</strong> Wealth is not a matter of luck or birth — it is the result of applying consistent, principled habits of earning, saving, and investing. The rules that made Babylonians rich are just as valid today.
+</div>
+
+<h2>The Babylonian Context</h2>
+<p>Babylon around 2000 BC was a thriving commercial centre. It had banks, money-lenders, merchants, and artisans. Yet many of its citizens — despite earning regular wages — remained perpetually poor. Sound familiar? George Clason observed the same pattern in early 20th-century America, and the principles he drew from Babylonian parables address the same human tendencies toward excessive spending and neglect of savings that persist to this day.</p>
+
+<p>The main character of the book, <strong>Arkad</strong>, grew up poor but became the richest man in Babylon. When his childhood friends ask him to share the secret of his wealth, he teaches them the Seven Cures to a Lean Purse.</p>
+
+<h2>The Seven Cures to a Lean Purse</h2>
+
+<h2>Cure 1: Start Thy Purse to Fattening</h2>
+<p><strong>Principle:</strong> Save at least 10% of all your earnings before spending on anything else. Pay yourself first.</p>
+
+<p>Arkad's first lesson: "A part of all I earn is mine to keep." Before paying rent, buying food, or settling any bill, set aside one-tenth of your income into savings. This money is not available for spending — it is the seed of your future wealth.</p>
+
+<p><strong>Modern Application:</strong> Open a separate savings account and set up an automatic transfer of 10% of every salary payment the moment it arrives. In Nigeria, many banks offer "target savings" plans that lock your money for a fixed period and pay interest on it. Apps like PiggyVest or Cowrywise automate this process.</p>
+
+<div class="highlight">
+  <strong>Key formula:</strong> If you earn ₦100,000 per month, pay yourself ₦10,000 first. Live on ₦90,000. Over one year you will have saved ₦120,000 — before any interest or investment gains.
+</div>
+
+<h2>Cure 2: Control Thy Expenditures</h2>
+<p><strong>Principle:</strong> Budget your money wisely. Distinguish between <em>necessary expenses</em> and <em>desires</em>. Refuse to let your lifestyle grow to consume all your income.</p>
+
+<p>Arkad's observation: People's expenses always rise to meet their income unless they are consciously controlled. The more people earn, the more they find to spend. This "lifestyle inflation" is the greatest enemy of wealth accumulation.</p>
+
+<p>Create a written budget every month. List your essential expenses (food, rent, transport, school fees) separately from your wants (entertainment, fashion, eating out). Commit to spending no more than 90% of your income on all expenses combined.</p>
+
+<p><strong>Modern Application (50/30/20 rule):</strong></p>
+<table>
+  <tr><th>Category</th><th>Percentage of Income</th><th>Examples</th></tr>
+  <tr><td>Needs</td><td>50%</td><td>Rent, food, utilities, transport</td></tr>
+  <tr><td>Wants</td><td>30%</td><td>Restaurants, clothes, entertainment</td></tr>
+  <tr><td>Savings / Investments</td><td>20%</td><td>Emergency fund, investments, retirement</td></tr>
+</table>
+
+<h2>Cure 3: Make Thy Gold Multiply</h2>
+<p><strong>Principle:</strong> Put your savings to work through investment so that they generate passive income. Money that sits idle earns nothing; money that is invested earns more money.</p>
+
+<p>This is the principle of <strong>compound interest</strong> — earning interest on your principal AND on the interest already accumulated. Albert Einstein reportedly called compound interest "the eighth wonder of the world."</p>
+
+<p><strong>Example of compound interest:</strong></p>
+<table>
+  <tr><th>Year</th><th>Amount Invested (₦)</th><th>10% Annual Return</th><th>Total Value (₦)</th></tr>
+  <tr><td>0</td><td>50,000</td><td>—</td><td>50,000</td></tr>
+  <tr><td>1</td><td>—</td><td>5,000</td><td>55,000</td></tr>
+  <tr><td>2</td><td>—</td><td>5,500</td><td>60,500</td></tr>
+  <tr><td>5</td><td>—</td><td>—</td><td>80,526</td></tr>
+  <tr><td>10</td><td>—</td><td>—</td><td>129,687</td></tr>
+</table>
+<p>Without adding any more money, a single investment of ₦50,000 at 10% annual return grows to over ₦129,000 in 10 years simply through compounding.</p>
+
+<p><strong>Modern application:</strong> Treasury Bills (T-Bills), Federal Government Bonds, money market funds, unit trusts, and the Nigerian Stock Exchange are vehicles through which Nigerians can invest and grow their savings.</p>
+
+<h2>Cure 4: Guard Thy Treasures from Loss</h2>
+<p><strong>Principle:</strong> Protect your accumulated wealth. Avoid high-risk, "get-rich-quick" schemes. Consult only experienced advisors before investing. The first goal of investing is to get your money back — profit comes second.</p>
+
+<p>Arkad tells of friends who lost their savings in bad investments by seeking high returns without evaluating risk. He warns: "The first sound principle of investment is security for thy principal."</p>
+
+<p><strong>Red flags to watch for in Nigeria and globally:</strong></p>
+<ul>
+  <li>Promises of unusually high, guaranteed returns (e.g., "100% in 30 days")</li>
+  <li>Pressure to invest quickly before "the opportunity closes"</li>
+  <li>Pyramid or Ponzi schemes (MMM, etc.)</li>
+  <li>Unregistered investment firms not licensed by the SEC Nigeria</li>
+</ul>
+
+<div class="highlight">
+  <strong>Rule:</strong> If it sounds too good to be true, it almost certainly is. Always verify an investment company's registration with the Securities and Exchange Commission (SEC) Nigeria before committing funds.
+</div>
+
+<h2>Cure 5: Make of Thy Dwelling a Profitable Investment</h2>
+<p><strong>Principle:</strong> Own your home rather than renting indefinitely. Owning transforms a recurring monthly expense into a long-term asset that builds equity over time.</p>
+
+<p>Every rent payment goes entirely to your landlord and builds no personal wealth. A mortgage payment, by contrast, gradually transfers ownership of the property to you. By the time a 20-year mortgage is paid off, you own an asset that may have doubled or tripled in value.</p>
+
+<p><strong>Modern Application in Nigeria:</strong> The Federal Mortgage Bank of Nigeria (FMBN) and National Housing Fund (NHF) provide subsidised housing loans. The Lagos State Home Ownership Mortgage Scheme (LagosHOMS) is another vehicle. Even a small plot of land purchased early can appreciate significantly over decades in growing Nigerian cities.</p>
+
+<h2>Cure 6: Ensure a Future Income</h2>
+<p><strong>Principle:</strong> Plan for your old age and for unexpected life events. Secure income for when you are no longer able to work through retirement plans, insurance policies, and emergency funds.</p>
+
+<p>Arkad urges: "Provide in advance for the needs of thy growing age and the protection of thy family." Many Nigerians work hard throughout their prime years but reach retirement with nothing because they never planned ahead.</p>
+
+<p><strong>Financial safety net components:</strong></p>
+<table>
+  <tr><th>Component</th><th>Purpose</th><th>Nigerian Example</th></tr>
+  <tr><td>Emergency Fund</td><td>3–6 months of living expenses for sudden crises</td><td>Cash in a high-yield savings account</td></tr>
+  <tr><td>Pension/Retirement Fund</td><td>Income after retirement</td><td>Contributory Pension Scheme (PenCom)</td></tr>
+  <tr><td>Life Insurance</td><td>Provides for family if you die prematurely</td><td>Aiico, Leadway Assurance, etc.</td></tr>
+  <tr><td>Health Insurance</td><td>Covers medical bills</td><td>NHIS (National Health Insurance Scheme)</td></tr>
+</table>
+
+<h2>Cure 7: Increase Thy Ability to Earn</h2>
+<p><strong>Principle:</strong> Continuously invest in yourself. Improve your skills, knowledge, and expertise. The more valuable you become in your field, the higher your earning potential.</p>
+
+<p>Arkad's final advice: "Cultivate thy own powers, to study and become wiser, to become more skillful, to so act as to respect thyself." A person who dedicates themselves to mastering their craft will always find more demand for their services and command higher compensation.</p>
+
+<p><strong>Modern Application:</strong> Seek professional certifications in your field. Attend workshops and seminars. Learn digital skills (data analysis, programming, digital marketing). Read books, take online courses (Coursera, edX, Udemy). Invest in your health so you can sustain high performance over a long career.</p>
+
+<div class="highlight">
+  <strong>The most reliable investment you will ever make is in yourself.</strong> Skills cannot be devalued by inflation or stolen by fraudsters.
+</div>
+
+<h2>Summary Table: The Seven Cures</h2>
+<table>
+  <tr>
+    <th>#</th>
+    <th>Cure</th>
+    <th>Core Action</th>
+    <th>Modern Tool</th>
+  </tr>
+  <tr><td>1</td><td>Start Thy Purse to Fattening</td><td>Save 10% of every income first</td><td>Automatic savings / PiggyVest</td></tr>
+  <tr><td>2</td><td>Control Thy Expenditures</td><td>Budget; live on 90% of income</td><td>50/30/20 budget rule</td></tr>
+  <tr><td>3</td><td>Make Thy Gold Multiply</td><td>Invest savings to earn passive income</td><td>T-Bills, bonds, mutual funds</td></tr>
+  <tr><td>4</td><td>Guard Thy Treasures from Loss</td><td>Avoid risky schemes; seek expert advice</td><td>SEC Nigeria verification</td></tr>
+  <tr><td>5</td><td>Make of Thy Dwelling a Profitable Investment</td><td>Own your home; build equity</td><td>FMBN, NHF, LagosHOMS</td></tr>
+  <tr><td>6</td><td>Ensure a Future Income</td><td>Build emergency fund; plan for retirement</td><td>PenCom, NHIS, life insurance</td></tr>
+  <tr><td>7</td><td>Increase Thy Ability to Earn</td><td>Continuously develop skills and expertise</td><td>Certifications, online courses</td></tr>
+</table>
+
+<div class="highlight">
+  <strong>Key Takeaway:</strong> Wealth is not built through a single stroke of luck — it is the compounded result of consistent, disciplined financial habits applied day after day, year after year. Start where you are, with what you have, and the power of time and compound growth will do the rest.
+</div>
+
+<div id="live-file-panel"
+Save at least 10% of all your earnings. Pay yourself first before paying your bills or buying groceries, ensuring that your savings grow consistently over time. 
+
+2. Control Thy Expenditures
+Budget your money wisely. Separate your necessary living expenses from your wants and refuse to spend more than 90% of what you earn, ensuring your lifestyle never outgrows your income. 
+
+3. Make Thy Gold Multiply
+Put your savings to work by investing them so that they generate passive income. This allows your money to compound and grow without your constant, active involvement. 
+
+4. Guard Thy Treasures from Loss
+Protect your accumulated wealth by avoiding high-risk, "get-rich-quick" schemes. Always consult with experienced professionals and seasoned investors to safeguard your principal amount. 
+
+5. Make of Thy Dwelling a Profitable Investment
+Own your own home instead of paying rent. This transforms a recurring monthly expense into a long-term asset and a foundation for building equity. 
+
+6. Ensure a Future Income
+Prepare for your old age and unexpected life events. Secure your financial future by setting up reliable retirement plans, life insurance, and disability provisions so you are covered when you can no longer work. 
+
+7. Increase Thy Ability to Earn
+Continuously improve your skills, knowledge, and wisdom. By becoming more capable and valuable in your field, you organically increase your earning potential and market value.
+
+<div id="live-file-panel" style="display:none;margin:20px 0;padding:16px;border:1px solid #ddd;border-radius:6px;background:#f9f9f9;">
+  <strong>Live File</strong>
+  <div id="live-file-content" style="margin-top:8px;color:#555;"></div>
+</div>
+<script>
+(function(){
+  const parts = window.location.pathname.split('/').filter(Boolean);
+  const apiBase = 'http://172.31.184.39:8000';
+  let course = '', week = '';
+  if(parts.length >= 3 && parts[0] === 'courses'){
+    course = parts[1];
+    week = parts[2];
+  } else if(parts.length >= 2 && parts[0] !== 'courses'){
+    course = parts[0];
+    week = parts[1];
+  } else {
+    return;
+  }
+  course = course.trim();
+  week = week.trim();
+  if(!course || !week) return;
+  const panel = document.getElementById('live-file-panel');
+  const content = document.getElementById('live-file-content');
+    function renderFile(meta){
+    if(!meta){
+      panel.style.display = 'none';
+      return;
+    }
+    const url = apiBase + '/live-file/' + course + '/' + week;
+    const dlUrl = url + '?download=1';
+    const type = meta.content_type || '';
+    const safeName = meta.filename || 'file';
+    let html = '<div><a href="' + dlUrl + '" style="color:#2572F5;text-decoration:underline;cursor:pointer;">Download ' + safeName + '</a></div>';
+    if(type.startsWith('image/')){
+      fetch(url).then(r=>r.blob()).then(b=>{
+        const el = document.getElementById('live-file-img');
+        if(el) el.src = URL.createObjectURL(b);
+      });
+      html += '<div style="margin-top:10px;"><img id="live-file-img" src="" alt="' + safeName + '" style="max-width:100%;height:auto;border:1px solid #ddd;border-radius:4px;"/></div>';
+    } else if(type === 'application/pdf'){
+      fetch(url).then(r=>r.blob()).then(b=>{
+        const el = document.getElementById('live-file-iframe');
+        if(el) el.src = URL.createObjectURL(b);
+      });
+      html += '<div style="margin-top:10px;"><iframe id="live-file-iframe" src="" style="width:100%;height:480px;border:1px solid #ddd;border-radius:4px;"></iframe></div>';
+    } else if(type.startsWith('text/')){
+      fetch(url).then(r=>r.blob()).then(b=>{
+        const el = document.getElementById('live-file-iframe');
+        if(el) el.src = URL.createObjectURL(b);
+      });
+      html += '<div style="margin-top:10px;"><iframe id="live-file-iframe" src="" style="width:100%;height:320px;border:1px solid #ddd;border-radius:4px;background:#fff;"></iframe></div>';
+    }
+    content.innerHTML = html;
+    panel.style.display = 'block';
+  }
+  async function load(){
+    try{
+      const r = await fetch(apiBase + '/admin/live-file/' + course + '/' + week);
+      if(!r.ok){renderFile(null);return;}
+      const d = await r.json();
+      renderFile(d || null);
+    }catch{
+      renderFile(null);
+    }
+  }
+  load();
+  setInterval(load, 15000);
+})();
+</script>

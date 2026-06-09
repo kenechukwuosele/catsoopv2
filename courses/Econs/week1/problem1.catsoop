@@ -1,0 +1,77 @@
+<python>
+cs_content_header = "Week 1 Practice Problems: Demand and Supply"
+</python>
+
+<style>
+  body { font-family: Arial, sans-serif; padding: 20px; background: #f9f9f9; }
+  .card { background: white; border: 1px solid #ccc; padding: 16px; margin-bottom: 30px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+  .correct { color: green; font-weight: bold; }
+  .incorrect { color: red; font-weight: bold; }
+  input[type="text"] { width: 100%; padding: 8px; margin-top: 10px; box-sizing: border-box; }
+  button { margin-top: 10px; padding: 8px 16px; cursor: pointer; }
+</style>
+
+<!-- Example -->
+<div class="card">
+  <h2>Example</h2>
+  <p>The law of demand states that, all else equal, when the price of a good rises, the quantity demanded <em>falls</em>. This is because consumers seek cheaper substitutes (substitution effect) and their real purchasing power is reduced (income effect).</p>
+  <p>For instance: if the price of bread rises from ₦200 to ₦400 per loaf, a household that used to buy 5 loaves per week may now buy only 2 loaves.</p>
+</div>
+
+<!-- Question 1 -->
+<div class="card">
+  <h2>Question 1</h2>
+  <p><strong>Question:</strong> According to the law of demand, what happens to the quantity demanded of a good when its price rises (all else equal)?</p>
+  <input type="text" id="answer1" placeholder="Type your answer here">
+  <button onclick="checkAnswer('answer1', 'result1', 'it falls')">Submit</button>
+  <div id="result1"></div>
+</div>
+
+<!-- Question 2 -->
+<div class="card">
+  <h2>Question 2</h2>
+  <p><strong>Question:</strong> Butter and margarine are examples of what type of related goods? (substitutes or complements)</p>
+  <input type="text" id="answer2" placeholder="Type your answer here">
+  <button onclick="checkAnswer('answer2', 'result2', 'substitutes')">Submit</button>
+  <div id="result2"></div>
+</div>
+
+<!-- Question 3 -->
+<div class="card">
+  <h2>Question 3</h2>
+  <p><strong>Question:</strong> At market equilibrium, what is the relationship between quantity demanded and quantity supplied?</p>
+  <input type="text" id="answer3" placeholder="Type your answer here">
+  <button onclick="checkAnswer('answer3', 'result3', 'they are equal')">Submit</button>
+  <div id="result3"></div>
+</div>
+
+<!-- Question 4 -->
+<div class="card">
+  <h2>Question 4</h2>
+  <p><strong>Question:</strong> If the price of a good is set <em>above</em> the equilibrium price, what situation results in the market?</p>
+  <input type="text" id="answer4" placeholder="Type your answer here">
+  <button onclick="checkAnswer('answer4', 'result4', 'surplus')">Submit</button>
+  <div id="result4"></div>
+</div>
+
+<!-- Question 5 -->
+<div class="card">
+  <h2>Question 5</h2>
+  <p><strong>Question:</strong> A new technology reduces the cost of producing smartphones. According to the law of supply, what happens to the supply curve for smartphones?</p>
+  <input type="text" id="answer5" placeholder="Type your answer here">
+  <button onclick="checkAnswer('answer5', 'result5', 'it shifts right')">Submit</button>
+  <div id="result5"></div>
+</div>
+
+<script>
+  function checkAnswer(inputId, resultId, correctAnswer) {
+    const userInput = document.getElementById(inputId).value.trim().toLowerCase();
+    const resultDiv = document.getElementById(resultId);
+    const expected = correctAnswer.toLowerCase();
+    if (userInput === expected) {
+      resultDiv.innerHTML = '<p class="correct">&#10003; Correct!</p>';
+    } else {
+      resultDiv.innerHTML = '<p class="incorrect">&#10007; Incorrect.</p><p>The correct answer is: <code>' + correctAnswer + '</code></p>';
+    }
+  }
+</script>

@@ -9,3 +9,6 @@ Thumbs.db
 _cached/
 _locks/
 _logs/
+_vectors/
+SESSION_CONTEXT.md
+*.docx

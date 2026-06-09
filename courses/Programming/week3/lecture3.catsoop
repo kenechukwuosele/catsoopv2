@@ -1,318 +1,274 @@
 <python>
-cs_content_header = "Lecture 3: Control Structures"
-
+cs_content_header = "Lecture 3: Functions & Data Structures"
 </python>
 
 <style>
-  h1, h2, h3 {
-      color: #333;
-  }
-  h1 {
-      border-bottom: 3px solid #007acc;
-      padding-bottom: 10px;
-  }
-  h2 {
-      color: #007acc;
-      margin-top: 30px;
-  }
-  .highlight {
-      background-color: #e7f3ff;
-      border-left: 4px solid #007acc;
-      padding: 15px;
-      margin: 20px 0;
-      border-radius: 5px;
-  }
-  .highlight p {
-      margin: 0;
-      font-weight: bold;
-      color: #005580;
-  }
-  table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 20px 0;
-  }
-  th, td {
-      border: 1px solid #ddd;
-      padding: 12px;
-      text-align: left;
-  }
-  th {
-      background-color: #007acc;
-      color: white;
-  }
-  tr:nth-child(even) {
-      background-color: #f2f2f2;
-  }
-  code {
-      background-color: #f4f4f4;
-      padding: 2px 6px;
-      border-radius: 3px;
-      font-family: 'Courier New', monospace;
-      color: #d63384;
-  }
-  .code-block {
-      background-color: #f8f9fa;
-      border: 1px solid #e9ecef;
-      border-radius: 5px;
-      padding: 15px;
-      margin: 15px 0;
-      font-family: 'Courier New', monospace;
-      overflow-x: auto;
-  }
-  ul, ol {
-      margin: 15px 0;
-  }
-  li {
-      margin: 8px 0;
-  }
-  .emoji {
-      font-size: 1.2em;
-      margin-right: 8px;
-  }
-  .warning {
-      background-color: #fff3cd;
-      border-left: 4px solid #ffc107;
-      padding: 15px;
-      margin: 20px 0;
-      border-radius: 5px;
-  }
-  .warning p {
-      margin: 0;
-      color: #856404;
-  }
+h1,h2,h3{color:#333;}
+h1{border-bottom:3px solid #2572F5;padding-bottom:10px;}
+h2{color:#2572F5;margin-top:30px;}
+.highlight{background:#e7f3ff;border-left:4px solid #2572F5;padding:15px;margin:20px 0;border-radius:5px;}
+table{width:100%;border-collapse:collapse;margin:20px 0;}
+th,td{border:1px solid #ddd;padding:12px;text-align:left;}
+th{background:#2572F5;color:white;}
+tr:nth-child(even){background:#f2f2f2;}
+code{background:#f4f4f4;padding:2px 6px;border-radius:3px;color:#d63384;}
+pre{background:#f4f4f4;padding:16px;border-radius:6px;overflow-x:auto;}
 </style>
 
-<h1>Control Structures</h1>
+<h1>Functions and Data Structures</h1>
 
-<p><strong>Control structures</strong> are programming constructs that determine the order in which instructions are executed in a program. They control the "flow" of your program, allowing you to make decisions, repeat actions, and handle different scenarios.</p>
+<h2>Part 1: Functions</h2>
 
-<div class="highlight">
-  <p>Control structures are like traffic lights for your code - they direct which path the program should take.</p>
-</div>
-
-<h2><span class="emoji">🤔</span>Conditional Statements (Decision Making)</h2>
-<p>Conditional statements allow your program to make decisions based on certain conditions. They execute different blocks of code depending on whether conditions are true or false.</p>
-
-<h3>1. The if Statement</h3>
-<p>The most basic conditional statement. It executes code only if a condition is true.</p>
-
-<div class="code-block">
-  age = 18
-
-  if age >= 18:
-    print("You are eligible to vote!")
-    print("Welcome to adulthood!")
-</div>
-
-<h3>2. The if-else Statement</h3>
-<p>Provides an alternative action when the condition is false.</p>
-
-<div class="code-block">
-  temperature = 15
-
-  if temperature > 20:
-      print("It's warm outside!")
-  else:
-      print("It's a bit cool today.")
-</div>
-
-<h3>3. The if-elif-else Statement</h3>
-<p>Allows you to check multiple conditions in sequence.</p>
-
-<div class="code-block">
-  score = 85
-
-  if score >= 90:
-      print("Grade: A")
-  elif score >= 80:
-      print("Grade: B")
-  elif score >= 70:
-      print("Grade: C")
-  elif score >= 60:
-      print("Grade: D")
-  else:
-      print("Grade: F")
-</div>
-
-<h2><span class="emoji">🔄</span>Loops (Repetition)</h2>
-<p>Loops allow you to repeat a block of code multiple times, which is essential for automating repetitive tasks.</p>
-
-<h3>1. For Loops</h3>
-<p>Used when you know exactly how many times you want to repeat something, or when iterating over a collection.</p>
-
-<h4>For Loop with Range:</h4>
-<div class="code-block">
-  # Print numbers 1 to 5
-  for i in range(1, 6):
-      print("Number:", i)
-
-  # Print "Hello" 3 times
-  for i in range(3):
-      print("Hello!")
-</div>
-
-<h4>For Loop with Lists:</h4>
-<div class="code-block">
-  fruits = ["apple", "banana", "orange", "grape"]
-
-  for fruit in fruits:
-    print("I like", fruit)
-</div>
-
-<h3>2. While Loops</h3>
-<p>Used when you want to repeat something as long as a condition remains true.</p>
-
-<div class="code-block">
-  count = 1
-
-  while count <= 5:
-      print("Count is:", count)
-      count += 1  # Don't forget to update the counter!
-
-  print("Loop finished!")
-</div>
-
-<div class="warning">
-  <p><strong>⚠️ Warning:</strong> Be careful with while loops! If the condition never becomes false, you'll create an infinite loop that will crash your program.</p>
-</div>
-
-<h2><span class="emoji">🎯</span>Comparison Operators</h2>
-<p>These operators are used in conditions to compare values:</p>
-
-<table>
-  <tr>
-    <th>Operator</th>
-    <th>Meaning</th>
-    <th>Example</th>
-    <th>Result</th>
-  </tr>
-  <tr>
-    <td><code>==</code></td>
-    <td>Equal to</td>
-    <td><code>5 == 5</code></td>
-    <td>True</td>
-  </tr>
-  <tr>
-    <td><code>!=</code></td>
-    <td>Not equal to</td>
-    <td><code>5 != 3</code></td>
-    <td>True</td>
-  </tr>
-  <tr>
-    <td><code>&gt;</code></td>
-    <td>Greater than</td>
-    <td><code>7 &gt; 5</code></td>
-    <td>True</td>
-  </tr>
-  <tr>
-    <td><code>&lt;</code></td>
-    <td>Less than</td>
-    <td><code>3 &lt; 8</code></td>
-    <td>True</td>
-  </tr>
-  <tr>
-    <td><code>&gt;=</code></td>
-    <td>Greater than or equal</td>
-    <td><code>5 &gt;= 5</code></td>
-    <td>True</td>
-  </tr>
-  <tr>
-    <td><code>&lt;=</code></td>
-    <td>Less than or equal</td>
-    <td><code>4 &lt;= 6</code></td>
-    <td>True</td>
-  </tr>
-</table>
-
-<h2><span class="emoji">🔗</span>Logical Operators</h2>
-<p>Used to combine multiple conditions:</p>
-
-<table>
-  <tr>
-    <th>Operator</th>
-    <th>Description</th>
-    <th>Example</th>
-  </tr>
-  <tr>
-    <td><code>and</code></td>
-    <td>Both conditions must be true</td>
-    <td><code>age >= 18 and age <= 65</code></td>
-  </tr>
-  <tr>
-    <td><code>or</code></td>
-    <td>At least one condition must be true</td>
-    <td><code>day == "Saturday" or day == "Sunday"</code></td>
-  </tr>
-  <tr>
-    <td><code>not</code></td>
-    <td>Reverses the condition</td>
-    <td><code>not is_raining</code></td>
-  </tr>
-</table>
-
-<h3>Example with Logical Operators:</h3>
-<div class="code-block">
-  age = 25
-  has_license = True
-
-  if age >= 18 and has_license:
-      print("You can drive!")
-  elif age >= 18 and not has_license:
-      print("You can get a license!")
-  else:
-      print("You're too young to drive.")
-</div>
-
-<h2><span class="emoji">🎮</span>Practical Examples</h2>
-
-<h3>Example 1: Number Guessing Game</h3>
-<div class="code-block">
-  import random
-
-  secret_number = random.randint(1, 10)
-  guess = int(input("Guess a number between 1 and 10: "))
-
-  if guess == secret_number:
-      print("Congratulations! You guessed it!")
-  elif guess < secret_number:
-      print("Too low! The number was", secret_number)
-  else:
-      print("Too high! The number was", secret_number)
-</div>
-
-<h3>Example 2: Multiplication Table</h3>
-<div class="code-block">
-  number = 5
-
-  print(f"Multiplication table for {number}:")
-  for i in range(1, 11):
-    result = number * i
-    print(f"{number} x {i} = {result}")
-</div>
-
-<h3>Example 3: Password Validation</h3>
-<div class="code-block">
-  password = input("Enter your password: ")
-
-  if len(password) >= 8 and password.isalnum():
-      print("Password is valid!")
-  else:
-    print("Password must be at least 8 characters long")
-    print("and contain only letters and numbers.")
-</div>
-
-<h2><span class="emoji">💡</span>Best Practices</h2>
+<p>A <strong>function</strong> is a named, reusable block of code that performs a specific task. Functions help you:</p>
 <ul>
-  <li><strong>Use meaningful conditions:</strong> Make your if statements clear and easy to understand</li>
-  <li><strong>Avoid deep nesting:</strong> Too many nested if statements make code hard to read</li>
-  <li><strong>Be careful with while loops:</strong> Always ensure the condition will eventually become false</li>
-  <li><strong>Use elif instead of multiple if:</strong> When checking related conditions</li>
-  <li><strong>Test edge cases:</strong> Consider what happens with extreme values</li>
+  <li>Avoid repeating the same code in multiple places (DRY — Don't Repeat Yourself)</li>
+  <li>Break a large program into smaller, manageable pieces</li>
+  <li>Make code easier to read, test, and debug</li>
 </ul>
 
+<h3>Defining a Function</h3>
+<pre><code>def function_name(parameter1, parameter2):
+    # function body
+    return result
+</code></pre>
+<ul>
+  <li><code>def</code> — keyword to define a function</li>
+  <li><code>function_name</code> — a descriptive name (use lowercase with underscores)</li>
+  <li><code>parameters</code> — inputs the function receives (optional)</li>
+  <li><code>return</code> — sends a value back to the caller (optional)</li>
+</ul>
+
+<pre><code>def greet(name):
+    message = f"Hello, {name}! Welcome to Covenant University."
+    return message
+
+# Calling the function
+result = greet("Emeka")
+print(result)   # Hello, Emeka! Welcome to Covenant University.
+</code></pre>
+
+<h3>Functions with Multiple Parameters</h3>
+<pre><code>def add(a, b):
+    return a + b
+
+def calculate_grade(score, max_score):
+    percentage = (score / max_score) * 100
+    if percentage >= 70:
+        return "A"
+    elif percentage >= 60:
+        return "B"
+    elif percentage >= 50:
+        return "C"
+    else:
+        return "F"
+
+print(add(10, 25))                       # 35
+print(calculate_grade(56, 80))           # B  (70%)
+</code></pre>
+
+<h3>Default Parameter Values</h3>
+<pre><code>def power(base, exponent=2):     # exponent defaults to 2
+    return base ** exponent
+
+print(power(3))      # 9  (3^2)
+print(power(3, 3))   # 27 (3^3)
+</code></pre>
+
+<h3>Scope: Local vs Global Variables</h3>
+<p>A variable defined inside a function is <strong>local</strong> — it only exists within that function. A variable defined outside all functions is <strong>global</strong>.</p>
+<pre><code>x = 10          # global variable
+
+def my_function():
+    y = 20      # local variable — only accessible inside this function
+    print(x)    # can access global x: prints 10
+    print(y)    # prints 20
+
+my_function()
+print(x)        # 10
+# print(y)      # Error! y is not defined outside the function
+</code></pre>
+
 <div class="highlight">
-  <p>Practice Tip: Try creating programs that use multiple control structures together, like a simple menu system or a game with different outcomes!</p>
+  <strong>Best practice:</strong> Avoid modifying global variables inside functions. Instead, pass values as parameters and return results.
+</div>
+
+<h2>Part 2: Lists</h2>
+
+<p>A <strong>list</strong> is an ordered, mutable (changeable) collection of items. Lists can hold any data type, and items can be repeated.</p>
+
+<pre><code>students = ["Ngozi", "Kola", "Amara", "Tunde"]
+scores = [85, 92, 78, 90, 45]
+mixed = [1, "hello", True, 3.14]   # lists can mix types
+</code></pre>
+
+<h3>List Operations</h3>
+<pre><code>fruits = ["mango", "banana", "orange"]
+
+# Access by index (0-based)
+print(fruits[0])       # mango
+print(fruits[-1])      # orange (last item)
+
+# Slice a portion of a list
+print(fruits[0:2])     # ['mango', 'banana']
+
+# Modify an item
+fruits[1] = "pineapple"
+
+# Add items
+fruits.append("papaya")         # add to end
+fruits.insert(1, "guava")       # insert at index 1
+
+# Remove items
+fruits.remove("mango")          # remove by value
+popped = fruits.pop()           # remove and return last item
+del fruits[0]                   # delete by index
+
+# Useful list functions
+print(len(fruits))              # number of items
+print(sorted(fruits))           # sorted copy (does not modify original)
+fruits.sort()                   # sort in place
+print(fruits.count("guava"))    # count occurrences
+print("papaya" in fruits)       # True/False membership test
+</code></pre>
+
+<h3>Iterating Over a List</h3>
+<pre><code>scores = [88, 72, 95, 60, 83]
+total = 0
+
+for score in scores:
+    total += score
+
+average = total / len(scores)
+print(f"Average score: {average:.1f}")   # Average score: 79.6
+</code></pre>
+
+<h2>Part 3: Tuples</h2>
+
+<p>A <strong>tuple</strong> is like a list but <strong>immutable</strong> — once created, it cannot be changed. Use tuples for data that should not be modified.</p>
+
+<pre><code>coordinates = (6.5244, 3.3792)    # Lagos latitude and longitude
+rgb_red = (255, 0, 0)
+days = ("Mon", "Tue", "Wed", "Thu", "Fri")
+
+print(coordinates[0])    # 6.5244
+print(len(days))          # 5
+
+# Tuples support unpacking:
+lat, lon = coordinates
+print(f"Latitude: {lat}, Longitude: {lon}")
+</code></pre>
+
+<h2>Part 4: Dictionaries</h2>
+
+<p>A <strong>dictionary</strong> stores data as <strong>key-value pairs</strong>. Keys must be unique and immutable (usually strings or numbers). Values can be anything.</p>
+
+<pre><code>student = {
+    "name": "Adaeze",
+    "age": 20,
+    "department": "Computer Science",
+    "gpa": 4.2
+}
+
+# Access values by key
+print(student["name"])              # Adaeze
+print(student.get("gpa"))          # 4.2 (safe access — returns None if key missing)
+
+# Add or update entries
+student["year"] = 2
+student["age"] = 21
+
+# Remove an entry
+del student["gpa"]
+
+# Iterate over keys and values
+for key, value in student.items():
+    print(f"{key}: {value}")
+
+# Useful methods
+print(student.keys())     # all keys
+print(student.values())   # all values
+print("name" in student)  # True — check if key exists
+</code></pre>
+
+<h3>Practical Example: Student Registry</h3>
+<pre><code>registry = {}
+
+def add_student(name, score):
+    registry[name] = score
+
+add_student("Emeka", 87)
+add_student("Fatima", 93)
+add_student("Chidi", 74)
+
+for name, score in registry.items():
+    print(f"{name}: {score}")
+</code></pre>
+
+<h2>Part 5: Sets</h2>
+
+<p>A <strong>set</strong> is an unordered collection of <strong>unique</strong> values. Sets are useful for removing duplicates and performing set operations (union, intersection, difference).</p>
+
+<pre><code>colours = {"red", "blue", "green", "red"}   # duplicate "red" is removed
+print(colours)    # {'red', 'blue', 'green'} — order may vary
+
+colours.add("yellow")
+colours.remove("blue")
+print("green" in colours)    # True
+
+# Set operations
+A = {1, 2, 3, 4, 5}
+B = {4, 5, 6, 7, 8}
+print(A | B)    # Union: {1, 2, 3, 4, 5, 6, 7, 8}
+print(A & B)    # Intersection: {4, 5}
+print(A - B)    # Difference: {1, 2, 3}
+</code></pre>
+
+<h2>Part 6: List Comprehension</h2>
+
+<p><strong>List comprehension</strong> is a concise way to create a new list by applying an expression to each item in an existing sequence, with an optional filter condition. It is a powerful Python feature.</p>
+
+<pre><code># Syntax: [expression for item in sequence if condition]
+
+# Squares of numbers 1 to 10
+squares = [x**2 for x in range(1, 11)]
+print(squares)    # [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
+
+# Even numbers only
+evens = [x for x in range(1, 21) if x % 2 == 0]
+print(evens)      # [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
+
+# Convert all names to uppercase
+names = ["chinedu", "amara", "tunde"]
+upper_names = [name.upper() for name in names]
+print(upper_names)   # ['CHINEDU', 'AMARA', 'TUNDE']
+</code></pre>
+
+<h2>Part 7: Essential Built-in Functions</h2>
+
+<table>
+  <tr><th>Function</th><th>Purpose</th><th>Example</th></tr>
+  <tr><td><code>len(x)</code></td><td>Length/size of a sequence</td><td><code>len([1,2,3])</code> → 3</td></tr>
+  <tr><td><code>range(n)</code></td><td>Generate a sequence of integers</td><td><code>list(range(5))</code> → [0,1,2,3,4]</td></tr>
+  <tr><td><code>sorted(x)</code></td><td>Return a sorted copy of a sequence</td><td><code>sorted([3,1,2])</code> → [1,2,3]</td></tr>
+  <tr><td><code>sum(x)</code></td><td>Sum of all elements</td><td><code>sum([10,20,30])</code> → 60</td></tr>
+  <tr><td><code>min(x)</code> / <code>max(x)</code></td><td>Smallest/largest element</td><td><code>max([3,7,2])</code> → 7</td></tr>
+  <tr><td><code>type(x)</code></td><td>Type of a value</td><td><code>type(42)</code> → &lt;class 'int'&gt;</td></tr>
+  <tr><td><code>int(x)</code>, <code>str(x)</code>, <code>float(x)</code></td><td>Type conversion</td><td><code>int("42")</code> → 42</td></tr>
+  <tr><td><code>enumerate(x)</code></td><td>Add index to iteration</td><td><code>for i, v in enumerate(["a","b"])</code></td></tr>
+  <tr><td><code>zip(a, b)</code></td><td>Pair items from two sequences</td><td><code>list(zip([1,2],[3,4]))</code> → [(1,3),(2,4)]</td></tr>
+</table>
+
+<h2>Summary</h2>
+<table>
+  <tr><th>Structure</th><th>Syntax</th><th>Mutable?</th><th>Ordered?</th><th>Unique?</th></tr>
+  <tr><td>List</td><td><code>[1, 2, 3]</code></td><td>Yes</td><td>Yes</td><td>No</td></tr>
+  <tr><td>Tuple</td><td><code>(1, 2, 3)</code></td><td>No</td><td>Yes</td><td>No</td></tr>
+  <tr><td>Dictionary</td><td><code>{"a": 1}</code></td><td>Yes</td><td>Yes (Python 3.7+)</td><td>Keys unique</td></tr>
+  <tr><td>Set</td><td><code>{1, 2, 3}</code></td><td>Yes</td><td>No</td><td>Yes</td></tr>
+</table>
+
+<div class="highlight">
+  <strong>Key Takeaway:</strong> Functions let you organise code into reusable pieces. Data structures let you organise data into meaningful collections. Together they form the backbone of every real-world Python program.
 </div>
 <div id="live-file-panel" style="display:none;margin:20px 0;padding:16px;border:1px solid #ddd;border-radius:6px;background:#f9f9f9;">
   <strong>Live File</strong>

@@ -1,275 +1,179 @@
 <python>
-cs_content_header = "Kinematics (Motion)"
-
+cs_content_header = "Lecture 2: Newton's Laws of Motion"
 </python>
 
 <style>
-    h1, h2, h3 {
-        color: #333;
-    }
-    h1 {
-        border-bottom: 3px solid #007acc;
-        padding-bottom: 10px;
-    }
-    h2 {
-        color: #007acc;
-        margin-top: 30px;
-    }
-    .highlight {
-        background-color: #e7f3ff;
-        border-left: 4px solid #007acc;
-        padding: 15px;
-        margin: 20px 0;
-        border-radius: 5px;
-    }
-    .highlight p {
-        margin: 0;
-        font-weight: bold;
-        color: #005580;
-    }
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin: 20px 0;
-    }
-    th, td {
-        border: 1px solid #ddd;
-        padding: 12px;
-        text-align: left;
-    }
-    th {
-        background-color: #007acc;
-        color: white;
-    }
-    tr:nth-child(even) {
-        background-color: #f2f2f2;
-    }
-    .formula {
-        background-color: #f0f8ff;
-        border: 2px solid #007acc;
-        padding: 15px;
-        margin: 15px 0;
-        border-radius: 8px;
-        text-align: center;
-        font-family: 'Times New Roman', serif;
-        font-size: 1.2em;
-    }
-    .example {
-        background-color: #f8f9fa;
-        border: 1px solid #e9ecef;
-        border-radius: 5px;
-        padding: 15px;
-        margin: 15px 0;
-    }
-    .example h4 {
-        color: #28a745;
-        margin-top: 0;
-    }
-    ul, ol {
-        margin: 15px 0;
-    }
-    li {
-        margin: 8px 0;
-    }
-    .emoji {
-        font-size: 1.2em;
-        margin-right: 8px;
-    }
-    .warning {
-        background-color: #fff3cd;
-        border-left: 4px solid #ffc107;
-        padding: 15px;
-        margin: 20px 0;
-        border-radius: 5px;
-    }
-    .warning p {
-        margin: 0;
-        color: #856404;
-    }
-    .key-concept {
-        background-color: #d4edda;
-        border-left: 4px solid #28a745;
-        padding: 15px;
-        margin: 20px 0;
-        border-radius: 5px;
-    }
+h1,h2,h3{color:#333;}
+h1{border-bottom:3px solid #2572F5;padding-bottom:10px;}
+h2{color:#2572F5;margin-top:30px;}
+.highlight{background:#e7f3ff;border-left:4px solid #2572F5;padding:15px;margin:20px 0;border-radius:5px;}
+table{width:100%;border-collapse:collapse;margin:20px 0;}
+th,td{border:1px solid #ddd;padding:12px;text-align:left;}
+th{background:#2572F5;color:white;}
+tr:nth-child(even){background:#f2f2f2;}
+code{background:#f4f4f4;padding:2px 6px;border-radius:3px;color:#d63384;}
+pre{background:#f4f4f4;padding:16px;border-radius:6px;overflow-x:auto;}
+.formula{background:#f0f8ff;border:2px solid #2572F5;padding:15px;margin:15px 0;border-radius:8px;text-align:center;font-size:1.15em;}
+.worked{background:#f8f9fa;border:1px solid #e9ecef;border-radius:6px;padding:15px;margin:15px 0;}
+.worked h4{color:#28a745;margin-top:0;}
 </style>
 
-<h1>Kinematics (Motion)</h1>
+<h1>Newton's Laws of Motion</h1>
 
-<p><strong>Kinematics</strong> is the branch of physics that describes the motion of objects without considering the forces that cause the motion. It focuses on concepts like position, velocity, acceleration, and time.</p>
+<p>Isaac Newton (1643–1727) published his three laws of motion in <em>Principia Mathematica</em> (1687), one of the most influential books in the history of science. These laws describe how forces affect the motion of objects and remain valid for all everyday (non-relativistic) situations.</p>
 
 <div class="highlight">
-    <p>Kinematics answers the question: "How do objects move?" without asking "Why do they move?"</p>
+  <strong>A force</strong> is a push or pull that can change an object's state of motion. Force is a <em>vector</em> quantity — it has both magnitude and direction. The SI unit of force is the <strong>Newton (N)</strong>. 1 N = 1 kg·m/s².
 </div>
 
-<h2><span class="emoji">📍</span>Key Concepts and Definitions</h2>
+<h2>Newton's First Law — The Law of Inertia</h2>
 
-<h3>1. Position (x)</h3>
-<p><strong>Position</strong> tells us where an object is located relative to a reference point (origin). It can be positive or negative depending on direction.</p>
+<p><strong>Statement:</strong> An object at rest remains at rest, and an object in motion continues in motion with constant velocity (constant speed in a straight line), unless acted upon by a net external force.</p>
 
-<div class="key-concept">
-    <p><strong>Key Point:</strong> Position is measured from a chosen origin point. Moving right or up is typically positive, left or down is negative.</p>
+<div class="highlight">
+  <strong>Key concept — Inertia:</strong> Inertia is the tendency of an object to resist any change in its state of motion. The greater the mass of an object, the greater its inertia.
 </div>
 
-<h3>2. Displacement (Δx)</h3>
-<p><strong>Displacement</strong> is the change in position. It's the straight-line distance from the starting point to the ending point.</p>
-
-<div class="formula">
-    Δx = x<sub>final</sub> - x<sub>initial</sub>
-</div>
-
-<h3>3. Velocity (v)</h3>
-<p><strong>Velocity</strong> is the rate of change of position with respect to time. It tells us how fast and in which direction an object is moving.</p>
-
-<div class="formula">
-    Average Velocity = Δx / Δt = (x<sub>final</sub> - x<sub>initial</sub>) / (t<sub>final</sub> - t<sub>initial</sub>)
-</div>
-
-<h3>4. Acceleration (a)</h3>
-<p><strong>Acceleration</strong> is the rate of change of velocity with respect to time. It tells us how quickly velocity is changing.</p>
-
-<div class="formula">
-    Average Acceleration = Δv / Δt = (v<sub>final</sub> - v<sub>initial</sub>) / (t<sub>final</sub> - t<sub>initial</sub>)
-</div>
-
-<h2><span class="emoji">📊</span>Key Quantities Summary</h2>
-
-<table>
-    <tr>
-        <th>Quantity</th>
-        <th>Symbol</th>
-        <th>Units (SI)</th>
-        <th>Description</th>
-    </tr>
-    <tr>
-        <td>Position</td>
-        <td>x</td>
-        <td>meters (m)</td>
-        <td>Location relative to origin</td>
-    </tr>
-    <tr>
-        <td>Displacement</td>
-        <td>Δx</td>
-        <td>meters (m)</td>
-        <td>Change in position</td>
-    </tr>
-    <tr>
-        <td>Velocity</td>
-        <td>v</td>
-        <td>meters per second (m/s)</td>
-        <td>Rate of change of position</td>
-    </tr>
-    <tr>
-        <td>Acceleration</td>
-        <td>a</td>
-        <td>meters per second squared (m/s²)</td>
-        <td>Rate of change of velocity</td>
-    </tr>
-    <tr>
-        <td>Time</td>
-        <td>t</td>
-        <td>seconds (s)</td>
-        <td>Duration of motion</td>
-    </tr>
-</table>
-
-<h2><span class="emoji">📈</span>Kinematic Equations (Constant Acceleration)</h2>
-
-<p>When acceleration is constant, we can use these powerful equations to solve motion problems:</p>
-
-<div class="formula">
-    <strong>1.</strong> v = v₀ + at
-</div>
-
-<div class="formula">
-    <strong>2.</strong> x = x₀ + v₀t + ½at²
-</div>
-
-<div class="formula">
-    <strong>3.</strong> v² = v₀² + 2a(x - x₀)
-</div>
-
-<div class="formula">
-    <strong>4.</strong> x = x₀ + ½(v₀ + v)t
-</div>
-
-<p><strong>Where:</strong></p>
+<p><strong>Examples:</strong></p>
 <ul>
-    <li>v₀ = initial velocity</li>
-    <li>v = final velocity</li>
-    <li>a = acceleration (constant)</li>
-    <li>t = time</li>
-    <li>x₀ = initial position</li>
-    <li>x = final position</li>
+  <li>A book resting on a table stays at rest — the table's normal force and gravity cancel, giving a net force of zero.</li>
+  <li>A passenger lurches forward when a bus brakes suddenly — their body's inertia keeps it moving forward even as the bus decelerates.</li>
+  <li>A satellite orbiting Earth keeps moving in a nearly circular path because in the near-vacuum of space, there is very little friction to slow it down.</li>
 </ul>
 
-<h2><span class="emoji">🎯</span>Problem-Solving Strategy</h2>
+<p><strong>Net Force:</strong> The first law refers to the <em>net</em> (resultant) force — the vector sum of all forces acting on an object. If all forces cancel out (ΣF = 0), the object is in <strong>equilibrium</strong> and its velocity does not change.</p>
 
+<h2>Newton's Second Law — F = ma</h2>
+
+<p><strong>Statement:</strong> The net force acting on an object equals the mass of the object multiplied by its acceleration.</p>
+
+<div class="formula">
+  <strong>ΣF = m × a</strong><br>
+  Net Force (N) = Mass (kg) × Acceleration (m/s²)
+</div>
+
+<p><strong>What this tells us:</strong></p>
+<ul>
+  <li>For a given mass, a larger net force produces a larger acceleration.</li>
+  <li>For a given net force, a larger mass produces a smaller acceleration.</li>
+  <li>Acceleration is in the same direction as the net force.</li>
+</ul>
+
+<h3>Worked Example 1: Horizontal Force on a Box</h3>
+<div class="worked">
+  <h4>Problem</h4>
+  <p>A 5 kg box sits on a frictionless surface. A horizontal force of 20 N is applied to it. What is the acceleration of the box?</p>
+  <h4>Solution</h4>
+  <p>ΣF = m × a</p>
+  <p>20 N = 5 kg × a</p>
+  <p>a = 20/5 = <strong>4 m/s²</strong> (in the direction of the force)</p>
+</div>
+
+<h3>Worked Example 2: Weight</h3>
+<div class="worked">
+  <h4>Problem</h4>
+  <p>What is the weight (gravitational force) of a 70 kg person on Earth? (g = 9.8 m/s²)</p>
+  <h4>Solution</h4>
+  <p>Weight W = m × g = 70 kg × 9.8 m/s² = <strong>686 N</strong></p>
+  <p>Note: Weight is a force (in Newtons), not the same as mass (in kilograms).</p>
+</div>
+
+<h3>Worked Example 3: Net Force with Friction</h3>
+<div class="worked">
+  <h4>Problem</h4>
+  <p>A 10 kg crate is pushed with a force of 50 N across a floor. The friction force opposing the motion is 20 N. What is the acceleration?</p>
+  <h4>Solution</h4>
+  <p>Net force: ΣF = Applied force − Friction = 50 N − 20 N = 30 N</p>
+  <p>a = ΣF / m = 30 N / 10 kg = <strong>3 m/s²</strong></p>
+</div>
+
+<h2>Free Body Diagrams</h2>
+
+<p>A <strong>free body diagram (FBD)</strong> is a sketch that shows all the forces acting on a single object. Drawing an FBD is the essential first step in solving any Newton's Law problem.</p>
+
+<p><strong>Steps to draw a free body diagram:</strong></p>
 <ol>
-    <li><strong>Identify what you know:</strong> List given values</li>
-    <li><strong>Identify what you need to find:</strong> What is the question asking?</li>
-    <li><strong>Choose the right equation:</strong> Which kinematic equation contains your known and unknown variables?</li>
-    <li><strong>Substitute and solve:</strong> Plug in values and calculate</li>
-    <li><strong>Check your answer:</strong> Does it make physical sense?</li>
+  <li>Draw the object as a simple box or dot.</li>
+  <li>Draw arrows representing each force acting on the object. Arrow length represents magnitude; direction represents direction of the force.</li>
+  <li>Label each force (weight W, normal force N, applied force F, friction f, tension T, etc.).</li>
+  <li>Choose a coordinate system (usually x horizontal, y vertical).</li>
 </ol>
 
-<h2><span class="emoji">🚗</span>Practical Examples</h2>
+<h3>Common Forces in Free Body Diagrams</h3>
+<table>
+  <tr><th>Force</th><th>Symbol</th><th>Direction</th><th>Description</th></tr>
+  <tr><td>Weight</td><td>W or F<sub>g</sub></td><td>Downward</td><td>m × g; Earth's gravitational pull on the object</td></tr>
+  <tr><td>Normal Force</td><td>N or F<sub>N</sub></td><td>Perpendicular to surface</td><td>Support force from a surface</td></tr>
+  <tr><td>Applied Force</td><td>F or F<sub>app</sub></td><td>As applied</td><td>Force exerted by a person or object</td></tr>
+  <tr><td>Friction</td><td>f or F<sub>f</sub></td><td>Opposite to motion (or tendency)</td><td>Resists sliding between surfaces</td></tr>
+  <tr><td>Tension</td><td>T</td><td>Along string/rope</td><td>Pulling force through a rope or cable</td></tr>
+</table>
 
-<h2><span class="emoji">🌍</span>Special Case: Free Fall</h2>
+<h2>Friction</h2>
 
-<p>Free fall is motion under gravity alone, with no air resistance. Near Earth's surface:</p>
-
-<div class="key-concept">
-    <p><strong>Acceleration due to gravity:</strong> g = 9.8 m/s² (always downward)</p>
-</div>
-
-<p>For free fall problems:</p>
-<ul>
-    <li>Use a = -g = -9.8 m/s² (if up is positive)</li>
-    <li>Objects dropped start with v₀ = 0</li>
-    <li>Objects thrown upward eventually come back down</li>
-    <li>Time to go up equals time to come down (for same height)</li>
-</ul>
-
-<h2><span class="emoji">📋</span>Motion Graphs</h2>
-
-<h3>Position vs. Time Graph:</h3>
-<ul>
-    <li>Slope = velocity</li>
-    <li>Straight line = constant velocity</li>
-    <li>Curved line = changing velocity (acceleration)</li>
-</ul>
-
-<h3>Velocity vs. Time Graph:</h3>
-<ul>
-    <li>Slope = acceleration</li>
-    <li>Area under curve = displacement</li>
-    <li>Horizontal line = constant velocity</li>
-</ul>
-
-<div class="warning">
-    <p><strong>⚠️ Common Mistakes to Avoid:</strong></p>
-    <ul>
-        <li>Confusing distance with displacement</li>
-        <li>Forgetting to include direction (+ or -)</li>
-        <li>Using wrong units</li>
-        <li>Not checking if acceleration is constant</li>
-    </ul>
-</div>
-
-<h2><span class="emoji">💡</span>Real-World Applications</h2>
+<p><strong>Friction</strong> is the force that opposes relative motion (or tends toward motion) between two surfaces in contact. It arises from microscopic irregularities in surfaces.</p>
 
 <ul>
-    <li><strong>Traffic Safety:</strong> Calculating stopping distances for cars</li>
-    <li><strong>Sports:</strong> Analyzing projectile motion in basketball or soccer</li>
-    <li><strong>Engineering:</strong> Designing roller coasters and elevators</li>
-    <li><strong>Space Exploration:</strong> Planning rocket trajectories</li>
-    <li><strong>Safety:</strong> Designing airbags and safety equipment</li>
+  <li><strong>Static friction (f<sub>s</sub>):</strong> Acts when an object is not moving. Can increase up to a maximum value: f<sub>s,max</sub> = μ<sub>s</sub> × N, where μ<sub>s</sub> is the coefficient of static friction.</li>
+  <li><strong>Kinetic friction (f<sub>k</sub>):</strong> Acts when an object is sliding. f<sub>k</sub> = μ<sub>k</sub> × N. Kinetic friction is usually less than maximum static friction (μ<sub>k</sub> &lt; μ<sub>s</sub>).</li>
 </ul>
 
 <div class="highlight">
-    <p>Practice Tip: Start with simple problems involving constant acceleration, then work up to more complex scenarios. Always draw diagrams and define your coordinate system!</p>
+  <strong>N</strong> is the normal force (not the net force). The frictional force depends on how hard two surfaces are pressed together, not on the area of contact.
+</div>
+
+<h2>Newton's Third Law — Action and Reaction</h2>
+
+<p><strong>Statement:</strong> For every action force, there is an equal and opposite reaction force. If object A exerts a force on object B, then object B exerts an equal and opposite force on object A.</p>
+
+<div class="formula">
+  F<sub>A on B</sub> = −F<sub>B on A</sub>
+</div>
+
+<p><strong>Critical points:</strong></p>
+<ul>
+  <li>Action-reaction pairs always act on <em>different</em> objects — never on the same object.</li>
+  <li>They are always equal in magnitude and opposite in direction.</li>
+  <li>The fact that forces are equal does not mean they produce equal accelerations — that depends on the masses of the objects.</li>
+</ul>
+
+<p><strong>Examples:</strong></p>
+<ul>
+  <li><strong>Walking:</strong> You push backward on the ground (action); the ground pushes you forward (reaction). Without friction, you could not walk.</li>
+  <li><strong>Rocket propulsion:</strong> The rocket expels hot gas downward (action); the gas pushes the rocket upward (reaction).</li>
+  <li><strong>Swimming:</strong> You push water backward with your hands (action); water pushes you forward (reaction).</li>
+  <li><strong>Recoil:</strong> A gun pushes a bullet forward (action); the bullet pushes the gun backward (reaction) — this is felt as recoil.</li>
+</ul>
+
+<h2>Applying Newton's Laws: Problem-Solving Strategy</h2>
+<ol>
+  <li>Draw a clear free body diagram for each object.</li>
+  <li>Choose a convenient coordinate system. Align one axis with the direction of motion or the net force when possible.</li>
+  <li>Write Newton's Second Law for each axis: ΣF<sub>x</sub> = ma<sub>x</sub> and ΣF<sub>y</sub> = ma<sub>y</sub>.</li>
+  <li>Solve the resulting equations for the unknown(s).</li>
+  <li>Check units and physical reasonableness of your answer.</li>
+</ol>
+
+<h3>Worked Example 4: Object on an Inclined Plane</h3>
+<div class="worked">
+  <h4>Problem</h4>
+  <p>A 3 kg block rests on a frictionless inclined plane making a 30° angle with the horizontal. What is its acceleration down the incline?</p>
+  <h4>Solution</h4>
+  <p>Along the incline: ΣF = W sin30° = mg sin30°</p>
+  <p>a = g sin30° = 9.8 × 0.5 = <strong>4.9 m/s²</strong> down the incline.</p>
+  <p>Perpendicular to incline: N = mg cos30° (no acceleration perpendicular to surface).</p>
+</div>
+
+<h2>Summary Table</h2>
+<table>
+  <tr><th>Law</th><th>Statement</th><th>Equation</th><th>Key Concept</th></tr>
+  <tr><td>First (Inertia)</td><td>Objects maintain their state of motion if net force = 0</td><td>ΣF = 0 ↔ a = 0</td><td>Inertia; equilibrium</td></tr>
+  <tr><td>Second (F = ma)</td><td>Net force = mass × acceleration</td><td>ΣF = ma</td><td>Cause of acceleration</td></tr>
+  <tr><td>Third (Action-Reaction)</td><td>Forces come in equal and opposite pairs on different objects</td><td>F<sub>AB</sub> = −F<sub>BA</sub></td><td>Forces always in pairs</td></tr>
+</table>
+
+<div class="highlight">
+  <strong>Key Takeaway:</strong> Newton's laws tell us that objects do not need a force to <em>keep moving</em> — they need a force to <em>change</em> their motion. The net force determines the acceleration. Every force has an equal and opposite counterpart acting on a different object.
 </div>
 <div id="live-file-panel" style="display:none;margin:20px 0;padding:16px;border:1px solid #ddd;border-radius:6px;background:#f9f9f9;">
   <strong>Live File</strong>

@@ -9,7 +9,6 @@ course_icons = {
     'Physics': '&#9883;',
     'Programming': '&#128187;',
     'Sports': '&#127942;',
-    'Biology': '&#129514;',
     'ENGLISH': '&#128220;',
     'Mathematics': '&#128300;',
     'Chemistry': '&#129514;',
@@ -19,7 +18,6 @@ default_desc = {
     'Physics': 'Explore mechanics, waves, thermodynamics and more.',
     'Programming': 'Test your programming knowledge.',
     'Sports': 'Quiz yourself on sports.',
-    'Biology': 'Learn about living organisms.',
     'ENGLISH': 'Sharpen your language skills.',
     'Mathematics': 'Practice math problems.',
     'Chemistry': 'Discover chemical concepts.',
@@ -167,4 +165,6 @@ print("""</div>
 &copy; CU Quiz App &mdash; Powered by CAT-SOOP
 </div>
 </div>""")
+escaped = (username or '').replace('\\', '\\\\').replace('"', '\\"')
+print(f'<script>window.CU_USERNAME = "{escaped}";</script>')
 </python>

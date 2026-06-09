@@ -1,184 +1,175 @@
 <python>
-cs_content_header = "Introduction to Basketball"
+cs_content_header = "Lecture 2: Introduction to Basketball"
 </python>
 
 <style>
-  h1, h2, h3 {
-      color: #333;
-  }
-  h1 {
-      border-bottom: 3px solid #007acc;
-      padding-bottom: 10px;
-  }
-  h2 {
-      color: #007acc;
-      margin-top: 30px;
-  }
-  .highlight {
-      background-color: #e7f3ff;
-      border-left: 4px solid #007acc;
-      padding: 15px;
-      margin: 20px 0;
-      border-radius: 5px;
-  }
-  .highlight p {
-      margin: 0;
-      font-weight: bold;
-      color: #005580;
-  }
-  table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 20px 0;
-  }
-  th, td {
-      border: 1px solid #ddd;
-      padding: 12px;
-      text-align: left;
-  }
-  th {
-      background-color: #007acc;
-      color: white;
-  }
-  tr:nth-child(even) {
-      background-color: #f2f2f2;
-  }
-  code {
-      background-color: #f4f4f4;
-      padding: 2px 6px;
-      border-radius: 3px;
-      font-family: 'Courier New', monospace;
-      color: #d63384;
-  }
-  .emoji {
-      font-size: 1.2em;
-      margin-right: 8px;
-  }
-  ul, ol {
-      margin: 15px 0;
-  }
-  li {
-      margin: 8px 0;
-  }
+h1,h2,h3{color:#333;}
+h1{border-bottom:3px solid #2572F5;padding-bottom:10px;}
+h2{color:#2572F5;margin-top:30px;}
+.highlight{background:#e7f3ff;border-left:4px solid #2572F5;padding:15px;margin:20px 0;border-radius:5px;}
+table{width:100%;border-collapse:collapse;margin:20px 0;}
+th,td{border:1px solid #ddd;padding:12px;text-align:left;}
+th{background:#2572F5;color:white;}
+tr:nth-child(even){background:#f2f2f2;}
+code{background:#f4f4f4;padding:2px 6px;border-radius:3px;color:#d63384;}
+pre{background:#f4f4f4;padding:16px;border-radius:6px;overflow-x:auto;}
 </style>
 
 <h1>Introduction to Basketball</h1>
 
-<p><strong>Basketball</strong> is a high-paced, energetic team sport played by two teams of five players each. The objective is to score points by throwing the ball through the opponent's hoop.</p>
+<p><strong>Basketball</strong> is a fast-paced team sport played by two teams of five players on a rectangular court. Players score points by shooting a ball through a hoop elevated 3.05 m (10 feet) above the floor. Basketball is the third most popular sport globally, with the NBA’s games watched in over 215 countries.</p>
 
-<div class="highlight">
-  <p>Basketball is a blend of speed, skill, strategy, and teamwork — and it’s one of the most widely watched sports in the world.</p>
-</div>
+<h2>History of Basketball</h2>
 
-<h2><span class="emoji">🏀</span>Basic Rules of Basketball</h2>
+<p>Basketball was invented in <strong>December 1891</strong> by <strong>Dr. James Naismith</strong>, a Canadian physical education instructor working at the International YMCA Training School in Springfield, Massachusetts, USA. Tasked with creating an indoor game to keep students active during the cold winter months, Naismith wrote 13 basic rules and nailed a peach basket to an elevated running track. Players attempted to throw a soccer ball into the basket — and basketball was born.</p>
+
+<p>Key milestones:</p>
 <ul>
-  <li>A game is typically played in 4 quarters of 12 minutes each (NBA rules).</li>
-  <li>The court has two hoops — one at each end — and players score by shooting the ball through the opposing team's hoop.</li>
-  <li>Each basket scored inside the arc is worth 2 points, outside the arc is 3 points, and free throws are worth 1 point.</li>
-  <li>Players can move the ball by dribbling (bouncing while running) or passing to teammates.</li>
+  <li><strong>1891</strong> — James Naismith invents basketball with 13 original rules</li>
+  <li><strong>1898</strong> — First professional basketball league formed in the USA</li>
+  <li><strong>1932</strong> — FIBA (Fédération Internationale de Basketball) founded in Geneva</li>
+  <li><strong>1936</strong> — Basketball introduced as an Olympic sport at the Berlin Games</li>
+  <li><strong>1946</strong> — NBA (National Basketball Association) founded</li>
+  <li><strong>1992</strong> — The USA "Dream Team" (featuring Michael Jordan, Magic Johnson, Larry Bird) wins Olympic gold, boosting global interest massively</li>
+  <li><strong>1997</strong> — WNBA (Women’s National Basketball Association) founded</li>
 </ul>
 
-<h2><span class="emoji">🧍‍♂️</span>Player Positions</h2>
-<p>Each player has a unique role on the court:</p>
+<h2>Court Layout and Dimensions</h2>
+
+<table>
+  <tr><th>Feature</th><th>NBA Dimensions</th><th>FIBA Dimensions</th></tr>
+  <tr><td>Court length</td><td>28.65 m (94 ft)</td><td>28 m</td></tr>
+  <tr><td>Court width</td><td>15.24 m (50 ft)</td><td>15 m</td></tr>
+  <tr><td>Three-point line distance</td><td>7.24 m (23.75 ft at top)</td><td>6.75 m</td></tr>
+  <tr><td>Free throw line</td><td>4.57 m from backboard</td><td>4.6 m from backboard</td></tr>
+  <tr><td>Basket height</td><td>3.05 m (10 ft)</td><td>3.05 m (10 ft)</td></tr>
+  <tr><td>Key (paint) width</td><td>4.88 m (16 ft)</td><td>4.9 m</td></tr>
+</table>
+
+<p>Key court areas:</p>
+<ul>
+  <li><strong>The paint (key):</strong> Rectangular area directly below each basket; limits offensive players to 3 seconds inside</li>
+  <li><strong>Three-point arc:</strong> Shots beyond this line are worth 3 points</li>
+  <li><strong>Free throw line:</strong> Where players shoot free throws after certain fouls</li>
+  <li><strong>Half-court line:</strong> Once a team crosses this with the ball, they cannot pass it back (violation = backcourt)</li>
+</ul>
+
+<h2>Scoring System</h2>
+
+<table>
+  <tr><th>Type of Score</th><th>Points</th><th>How It’s Earned</th></tr>
+  <tr><td>Field Goal (inside arc)</td><td>2 points</td><td>Ball enters basket from inside the three-point line</td></tr>
+  <tr><td>Three-pointer</td><td>3 points</td><td>Ball enters basket from beyond the three-point arc (shooter’s feet must be behind the line)</td></tr>
+  <tr><td>Free Throw</td><td>1 point each</td><td>Uncontested shots from the free throw line, awarded after certain fouls</td></tr>
+</table>
+
+<h2>Player Positions</h2>
 
 <table>
   <tr>
     <th>Position</th>
-    <th>Role</th>
-    <th>Example</th>
+    <th>Abbreviation</th>
+    <th>Primary Role</th>
+    <th>Notable Player</th>
   </tr>
   <tr>
     <td><strong>Point Guard</strong></td>
-    <td>Leads the team, handles the ball, sets up plays</td>
-    <td>Stephen Curry</td>
+    <td>PG</td>
+    <td>Floor general — organises offense, distributes the ball, pushes pace</td>
+    <td>Stephen Curry, Magic Johnson</td>
   </tr>
   <tr>
     <td><strong>Shooting Guard</strong></td>
-    <td>Scores from distance, strong in offense</td>
-    <td>Devin Booker</td>
+    <td>SG</td>
+    <td>Primary perimeter scorer; often specialises in three-point shooting</td>
+    <td>Devin Booker, Michael Jordan</td>
   </tr>
   <tr>
     <td><strong>Small Forward</strong></td>
-    <td>Versatile — scores, defends, and rebounds</td>
-    <td>LeBron James</td>
+    <td>SF</td>
+    <td>Versatile — scores inside and outside, defends multiple positions</td>
+    <td>LeBron James, Kevin Durant</td>
   </tr>
   <tr>
     <td><strong>Power Forward</strong></td>
-    <td>Strong in rebounds and inside scoring</td>
-    <td>Giannis Antetokounmpo</td>
+    <td>PF</td>
+    <td>Physical inside scorer; strong rebounder</td>
+    <td>Giannis Antetokounmpo, Karl Malone</td>
   </tr>
   <tr>
     <td><strong>Center</strong></td>
-    <td>Tallest player — blocks shots, scores close to the basket</td>
-    <td>Joel Embiid</td>
+    <td>C</td>
+    <td>Tallest player; rim protector, interior scorer, sets screens</td>
+    <td>Joel Embiid, Shaquille O’Neal</td>
   </tr>
 </table>
 
-<h2><span class="emoji">🏆</span>Major Basketball Leagues</h2>
+<h2>Basic Skills</h2>
+
+<h3>Dribbling</h3>
+<p>Players must dribble (bounce the ball continuously on the floor) while moving. Key techniques:</p>
 <ul>
-  <li><strong>NBA</strong> (USA) – The most popular and competitive league in the world.</li>
-  <li><strong>WNBA</strong> – Women’s National Basketball Association.</li>
-  <li><strong>FIBA World Cup</strong> – International competition for national teams.</li>
-  <li><strong>EuroLeague</strong> – Top professional league in Europe.</li>
+  <li><strong>Crossover:</strong> Quickly transferring the ball from one hand to the other in front of the body to change direction and beat a defender</li>
+  <li><strong>Behind-the-back:</strong> Passing the ball behind the body while dribbling to switch hands while protecting the ball</li>
+  <li><strong>Euro step:</strong> Two-step move to avoid a defender while driving to the basket (two steps allowed after gathering the ball)</li>
 </ul>
 
-<h2><span class="emoji">💪</span>Core Skills in Basketball</h2>
+<h3>Passing</h3>
 <ul>
-  <li><strong>Dribbling:</strong> Moving the ball while maintaining control.</li>
-  <li><strong>Shooting:</strong> Putting the ball in the hoop.</li>
-  <li><strong>Passing:</strong> Moving the ball between teammates.</li>
-  <li><strong>Rebounding:</strong> Grabbing the ball after a missed shot.</li>
-  <li><strong>Defense:</strong> Preventing the other team from scoring.</li>
+  <li><strong>Chest pass</strong> — fast, two-handed pass from the chest; most common in open play</li>
+  <li><strong>Bounce pass</strong> — bounced off the floor, useful when defenders have their hands up</li>
+  <li><strong>Overhead pass</strong> — two-handed pass above the head; useful for longer distances</li>
+  <li><strong>No-look pass</strong> — looking away from the target to deceive defenders</li>
 </ul>
 
-<h2><span class="emoji">📋</span>Common Terms and Violations</h2>
+<h3>Shooting</h3>
+<ul>
+  <li><strong>Jump shot:</strong> Player jumps and releases ball at the peak of their jump</li>
+  <li><strong>Layup:</strong> Close-range shot using the backboard after approaching the basket; uses two steps</li>
+  <li><strong>Slam dunk:</strong> Powerful downward thrust of the ball through the hoop — requires jumping ability</li>
+  <li><strong>Free throw:</strong> Stationary shot from the free throw line, released with one or two hands</li>
+</ul>
+
+<h3>Rebounding</h3>
+<p>Securing possession of the ball after a missed shot. <strong>Offensive rebounds</strong> give the attacking team a second chance; <strong>defensive rebounds</strong> end the opponent’s possession. Boxing out (positioning body between opponent and the basket) is the key technique.</p>
+
+<h2>NBA vs FIBA Rules Comparison</h2>
+
 <table>
-  <tr>
-    <th>Term</th>
-    <th>Meaning</th>
-  </tr>
-  <tr>
-    <td><strong>Traveling</strong></td>
-    <td>Moving without dribbling the ball</td>
-  </tr>
-  <tr>
-    <td><strong>Double Dribble</strong></td>
-    <td>Stopping and starting dribble again</td>
-  </tr>
-  <tr>
-    <td><strong>Foul</strong></td>
-    <td>Illegal physical contact with an opponent</td>
-  </tr>
-  <tr>
-    <td><strong>Shot Clock</strong></td>
-    <td>Time limit (usually 24 seconds) to attempt a shot</td>
-  </tr>
+  <tr><th>Rule Area</th><th>NBA</th><th>FIBA (International)</th></tr>
+  <tr><td>Game duration</td><td>4 × 12 min quarters</td><td>4 × 10 min quarters</td></tr>
+  <tr><td>Shot clock</td><td>24 seconds (14 on offensive rebound)</td><td>24 seconds (14 on offensive rebound)</td></tr>
+  <tr><td>Three-point line</td><td>7.24 m (corner: 6.71 m)</td><td>6.75 m uniform</td></tr>
+  <tr><td>Restricted area (no-charge zone)</td><td>1.22 m radius</td><td>1.25 m radius</td></tr>
+  <tr><td>Team fouls per quarter</td><td>6 (free throws from 7th)</td><td>5 (free throws from 6th)</td></tr>
+  <tr><td>Goaltending</td><td>Ball cannot be touched once it’s on the way down toward the hoop</td><td>Ball can be touched once it hits the rim (cylinder rule)</td></tr>
 </table>
 
-<h2><span class="emoji">📊</span>Scoring Overview</h2>
-<ul>
-  <li><strong>Field Goal:</strong> 2 points (inside arc) or 3 points (outside arc)</li>
-  <li><strong>Free Throw:</strong> 1 point, awarded after certain fouls</li>
-</ul>
+<h2>Notable African and Nigerian Players</h2>
 
-<h2><span class="emoji">🧠</span>Concept Check</h2>
-<ul>
-  <li>What is the role of a Point Guard?</li>
-  <li>How many points is a shot made from outside the arc?</li>
-  <li>What happens if a player double dribbles?</li>
-</ul>
-
-<h2><span class="emoji">💡</span>Summary</h2>
-<ul>
-  <li>Basketball is a fast-paced, team-oriented sport with global popularity.</li>
-  <li>It involves 5 players per team on the court.</li>
-  <li>Skills include dribbling, passing, shooting, and defending.</li>
-  <li>Understanding positions and rules helps improve gameplay and enjoyment.</li>
-</ul>
+<table>
+  <tr><th>Player</th><th>Country</th><th>Position</th><th>Achievement</th></tr>
+  <tr><td><strong>Hakeem Olajuwon</strong></td><td>Nigeria</td><td>Center</td><td>2× NBA Champion (1994, 1995); NBA MVP (1994); Hall of Fame. Considered one of the greatest centres of all time.</td></tr>
+  <tr><td><strong>Al-Farouq Aminu</strong></td><td>Nigeria</td><td>Small Forward</td><td>Long NBA career with multiple teams; known for strong defence</td></tr>
+  <tr><td><strong>Giannis Antetokounmpo</strong></td><td>Greece (of Nigerian descent)</td><td>Power Forward</td><td>2× NBA MVP; 2021 NBA Champion and Finals MVP; one of the best current players</td></tr>
+  <tr><td><strong>Luol Deng</strong></td><td>Sudan/UK</td><td>Small Forward</td><td>2× NBA All-Star; played 14 NBA seasons</td></tr>
+  <tr><td><strong>Serge Ibaka</strong></td><td>Congo/Spain</td><td>Center/Power Forward</td><td>3× NBA All-Defensive Team; 2019 NBA Champion</td></tr>
+</table>
 
 <div class="highlight">
-  <p>Practice Tip: Grab a ball and try basic dribbling, layups, and shooting drills to build your confidence!</p>
+  <strong>Nigerian Basketball:</strong> Nigeria’s national basketball teams (D’Tigers for men, D’Tigress for women) have grown significantly in recent years. In 2021, the D’Tigers defeated USA, Argentina, and Australia in pre-Olympic warm-up games — a landmark achievement for African basketball. The D’Tigress reached the 2020 Olympics and were the first African team to qualify for the FIBA Women’s Basketball World Cup.
 </div>
+
+<h2>Summary</h2>
+<table>
+  <tr><th>Topic</th><th>Key Points</th></tr>
+  <tr><td>Invention</td><td>James Naismith, 1891, Springfield Massachusetts USA</td></tr>
+  <tr><td>Team size</td><td>5 players per side on court; up to 13 on roster</td></tr>
+  <tr><td>Scoring</td><td>2pts (inside arc), 3pts (beyond arc), 1pt (free throw)</td></tr>
+  <tr><td>Duration (NBA)</td><td>4 × 12 min quarters; FIBA: 4 × 10 min</td></tr>
+  <tr><td>Shot clock</td><td>24 seconds to attempt a shot</td></tr>
+  <tr><td>Nigeria’s greatest</td><td>Hakeem Olajuwon — 2× NBA champion, Hall of Fame inductee</td></tr>
+</table>
 <div id="live-file-panel" style="display:none;margin:20px 0;padding:16px;border:1px solid #ddd;border-radius:6px;background:#f9f9f9;">
   <strong>Live File</strong>
   <div id="live-file-content" style="margin-top:8px;color:#555;"></div>

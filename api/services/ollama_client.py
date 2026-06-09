@@ -12,19 +12,21 @@ class OllamaClient:
         prompt: str,
         system: str = "",
         temperature: float = 0.3,
-        max_tokens: int = 300,
+        max_tokens: int = 80,
     ) -> str:
         payload = {
             "model": self.model,
             "prompt": prompt,
-            "temperature": temperature,
-            "max_tokens": max_tokens,
             "stream": False,
+            "options": {
+                "temperature": temperature,
+                "num_predict": max_tokens,
+            },
         }
         if system:
             payload["system"] = system
 
-        async with httpx.AsyncClient(timeout=60) as client:
+        async with httpx.AsyncClient(timeout=120) as client:
             resp = await client.post(f"{self.base_url}/api/generate", json=payload)
             resp.raise_for_status()
             data = resp.json()

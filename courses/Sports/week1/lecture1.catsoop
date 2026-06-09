@@ -1,186 +1,169 @@
 
 <python>
-cs_content_header = "Introduction to Football (Soccer)"
+cs_content_header = "Lecture 1: Introduction to Football (Soccer)"
 </python>
 
 <style>
-  h1, h2, h3 {
-      color: #333;
-  }
-  h1 {
-      border-bottom: 3px solid #007acc;
-      padding-bottom: 10px;
-  }
-  h2 {
-      color: #007acc;
-      margin-top: 30px;
-  }
-  .highlight {
-      background-color: #e7f3ff;
-      border-left: 4px solid #007acc;
-      padding: 15px;
-      margin: 20px 0;
-      border-radius: 5px;
-  }
-  .highlight p {
-      margin: 0;
-      font-weight: bold;
-      color: #005580;
-  }
-  table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 20px 0;
-  }
-  th, td {
-      border: 1px solid #ddd;
-      padding: 12px;
-      text-align: left;
-  }
-  th {
-      background-color: #007acc;
-      color: white;
-  }
-  tr:nth-child(even) {
-      background-color: #f2f2f2;
-  }
-  code {
-      background-color: #f4f4f4;
-      padding: 2px 6px;
-      border-radius: 3px;
-      font-family: 'Courier New', monospace;
-      color: #d63384;
-  }
-  .emoji {
-      font-size: 1.2em;
-      margin-right: 8px;
-  }
-  ul, ol {
-      margin: 15px 0;
-  }
-  li {
-      margin: 8px 0;
-  }
+h1,h2,h3{color:#333;}
+h1{border-bottom:3px solid #2572F5;padding-bottom:10px;}
+h2{color:#2572F5;margin-top:30px;}
+.highlight{background:#e7f3ff;border-left:4px solid #2572F5;padding:15px;margin:20px 0;border-radius:5px;}
+table{width:100%;border-collapse:collapse;margin:20px 0;}
+th,td{border:1px solid #ddd;padding:12px;text-align:left;}
+th{background:#2572F5;color:white;}
+tr:nth-child(even){background:#f2f2f2;}
+code{background:#f4f4f4;padding:2px 6px;border-radius:3px;color:#d63384;}
+pre{background:#f4f4f4;padding:16px;border-radius:6px;overflow-x:auto;}
 </style>
 
 <h1>Introduction to Football (Soccer)</h1>
 
-<p><strong>Football</strong>, commonly referred to as <strong>soccer</strong> in some countries, is the most popular sport in the world. In the UK and most of the world, it's simply called football. It’s a team sport played between two teams of 11 players with the objective of scoring more goals than the opponent.</p>
+<p><strong>Football</strong> (known as soccer in the United States and Canada) is the most widely played and watched sport in the world. An estimated 4 billion people follow the sport, and over 265 million people actively play it. In Nigeria and across Africa, football is far more than a game — it is a cultural phenomenon that brings communities together and inspires national pride.</p>
 
-<div class="highlight">
-  <p>Football is a game of passion, strategy, teamwork, and skill.</p>
-</div>
+<h2>History of Football</h2>
 
-<h2><span class="emoji">⚽</span>Basic Rules of Football</h2>
-<ul>
-  <li>The match is played in two halves of 45 minutes each, with a 15-minute halftime break.</li>
-  <li>The ball is in play as long as it stays within the field boundaries.</li>
-  <li>Only the goalkeeper can use their hands, and only within their penalty area.</li>
-  <li>Fouls, offsides, and handballs are penalised with free kicks, penalties, or cards.</li>
-</ul>
+<p>Versions of football-like games date back thousands of years. Ancient Chinese military texts describe a game called <em>cuju</em> around 200 BC in which players kicked a ball into a net. Similar games were played in ancient Greece, Rome, and Mesoamerica.</p>
 
-<h2><span class="emoji">🧍‍♂️</span>Player Positions</h2>
-<p>Each team fields 11 players in different roles:</p>
+<p>The modern game of football was codified in <strong>England in 1863</strong> when the Football Association (FA) was founded in London and the first standardised rules were written. The first international match took place between England and Scotland in 1872. FIFA (Fédération Internationale de Football Association) was founded in Paris in <strong>1904</strong> to govern the sport globally.</p>
+
+<p>The first FIFA World Cup was held in <strong>Uruguay in 1930</strong>. Today it is the most watched single sporting event in the world, with over 3.5 billion viewers for the 2018 final.</p>
+
+<h2>FIFA Laws of the Game</h2>
+
+<p>Football is governed by <strong>17 Laws of the Game</strong>, maintained by the International Football Association Board (IFAB). Here are the most important ones:</p>
+
+<table>
+  <tr><th>Law</th><th>Summary</th></tr>
+  <tr><td>Law 1 — The Field of Play</td><td>Rectangular grass or artificial turf field, 90–120 m long, 45–90 m wide. Goal: 7.32 m wide, 2.44 m high. Penalty area: 16.5 m from goal line on each side.</td></tr>
+  <tr><td>Law 2 — The Ball</td><td>Spherical, circumference 68–70 cm, mass 410–450 g</td></tr>
+  <tr><td>Law 3 — The Players</td><td>Each team has 11 players including the goalkeeper. A minimum of 7 must be on the field. 3 substitutions allowed (up to 5 in some competitions).</td></tr>
+  <tr><td>Law 5 — The Referee</td><td>Has full authority to enforce the Laws. Decision is final. VAR (Video Assistant Referee) assists with major decisions.</td></tr>
+  <tr><td>Law 7 — Duration of the Match</td><td>Two equal halves of 45 minutes with a 15-minute half-time interval. Injury time (stoppage time) is added by the referee.</td></tr>
+  <tr><td>Law 10 — Determining the Outcome</td><td>A goal is scored when the whole ball crosses the goal line between the goalposts and under the crossbar.</td></tr>
+  <tr><td>Law 11 — Offside</td><td>A player is offside if any part of the body used to play the ball is in the opponent’s half AND nearer to the goal line than both the ball and the second-last defender when the ball is played to them.</td></tr>
+  <tr><td>Law 12 — Fouls and Misconduct</td><td>Direct free kicks for handling, tripping, pushing, etc. Indirect free kicks for offside, dangerous play. Yellow card (caution); Red card (dismissal).</td></tr>
+  <tr><td>Law 14 — The Penalty Kick</td><td>Awarded for a direct free-kick offence inside the penalty area. Taken from the penalty spot (11 m from goal). All other players must be outside the penalty area.</td></tr>
+</table>
+
+<h2>Player Positions and Roles</h2>
 
 <table>
   <tr>
     <th>Position</th>
-    <th>Role</th>
-    <th>Example</th>
+    <th>Number</th>
+    <th>Primary Role</th>
+    <th>Key Skills Required</th>
   </tr>
   <tr>
-    <td><strong>Goalkeeper</strong></td>
-    <td>Stops the ball from entering the goal</td>
-    <td>Alisson (Liverpool)</td>
+    <td><strong>Goalkeeper (GK)</strong></td>
+    <td>1</td>
+    <td>Prevent the ball from entering the goal; organise the defence</td>
+    <td>Reflexes, shot-stopping, command of the area, distribution</td>
   </tr>
   <tr>
-    <td><strong>Defenders</strong></td>
-    <td>Protect the goal and stop attacks</td>
-    <td>Ruben Dias (Manchester City)</td>
+    <td><strong>Centre-Back (CB)</strong></td>
+    <td>2</td>
+    <td>Shield the goal, win aerial duels, intercept attacks</td>
+    <td>Tackling, heading, positioning, communication</td>
   </tr>
   <tr>
-    <td><strong>Midfielders</strong></td>
-    <td>Link defense and attack, control the game</td>
-    <td>Kevin De Bruyne (Manchester City)</td>
+    <td><strong>Full-Back / Wing-Back (LB/RB)</strong></td>
+    <td>2</td>
+    <td>Cover the flanks defensively and provide width in attack</td>
+    <td>Pace, crossing, defensive discipline</td>
   </tr>
   <tr>
-    <td><strong>Forwards</strong></td>
-    <td>Score goals and lead attacks</td>
-    <td>Harry Kane (Bayern Munich, formerly Spurs)</td>
+    <td><strong>Defensive Midfielder (DM)</strong></td>
+    <td>1</td>
+    <td>Break up opposition attacks, protect the back four</td>
+    <td>Tackling, positioning, passing range</td>
+  </tr>
+  <tr>
+    <td><strong>Central Midfielder (CM)</strong></td>
+    <td>1–2</td>
+    <td>Link defence and attack; control tempo</td>
+    <td>Vision, passing, work rate, decision-making</td>
+  </tr>
+  <tr>
+    <td><strong>Attacking Midfielder / Winger (AM/W)</strong></td>
+    <td>1–2</td>
+    <td>Create goal-scoring opportunities; provide assists</td>
+    <td>Dribbling, creativity, final pass, pace</td>
+  </tr>
+  <tr>
+    <td><strong>Centre Forward / Striker (ST)</strong></td>
+    <td>1</td>
+    <td>Score goals; hold up play; create space for teammates</td>
+    <td>Finishing, movement, strength, aerial ability</td>
   </tr>
 </table>
 
-<h2><span class="emoji">🏟️</span>Famous Football Competitions</h2>
+<h2>Basic Skills in Football</h2>
+
+<h3>1. Dribbling</h3>
+<p>Dribbling is moving the ball while maintaining control, using small touches with the inside, outside, or sole of the foot. Effective dribbling requires close ball control, change of direction, and quick acceleration. World-class dribblers create opportunities by beating defenders one-on-one.</p>
+
+<h3>2. Passing</h3>
+<p>Passing is the primary mechanism for moving the ball forward and maintaining possession. Key types:</p>
 <ul>
-  <li><strong>Premier League</strong> – Top division of English football.</li>
-  <li><strong>FA Cup</strong> – Oldest football competition in the world.</li>
-  <li><strong>UEFA Champions League</strong> – Top clubs from across Europe compete.</li>
-  <li><strong>FIFA World Cup</strong> – International teams every four years.</li>
+  <li><strong>Short pass</strong> — ground pass to a nearby teammate, typically with the inside of the foot</li>
+  <li><strong>Through ball</strong> — a pass played into the space behind defenders for a teammate to run onto</li>
+  <li><strong>Long pass / cross</strong> — a long aerial ball, usually from wide positions to the penalty area</li>
+  <li><strong>Backheel</strong> — a deceptive pass played with the heel</li>
 </ul>
 
-<h2><span class="emoji">🏆</span>Popular UK Football Clubs</h2>
+<h3>3. Shooting</h3>
+<p>Shooting technique is critical for goal-scoring. Key principles: plant foot beside the ball, strike through the centre of the ball, follow through. Accuracy is generally more valuable than power at close range.</p>
+
+<h3>4. Heading</h3>
+<p>Heading is used to control, clear, or direct the ball using the forehead. Proper technique involves timing the jump, watching the ball, and using the neck muscles to generate power and accuracy.</p>
+
+<h3>5. Defensive Skills (Tackling, Marking, Pressing)</h3>
+<ul>
+  <li><strong>Slide tackle</strong> — used to dispossess an opponent, requires good timing to avoid a foul</li>
+  <li><strong>Marking</strong> — tracking an opponent to deny them time and space</li>
+  <li><strong>Pressing</strong> — applying immediate pressure on the ball-carrier to force errors</li>
+</ul>
+
+<h2>Physical Fitness Requirements for Footballers</h2>
+
 <table>
-  <tr>
-    <th>Club</th>
-    <th>City</th>
-    <th>Stadium</th>
-  </tr>
-  <tr>
-    <td><strong>Manchester United</strong></td>
-    <td>Manchester</td>
-    <td>Old Trafford</td>
-  </tr>
-  <tr>
-    <td><strong>Liverpool FC</strong></td>
-    <td>Liverpool</td>
-    <td>Anfield</td>
-  </tr>
-  <tr>
-    <td><strong>Chelsea FC</strong></td>
-    <td>London</td>
-    <td>Stamford Bridge</td>
-  </tr>
-  <tr>
-    <td><strong>Arsenal FC</strong></td>
-    <td>London</td>
-    <td>Emirates Stadium</td>
-  </tr>
+  <tr><th>Fitness Component</th><th>Relevance to Football</th></tr>
+  <tr><td><strong>Cardiovascular Endurance</strong></td><td>Elite players cover 10–13 km per match. High aerobic capacity allows sustained performance.</td></tr>
+  <tr><td><strong>Speed and Acceleration</strong></td><td>Sprinting for the ball, beating defenders, tracking runners.</td></tr>
+  <tr><td><strong>Strength</strong></td><td>Winning physical duels, shielding the ball, aerial contests.</td></tr>
+  <tr><td><strong>Agility and Balance</strong></td><td>Quick directional changes when dribbling or defending.</td></tr>
+  <tr><td><strong>Flexibility</strong></td><td>Reduces injury risk; important for goalkeepers diving at full stretch.</td></tr>
+  <tr><td><strong>Mental Resilience</strong></td><td>Decision-making under pressure, concentration over 90 minutes.</td></tr>
 </table>
 
-<h2><span class="emoji">🔁</span>Basic Skills in Football</h2>
-<ul>
-  <li><strong>Passing:</strong> Moving the ball to a teammate.</li>
-  <li><strong>Shooting:</strong> Attempting to score a goal.</li>
-  <li><strong>Dribbling:</strong> Controlling the ball while moving.</li>
-  <li><strong>Tackling:</strong> Attempting to take the ball from an opponent.</li>
-  <li><strong>Positioning:</strong> Being in the right place at the right time.</li>
-</ul>
+<h2>Nigeria’s Football History</h2>
 
-<h2><span class="emoji">📣</span>Key Terms You Should Know</h2>
-<ul>
-  <li><strong>Offside:</strong> A player is closer to the opponent’s goal line than the ball and second-last defender when the ball is passed to them.</li>
-  <li><strong>Penalty Kick:</strong> Awarded for serious fouls inside the penalty area.</li>
-  <li><strong>Corner Kick:</strong> Given when the ball crosses the goal line after being last touched by a defender.</li>
-  <li><strong>Yellow/Red Card:</strong> Used to discipline players for fouls and misconduct.</li>
-</ul>
+<p>Nigeria has one of the richest football histories in Africa:</p>
 
-<h2><span class="emoji">🧠</span>Concept Check</h2>
 <ul>
-  <li>What happens if the goalkeeper handles the ball outside the penalty area?</li>
-  <li>Which team has won the most Premier League titles?</li>
-</ul>
-
-<h2><span class="emoji">💡</span>Summary</h2>
-<ul>
-  <li>Football is a globally loved sport with simple rules and deep strategy.</li>
-  <li>Each team has 11 players with different roles.</li>
-  <li>Key competitions include the Premier League and Champions League.</li>
-  <li>Skills like passing, dribbling, and shooting are essential.</li>
+  <li>The <strong>Super Eagles</strong> (Nigeria’s national men’s team) have qualified for the FIFA World Cup six times (1994, 1998, 2002, 2010, 2014, 2018).</li>
+  <li>At the <strong>1994 World Cup</strong> in the USA, Nigeria’s "Dream Team" won the Group D stage and became the darlings of the tournament, with players like Rashidi Yekini (who scored Nigeria’s first ever World Cup goal), Emmanuel Amuneke, Jay-Jay Okocha, and Daniel Amokachi.</li>
+  <li>Nigeria won the <strong>Olympic Gold Medal</strong> in football at the <strong>1996 Atlanta Olympics</strong>, defeating Argentina and Brazil on the way — widely considered the greatest moment in Nigerian football history.</li>
+  <li>The <strong>Super Falcons</strong> (Nigeria’s national women’s team) have won the Africa Women Cup of Nations a record 11 times and are consistently one of the top women’s teams in Africa.</li>
+  <li>Notable Nigerian players who have excelled globally include: <strong>Jay-Jay Okocha</strong> (widely regarded as one of Africa’s greatest players of all time), <strong>Nwankwo Kanu</strong> (two-time African Footballer of the Year), <strong>Vincent Enyeama</strong> (one of the top goalkeepers in the world in his prime), <strong>Ahmed Musa</strong>, <strong>John Obi Mikel</strong>, and <strong>Victor Osimhen</strong> (currently one of Europe’s top strikers).</li>
 </ul>
 
 <div class="highlight">
-  <p>Practice Tip: Watch Premier League highlights to see how professional players use tactics and teamwork!</p>
+  <strong>Key Takeaway:</strong> Football is a sport of 11 individuals working as one unit. Technical skill matters — but so does physical fitness, tactical intelligence, teamwork, and mental strength. Nigeria’s football history demonstrates that with passion, talent, and organisation, African teams can compete at the highest levels of world football.
 </div>
+
+<h2>Summary</h2>
+<table>
+  <tr><th>Topic</th><th>Key Points</th></tr>
+  <tr><td>History</td><td>Codified in England 1863; FIFA founded 1904; first World Cup 1930</td></tr>
+  <tr><td>Team Size</td><td>11 players per side; minimum 7 to play</td></tr>
+  <tr><td>Duration</td><td>2 × 45 min + stoppage time; extra time and penalties if needed</td></tr>
+  <tr><td>Field</td><td>90–120 m long, 45–90 m wide; goal 7.32 m × 2.44 m</td></tr>
+  <tr><td>Offside</td><td>Beyond second-last defender when ball is played forward</td></tr>
+  <tr><td>Cards</td><td>Yellow = caution; Red = dismissal; two yellows = red</td></tr>
+  <tr><td>Nigeria</td><td>6× World Cup; 1996 Olympic Gold; Super Falcons 11× AWCON</td></tr>
+</table>
 <div id="live-file-panel" style="display:none;margin:20px 0;padding:16px;border:1px solid #ddd;border-radius:6px;background:#f9f9f9;">
   <strong>Live File</strong>
   <div id="live-file-content" style="margin-top:8px;color:#555;"></div>

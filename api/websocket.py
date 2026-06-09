@@ -1,4 +1,11 @@
-from fastapi import APIRouter, WebSocket, WebSocketDisconnect
+import json
+import logging
+
+from fastapi import APIRouter, WebSocket, WebSocketDisconnect, status
+
+from .auth import decode_token, SECRET
+
+logger = logging.getLogger(__name__)
 
 
 class ConnectionManager:
@@ -7,6 +14,11 @@ class ConnectionManager:
 
     async def connect(self, websocket: WebSocket, room: str):
         await websocket.accept()
+        if room not in self.rooms:
+            self.rooms[room] = []
+        self.rooms[room].append(websocket)
+
+    def join_room(self, websocket: WebSocket, room: str):
         if room not in self.rooms:
             self.rooms[room] = []
         self.rooms[room].append(websocket)
@@ -38,12 +50,29 @@ def get_router() -> APIRouter:
 
     @router.websocket("/ws")
     async def websocket_endpoint(websocket: WebSocket):
+        token = websocket.query_params.get("token")
+        if not token or not SECRET:
+            await websocket.close(code=status.WS_1008_POLICY_VIOLATION)
+            return
+        try:
+            from jwt import decode as _jwt_decode, InvalidTokenError, ExpiredSignatureError
+            claims = _jwt_decode(token, SECRET, algorithms=["HS256"])
+        except Exception as e:
+            logger.info("WS auth rejected: %s", e)
+            await websocket.close(code=status.WS_1008_POLICY_VIOLATION)
+            return
+
+        ws_username = str(claims.get("sub") or "")
+        ws_is_admin = bool(claims.get("is_admin"))
+        if not ws_username:
+            await websocket.close(code=status.WS_1008_POLICY_VIOLATION)
+            return
+
         room = "global"
         await manager.connect(websocket, room)
         try:
             while True:
                 data = await websocket.receive_text()
-                import json
                 try:
                     msg = json.loads(data)
                 except json.JSONDecodeError:
@@ -53,20 +82,23 @@ def get_router() -> APIRouter:
                 msg_type = msg.get("type", "")
                 msg_room = msg.get("room", room)
 
+                # All identity fields on outbound messages come from the verified
+                # token, not from the client message — prevents impersonation.
+
                 if msg_type == "JOIN":
                     manager.disconnect(websocket, room)
-                    room = msg_room
-                    await manager.connect(websocket, room)
+                    room = str(msg_room)
+                    manager.join_room(websocket, room)
                     await manager.broadcast(room, json.dumps({
                         "type": "STUDENT_JOIN",
-                        "username": msg.get("username", "unknown"),
+                        "username": ws_username,
                         "room": room,
                     }))
 
                 elif msg_type == "LEAVE":
                     await manager.broadcast(room, json.dumps({
                         "type": "STUDENT_LEAVE",
-                        "username": msg.get("username", "unknown"),
+                        "username": ws_username,
                         "room": room,
                     }))
                     manager.disconnect(websocket, room)
@@ -75,7 +107,7 @@ def get_router() -> APIRouter:
                 elif msg_type == "SUBMISSION":
                     await manager.broadcast(room, json.dumps({
                         "type": "SUBMISSION",
-                        "username": msg.get("username", "unknown"),
+                        "username": ws_username,
                         "score": msg.get("score"),
                         "question": msg.get("question"),
                         "room": room,
@@ -84,7 +116,7 @@ def get_router() -> APIRouter:
                 elif msg_type == "AFFECT_CHANGE":
                     await manager.broadcast(room, json.dumps({
                         "type": "AFFECT_CHANGE",
-                        "username": msg.get("username", "unknown"),
+                        "username": ws_username,
                         "affect_state": msg.get("affect_state", "unknown"),
                         "room": room,
                     }))
@@ -92,12 +124,15 @@ def get_router() -> APIRouter:
                 elif msg_type == "HINT_USED":
                     await manager.broadcast(room, json.dumps({
                         "type": "HINT_USED",
-                        "username": msg.get("username", "unknown"),
+                        "username": ws_username,
                         "hint_level": msg.get("hint_level", 1),
                         "room": room,
                     }))
 
                 elif msg_type == "PUSH_HINT":
+                    if not ws_is_admin:
+                        await websocket.send_text('{"error":"admin only"}')
+                        continue
                     await manager.broadcast(room, json.dumps({
                         "type": "PUSH_HINT",
                         "target_username": msg.get("target_username"),
@@ -106,21 +141,34 @@ def get_router() -> APIRouter:
                     }))
 
                 elif msg_type == "INSTRUCTOR_MESSAGE":
+                    if not ws_is_admin:
+                        await websocket.send_text('{"error":"admin only"}')
+                        continue
                     await manager.broadcast(room, json.dumps({
                         "type": "INSTRUCTOR_MESSAGE",
                         "text": msg.get("text", ""),
                         "room": room,
                     }))
 
+                elif msg_type == "QUIZ_DONE":
+                    await manager.broadcast(room, json.dumps({
+                        "type": "QUIZ_DONE",
+                        "username": ws_username,
+                        "room": room,
+                        "timestamp": msg.get("timestamp", ""),
+                    }))
+
                 elif msg_type == "NEW_SUBMISSION":
                     await manager.broadcast(room, json.dumps({
                         "type": "NEW_SUBMISSION",
-                        "student": msg.get("student", "unknown"),
+                        "student": ws_username,
                         "room": room,
                     }))
 
                 else:
-                    await websocket.send_text(f'{{"echo": {data}}}')
+                    # Echo-back for unknown types is removed: it was a vector for
+                    # echoing attacker-controlled payloads back into the room.
+                    await websocket.send_text('{"error":"unknown message type"}')
 
         except WebSocketDisconnect:
             manager.disconnect(websocket, room)

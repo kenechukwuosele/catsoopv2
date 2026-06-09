@@ -1,15 +1,11 @@
 <python>
-cs_content_header = "Week 1: Introduction"
+cs_content_header = "Week 1: Introduction to Physics & Kinematics"
 </python>
 
-Welcome to the first week of our course! In this section, you'll learn about:
-
-* Course objectives
-* Learning approach
-* Assessment methods
+<p>This week introduces the discipline of physics and its relevance to everyday life. We survey the major branches of physics and then dive into <strong>kinematics</strong> — the mathematical description of motion. You will learn how to describe position, velocity, and acceleration quantitatively, use the kinematic equations for constant acceleration, and apply these tools to free-fall problems and motion graphs.</p>
 
 ## Learning Materials
 
 * [Lecture Notes](week1/lecture1)
-* [Practice Problem](week1/problem1)
+* [Practice Problems](week1/problem1)
 * [Quiz](week1/example_questions)

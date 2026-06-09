@@ -1,0 +1,327 @@
+<python>
+import os
+cs_content_type = 'text/html'
+cs_content_header = "Question Manager"
+role = cs_user_info["role"]
+username = cs_username
+print(f'<script>var userRole = "{role}";</script>')
+print(f'<script>var userName = "{username}";</script>')
+</python>
+
+<style>
+h1,h2,h3{color:#2c3e50;}
+button{background:#4CAF50;color:white;padding:10px 15px;border:none;border-radius:4px;cursor:pointer;margin:5px 0;font-size:14px;}
+button:hover{background:#45a049;}
+button:disabled{background:#ccc;cursor:not-allowed;}
+input[type="text"],textarea,select{width:100%;padding:8px;margin:5px 0;border:1px solid #ccc;border-radius:4px;box-sizing:border-box;}
+.option-input{display:flex;margin-bottom:5px;}
+.option-input input[type="text"]{flex-grow:1;margin-right:10px;}
+.question-block{border:1px solid #ddd;padding:15px;margin-bottom:15px;border-radius:5px;background:white;}
+.tab{overflow:hidden;border:1px solid #ccc;background:#f1f1f1;border-radius:5px 5px 0 0;}
+.tab button{background:inherit;float:left;border:none;outline:none;cursor:pointer;padding:14px 16px;transition:0.3s;color:#333;}
+.tab button:hover{background:#ddd;}
+.tab button.active{background:#4CAF50;color:white;}
+.tabcontent{display:none;padding:20px;border:1px solid #ccc;border-top:none;border-radius:0 0 5px 5px;}
+.hint-section{margin-top:10px;padding:12px;border:1px solid #eee;border-radius:4px;background:#fafafa;}
+.hint-section summary{cursor:pointer;color:#f59e0b;font-weight:600;}
+.hint-textarea{width:100%;padding:6px;margin:4px 0;border:1px solid #ddd;border-radius:3px;font-size:0.9em;}
+.ie-section{margin-bottom:24px;padding:16px;border:1px solid #ddd;border-radius:5px;background:#f9f9f9;}
+.ie-status{margin-top:10px;font-size:0.9em;color:#555;}
+.ie-preview{margin-top:10px;padding:12px;border:1px solid #eee;border-radius:4px;background:#fff;font-size:0.88em;}
+.ie-preview table{width:100%;border-collapse:collapse;margin:6px 0;}
+.ie-preview td,.ie-preview th{padding:4px 8px;border:1px solid #eee;text-align:left;font-size:0.95em;}
+.progress-bar{width:100%;height:8px;background:#e0e0e0;border-radius:4px;margin:8px 0;overflow:hidden;}
+.progress-fill{height:100%;background:#4CAF50;transition:width 0.3s;}
+#gradesTable{width:100%;border-collapse:collapse;}
+#gradesTable th,#gradesTable td{padding:10px;border:1px solid #ddd;text-align:center;}
+#gradesTable th{background:#2c3e50;color:white;}
+.student-redirect{text-align:center;padding:60px 20px;}
+</style>
+
+<div id="student-redirect" class="student-redirect" style="display:none;">
+  <h2>Ready to take the quiz?</h2>
+  <p style="color:#555;margin-bottom:20px;">This page is the instructor question manager. Click below to go to the quiz.</p>
+  <a href="/Physics/week4/quiz" style="background:#4CAF50;color:white;padding:14px 36px;border-radius:6px;text-decoration:none;font-size:1.1em;">Go to Quiz →</a>
+</div>
+
+<div id="instructor-ui" style="display:none;">
+  <div class="tab">
+    <button class="tablinks active" onclick="openTab(event,'createTab')">Create Questions</button>
+    <button class="tablinks" onclick="openTab(event,'importExportTab')">Import / Export</button>
+    <button class="tablinks" onclick="openTab(event,'gradesTab')">Student Grades</button>
+  </div>
+
+  <div id="createTab" class="tabcontent" style="display:block;">
+    <h2>Create Quiz Question</h2>
+    <textarea id="questionText" rows="3" placeholder="Question text"></textarea>
+    <select id="questionType" onchange="handleTypeChange()">
+      <option value="multiple-choice">Multiple Choice</option>
+      <option value="checkbox">Multiple Select</option>
+      <option value="short-answer">Short Answer</option>
+    </select>
+    <div id="options-container">
+      <div id="optionsGroup">
+        <div class="option-input"><input type="text" placeholder="Option 1" class="option-text"><input type="radio" name="correctOption" class="correctOption" checked><label>Correct</label></div>
+        <div class="option-input"><input type="text" placeholder="Option 2" class="option-text"><input type="radio" name="correctOption" class="correctOption"><label>Correct</label></div>
+      </div>
+      <button type="button" onclick="addOption()">Add Option</button>
+    </div>
+    <div id="short-answer-container" style="display:none;">
+      <input type="text" id="shortAnswer" placeholder="Correct answer">
+    </div>
+    <details class="hint-section">
+      <summary>Hints (optional)</summary>
+      <div id="hints-form-container"></div>
+      <button type="button" onclick="addHintField()" style="font-size:0.85em;background:#f59e0b;margin-top:4px;">+ Add Hint</button>
+    </details>
+    <button type="button" onclick="addQuestion(event)">Add Question</button>
+    <button type="button" onclick="clearForm()">Clear</button>
+    <div id="questionsDisplay"><p>Loading…</p></div>
+  </div>
+
+  <div id="importExportTab" class="tabcontent">
+    <div class="ie-section">
+      <h3>Export Quiz</h3>
+      <p style="color:#666;font-size:0.9em;">Download all questions as JSON.</p>
+      <button onclick="exportQuiz()">Export as JSON</button>
+      <div id="export-status" class="ie-status"></div>
+    </div>
+    <div class="ie-section">
+      <h3>Import Quiz</h3>
+      <p style="color:#666;font-size:0.9em;">Upload a previously exported JSON file.</p>
+      <input type="file" id="importFile" accept=".json" onchange="previewImport()">
+      <div id="import-preview" class="ie-preview" style="display:none;"></div>
+      <div id="import-controls" style="margin-top:10px;display:none;">
+        <label style="display:flex;align-items:center;gap:6px;font-size:0.9em;">
+          <input type="checkbox" id="import-clear-existing"> Clear existing questions first
+        </label>
+        <button onclick="confirmImport()">Import Questions</button>
+      </div>
+      <div id="import-status" class="ie-status"></div>
+      <div id="import-progress" style="display:none;">
+        <div class="progress-bar"><div id="import-progress-fill" class="progress-fill" style="width:0%;"></div></div>
+        <span id="import-progress-text" style="font-size:0.85em;color:#666;"></span>
+      </div>
+    </div>
+  </div>
+
+  <div id="gradesTab" class="tabcontent">
+    <h2>Student Grades</h2>
+    <button onclick="loadGrades()" style="background:#2c3e50;margin-bottom:12px;">Refresh Grades</button>
+    <table id="gradesTable">
+      <thead><tr><th>Student</th><th>Score</th><th>Questions</th><th>%</th><th>Last Submit</th></tr></thead>
+      <tbody id="gradesTbody"><tr><td colspan="5">Click Refresh to load grades.</td></tr></tbody>
+    </table>
+    <p style="margin-top:12px;font-size:0.85em;color:#555;">
+      Grades are read directly from CatSooP's submission logs.
+      For a full gradebook, visit <a href="/Physics/__gradebook__">Course Gradebook</a>.
+    </p>
+  </div>
+</div>
+
+<script>
+var course = 'Physics', week = 'week4';
+const api = 'http://localhost:8000';
+const questionsUrl = api + '/admin/questions/' + course + '/' + week;
+const bulkImportUrl = api + '/admin/bulk-import/' + course + '/' + week;
+const gradesUrl = api + '/' + course + '/' + week + '/grades';
+let pendingImportData = null;
+
+window.onload = () => {
+  if (userRole === 'Student') {
+    document.getElementById('student-redirect').style.display = 'block';
+  } else {
+    document.getElementById('instructor-ui').style.display = 'block';
+    updateQuestionsDisplay();
+  }
+};
+
+function openTab(evt, n) {
+  document.querySelectorAll('.tabcontent').forEach(t => t.style.display = 'none');
+  document.querySelectorAll('.tablinks').forEach(t => t.classList.remove('active'));
+  document.getElementById(n).style.display = 'block';
+  if (evt) evt.currentTarget.classList.add('active');
+  if (n === 'gradesTab') loadGrades();
+}
+
+function handleTypeChange() {
+  const t = document.getElementById('questionType').value;
+  document.getElementById('options-container').style.display = t === 'short-answer' ? 'none' : 'block';
+  document.getElementById('short-answer-container').style.display = t === 'short-answer' ? 'block' : 'none';
+  document.querySelectorAll('.correctOption').forEach(el => { el.type = t === 'checkbox' ? 'checkbox' : 'radio'; });
+}
+
+function addOption() {
+  const div = document.createElement('div');
+  div.className = 'option-input';
+  div.innerHTML = '<input type="text" placeholder="Option" class="option-text"><input type="radio" name="correctOption" class="correctOption"><label>Correct</label>';
+  document.getElementById('optionsGroup').appendChild(div);
+}
+
+function clearForm() {
+  document.getElementById('questionText').value = '';
+  document.getElementById('shortAnswer').value = '';
+  const hc = document.getElementById('hints-form-container');
+  if (hc) hc.innerHTML = '';
+}
+
+function addHintField() {
+  const c = document.getElementById('hints-form-container');
+  if (!c) return;
+  const idx = c.children.length + 1;
+  const ta = document.createElement('textarea');
+  ta.className = 'hint-textarea';
+  ta.placeholder = 'Hint ' + idx;
+  ta.rows = 2;
+  c.appendChild(ta);
+}
+
+function getHints() {
+  const c = document.getElementById('hints-form-container');
+  if (!c) return [];
+  return Array.from(c.querySelectorAll('.hint-textarea'))
+    .map(t => t.value.trim()).filter(Boolean);
+}
+
+async function addQuestion(e) {
+  if (e) e.preventDefault();
+  const text = document.getElementById('questionText').value.trim();
+  const type = document.getElementById('questionType').value;
+  if (!text) { alert('Please enter a question.'); return; }
+  let options = [], correctAnswer = '';
+  if (type === 'short-answer') {
+    correctAnswer = document.getElementById('shortAnswer').value.trim();
+  } else {
+    document.querySelectorAll('.option-input').forEach((div, i) => {
+      const val = div.querySelector('.option-text').value.trim();
+      if (val) {
+        options.push(val);
+        if (div.querySelector('.correctOption').checked) correctAnswer = val;
+      }
+    });
+  }
+  const hints = getHints();
+  const payload = { question_text: text, question_type: type, options, correct_answer: correctAnswer };
+  if (hints.length) payload.hints = hints;
+  const resp = await fetch(questionsUrl, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload) });
+  if (resp.ok) {
+    alert('Question saved!' + (hints.length ? ' (' + hints.length + ' hints)' : ''));
+    clearForm();
+    updateQuestionsDisplay();
+  } else {
+    const err = await resp.json().catch(() => ({}));
+    alert('Error: ' + (err.detail || 'Save failed'));
+  }
+}
+
+async function updateQuestionsDisplay() {
+  const c = document.getElementById('questionsDisplay');
+  try {
+    const r = await fetch(questionsUrl);
+    const d = await r.json();
+    const qs = d.questions || [];
+    if (!qs.length) { c.innerHTML = '<p>No questions yet.</p>'; return; }
+    c.innerHTML = qs.map((q, i) =>
+      '<div class="question-block"><b>' + (i+1) + '. ' + q.question_text + '</b> (' + q.question_type + ')' +
+      ' <button onclick="deleteQ(\'' + q.csq_name + '\')" style="background:#e74c3c;padding:4px 10px;font-size:12px;">Delete</button>' +
+      '<span id="ds-' + q.csq_name + '" style="font-size:0.8em;color:#888;margin-left:6px;"></span></div>'
+    ).join('');
+  } catch { c.innerHTML = '<p style="color:red;">Could not load questions.</p>'; }
+}
+
+async function deleteQ(csqName) {
+  if (!confirm('Delete this question?')) return;
+  const st = document.getElementById('ds-' + csqName);
+  try {
+    const resp = await fetch(questionsUrl + '/' + csqName, { method: 'DELETE' });
+    if (resp.ok) { if (st) { st.textContent = 'Deleted'; st.style.color = 'green'; } updateQuestionsDisplay(); }
+    else { if (st) { st.textContent = 'Delete failed'; st.style.color = 'red'; } }
+  } catch { if (st) { st.textContent = 'Network error'; st.style.color = 'red'; } }
+}
+
+async function exportQuiz() {
+  const st = document.getElementById('export-status');
+  st.textContent = 'Fetching…';
+  try {
+    const r = await fetch(questionsUrl);
+    const d = await r.json();
+    const qs = d.questions || [];
+    if (!qs.length) { st.textContent = 'No questions to export.'; return; }
+    const a = document.createElement('a');
+    a.href = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(qs, null, 2));
+    a.download = course + '_' + week + '_quiz.json';
+    document.body.appendChild(a); a.click(); a.remove();
+    st.textContent = 'Exported ' + qs.length + ' questions.';
+  } catch (e) { st.textContent = 'Export failed: ' + e.message; }
+}
+
+function previewImport() {
+  const fi = document.getElementById('importFile');
+  if (!fi.files.length) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      const data = JSON.parse(e.target.result);
+      const qs = Array.isArray(data) ? data : (data.questions || []);
+      pendingImportData = qs;
+      let html = '<b>' + qs.length + ' questions found</b><table><tr><th>#</th><th>Type</th><th>Question</th></tr>';
+      qs.forEach((q, i) => {
+        const t = q.question_type || q.type || '?';
+        const txt = (q.question_text || q.text || '').substring(0, 60);
+        html += '<tr><td>' + (i+1) + '</td><td>' + t + '</td><td>' + txt + '</td></tr>';
+      });
+      html += '</table>';
+      document.getElementById('import-preview').innerHTML = html;
+      document.getElementById('import-preview').style.display = 'block';
+      document.getElementById('import-controls').style.display = 'block';
+    } catch (err) {
+      document.getElementById('import-status').textContent = 'Invalid JSON: ' + err.message;
+      pendingImportData = null;
+    }
+  };
+  reader.readAsText(fi.files[0]);
+}
+
+async function confirmImport() {
+  if (!pendingImportData || !pendingImportData.length) return;
+  const st = document.getElementById('import-status');
+  const pg = document.getElementById('import-progress');
+  const pgFill = document.getElementById('import-progress-fill');
+  const pgText = document.getElementById('import-progress-text');
+  const clearExisting = document.getElementById('import-clear-existing').checked;
+  pg.style.display = 'block';
+  pgFill.style.width = '30%';
+  pgText.textContent = 'Importing…';
+  try {
+    const resp = await fetch(bulkImportUrl, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ questions: pendingImportData, clear_existing: clearExisting })
+    });
+    const d = await resp.json();
+    pgFill.style.width = '100%';
+    pg.style.display = 'none';
+    st.textContent = resp.ok
+      ? 'Imported ' + (d.imported || 0) + ' questions.'
+      : 'Import failed: ' + (d.detail || 'unknown error');
+    if (resp.ok) { updateQuestionsDisplay(); document.getElementById('import-preview').style.display = 'none'; document.getElementById('import-controls').style.display = 'none'; }
+  } catch (e) {
+    pg.style.display = 'none';
+    st.textContent = 'Network error: ' + e.message;
+  }
+}
+
+async function loadGrades() {
+  const tbody = document.getElementById('gradesTbody');
+  tbody.innerHTML = '<tr><td colspan="5">Loading…</td></tr>';
+  try {
+    const r = await fetch(gradesUrl);
+    const d = await r.json();
+    const grades = d.grades || [];
+    if (!grades.length) { tbody.innerHTML = '<tr><td colspan="5">No submissions yet.</td></tr>'; return; }
+    tbody.innerHTML = grades.map(g =>
+      '<tr><td>' + g.username + '</td><td>' + g.score + '</td><td>' + g.total + '</td><td>' + g.percent + '%</td><td>' + (g.last_submit || '—') + '</td></tr>'
+    ).join('');
+  } catch { tbody.innerHTML = '<tr><td colspan="5">Error loading grades.</td></tr>'; }
+}
+</script>

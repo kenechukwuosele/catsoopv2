@@ -1,17 +1,11 @@
 <python>
-cs_content_header = "Week 1: Introduction"
+cs_content_header = "Week 1: Introduction to Football (Soccer)"
 </python>
 
-# Introduction to the Course
-
-Welcome to the first week of our course! In this section, you'll learn about:
-
-* Course objectives
-* Learning approach
-* Assessment methods
+<p>This week we study <strong>football (soccer)</strong> — the world's most popular sport with over 4 billion fans globally. You will learn the history of the game, FIFA's 17 Laws of the Game, the roles of different player positions, fundamental skills every footballer must master, the physical fitness demands of the sport, and Nigeria's remarkable football history and contributions to the global game.</p>
 
 ## Learning Materials
 
 * [Lecture Notes](week1/lecture1)
-* [Practice Problem](week1/problem1)
+* [Practice Problems](week1/problem1)
 * [Quiz](week1/example_questions)

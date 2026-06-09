@@ -1,689 +1,327 @@
 <python>
-import sqlite3
-import json
 import os
-import cherrypy
-from datetime import datetime
-
-
-
-#print(cs_session_data)
-# Initialize database
-DB_PATH = os.path.join(os.path.dirname(os.path.abspath(cs_data_root)), "catsoop/courses/Programming/week1/catsoop.db")
-# Set content type for AJAX responses
-
-# Set content type and headers for regular page load
 cs_content_type = 'text/html'
-cs_content_header = "Interactive Quiz"
-cs_description = "Interactive quiz with custom elements"
-
-# Set user info
+cs_content_header = "Question Manager"
 role = cs_user_info["role"]
-print(f'<script>var userRole = "{role}";</script>')
 username = cs_username
+print(f'<script>var userRole = "{role}";</script>')
 print(f'<script>var userName = "{username}";</script>')
 </python>
 
 <style>
-        .panel {
-            flex: 1;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            background-color: #f9f9f9;
-        }
-        
-        h1, h2, h3 {
-            color: #2c3e50;
-        }
-        
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            margin: 5px 0;
-            font-size: 14px;
-        }
-        
-        button:hover {
-            background-color: #45a049;
-        }
-        
-        button:disabled {
-            background-color: #cccccc;
-            cursor: not-allowed;
-        }
-        
-        input[type="text"], input[type="file"], textarea, select {
-            width: 100%;
-            padding: 8px;
-            margin: 5px 0;
-            display: inline-block;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        
-        .question-form {
-            margin-bottom: 20px;
-        }
-        
-        .option-group {
-            margin: 10px 0;
-        }
-        
-        .option-input {
-            display: flex;
-            margin-bottom: 5px;
-        }
-        
-        .option-input input[type="text"] {
-            flex-grow: 1;
-            margin-right: 10px;
-        }
-        
-        #questionsDisplay, #quizContainer {
-            margin-top: 20px;
-        }
-        
-        .question-block {
-            border: 1px solid #ddd;
-            padding: 15px;
-            margin-bottom: 15px;
-            border-radius: 5px;
-            background-color: white;
-        }
-        
-        .question-title {
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        
-        .question-option {
-            margin: 5px 0;
-        }
-        
-        .feedback {
-            margin-top: 10px;
-            padding: 10px;
-            border-radius: 4px;
-            display: none;
-        }
-        
-        .correct {
-            background-color: #d4edda;
-            color: #155724;
-        }
-        
-        .incorrect {
-            background-color: #f8d7da;
-            color: #721c24;
-        }
-        
-        .tab {
-            overflow: hidden;
-            border: 1px solid #ccc;
-            background-color: #f1f1f1;
-            border-radius: 5px 5px 0 0;
-        }
-        
-        .tab button {
-            background-color: inherit;
-            float: left;
-            border: none;
-            outline: none;
-            cursor: pointer;
-            padding: 14px 16px;
-            transition: 0.3s;
-            color: #333;
-        }
-        
-        .tab button:hover {
-            background-color: #ddd;
-        }
-        
-        .tab button.active {
-            background-color: #4CAF50;
-            color: white;
-        }
-        
-        .tabcontent {
-            display: none;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-top: none;
-            border-radius: 0 0 5px 5px;
-        }
-        
-        .action-buttons {
-            margin-top: 15px;
-            display: flex;
-            justify-content: space-between;
-        }
-        
-        .results-container {
-            margin-top: 20px;
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            background-color: #f0f7ff;
-        }
-        
-        #attemptsList ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        
-        #attemptsList li {
-            margin-bottom: 15px;
-            padding: 10px;
-            background-color: white;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-        }
-
-        #performanceTable {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: center;
-        }
-
-        #performanceTable th,
-        #performanceTable td {
-            padding: 10px;
-            text-align: center;
-            vertical-align: middle;
-        }
+h1,h2,h3{color:#2c3e50;}
+button{background:#4CAF50;color:white;padding:10px 15px;border:none;border-radius:4px;cursor:pointer;margin:5px 0;font-size:14px;}
+button:hover{background:#45a049;}
+button:disabled{background:#ccc;cursor:not-allowed;}
+input[type="text"],textarea,select{width:100%;padding:8px;margin:5px 0;border:1px solid #ccc;border-radius:4px;box-sizing:border-box;}
+.option-input{display:flex;margin-bottom:5px;}
+.option-input input[type="text"]{flex-grow:1;margin-right:10px;}
+.question-block{border:1px solid #ddd;padding:15px;margin-bottom:15px;border-radius:5px;background:white;}
+.tab{overflow:hidden;border:1px solid #ccc;background:#f1f1f1;border-radius:5px 5px 0 0;}
+.tab button{background:inherit;float:left;border:none;outline:none;cursor:pointer;padding:14px 16px;transition:0.3s;color:#333;}
+.tab button:hover{background:#ddd;}
+.tab button.active{background:#4CAF50;color:white;}
+.tabcontent{display:none;padding:20px;border:1px solid #ccc;border-top:none;border-radius:0 0 5px 5px;}
+.hint-section{margin-top:10px;padding:12px;border:1px solid #eee;border-radius:4px;background:#fafafa;}
+.hint-section summary{cursor:pointer;color:#f59e0b;font-weight:600;}
+.hint-textarea{width:100%;padding:6px;margin:4px 0;border:1px solid #ddd;border-radius:3px;font-size:0.9em;}
+.ie-section{margin-bottom:24px;padding:16px;border:1px solid #ddd;border-radius:5px;background:#f9f9f9;}
+.ie-status{margin-top:10px;font-size:0.9em;color:#555;}
+.ie-preview{margin-top:10px;padding:12px;border:1px solid #eee;border-radius:4px;background:#fff;font-size:0.88em;}
+.ie-preview table{width:100%;border-collapse:collapse;margin:6px 0;}
+.ie-preview td,.ie-preview th{padding:4px 8px;border:1px solid #eee;text-align:left;font-size:0.95em;}
+.progress-bar{width:100%;height:8px;background:#e0e0e0;border-radius:4px;margin:8px 0;overflow:hidden;}
+.progress-fill{height:100%;background:#4CAF50;transition:width 0.3s;}
+#gradesTable{width:100%;border-collapse:collapse;}
+#gradesTable th,#gradesTable td{padding:10px;border:1px solid #ddd;text-align:center;}
+#gradesTable th{background:#2c3e50;color:white;}
+.student-redirect{text-align:center;padding:60px 20px;}
 </style>
 
-<div class="tab">
-    <button class="tablinks active" onclick="openTab(event, 'createTab')">Create Questions</button>
-    <button class="tablinks" onclick="openTab(event, 'takeTab')">Take Quiz</button>
-    <button class="tablinks" onclick="openTab(event, 'importExportTab')">Import/Export</button>
-    <button class="tablinks" onclick="openTab(event, 'performanceTab')">Student Performance</button>
+<div id="student-redirect" class="student-redirect" style="display:none;">
+  <h2>Ready to take the quiz?</h2>
+  <p style="color:#555;margin-bottom:20px;">This page is the instructor question manager. Click below to go to the quiz.</p>
+  <a href="/Programming/week1/quiz" style="background:#4CAF50;color:white;padding:14px 36px;border-radius:6px;text-decoration:none;font-size:1.1em;">Go to Quiz →</a>
 </div>
 
+<div id="instructor-ui" style="display:none;">
+  <div class="tab">
+    <button class="tablinks active" onclick="openTab(event,'createTab')">Create Questions</button>
+    <button class="tablinks" onclick="openTab(event,'importExportTab')">Import / Export</button>
+    <button class="tablinks" onclick="openTab(event,'gradesTab')">Student Grades</button>
+  </div>
 
-<div id="createTab" class="tabcontent" style="display: block;">
-    <h2>Create Quiz Questions</h2>     
-    <div class="question-form">
-        <h3>New Question</h3>
-        <label for="questionText">Question:</label>
-        <textarea id="questionText" rows="3" placeholder="Enter your question here"></textarea>         
-        <label for="questionType">Question Type:</label>
-        <select id="questionType" onchange="handleQuestionTypeChange()">
-            <option value="multiple-choice">Multiple Choice</option>
-            <option value="checkbox">Multiple Select</option>
-            <option value="short-answer">Short Answer</option>
-        </select>          
-        <div id="options-container">
-            <h4>Options</h4>
-            <div class="option-group" id="optionsGroup">
-                <div class="option-input">
-                    <input type="text" placeholder="Option 1" class="option-text">
-                    <input type="radio" name="correctOption" class="correctOption" checked>
-                    <label>Correct</label>
-                </div>
-                <div class="option-input">
-                    <input type="text" placeholder="Option 2" class="option-text">
-                    <input type="radio" name="correctOption" class="correctOption">
-                    <label>Correct</label>
-                </div>
-            </div>
-            <button type="button" onclick="addOption()">Add Option</button>
-        </div>          
-        <div id="short-answer-container" style="display: none;">
-            <label for="shortAnswer">Correct Answer:</label>
-            <input type="text" id="shortAnswer" placeholder="Enter the correct answer">
-        </div>           
-        <div class="action-buttons">
-            <input type="hidden" id="csrf_token" value="{{ csrf_token }}">
-            <button type="button" onclick="addQuestion(event)" id="submitQuestionBtn">Add Question</button>
-            <button type="button" onclick="clearForm()">Clear Form</button>
-        </div>          
-    </div>        
-    <h3>Current Questions</h3>
-    <div id="questionsDisplay">
-        <p>No questions added yet.</p>
-    </div>      
-</div>
-   
-<div id="takeTab" class="tabcontent">
-    <div id="quizContainer">
-        <p>No questions available. Create some questions first!</p>
+  <div id="createTab" class="tabcontent" style="display:block;">
+    <h2>Create Quiz Question</h2>
+    <textarea id="questionText" rows="3" placeholder="Question text"></textarea>
+    <select id="questionType" onchange="handleTypeChange()">
+      <option value="multiple-choice">Multiple Choice</option>
+      <option value="checkbox">Multiple Select</option>
+      <option value="short-answer">Short Answer</option>
+    </select>
+    <div id="options-container">
+      <div id="optionsGroup">
+        <div class="option-input"><input type="text" placeholder="Option 1" class="option-text"><input type="radio" name="correctOption" class="correctOption" checked><label>Correct</label></div>
+        <div class="option-input"><input type="text" placeholder="Option 2" class="option-text"><input type="radio" name="correctOption" class="correctOption"><label>Correct</label></div>
+      </div>
+      <button type="button" onclick="addOption()">Add Option</button>
     </div>
-    <div class="action-buttons">
-        <button id="submitQuizBtn" onclick="submitQuiz()" style="display: none;">Submit Quiz</button>
+    <div id="short-answer-container" style="display:none;">
+      <input type="text" id="shortAnswer" placeholder="Correct answer">
     </div>
-    <div id="resultsContainer" class="results-container" style="display: none;">
-        <h3>Quiz Results</h3>
-        <p id="scoreDisplay"></p>
-        <div id="detailedResults"></div>
-    </div>
-    <div id="previousAttemptsContainer" class="results-container" style="display: none;">
-        <h3>Your Previous Attempts</h3>
-        <div id="attemptsList"></div>
-    </div>
-</div>
- 
-<div id="importExportTab" class="tabcontent">
-    <h2>Import/Export Quiz</h2>      
-    <div class="panel">
-        <h3>Export Quiz</h3>
-        <p>Download your current quiz as a JSON file:</p>
-        <button onclick="exportQuiz()">Export Quiz</button>
-    </div> 
-    <div class="panel">
-        <h3>Import Quiz</h3>
-        <p>Upload a previously exported quiz file:</p>
-        <input type="file" id="importFile" accept=".json">
-        <button onclick="importQuiz()">Import Quiz</button>
-    </div>
-</div>  
+    <details class="hint-section">
+      <summary>Hints (optional)</summary>
+      <div id="hints-form-container"></div>
+      <button type="button" onclick="addHintField()" style="font-size:0.85em;background:#f59e0b;margin-top:4px;">+ Add Hint</button>
+    </details>
+    <button type="button" onclick="addQuestion(event)">Add Question</button>
+    <button type="button" onclick="clearForm()">Clear</button>
+    <div id="questionsDisplay"><p>Loading…</p></div>
+  </div>
 
-<div id="performanceTab" class="tabcontent">
-    <h2>Student Performance</h2>
-    <div id="performanceTableContainer">
-        <table id="performanceTable" border="1" cellpadding="8">
-            <thead>
-            <tr>
-        <th>Student Name</th>
-        <th>Score</th>
-        <th>Date Taken</th>
-        <th>Total Questions</th>
-        <th>Percentage</th>
-        <th>Time Spent</th> 
-        <th>Clicks</th>
-        </tr>
-            </thead>
-            <tbody id="otbody">
-                <tr>
-                    <td colspan="5">No performance data available yet.</td>
-                </tr>
-            </tbody>
-        </table>
+  <div id="importExportTab" class="tabcontent">
+    <div class="ie-section">
+      <h3>Export Quiz</h3>
+      <p style="color:#666;font-size:0.9em;">Download all questions as JSON.</p>
+      <button onclick="exportQuiz()">Export as JSON</button>
+      <div id="export-status" class="ie-status"></div>
     </div>
-</div>
+    <div class="ie-section">
+      <h3>Import Quiz</h3>
+      <p style="color:#666;font-size:0.9em;">Upload a previously exported JSON file.</p>
+      <input type="file" id="importFile" accept=".json" onchange="previewImport()">
+      <div id="import-preview" class="ie-preview" style="display:none;"></div>
+      <div id="import-controls" style="margin-top:10px;display:none;">
+        <label style="display:flex;align-items:center;gap:6px;font-size:0.9em;">
+          <input type="checkbox" id="import-clear-existing"> Clear existing questions first
+        </label>
+        <button onclick="confirmImport()">Import Questions</button>
+      </div>
+      <div id="import-status" class="ie-status"></div>
+      <div id="import-progress" style="display:none;">
+        <div class="progress-bar"><div id="import-progress-fill" class="progress-fill" style="width:0%;"></div></div>
+        <span id="import-progress-text" style="font-size:0.85em;color:#666;"></span>
+      </div>
+    </div>
+  </div>
 
+  <div id="gradesTab" class="tabcontent">
+    <h2>Student Grades</h2>
+    <button onclick="loadGrades()" style="background:#2c3e50;margin-bottom:12px;">Refresh Grades</button>
+    <table id="gradesTable">
+      <thead><tr><th>Student</th><th>Score</th><th>Questions</th><th>%</th><th>Last Submit</th></tr></thead>
+      <tbody id="gradesTbody"><tr><td colspan="5">Click Refresh to load grades.</td></tr></tbody>
+    </table>
+    <p style="margin-top:12px;font-size:0.85em;color:#555;">
+      Grades are read directly from CatSooP's submission logs.
+      For a full gradebook, visit <a href="/Programming/__gradebook__">Course Gradebook</a>.
+    </p>
+  </div>
+</div>
 
 <script>
-    // --- 1. CONFIGURATION ---
-    var course = 'Programming'; 
-    var week = 'week1'; 
-    const serverIp = 'http://172.31.184.39:8000';
-    const apiBase = `${serverIp}/${course}/${week}/example_questions`;
-    const attemptUrl = `${serverIp}/${course}/${week}/submit_attempt`;
+var course = 'Programming', week = 'week1';
+const api = 'http://localhost:8000';
+const questionsUrl = api + '/admin/questions/' + course + '/' + week;
+const bulkImportUrl = api + '/admin/bulk-import/' + course + '/' + week;
+const gradesUrl = api + '/' + course + '/' + week + '/grades';
+let pendingImportData = null;
 
-    // Initialize WebSocket
-    // This cleans the IP so it doesn't have 'http://' inside the 'ws://' string
-    const socketAddress = serverIp.replace('http://', '').replace('https://', '');
-    const socket = new WebSocket(`ws://${socketAddress}/ws`);
+window.onload = () => {
+  if (userRole === 'Student') {
+    document.getElementById('student-redirect').style.display = 'block';
+  } else {
+    document.getElementById('instructor-ui').style.display = 'block';
+    updateQuestionsDisplay();
+  }
+};
 
-    socket.onmessage = (event) => {
-    const data = JSON.parse(event.data);
-    // If a new submission is broadcast, refresh the performance table
-    if (data.type === 'NEW_SUBMISSION' && userRole !== 'Student') {
-        loadPerformance();
-        }
-    };
+function openTab(evt, n) {
+  document.querySelectorAll('.tabcontent').forEach(t => t.style.display = 'none');
+  document.querySelectorAll('.tablinks').forEach(t => t.classList.remove('active'));
+  document.getElementById(n).style.display = 'block';
+  if (evt) evt.currentTarget.classList.add('active');
+  if (n === 'gradesTab') loadGrades();
+}
 
-    // --- METRICS CONFIGURATION ---
-let activeStartTime = Date.now();
-let totalActiveSeconds = 0;
-let pageClicks = 0;
-let lastInteractionTime = Date.now();
-const IDLE_THRESHOLD = 60000; // 1 minute of no movement = idle
+function handleTypeChange() {
+  const t = document.getElementById('questionType').value;
+  document.getElementById('options-container').style.display = t === 'short-answer' ? 'none' : 'block';
+  document.getElementById('short-answer-container').style.display = t === 'short-answer' ? 'block' : 'none';
+  document.querySelectorAll('.correctOption').forEach(el => { el.type = t === 'checkbox' ? 'checkbox' : 'radio'; });
+}
 
-// Track clicks globally for the "Page Clicks" metric
-document.addEventListener('click', () => {
-    pageClicks++;
-    lastInteractionTime = Date.now(); 
-});
-
-// Update active time only if tab is focused and user isn't idle
-setInterval(() => {
-    const now = Date.now();
-    const isTabActive = !document.hidden;
-    const isNotIdle = (now - lastInteractionTime) < IDLE_THRESHOLD;
-
-    if (isTabActive && isNotIdle) {
-        totalActiveSeconds += 1;
-    }
-}, 1000);
-
-// Record interaction for idle detection
-['mousemove', 'keydown', 'scroll', 'touchstart'].forEach(evt => {
-    document.addEventListener(evt, () => { lastInteractionTime = Date.now(); });
-});
-
-    // Global variable to hold questions for the quiz tab
-    let activeQuestions = [];
-
-    // --- 2. CORE LOGIC (CREATION) ---
-    function handleQuestionTypeChange() {
-        const type = document.getElementById('questionType').value;
-        document.getElementById('options-container').style.display = type === 'short-answer' ? 'none' : 'block';
-        document.getElementById('short-answer-container').style.display = type === 'short-answer' ? 'block' : 'none';
-        
-        document.querySelectorAll('.correctOption').forEach(el => {
-            el.type = (type === 'checkbox') ? 'checkbox' : 'radio';
-        });
-    }
-
-    function addOption() {
-        const div = document.createElement('div');
-        div.className = 'option-input';
-        const type = document.getElementById('questionType').value === 'checkbox' ? 'checkbox' : 'radio';
-        div.innerHTML = `<input type="text" placeholder="New Option" class="option-text"> <input type="${type}" name="correctOption" class="correctOption"> Correct`;
-        document.getElementById('optionsGroup').appendChild(div);
-    }
-
-    // --- UTILITY FUNCTIONS ---
+function addOption() {
+  const div = document.createElement('div');
+  div.className = 'option-input';
+  div.innerHTML = '<input type="text" placeholder="Option" class="option-text"><input type="radio" name="correctOption" class="correctOption"><label>Correct</label>';
+  document.getElementById('optionsGroup').appendChild(div);
+}
 
 function clearForm() {
-    // Clears the textarea and resets the question type
-    document.getElementById('questionText').value = "";
-    document.getElementById('questionType').selectedIndex = 0;
-    document.getElementById('shortAnswer').value = "";
-    
-    // Reset options to default two blanks
-    const optionsGroup = document.getElementById('optionsGroup');
-    optionsGroup.innerHTML = `
-        <div class="option-input">
-            <input type="text" placeholder="Option 1" class="option-text">
-            <input type="radio" name="correctOption" class="correctOption" checked>
-            <label>Correct</label>
-        </div>
-        <div class="option-input">
-            <input type="text" placeholder="Option 2" class="option-text">
-            <input type="radio" name="correctOption" class="correctOption">
-            <label>Correct</label>
-        </div>`;
-    handleQuestionTypeChange();
+  document.getElementById('questionText').value = '';
+  document.getElementById('shortAnswer').value = '';
+  const hc = document.getElementById('hints-form-container');
+  if (hc) hc.innerHTML = '';
+}
+
+function addHintField() {
+  const c = document.getElementById('hints-form-container');
+  if (!c) return;
+  const idx = c.children.length + 1;
+  const ta = document.createElement('textarea');
+  ta.className = 'hint-textarea';
+  ta.placeholder = 'Hint ' + idx;
+  ta.rows = 2;
+  c.appendChild(ta);
+}
+
+function getHints() {
+  const c = document.getElementById('hints-form-container');
+  if (!c) return [];
+  return Array.from(c.querySelectorAll('.hint-textarea'))
+    .map(t => t.value.trim()).filter(Boolean);
+}
+
+async function addQuestion(e) {
+  if (e) e.preventDefault();
+  const text = document.getElementById('questionText').value.trim();
+  const type = document.getElementById('questionType').value;
+  if (!text) { alert('Please enter a question.'); return; }
+  let options = [], correctAnswer = '';
+  if (type === 'short-answer') {
+    correctAnswer = document.getElementById('shortAnswer').value.trim();
+  } else {
+    document.querySelectorAll('.option-input').forEach((div, i) => {
+      const val = div.querySelector('.option-text').value.trim();
+      if (val) {
+        options.push(val);
+        if (div.querySelector('.correctOption').checked) correctAnswer = val;
+      }
+    });
+  }
+  const hints = getHints();
+  const payload = { question_text: text, question_type: type, options, correct_answer: correctAnswer };
+  if (hints.length) payload.hints = hints;
+  const resp = await fetch(questionsUrl, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload) });
+  if (resp.ok) {
+    alert('Question saved!' + (hints.length ? ' (' + hints.length + ' hints)' : ''));
+    clearForm();
+    updateQuestionsDisplay();
+  } else {
+    const err = await resp.json().catch(() => ({}));
+    alert('Error: ' + (err.detail || 'Save failed'));
+  }
+}
+
+async function updateQuestionsDisplay() {
+  const c = document.getElementById('questionsDisplay');
+  try {
+    const r = await fetch(questionsUrl);
+    const d = await r.json();
+    const qs = d.questions || [];
+    if (!qs.length) { c.innerHTML = '<p>No questions yet.</p>'; return; }
+    c.innerHTML = qs.map((q, i) =>
+      '<div class="question-block"><b>' + (i+1) + '. ' + q.question_text + '</b> (' + q.question_type + ')' +
+      ' <button onclick="deleteQ(\'' + q.csq_name + '\')" style="background:#e74c3c;padding:4px 10px;font-size:12px;">Delete</button>' +
+      '<span id="ds-' + q.csq_name + '" style="font-size:0.8em;color:#888;margin-left:6px;"></span></div>'
+    ).join('');
+  } catch { c.innerHTML = '<p style="color:red;">Could not load questions.</p>'; }
+}
+
+async function deleteQ(csqName) {
+  if (!confirm('Delete this question?')) return;
+  const st = document.getElementById('ds-' + csqName);
+  try {
+    const resp = await fetch(questionsUrl + '/' + csqName, { method: 'DELETE' });
+    if (resp.ok) { if (st) { st.textContent = 'Deleted'; st.style.color = 'green'; } updateQuestionsDisplay(); }
+    else { if (st) { st.textContent = 'Delete failed'; st.style.color = 'red'; } }
+  } catch { if (st) { st.textContent = 'Network error'; st.style.color = 'red'; } }
 }
 
 async function exportQuiz() {
-    // Fetches the current questions and triggers a JSON download
-    const resp = await fetch(apiBase);
-    const questions = await resp.json();
-    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(questions));
-    const downloadAnchorNode = document.createElement('a');
-    downloadAnchorNode.setAttribute("href", dataStr);
-    downloadAnchorNode.setAttribute("download", `${course}_${week}_quiz.json`);
-    document.body.appendChild(downloadAnchorNode);
-    downloadAnchorNode.click();
-    downloadAnchorNode.remove();
+  const st = document.getElementById('export-status');
+  st.textContent = 'Fetching…';
+  try {
+    const r = await fetch(questionsUrl);
+    const d = await r.json();
+    const qs = d.questions || [];
+    if (!qs.length) { st.textContent = 'No questions to export.'; return; }
+    const a = document.createElement('a');
+    a.href = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(qs, null, 2));
+    a.download = course + '_' + week + '_quiz.json';
+    document.body.appendChild(a); a.click(); a.remove();
+    st.textContent = 'Exported ' + qs.length + ' questions.';
+  } catch (e) { st.textContent = 'Export failed: ' + e.message; }
 }
 
-async function importQuiz() {
-    const fileInput = document.getElementById('importFile');
-    if (!fileInput.files.length) return alert("Please select a file first");
-    
-    const file = fileInput.files[0];
-    const reader = new FileReader();
-    reader.onload = async (e) => {
-        const questions = JSON.parse(e.target.result);
-        // Loop through and save each question to the backend
-        for (const q of questions) {
-            await fetch(apiBase, {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({
-                    action: 'save_question',
-                    username: userName,
-                    text: q.text,
-                    type: q.qtype,
-                    options: q.options || [],
-                    correctAnswers: q.correct_answers,
-                    course: course,
-                    week: week
-                })
-            });
-        }
-        alert("Import complete!");
-        updateQuestionsDisplay();
-    };
-    reader.readAsText(file);
-}
-
-    async function addQuestion(e) {
-        if(e) e.preventDefault();
-        const text = document.getElementById('questionText').value;
-        const type = document.getElementById('questionType').value;
-        let options = [];
-        let correctAnswers = [];
-
-        if (type === 'short-answer') {
-            correctAnswers = [document.getElementById('shortAnswer').value];
-        } else {
-            document.querySelectorAll('.option-input').forEach((div, i) => {
-                const val = div.querySelector('.option-text').value;
-                if(val) {
-                    options.push(val);
-                    if(div.querySelector('.correctOption').checked) correctAnswers.push(i);
-                }
-            });
-        }
-
-        const payload = {
-            username: userName,
-            text: text,
-            type: type,
-            options: options,
-            correctAnswers: correctAnswers,
-            course: course,
-            week: week
-        };
-
-        const resp = await fetch(apiBase, {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({action: 'save_question', ...payload})
-        });
-        
-        if (resp.ok) {
-            alert("Saved!");
-            updateQuestionsDisplay();
-        }
-    }
-
-    async function updateQuestionsDisplay() {
-    const container = document.getElementById('questionsDisplay');
+function previewImport() {
+  const fi = document.getElementById('importFile');
+  if (!fi.files.length) return;
+  const reader = new FileReader();
+  reader.onload = e => {
     try {
-        const resp = await fetch(apiBase);
-        const questions = await resp.json();
-        
-        // Safety Check: Ensure 'questions' is an array
-        if (!Array.isArray(questions)) {
-        console.error("Server Error:", questions.detail);
-        document.getElementById('questionsDisplay').innerHTML = 
-            `<p style="color:red">Server Error: ${questions.detail}</p>`;
-        return;
+      const data = JSON.parse(e.target.result);
+      const qs = Array.isArray(data) ? data : (data.questions || []);
+      pendingImportData = qs;
+      let html = '<b>' + qs.length + ' questions found</b><table><tr><th>#</th><th>Type</th><th>Question</th></tr>';
+      qs.forEach((q, i) => {
+        const t = q.question_type || q.type || '?';
+        const txt = (q.question_text || q.text || '').substring(0, 60);
+        html += '<tr><td>' + (i+1) + '</td><td>' + t + '</td><td>' + txt + '</td></tr>';
+      });
+      html += '</table>';
+      document.getElementById('import-preview').innerHTML = html;
+      document.getElementById('import-preview').style.display = 'block';
+      document.getElementById('import-controls').style.display = 'block';
+    } catch (err) {
+      document.getElementById('import-status').textContent = 'Invalid JSON: ' + err.message;
+      pendingImportData = null;
     }
-
-        container.innerHTML = questions.map((q, i) => `
-            <div class="question-block">
-                <b>${i+1}. ${q.text}</b> (${q.qtype})
-                <button onclick="deleteQuestion(${q.id})">Delete</button>
-            </div>
-        `).join('');
-    } catch(e) { 
-        container.innerHTML = "No questions found or server is offline."; 
-    }
+  };
+  reader.readAsText(fi.files[0]);
 }
 
-    // --- 3. TAKE QUIZ LOGIC ---
-    async function renderQuiz() {
-        const container = document.getElementById('quizContainer');
-        const resp = await fetch(apiBase);
-        activeQuestions = await resp.json(); // Store in global variable
-        
-        if(activeQuestions.length === 0) {
-            container.innerHTML = "No questions available.";
-            return;
-        }
-
-        container.innerHTML = activeQuestions.map((q, i) => {
-            let inputHtml = '';
-            if (q.qtype === 'short-answer') {
-                // Fixed ID to use backticks for template literals
-                inputHtml = `<input type="text" id="ans-${q.id}" class="quiz-ans">`;
-            } else {
-                inputHtml = q.options.map((opt, optIdx) => `
-                    <div>
-                        <input type="${q.qtype === 'checkbox' ? 'checkbox' : 'radio'}" 
-                               name="q-${q.id}" value="${optIdx}" class="quiz-ans"> 
-                        ${opt}
-                    </div>
-                `).join('');
-            }
-            return `<div class="question-block"><b>${i+1}. ${q.text}</b><br>${inputHtml}<div id="feed-${q.id}" class="feedback"></div></div>`;
-        }).join('');
-        
-        document.getElementById('submitQuizBtn').style.display = 'block';
-    }
-
-    // NEW: Defined the missing submitQuiz function
-    async function submitQuiz() {
-    let score = 0;
-    const results = [];
-
-    activeQuestions.forEach(q => {
-        let isCorrect = false;
-        let userVal = "";
-        if(q.qtype === 'short-answer') {
-            userVal = document.getElementById(`ans-${q.id}`).value.trim();
-            isCorrect = userVal.toLowerCase() === q.correct_answers[0].toLowerCase();
-        } else {
-            const selected = Array.from(document.querySelectorAll(`input[name="q-${q.id}"]:checked`)).map(el => parseInt(el.value));
-            isCorrect = JSON.stringify(selected.sort()) === JSON.stringify(q.correct_answers.sort());
-            userVal = selected.map(idx => q.options[idx]).join(', ');
-        }
-        if(isCorrect) score++;
-        const feed = document.getElementById(`feed-${q.id}`);
-        feed.style.display = 'block';
-        feed.innerHTML = isCorrect ? "✅ Correct" : "❌ Incorrect";
-        feed.className = "feedback " + (isCorrect ? "correct" : "incorrect");
-        results.push({ question: q.text, userAnswer: userVal, isCorrect: isCorrect });
+async function confirmImport() {
+  if (!pendingImportData || !pendingImportData.length) return;
+  const st = document.getElementById('import-status');
+  const pg = document.getElementById('import-progress');
+  const pgFill = document.getElementById('import-progress-fill');
+  const pgText = document.getElementById('import-progress-text');
+  const clearExisting = document.getElementById('import-clear-existing').checked;
+  pg.style.display = 'block';
+  pgFill.style.width = '30%';
+  pgText.textContent = 'Importing…';
+  try {
+    const resp = await fetch(bulkImportUrl, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ questions: pendingImportData, clear_existing: clearExisting })
     });
-
-    const engagementMetrics = {
-        secondsSpent: totalActiveSeconds,
-        clickCount: pageClicks,
-        exitTime: new Date().toISOString()
-    };
-
-    // Update payload to include engagement
-    const payload = { 
-        username: userName, 
-        score: score, 
-        total: activeQuestions.length, 
-        course: course, 
-        week: week, 
-        results: results,
-        metrics: engagementMetrics // <--- Added this
-    };
-
-    const resp = await fetch(attemptUrl, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(payload)
-    });
-
-    if (resp.ok && socket.readyState === WebSocket.OPEN) {
-        socket.send(JSON.stringify({ type: 'NEW_SUBMISSION', student: userName }));
-    }
-
-    // Reset metrics for next attempt if needed
-    totalActiveSeconds = 0;
-    pageClicks = 0;
-
-    document.getElementById('resultsContainer').style.display = 'block';
-    document.getElementById('scoreDisplay').innerText = `You scored ${score} / ${activeQuestions.length}`;
-
-   
-
-    // NEW: Notify the WebSocket that a submission just happened
-    if (resp.ok && socket.readyState === WebSocket.OPEN) {
-        socket.send(JSON.stringify({ type: 'NEW_SUBMISSION', student: userName }));
-    }
-
-    document.getElementById('resultsContainer').style.display = 'block';
-    document.getElementById('scoreDisplay').innerText = `You scored ${score} / ${activeQuestions.length}`;
-    }
-
-    // --- 4. TABS & INIT ---
-    // NEW: Function to load all student attempts for the performance table
-async function loadPerformance() {
-    const tableBody = document.getElementById('otbody');
-    const performanceUrl = `${serverIp}/${course}/${week}/all_attempts`;
-    
-    try {
-        const resp = await fetch(performanceUrl);
-        const data = await resp.json();
-        
-        if (!data.attempts || data.attempts.length === 0) {
-            tableBody.innerHTML = '<tr><td colspan="5">No performance data available yet for ' + course + ' ' + week + '.</td></tr>';
-            return;
-        }
-
-        // Map the database attempts to table rows
-        tableBody.innerHTML = data.attempts.map(a => {
-            const percentage = Math.round((a.score / a.total) * 100);
-            const mins = Math.floor((a.seconds_spent || 0) / 60);
-            const secs = (a.seconds_spent || 0) % 60;
-            const timeSpent = `${mins}m ${secs}s`;
-            return `
-                <tr>
-                <td>${a.username || 'Anonymous'}</td>
-            <td>${a.score} / ${a.total}</td>
-            <td>${new Date(a.submitted_at).toLocaleString()}</td>
-            <td>${a.total}</td>
-            <td>${percentage}%</td>
-            <td>${timeSpent}</td>
-            <td>${a.click_count || 0} clicks
-            </td>
-                </tr>
-            `;
-        }).join('');
-    } catch (e) {
-        console.error("Failed to load performance:", e);
-        tableBody.innerHTML = '<tr><td colspan="5">Error connecting to performance server.</td></tr>';
-    }
+    const d = await resp.json();
+    pgFill.style.width = '100%';
+    pg.style.display = 'none';
+    st.textContent = resp.ok
+      ? 'Imported ' + (d.imported || 0) + ' questions.'
+      : 'Import failed: ' + (d.detail || 'unknown error');
+    if (resp.ok) { updateQuestionsDisplay(); document.getElementById('import-preview').style.display = 'none'; document.getElementById('import-controls').style.display = 'none'; }
+  } catch (e) {
+    pg.style.display = 'none';
+    st.textContent = 'Network error: ' + e.message;
+  }
 }
 
-// UPDATE: Modify the openTab function to trigger the load
-function openTab(evt, tabName) {
-    document.querySelectorAll(".tabcontent").forEach(t => t.style.display = "none");
-    document.querySelectorAll(".tablinks").forEach(t => t.classList.remove("active"));
-    document.getElementById(tabName).style.display = "block";
-    if(evt) evt.currentTarget.classList.add("active");
-    
-    if(tabName === 'takeTab') renderQuiz();
-    
-    // Trigger performance load when the specific tab is clicked
-    if(tabName === 'performanceTab') loadPerformance();
+async function loadGrades() {
+  const tbody = document.getElementById('gradesTbody');
+  tbody.innerHTML = '<tr><td colspan="5">Loading…</td></tr>';
+  try {
+    const r = await fetch(gradesUrl);
+    const d = await r.json();
+    const grades = d.grades || [];
+    if (!grades.length) { tbody.innerHTML = '<tr><td colspan="5">No submissions yet.</td></tr>'; return; }
+    tbody.innerHTML = grades.map(g =>
+      '<tr><td>' + g.username + '</td><td>' + g.score + '</td><td>' + g.total + '</td><td>' + g.percent + '%</td><td>' + (g.last_submit || '—') + '</td></tr>'
+    ).join('');
+  } catch { tbody.innerHTML = '<tr><td colspan="5">Error loading grades.</td></tr>'; }
 }
-
-   window.onload = () => {
-    updateQuestionsDisplay();
-    
-    if(userRole === 'Student') {
-        // 1. Hide the "Create Questions" tab content and button
-        document.getElementById('createTab').style.display = 'none';
-        document.querySelector('[onclick*="createTab"]').style.display = 'none';
-        
-        // 2. Hide the "Import/Export" tab button
-        document.querySelector('[onclick*="importExportTab"]').style.display = 'none';
-        
-        // 3. Hide the "Student Performance" tab button
-        document.querySelector('[onclick*="performanceTab"]').style.display = 'none';
-        
-        // 4. Force the student into the "Take Quiz" tab
-        openTab(null, 'takeTab');
-    }
-};
 </script>

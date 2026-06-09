@@ -1,90 +1,189 @@
 <python>
-cs_content_header = "Lecture 1: Introduction"
-
+cs_content_header = "Lecture 1: Python Basics"
 </python>
 
-<h1>What is Programming?</h1>
-<p><strong>Programming</strong> is the process of giving instructions to a computer to perform specific tasks. These instructions are written in a language that computers can understand, known as a <strong>programming language</strong>.</p>
+<h1>Python Basics: Variables, Data Types, and First Programs</h1>
+
+<h2>What is Programming?</h2>
+<p><strong>Programming</strong> is the process of writing instructions that a computer can execute to solve a problem or perform a task. A computer is extremely fast and precise — but it does exactly what you tell it to do, nothing more and nothing less. Writing good programs means giving precise, logical instructions.</p>
 
 <div class="highlight">
-    <p>In simple terms: Programming is how we tell computers what to do.</p>
+  <strong>Why Python?</strong> Python is one of the most popular programming languages in the world. It has a clean, readable syntax that closely resembles English, making it ideal for beginners. It is also extremely powerful — used by Google, Netflix, NASA, and researchers in AI and data science worldwide.
 </div>
 
-<h2>Examples of what we can build with programming:</h2>
+<h2>Installing Python</h2>
+<p>To run Python programs on your own computer:</p>
+<ol>
+  <li>Visit <a href="https://www.python.org/downloads/">python.org/downloads</a> and download Python 3 (any version 3.8 or above).</li>
+  <li>Install a code editor: <strong>VS Code</strong> (from <a href="https://code.visualstudio.com">code.visualstudio.com</a>) is recommended and free.</li>
+  <li>Or use an online editor such as <a href="https://replit.com">replit.com</a> or <a href="https://colab.research.google.com">Google Colab</a> — no installation needed.</li>
+</ol>
+<p>To run a Python file from the command line: <code>python3 filename.py</code></p>
+
+<h2>Your First Python Program</h2>
+<p>Every programmer's first program is "Hello, World!" — a program that simply prints a message to the screen.</p>
+<pre><code># This is a comment — Python ignores it
+print("Hello, World!")
+</code></pre>
+<p>Output: <code>Hello, World!</code></p>
+
+<p>The <code>print()</code> function displays text on the screen. The text must be enclosed in quotation marks (single <code>'</code> or double <code>"</code> — both work).</p>
+
+<h2>Comments</h2>
+<p>A <strong>comment</strong> is a note in your code that Python ignores when running the program. Comments help you and others understand what your code does.</p>
+<pre><code># This is a single-line comment
+
+# You can also write comments at the end of a line of code:
+print("Hello")  # This prints a greeting
+</code></pre>
+
+<h2>Variables</h2>
+<p>A <strong>variable</strong> is a named container that stores a value. You create a variable by assigning it a name and a value using the equals sign <code>=</code>.</p>
+<pre><code>name = "Chinedu"
+age = 20
+height = 1.75
+is_student = True
+
+print(name)   # Output: Chinedu
+print(age)    # Output: 20
+</code></pre>
+
+<p><strong>Rules for variable names:</strong></p>
 <ul>
-    <li>Websites (e.g., Facebook, Instagram)</li>
-    <li>Mobile apps (e.g., WhatsApp, TikTok)</li>
-    <li>Games (e.g., Fortnite, FIFA)</li>
-    <li>Software tools (e.g., Microsoft Word, Excel)</li>
-    <li>AI systems (e.g., ChatGPT, voice assistants)</li>
+  <li>Can contain letters, digits, and underscores</li>
+  <li>Must start with a letter or underscore (not a digit)</li>
+  <li>Case-sensitive: <code>Age</code> and <code>age</code> are different variables</li>
+  <li>Cannot use Python reserved words (keywords) like <code>if</code>, <code>for</code>, <code>while</code>, <code>print</code></li>
+  <li>Use descriptive names: <code>student_name</code> is better than <code>x</code></li>
 </ul>
 
-<h2><span class="emoji">🧠</span>Why is Programming Important?</h2>
-<ul>
-    <li>It automates tasks and increases efficiency.</li>
-    <li>It powers nearly all modern technology.</li>
-    <li>It helps solve complex problems.</li>
-    <li>It's a valuable skill for careers in tech and beyond.</li>
-</ul>
-
-<h2><span class="emoji">🧪</span>Types of Programming Languages</h2>
-<p>There are many programming languages, each with its own use case. Here are some examples:</p>
+<h2>Data Types</h2>
+<p>Every value in Python has a <strong>data type</strong> that determines what kind of data it holds and what operations can be performed on it.</p>
 
 <table>
-    <tr>
-        <th>Language</th>
-        <th>Usage</th>
-    </tr>
-    <tr>
-        <td><strong>Python</strong></td>
-        <td>Web development, AI, automation</td>
-    </tr>
-    <tr>
-        <td><strong>JavaScript</strong></td>
-        <td>Web apps, front-end development</td>
-    </tr>
-    <tr>
-        <td><strong>Java</strong></td>
-        <td>Android apps, enterprise software</td>
-    </tr>
-    <tr>
-        <td><strong>C/C++</strong></td>
-        <td>System programming, embedded systems</td>
-    </tr>
-    <tr>
-        <td><strong>PHP</strong></td>
-        <td>Server-side web development</td>
-    </tr>
-    <tr>
-        <td><strong>SQL</strong></td>
-        <td>Database management</td>
-    </tr>
+  <tr>
+    <th>Data Type</th>
+    <th>Python Name</th>
+    <th>Description</th>
+    <th>Example</th>
+  </tr>
+  <tr>
+    <td>Integer</td>
+    <td><code>int</code></td>
+    <td>Whole numbers (positive or negative)</td>
+    <td><code>age = 21</code></td>
+  </tr>
+  <tr>
+    <td>Float</td>
+    <td><code>float</code></td>
+    <td>Decimal (fractional) numbers</td>
+    <td><code>gpa = 3.85</code></td>
+  </tr>
+  <tr>
+    <td>String</td>
+    <td><code>str</code></td>
+    <td>Text — sequence of characters in quotes</td>
+    <td><code>name = "Blessing"</code></td>
+  </tr>
+  <tr>
+    <td>Boolean</td>
+    <td><code>bool</code></td>
+    <td>True or False values</td>
+    <td><code>passed = True</code></td>
+  </tr>
 </table>
 
-<h2><span class="emoji">🛠️</span>Setting Up Your Development Environment</h2>
-<p>Before we start coding, you need the right tools.</p>
+<p>You can check the type of any value using <code>type()</code>:</p>
+<pre><code>x = 42
+print(type(x))    # &lt;class 'int'&gt;
 
-<h3>✅ Basic Setup:</h3>
-<ol>
-    <li>
-        <strong>Text Editor or IDE</strong>
-        <ul>
-            <li>Install <strong>VS Code</strong> (Recommended): <a href="https://code.visualstudio.com/">https://code.visualstudio.com/</a></li>
-        </ul>
-    </li>
-    <li>
-        <strong>Programming Language</strong>
-        <ul>
-            <li>Install <strong>Python</strong>: <a href="https://www.python.org/downloads/">https://www.python.org/downloads/</a></li>
-        </ul>
-    </li>
-    <li>
-        <strong>Command Line/Terminal</strong>
-        <ul>
-            <li>Learn basic terminal commands (e.g., <code>cd</code>, <code>dir</code>/<code>ls</code>, <code>python filename.py</code>)</li>
-        </ul>
-    </li>
-</ol>
+y = "hello"
+print(type(y))    # &lt;class 'str'&gt;
+</code></pre>
+
+<h2>Basic Operators</h2>
+
+<h3>Arithmetic Operators</h3>
+<table>
+  <tr><th>Operator</th><th>Operation</th><th>Example</th><th>Result</th></tr>
+  <tr><td><code>+</code></td><td>Addition</td><td><code>5 + 3</code></td><td>8</td></tr>
+  <tr><td><code>-</code></td><td>Subtraction</td><td><code>10 - 4</code></td><td>6</td></tr>
+  <tr><td><code>*</code></td><td>Multiplication</td><td><code>3 * 7</code></td><td>21</td></tr>
+  <tr><td><code>/</code></td><td>Division (always float)</td><td><code>9 / 2</code></td><td>4.5</td></tr>
+  <tr><td><code>//</code></td><td>Floor (integer) division</td><td><code>9 // 2</code></td><td>4</td></tr>
+  <tr><td><code>%</code></td><td>Modulus (remainder)</td><td><code>9 % 2</code></td><td>1</td></tr>
+  <tr><td><code>**</code></td><td>Exponentiation</td><td><code>2 ** 8</code></td><td>256</td></tr>
+</table>
+
+<pre><code>price = 1500
+quantity = 4
+total = price * quantity
+discount = total * 0.1
+final = total - discount
+print("Final price:", final)   # Output: Final price: 5400.0
+</code></pre>
+
+<h2>String Operations</h2>
+<p>Strings support special operations:</p>
+<pre><code>first = "Covenant"
+last = "University"
+full = first + " " + last    # Concatenation: "Covenant University"
+print(full)
+
+greeting = "Hello " * 3      # Repetition: "Hello Hello Hello "
+print(greeting)
+
+name = "Nigeria"
+print(len(name))              # Length: 7
+print(name.upper())           # NIGERIA
+print(name.lower())           # nigeria
+print(name[0])                # N  (first character, index 0)
+print(name[-1])               # a  (last character)
+</code></pre>
+
+<h2>Input and Output</h2>
+<p>The <code>input()</code> function reads text typed by the user. It always returns a <strong>string</strong>.</p>
+<pre><code>name = input("What is your name? ")
+print("Welcome, " + name + "!")
+
+age = int(input("Enter your age: "))   # Convert string to int
+year_of_birth = 2024 - age
+print("You were born around", year_of_birth)
+</code></pre>
+
+<h2>f-strings: Formatted Output</h2>
+<p><strong>f-strings</strong> (formatted string literals) are the modern, clean way to include variable values inside strings. Prefix the string with <code>f</code> and put variables inside <code>{}</code>:</p>
+<pre><code>name = "Adaeze"
+score = 87
+print(f"Student: {name}, Score: {score}%")
+# Output: Student: Adaeze, Score: 87%
+</code></pre>
+
+<h2>A Complete First Program</h2>
+<pre><code># Simple grade calculator
+print("--- Grade Calculator ---")
+student_name = input("Enter student name: ")
+score = float(input("Enter score (0-100): "))
+
+if score >= 70:
+    grade = "A"
+elif score >= 60:
+    grade = "B"
+elif score >= 50:
+    grade = "C"
+elif score >= 45:
+    grade = "D"
+else:
+    grade = "F"
+
+print(f"\nStudent: {student_name}")
+print(f"Score:   {score}")
+print(f"Grade:   {grade}")
+</code></pre>
+
+<div class="highlight">
+  <strong>Practice Tip:</strong> The best way to learn programming is by doing. Type every code example by hand (don't copy-paste), run it, and then experiment by changing values and seeing what happens. Errors are normal — they are how you learn.
+</div>
 <div id="live-file-panel" style="display:none;margin:20px 0;padding:16px;border:1px solid #ddd;border-radius:6px;background:#f9f9f9;">
   <strong>Live File</strong>
   <div id="live-file-content" style="margin-top:8px;color:#555;"></div>

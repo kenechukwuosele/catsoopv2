@@ -3,130 +3,42 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>CU Quiz App — Admin Panel</title>
+<title>CU Quiz Admin Panel</title>
+<link rel="stylesheet" href="/static/admin/admin.css?v=5">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600;700&display=swap');
-  :root {
-    --bg:#0d0f14; --surface:#151820; --surface2:#1c2030;
-    --border:#252a3a; --accent:#4f8ef7; --green:#22c55e;
-    --red:#ef4444; --yellow:#eab308; --text:#e2e8f0; --muted:#64748b;
-    --mono:'IBM Plex Mono',monospace; --sans:'IBM Plex Sans',sans-serif;
-  }
-  *{box-sizing:border-box;margin:0;padding:0;}
-  body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:100vh;display:flex;}
-  .sidebar{width:220px;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;height:100vh;z-index:100;}
-  .sidebar-logo{padding:24px 20px 20px;border-bottom:1px solid var(--border);}
-  .sidebar-logo .app-name{font-family:var(--mono);font-size:0.78em;font-weight:600;color:var(--accent);letter-spacing:2px;text-transform:uppercase;}
-  .sidebar-logo .panel-label{font-size:0.72em;color:var(--muted);margin-top:3px;}
-  .sidebar-nav{padding:16px 0;flex:1;overflow-y:auto;}
-  .nav-section{font-family:var(--mono);font-size:0.62em;color:var(--muted);letter-spacing:2px;text-transform:uppercase;padding:8px 20px 6px;}
-  .nav-item{display:flex;align-items:center;gap:10px;padding:9px 20px;font-size:0.85em;color:#94a3b8;cursor:pointer;transition:all 0.15s;border-left:2px solid transparent;}
-  .nav-item:hover{background:var(--surface2);color:var(--text);}
-  .nav-item.active{background:rgba(79,142,247,0.1);color:var(--accent);border-left-color:var(--accent);}
-  .sidebar-footer{padding:16px 20px;border-top:1px solid var(--border);font-size:0.75em;color:var(--muted);}
-  .status-dot{width:8px;height:8px;border-radius:50%;background:var(--green);display:inline-block;margin-right:6px;animation:pulse 2s infinite;}
-  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
-  .main{margin-left:220px;flex:1;display:flex;flex-direction:column;}
-  .topbar{background:var(--surface);border-bottom:1px solid var(--border);padding:0 32px;height:56px;display:flex;align-items:center;justify-content:space-between;}
-  .topbar-title{font-family:var(--mono);font-size:0.85em;color:var(--muted);}
-  .topbar-title span{color:var(--text);font-weight:600;}
-  .content{padding:32px;flex:1;}
-  .panel{display:none;}.panel.active{display:block;}
-  .panel-header{margin-bottom:28px;}
-  .panel-header h1{font-size:1.4em;font-weight:700;margin-bottom:6px;}
-  .panel-header p{font-size:0.85em;color:var(--muted);}
-  .card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:24px;margin-bottom:20px;}
-  .card-title{font-family:var(--mono);font-size:0.78em;font-weight:600;color:var(--accent);letter-spacing:1px;text-transform:uppercase;margin-bottom:18px;}
-  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
-  .form-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;}
-  .field{display:flex;flex-direction:column;gap:6px;}
-  .field.full{grid-column:1/-1;}
-  label{font-size:0.78em;font-weight:600;color:#94a3b8;letter-spacing:0.5px;text-transform:uppercase;}
-  input,select,textarea{background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:9px 12px;font-size:0.88em;color:var(--text);font-family:var(--sans);transition:border-color 0.15s;width:100%;}
-  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 2px rgba(79,142,247,0.15);}
-  textarea{resize:vertical;min-height:100px;font-family:var(--mono);font-size:0.82em;}
-  input[type="checkbox"]{width:auto;margin-right:6px;}
-  input[type="range"]{padding:0;}
-  .md-wrapper{display:flex;flex-direction:column;}
-  .md-toolbar{display:flex;align-items:center;gap:2px;background:var(--bg);border:1px solid var(--border);border-bottom:none;border-radius:5px 5px 0 0;padding:6px 8px;flex-wrap:wrap;}
-  .md-btn{background:none;border:1px solid transparent;color:var(--muted);padding:3px 7px;border-radius:3px;font-size:0.78em;font-family:var(--mono);cursor:pointer;transition:all 0.12s;}
-  .md-btn:hover{background:var(--surface2);border-color:var(--border);color:var(--text);}
-  .md-sep{width:1px;height:16px;background:var(--border);margin:0 4px;}
-  .md-hint{font-size:0.68em;color:var(--muted);margin-left:auto;font-family:var(--mono);}
-  .md-wrapper textarea{border-radius:0 0 5px 5px;border-top:1px solid var(--border);}
-  .btn{padding:9px 20px;border-radius:5px;font-size:0.85em;font-weight:600;cursor:pointer;border:none;transition:all 0.15s;display:inline-flex;align-items:center;gap:6px;}
-  .btn-primary{background:var(--accent);color:white;}.btn-primary:hover{background:#3b7de8;}
-  .btn-success{background:var(--green);color:white;}.btn-success:hover{background:#16a34a;}
-  .btn-danger{background:var(--red);color:white;}.btn-danger:hover{background:#dc2626;}
-  .btn-yellow{background:var(--yellow);color:#000;}.btn-yellow:hover{background:#ca9e00;}
-  .btn-ghost{background:var(--surface2);color:var(--text);border:1px solid var(--border);}.btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
-  .btn-sm{padding:4px 10px;font-size:0.75em;}
-  .btn-row{display:flex;gap:10px;margin-top:20px;align-items:center;flex-wrap:wrap;}
-  .section-divider{border:none;border-top:2px solid var(--border);margin:24px 0;grid-column:1/-1;}
-  .section-label{grid-column:1/-1;font-family:var(--mono);font-size:0.72em;color:var(--accent);letter-spacing:2px;text-transform:uppercase;padding:4px 0;}
-  .problems-list{display:flex;flex-direction:column;gap:10px;margin-bottom:12px;}
-  .problem-card{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:14px;}
-  .problem-card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
-  .problem-card-num{font-family:var(--mono);font-size:0.75em;color:var(--accent);}
-  .remove-btn{background:none;border:1px solid var(--border);color:var(--muted);border-radius:4px;padding:4px 8px;cursor:pointer;font-size:0.75em;}
-  .remove-btn:hover{border-color:var(--red);color:var(--red);}
-  .problem-fields{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-  .problem-fields .field.full-width{grid-column:1/-1;}
-  .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9000;align-items:center;justify-content:center;}
-  .modal-overlay.show{display:flex;}
-  .modal{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:28px;width:680px;max-width:92vw;max-height:88vh;overflow-y:auto;}
-  .modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
-  .modal-title{font-family:var(--mono);font-size:0.85em;color:var(--accent);font-weight:600;letter-spacing:1px;text-transform:uppercase;}
-  .modal-close{background:none;border:none;color:var(--muted);font-size:1.2em;cursor:pointer;padding:4px;}
-  .modal-close:hover{color:var(--text);}
-  .data-table{width:100%;border-collapse:collapse;font-size:0.85em;}
-  .data-table th{padding:10px 14px;text-align:left;font-family:var(--mono);font-size:0.72em;color:var(--muted);letter-spacing:1px;text-transform:uppercase;border-bottom:1px solid var(--border);}
-  .data-table td{padding:10px 14px;border-bottom:1px solid var(--border);}
-  .data-table tr:hover td{background:var(--surface2);}
-  .badge{display:inline-block;padding:2px 8px;border-radius:3px;font-family:var(--mono);font-size:0.72em;font-weight:600;}
-  .badge-blue{background:rgba(79,142,247,0.15);color:var(--accent);}
-  .badge-green{background:rgba(34,197,94,0.15);color:var(--green);}
-  .badge-yellow{background:rgba(234,179,8,0.15);color:var(--yellow);}
-  .badge-purple{background:rgba(124,58,237,0.15);color:#a78bfa;}
-  .badge-red{background:rgba(239,68,68,0.15);color:var(--red);}
-  .options-list{display:flex;flex-direction:column;gap:8px;margin-bottom:10px;}
-  .option-row{display:flex;gap:8px;align-items:center;}
-  .option-row input[type="text"]{flex:1;}
-  .hint-fields{display:flex;flex-direction:column;gap:10px;}
-  .hint-row{display:flex;gap:8px;align-items:flex-start;}
-  .hint-num{font-family:var(--mono);font-size:0.75em;color:var(--accent);padding:10px 0;min-width:20px;}
-  .hint-row textarea{flex:1;min-height:60px;}
-  .divider{border:none;border-top:1px solid var(--border);margin:24px 0;}
-  .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px;}
-  .stat-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:20px;}
-  .stat-value{font-family:var(--mono);font-size:2em;font-weight:600;color:var(--accent);}
-  .stat-label{font-size:0.78em;color:var(--muted);margin-top:4px;}
-  .course-grid-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;}
-  .course-feature-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:20px;}
-  .course-feature-card h3{font-size:0.95em;margin-bottom:12px;color:var(--text);}
-  .course-feature-card .links{display:flex;flex-direction:column;gap:8px;}
-  .course-feature-card a{display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--surface2);border:1px solid var(--border);border-radius:5px;color:var(--accent);text-decoration:none;font-size:0.82em;transition:border-color 0.15s;}
-  .course-feature-card a:hover{border-color:var(--accent);}
-  .q-type-badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:0.7em;font-weight:600;font-family:var(--mono);}
-  .q-type-mc{background:rgba(79,142,247,0.15);color:var(--accent);}
-  .q-type-num{background:rgba(34,197,94,0.15);color:var(--green);}
-  .q-type-sym{background:rgba(234,179,8,0.15);color:var(--yellow);}
-  .q-type-py{background:rgba(124,58,237,0.15);color:#a78bfa;}
-  .q-type-tf{background:rgba(239,68,68,0.15);color:var(--red);}
-  .q-type-sa{background:rgba(100,116,139,0.2);color:var(--muted);}
-  #toast{position:fixed;bottom:24px;right:24px;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:12px 18px;font-size:0.85em;color:var(--text);box-shadow:0 4px 20px rgba(0,0,0,0.4);z-index:9999;display:none;align-items:center;gap:10px;min-width:260px;}
-  #toast.show{display:flex;animation:slideUp 0.2s ease;}
-  #toast.success{border-left:3px solid var(--green);}
-  #toast.error{border-left:3px solid var(--red);}
-  @keyframes slideUp{from{transform:translateY(10px);opacity:0;}to{transform:translateY(0);opacity:1;}}
-  .icon-picker{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;}
-  .icon-option{width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:1.3em;border:2px solid var(--border);border-radius:6px;cursor:pointer;background:var(--surface2);transition:all 0.15s;}
-  .icon-option:hover{border-color:var(--accent);background:rgba(79,142,247,0.1);}
-  .icon-option.selected{border-color:var(--accent);background:rgba(79,142,247,0.2);box-shadow:0 0 0 1px var(--accent);}
-  .icon-preview{font-size:1.5em;margin-left:8px;}
+.login-overlay{position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;align-items:center;justify-content:center;}
+.login-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:40px 36px;width:360px;box-shadow:0 4px 24px rgba(0,0,0,0.4);}
+.login-card h1{font-size:1.4em;margin:0 0 4px;color:var(--text);}
+.login-card p{color:var(--muted);font-size:0.85em;margin:0 0 24px;}
+.login-field{display:flex;flex-direction:column;gap:4px;margin-bottom:14px;}
+.login-field label{font-size:0.8em;color:var(--muted);}
+.login-field input{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:10px 12px;color:var(--text);font-size:0.95em;outline:none;width:100%;box-sizing:border-box;}
+.login-field input:focus{border-color:var(--accent);}
+.copy-box{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:10px 14px;font-family:var(--mono);font-size:0.95em;color:var(--text);display:flex;align-items:center;justify-content:space-between;gap:8px;margin:8px 0;}
+.copy-box span{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 </style>
 </head>
 <body>
+
+<!-- LOGIN OVERLAY -->
+<div class="login-overlay" id="login-overlay">
+  <div class="login-card">
+    <h1>CU Quiz App</h1>
+    <p>Sign in to access the admin panel</p>
+    <div class="login-field">
+      <label>Username <span style="color:var(--muted);font-weight:400;">(leave blank for system admin)</span></label>
+      <input type="text" id="login-username" placeholder="Lecturer username" autocomplete="username"
+             onkeydown="if(event.key==='Enter')document.getElementById('login-password').focus()"/>
+    </div>
+    <div class="login-field">
+      <label>Password</label>
+      <input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password"
+             onkeydown="if(event.key==='Enter')doLogin()"/>
+    </div>
+    <div id="login-error" style="color:var(--red);font-size:0.82em;margin-bottom:10px;display:none;"></div>
+    <button class="btn btn-primary" style="width:100%;margin-top:4px;" onclick="doLogin()">Sign in</button>
+  </div>
+</div>
 
 <nav class="sidebar">
   <div class="sidebar-logo">
@@ -141,13 +53,21 @@
     <div class="nav-item" onclick="showPanel('hints')"><span>💡</span> Hints</div>
     <div class="nav-section">Students</div>
     <div class="nav-item" onclick="showPanel('grades')"><span>🎓</span> Grades</div>
-    <div class="nav-item" onclick="showPanel('queue')"><span>🙋</span> Help Queue</div>
     <div class="nav-item" onclick="showPanel('attempts')"><span>📊</span> Attempts</div>
-    <div class="nav-item" onclick="showPanel('live')"><span>📡</span> Live</div>
+    <div class="nav-item" onclick="showPanel('performance')"><span>📈</span> Performance</div>
+    <div class="nav-item" onclick="showPanel('live')"><span>📊</span> Monitoring</div>
+    <div class="nav-item" onclick="showPanel('gamification')"><span>🏆</span> Gamification</div>
+    <div class="nav-item" onclick="showPanel('faceauth')"><span>🔐</span> Face Auth</div>
+    <div class="nav-item" onclick="showPanel('students')"><span>🔑</span> Passwords</div>
+    <div class="nav-section" data-admin-only>Admin</div>
+    <div class="nav-item" data-admin-only onclick="showPanel('lecturers')"><span>👨‍🏫</span> Lecturers</div>
     <div class="nav-section">System</div>
     <div class="nav-item" onclick="showPanel('overview')"><span>🏠</span> Overview</div>
   </div>
-  <div class="sidebar-footer"><span class="status-dot"></span>Server running</div>
+  <div class="sidebar-footer">
+    <div id="sidebar-user" style="font-size:0.78em;color:var(--muted);margin-bottom:8px;"></div>
+    <button class="btn btn-ghost btn-sm" style="width:100%;" onclick="doLogout()">Sign out</button>
+  </div>
 </nav>
 
 <div class="main">
@@ -249,6 +169,7 @@
               Allow Late Submissions
             </label>
           </div>
+          <div class="field"><label>Quiz Timer (minutes, 0 = no timer)</label><input type="number" id="week-time-limit" min="0" value="0"/></div>
 
           <hr class="section-divider"/>
           <div class="section-label">📖 Lecture Notes</div>
@@ -336,8 +257,8 @@
               <textarea id="q-text" rows="3" placeholder="Enter the question..."></textarea>
             </div>
           </div>
-          <div class="field"><label>Type</label><select id="q-type" onchange="toggleOptions()"><option value="multiple_choice">Multiple Choice</option><option value="true_false">True/False</option><option value="short_answer">Short Answer</option></select></div>
-          <div class="field"><label>Username</label><input type="text" id="q-username" placeholder="admin"/></div>
+          <div class="field"><label>Type</label><select id="q-type" onchange="toggleOptions()"><option value="multiple-choice">Multiple Choice</option><option value="multiple-choice">True/False</option><option value="short-answer">Short Answer</option><option value="numerical">Numerical</option></select></div>
+          <div class="field"><label>Points</label><input type="number" id="q-points" value="1" min="1"/></div>
           <div class="field full" id="options-section">
             <label>Answer Options</label>
             <div class="options-list" id="options-list">
@@ -346,11 +267,38 @@
             </div>
             <button class="btn btn-ghost btn-sm" onclick="addOption()">+ Add Option</button>
           </div>
-          <div class="field full"><label>Correct Answer(s) — comma separated</label><input type="text" id="q-correct" placeholder="e.g. Option A"/></div>
+          <div class="field full"><label>Correct Answer</label><input type="text" id="q-correct" placeholder="e.g. Option A (or leave blank for short-answer)"/></div>
         </div>
         <div class="btn-row">
           <button class="btn btn-primary" onclick="addQuestion()">Add Question</button>
           <span id="q-status" style="font-size:0.8em;color:var(--muted);"></span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title" style="cursor:pointer;user-select:none;" onclick="(function(){var b=document.getElementById('gen-body'),i=document.getElementById('gen-chevron');var open=b.style.display!=='none';b.style.display=open?'none':'block';i.textContent=open?'▸':'▾';})()">
+          🤖 Generate from Notes <span id="gen-chevron" style="font-size:0.8em;color:var(--muted);">▸</span>
+        </div>
+        <div id="gen-body" style="display:none;">
+          <p style="font-size:0.82em;color:var(--muted);margin:0 0 12px;">Use AI to generate questions from ingested lecture content.</p>
+          <div class="form-grid">
+            <div class="field"><label>Course</label><select id="gen-course" onchange="loadWeeksForCourse('gen-course','gen-week')"><option value="">Select course...</option></select></div>
+            <div class="field"><label>Week</label><select id="gen-week"><option value="">Select week...</option></select></div>
+            <div class="field full"><label>Topic (optional)</label><input type="text" id="gen-topic" placeholder="e.g. supply and demand, elasticity…"/></div>
+            <div class="field"><label># Questions</label><select id="gen-num"><option value="1">1</option><option value="2">2</option><option value="3" selected>3</option><option value="5">5</option></select></div>
+            <div class="field"><label>Type</label><select id="gen-type"><option value="multiple-choice">Multiple Choice</option><option value="short-answer">Short Answer</option><option value="numerical">Numerical</option><option value="checkbox">Checkbox</option></select></div>
+            <div class="field"><label>Include Hints</label><select id="gen-hints"><option value="1">Yes (AI-generated)</option><option value="0">No</option></select></div>
+          </div>
+          <div class="btn-row">
+            <button class="btn btn-primary" onclick="generateQuestionsFromNotes()">✨ Generate</button>
+            <span id="gen-status" style="font-size:0.8em;color:var(--muted);"></span>
+          </div>
+          <div id="gen-preview-section" style="display:none;margin-top:16px;">
+            <div style="font-size:0.85em;font-weight:600;margin-bottom:8px;">Generated Questions (already imported):</div>
+            <table class="data-table">
+              <thead><tr><th>Question</th><th>Type</th><th>Correct Answer</th><th>Hints</th></tr></thead>
+              <tbody id="gen-preview-body"></tbody>
+            </table>
+          </div>
         </div>
       </div>
       <div class="card">
@@ -364,11 +312,11 @@
           <tbody id="questions-table-body"><tr><td colspan="4" style="color:var(--muted);text-align:center;padding:20px;">Select course and week</td></tr></tbody>
         </table>
         <div class="btn-row" style="margin-top:16px;">
-          <button class="btn btn-success" onclick="publishQuiz()">📄 Publish Quiz → Engine</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteAllQuestions()">🗑 Delete All Questions</button>
           <span id="publish-status" style="font-size:0.8em;color:var(--muted);"></span>
         </div>
         <div style="margin-top:8px;font-size:0.78em;color:var(--muted);">
-          Generates a native CAT-SOOP quiz file from stored questions. Students access it at <code style="color:var(--accent);">/course/week/quiz</code>
+          Questions are saved directly to the native CatSooP quiz file. Students access the quiz at <code style="color:var(--accent);">/course/week/quiz</code>
         </div>
       </div>
     </div>
@@ -386,9 +334,10 @@
 
       <div class="card">
         <div class="card-title">📋 Questions with Hints</div>
-        <div style="display:flex;gap:10px;margin-bottom:16px;">
-          <select id="hint-view-course" onchange="loadWeeksForCourse('hint-view-course','hint-view-week');loadHintsTable()" style="flex:1;"><option value="">Select course...</option></select>
-          <select id="hint-view-week" onchange="loadHintsTable()" style="flex:1;"><option value="">Select week...</option></select>
+        <div style="display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;align-items:center;">
+          <select id="hint-view-course" onchange="loadWeeksForCourse('hint-view-course','hint-view-week');loadHintsTable()" style="flex:1;min-width:140px;"><option value="">Select course...</option></select>
+          <select id="hint-view-week" onchange="loadHintsTable();loadHintStats();" style="flex:1;min-width:120px;"><option value="">Select week...</option></select>
+          <button id="btn-generate-all" class="btn btn-primary btn-sm" onclick="generateAllHintsAI()" title="Pre-generate hints for all questions in this week">⚡ Pre-generate All</button>
         </div>
         <table class="data-table">
           <thead><tr><th>ID</th><th>Question</th><th>Type</th><th>Hint Count</th><th>Actions</th></tr></thead>
@@ -452,39 +401,6 @@
       </div>
     </div>
 
-    <!-- QUEUE -->
-    <div class="panel" id="panel-queue">
-      <div class="panel-header"><h1>Help Queue</h1><p>CatSooP's built-in queue system for office hours and in-class labs</p></div>
-      <div class="card">
-        <div class="card-title">🙋 Course Help Queues</div>
-        <p style="color:var(--muted);font-size:0.85em;margin-bottom:20px;">Each course has a built-in queue. Students can join from any page. Open a queue to manage requests.</p>
-        <div class="course-grid-cards" id="queue-course-grid">
-          <p style="color:var(--muted);">Loading courses...</p>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-title">ℹ️ How the Queue Works</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;font-size:0.85em;color:var(--muted);">
-          <div style="background:var(--surface2);border-radius:6px;padding:14px;">
-            <div style="color:var(--text);font-weight:600;margin-bottom:6px;">Students</div>
-            Visit <code style="color:var(--accent);">COURSE/queue</code> to join the queue, describe their problem, and wait for help.
-          </div>
-          <div style="background:var(--surface2);border-radius:6px;padding:14px;">
-            <div style="color:var(--text);font-weight:600;margin-bottom:6px;">Instructors</div>
-            See all waiting students, claim requests, and mark them as resolved from the same URL.
-          </div>
-          <div style="background:var(--surface2);border-radius:6px;padding:14px;">
-            <div style="color:var(--text);font-weight:600;margin-bottom:6px;">During Labs</div>
-            Project the queue on screen so students can see their position and expected wait time.
-          </div>
-          <div style="background:var(--surface2);border-radius:6px;padding:14px;">
-            <div style="color:var(--text);font-weight:600;margin-bottom:6px;">After Hours</div>
-            Queue history is logged so you can review common issues across sessions.
-          </div>
-        </div>
-      </div>
-    </div>
-
     <!-- ATTEMPTS -->
     <div class="panel" id="panel-attempts">
       <div class="panel-header"><h1>Attempts</h1><p>View student quiz submissions</p></div>
@@ -495,8 +411,20 @@
           <select id="att-week" onchange="loadAttempts()" style="flex:1;"><option value="">Select week...</option></select>
         </div>
         <table class="data-table">
-          <thead><tr><th>Username</th><th>Score</th><th>Time Spent</th><th>Submitted</th><th>Hints</th></tr></thead>
+          <thead><tr><th>Username</th><th>Score</th><th>Percent</th><th>Last Submitted</th></tr></thead>
           <tbody id="attempts-table-body"><tr><td colspan="5" style="color:var(--muted);text-align:center;padding:20px;">Select course and week</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- PERFORMANCE DASHBOARD -->
+    <div class="panel" id="panel-performance">
+      <div class="panel-header"><h1>Performance</h1><p>Aggregated student quiz performance across all courses</p></div>
+      <div class="card">
+        <div class="card-title">📈 Course Performance Overview</div>
+        <table class="data-table">
+          <thead><tr><th>Course</th><th>Week</th><th>Students</th><th>Attempts</th><th>Avg Score</th><th>Max</th><th>Min</th><th>Hints Used</th></tr></thead>
+          <tbody id="performance-table-body"><tr><td colspan="8" style="color:var(--muted);text-align:center;padding:20px;">Loading...</td></tr></tbody>
         </table>
       </div>
     </div>
@@ -508,7 +436,7 @@
         <div class="card-title">📡 Live Session</div>
         <div style="display:flex;gap:10px;margin-bottom:16px;">
           <select id="live-course" onchange="loadWeeksForCourse('live-course','live-week')" style="flex:1;"><option value="">Select course...</option></select>
-          <select id="live-week" onchange="connectLiveSession()" style="flex:1;"><option value="">Select week...</option></select>
+          <select id="live-week" onchange="connectLiveSession();loadMonitoringPanel();" style="flex:1;"><option value="">Select week...</option></select>
         </div>
         <div id="live-connection-status" style="font-size:0.8em;color:var(--muted);margin-bottom:16px;">Connect to a course/week to start monitoring.</div>
         <div id="live-student-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;"></div>
@@ -516,8 +444,177 @@
           <div style="color:var(--muted);text-align:center;padding:10px;">Activity feed will appear here</div>
         </div>
       </div>
+      <div class="card" style="margin-top:16px;">
+        <div class="card-title">📈 Session History — <span id="live-history-label">select a course/week above</span></div>
+        <div class="stats-grid" style="margin:12px 0;">
+          <div class="stat-card"><div class="stat-value" id="mon-total-students">—</div><div class="stat-label">Students</div></div>
+          <div class="stat-card"><div class="stat-value" id="mon-total-samples">—</div><div class="stat-label">Samples</div></div>
+          <div class="stat-card"><div class="stat-value" id="mon-avg-score">—</div><div class="stat-label">Avg Score</div></div>
+          <div class="stat-card"><div class="stat-value" id="mon-avg-face">—</div><div class="stat-label">Face Detected</div></div>
+        </div>
+        <table class="data-table">
+          <thead><tr>
+            <th>Student</th><th>Sessions</th><th>Samples</th>
+            <th>Avg Score</th><th>Face %</th>
+            <th>😊 Focused</th><th>😑 Disengaged</th><th>😶 Distracted</th>
+            <th>Last Seen</th>
+          </tr></thead>
+          <tbody id="mon-table-body">
+            <tr><td colspan="9" style="text-align:center;color:var(--muted);padding:16px;">Connect to a session above to load history</td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
+    <!-- GAMIFICATION -->
+    <div class="panel" id="panel-gamification">
+      <div class="panel-header"><h1>Gamification</h1><p>XP rankings, streaks, and badges per course</p></div>
+      <div class="card">
+        <div class="card-title">📊 Course Overview</div>
+        <div style="display:flex;gap:12px;align-items:center;margin-bottom:20px;flex-wrap:wrap;">
+          <select id="gam-course" style="min-width:200px;" onchange="loadGamificationPanel()"><option value="">Select course...</option></select>
+        </div>
+        <div class="stats-grid" id="gam-stats-grid">
+          <div class="stat-card"><div class="stat-value" id="gam-total-xp">—</div><div class="stat-label">Total XP Awarded</div></div>
+          <div class="stat-card"><div class="stat-value" id="gam-active-streaks">—</div><div class="stat-label">Active Streaks</div></div>
+          <div class="stat-card"><div class="stat-value" id="gam-total-badges">—</div><div class="stat-label">Total Badges Earned</div></div>
+          <div class="stat-card"><div class="stat-value" id="gam-student-count">—</div><div class="stat-label">Students on Board</div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">🥇 Leaderboard</div>
+        <table class="data-table">
+          <thead><tr><th>Rank</th><th>Username</th><th>XP</th><th>🔥 Streak</th><th>Badges</th></tr></thead>
+          <tbody id="gam-table-body"><tr><td colspan="5" style="color:var(--muted);text-align:center;padding:20px;">Select a course to load data</td></tr></tbody>
+        </table>
+      </div>
+      <div class="card">
+        <div class="card-title">🎖️ Badge Breakdown</div>
+        <div id="gam-badge-breakdown" style="display:flex;flex-direction:column;gap:12px;padding:4px 0;">
+          <div style="color:var(--muted);font-size:0.85em;">Select a course to load badge data</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LECTURERS -->
+    <div class="panel" id="panel-lecturers">
+      <div class="panel-header"><h1>Lecturers</h1><p>Register and manage lecturer accounts for the CatSooP system</p></div>
+      <div class="card">
+        <div class="card-title">👨‍🏫 Registered Lecturers</div>
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;">
+          <div class="stat-card" style="padding:12px 20px;flex:none;">
+            <div class="stat-value" id="lec-count">—</div>
+            <div class="stat-label">Total Lecturers</div>
+          </div>
+          <button class="btn btn-primary" onclick="openRegisterLecturer()">+ Register Lecturer</button>
+          <button class="btn btn-ghost" onclick="loadLecturersPanel()">↺ Refresh</button>
+          <button class="btn btn-ghost" onclick="syncCatSooPInstructors()">↑ Sync from CatSooP</button>
+        </div>
+        <table class="data-table">
+          <thead><tr><th>Username</th><th>Name</th><th>Email</th><th>Courses</th><th>Registered At</th><th>Action</th></tr></thead>
+          <tbody id="lec-table-body"><tr><td colspan="6" style="color:var(--muted);text-align:center;padding:20px;">Loading...</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- FACE AUTH -->
+    <div class="panel" id="panel-faceauth">
+      <div class="panel-header"><h1>Face Auth</h1><p>Manage student face enrollment for quiz identity verification</p></div>
+      <div class="card">
+        <div class="card-title">📋 Enrolled Students</div>
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;">
+          <div class="stat-card" style="padding:12px 20px;flex:none;">
+            <div class="stat-value" id="fa-count">—</div>
+            <div class="stat-label">Total Enrolled</div>
+          </div>
+          <button class="btn btn-ghost" onclick="loadFaceAuthPanel()">↺ Refresh</button>
+        </div>
+        <table class="data-table">
+          <thead><tr><th>Username</th><th>Enrolled At</th><th>Action</th></tr></thead>
+          <tbody id="fa-table-body"><tr><td colspan="3" style="color:var(--muted);text-align:center;padding:20px;">Loading...</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- STUDENT PASSWORDS -->
+    <div class="panel" id="panel-students">
+      <div class="panel-header"><h1>Passwords</h1><p>Reset student CatSooP passwords for your assigned courses</p></div>
+      <div class="card">
+        <div class="card-title">🔑 Student Accounts</div>
+        <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+          <select id="pw-course-select" style="min-width:220px;" onchange="loadStudentsPanel()">
+            <option value="">Select a course…</option>
+          </select>
+          <span id="pw-student-count" style="font-size:0.82em;color:var(--muted);"></span>
+        </div>
+        <table class="data-table">
+          <thead><tr><th>Username</th><th>Last Active</th><th style="text-align:right;">Action</th></tr></thead>
+          <tbody id="pw-student-tbody">
+            <tr><td colspan="3" style="color:var(--muted);text-align:center;padding:20px;">Select a course above</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- RESET PASSWORD MODAL -->
+<div class="modal-overlay" id="modal-reset-pw">
+  <div class="modal" style="max-width:400px;">
+    <div class="modal-header">
+      <div class="modal-title">🔑 Reset Password</div>
+      <button class="modal-close" onclick="closeModal('modal-reset-pw')">✕</button>
+    </div>
+    <p style="color:var(--muted);font-size:0.85em;margin:0 0 16px;">
+      Set a new password for <strong id="reset-pw-username"></strong>. Share it securely with the student.
+    </p>
+    <div class="form-grid" style="margin-bottom:12px;">
+      <div class="field full"><label>New Password (min 6 chars)</label>
+        <input type="password" id="reset-pw-new" placeholder="New password"
+               onkeydown="if(event.key==='Enter')document.getElementById('reset-pw-confirm').focus()"/></div>
+      <div class="field full"><label>Confirm Password</label>
+        <input type="password" id="reset-pw-confirm" placeholder="Repeat password"
+               onkeydown="if(event.key==='Enter')doResetPassword()"/></div>
+    </div>
+    <div id="reset-pw-error" style="color:var(--red);font-size:0.82em;margin-bottom:10px;display:none;"></div>
+    <div id="reset-pw-success" style="display:none;margin-bottom:12px;">
+      <p style="color:var(--green);font-size:0.82em;margin:0 0 6px;">Password updated. Share this securely:</p>
+      <div class="copy-box">
+        <span id="reset-pw-display"></span>
+        <button class="btn btn-ghost btn-sm" onclick="copyResetPw()">Copy</button>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-primary" id="reset-pw-submit" onclick="doResetPassword()">Reset Password</button>
+      <button class="btn btn-ghost" onclick="closeModal('modal-reset-pw')">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- REGISTER LECTURER MODAL -->
+<div class="modal-overlay" id="modal-register-lecturer">
+  <div class="modal" style="max-width:460px;">
+    <div class="modal-header">
+      <div class="modal-title">👨‍🏫 Register Lecturer</div>
+      <button class="modal-close" onclick="closeModal('modal-register-lecturer')">✕</button>
+    </div>
+    <div class="form-grid" style="margin-bottom:16px;">
+      <div class="field"><label>Username *</label><input type="text" id="reg-lec-username" placeholder="e.g. jsmith"/></div>
+      <div class="field"><label>Full Name *</label><input type="text" id="reg-lec-name" placeholder="e.g. Dr. John Smith"/></div>
+      <div class="field full"><label>Email</label><input type="email" id="reg-lec-email" placeholder="jsmith@cu.edu.ng"/></div>
+      <div class="field full"><label>Initial Password *</label><input type="password" id="reg-lec-password" placeholder="Temporary password"/></div>
+      <div class="field full">
+        <label>Assigned Courses <span style="color:var(--muted);font-weight:400;text-transform:none;">(optional)</span></label>
+        <select id="reg-lec-courses" multiple style="height:90px;font-size:0.85em;"></select>
+        <span style="font-size:0.75em;color:var(--muted);margin-top:4px;">Hold Ctrl/Cmd to select multiple</span>
+      </div>
+    </div>
+    <div id="reg-lec-error" style="color:var(--red);font-size:0.82em;margin-bottom:10px;display:none;"></div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="registerLecturer()">Register</button>
+      <button class="btn btn-ghost" onclick="closeModal('modal-register-lecturer')">Cancel</button>
+    </div>
   </div>
 </div>
 
@@ -587,6 +684,7 @@
       <div class="section-label">⏰ Due Date & Grading</div>
       <div class="field"><label>Release Date</label><input type="datetime-local" id="edit-release-date"/></div>
       <div class="field"><label>Due Date</label><input type="datetime-local" id="edit-due-date"/></div>
+      <div class="field"><label>Quiz Timer (minutes, 0 = none)</label><input type="number" id="edit-time-limit" min="0" value="0"/></div>
       <div class="field"><label>Grace Period (sec)</label><input type="number" id="edit-grace" min="0"/></div>
       <div class="field"><label>Lateness Penalty</label><input type="number" id="edit-penalty" min="0" max="1" step="0.01"/></div>
       <div class="field" style="justify-content:flex-end;align-items:flex-end;padding-bottom:8px;">
@@ -617,616 +715,6 @@
 
 <div id="toast"></div>
 
-<script>
-const API = '__API_BASE__';
-const APP = 'http://localhost:7667';
-
-const Q_TYPES = {
-  multiplechoice: {label:'Multiple Choice', badge:'q-type-mc'},
-  truefalse: {label:'True / False', badge:'q-type-tf'},
-  shortanswer: {label:'Short Answer', badge:'q-type-sa'},
-  numerical: {label:'Numerical', badge:'q-type-num'},
-  symbolic: {label:'Symbolic Math', badge:'q-type-sym'},
-  pythoncode: {label:'Python Code', badge:'q-type-py'}
-};
-
-function showPanel(name) {
-  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
-  document.getElementById('panel-'+name).classList.add('active');
-  document.querySelector(`[onclick="showPanel('${name}')"]`).classList.add('active');
-  document.getElementById('current-panel-title').textContent=name.charAt(0).toUpperCase()+name.slice(1);
-  if(name==='overview') loadOverview();
-  if(name==='grades') loadGradesPanel();
-  if(name==='queue') loadQueuePanel();
-  if(name==='hints') loadHintStats();
-  if(name==='live'){populateCourseDropdowns();loadWeeksForCourse('live-course','live-week');}
-}
-
-function toast(msg,type='success') {
-  const t=document.getElementById('toast');
-  t.textContent=(type==='success'?'✓ ':'✗ ')+msg;
-  t.className='show '+type;
-  setTimeout(()=>t.className='',3000);
-}
-
-function openModal(id){document.getElementById(id).classList.add('show');}
-function closeModal(id){document.getElementById(id).classList.remove('show');}
-
-function mdInsert(id,prefix,suffix) {
-  const ta=document.getElementById(id);
-  const start=ta.selectionStart,end=ta.selectionEnd;
-  const lineStart=ta.value.lastIndexOf('\n',start-1)+1;
-  ta.value=ta.value.substring(0,lineStart)+prefix+ta.value.substring(lineStart,end)+suffix+ta.value.substring(end);
-  ta.focus();
-}
-function mdWrap(id,before,after) {
-  const ta=document.getElementById(id);
-  const start=ta.selectionStart,end=ta.selectionEnd;
-  const sel=ta.value.substring(start,end)||'text';
-  ta.value=ta.value.substring(0,start)+before+sel+after+ta.value.substring(end);
-  ta.setSelectionRange(start+before.length,start+before.length+sel.length);
-  ta.focus();
-}
-
-// Problem builder with all question types
-function addProblem() {
-  const list=document.getElementById('problems-list');
-  const num=list.children.length+1;
-  const card=document.createElement('div'); card.className='problem-card';
-  card.innerHTML=`
-    <div class="problem-card-header">
-      <span class="problem-card-num">Problem ${num}</span>
-      <button class="remove-btn" onclick="this.closest('.problem-card').remove();renumberProblems()">✕ Remove</button>
-    </div>
-    <div class="problem-fields">
-      <div class="field" style="grid-column:1/-1;">
-        <label>Question Type</label>
-        <select class="prob-type" onchange="updateProblemFields(this)">
-          <option value="multiplechoice">Multiple Choice</option>
-          <option value="truefalse">True / False</option>
-          <option value="shortanswer">Short Answer</option>
-          <option value="numerical">Numerical Answer</option>
-          <option value="symbolic">Symbolic Math</option>
-          <option value="pythoncode">Python Code</option>
-        </select>
-      </div>
-      <div class="field full-width" style="grid-column:1/-1;">
-        <label>Question</label>
-        <textarea class="prob-question" placeholder="Enter question..." rows="2"></textarea>
-      </div>
-      <div class="field full-width prob-answer-section" style="grid-column:1/-1;">
-        <label>Correct Answer</label>
-        <input type="text" class="prob-answer" placeholder="e.g. 42 or Newton's Second Law"/>
-      </div>
-      <div class="field prob-tolerance-section" style="display:none;">
-        <label>Tolerance (±)</label>
-        <input type="text" class="prob-tolerance" placeholder="e.g. 0.01"/>
-      </div>
-      <div class="field prob-options-section" style="display:none;grid-column:1/-1;">
-        <label>Options (one per line)</label>
-        <textarea class="prob-options" rows="3" placeholder="Option A&#10;Option B&#10;Option C"></textarea>
-      </div>
-      <div class="field prob-testcode-section" style="display:none;grid-column:1/-1;">
-        <label>Test Code</label>
-        <textarea class="prob-testcode" rows="3" placeholder="assert solution() == expected_value"></textarea>
-      </div>
-    </div>`;
-  list.appendChild(card);
-}
-
-function updateProblemFields(select) {
-  const card=select.closest('.problem-card');
-  const type=select.value;
-  card.querySelector('.prob-tolerance-section').style.display = type==='numerical'?'':'none';
-  card.querySelector('.prob-options-section').style.display = type==='multiplechoice'?'':'none';
-  card.querySelector('.prob-testcode-section').style.display = type==='pythoncode'?'':'none';
-  card.querySelector('.prob-answer-section').style.display = type==='pythoncode'?'none':'';
-  if(type==='truefalse') card.querySelector('.prob-answer').placeholder='true or false';
-  else if(type==='numerical') card.querySelector('.prob-answer').placeholder='e.g. 9.8';
-  else if(type==='symbolic') card.querySelector('.prob-answer').placeholder='e.g. (x+1)**2';
-  else card.querySelector('.prob-answer').placeholder='Correct answer';
-}
-
-function renumberProblems() {
-  document.querySelectorAll('#problems-list .problem-card').forEach((c,i)=>{
-    c.querySelector('.problem-card-num').textContent='Problem '+(i+1);
-  });
-}
-
-function getProblems() {
-  return [...document.querySelectorAll('#problems-list .problem-card')].map(card=>({
-    type: card.querySelector('.prob-type').value,
-    question: card.querySelector('.prob-question').value.trim(),
-    answer: card.querySelector('.prob-answer')?.value.trim()||'',
-    tolerance: card.querySelector('.prob-tolerance')?.value.trim()||'0.01',
-    options: card.querySelector('.prob-options')?.value.trim().split('\n').filter(Boolean)||[],
-    test_code: card.querySelector('.prob-testcode')?.value.trim()||''
-  })).filter(p=>p.question);
-}
-
-async function loadCourses() {
-  try{const r=await fetch(`${API}/admin/courses`);const d=await r.json();return d.courses||[];}
-  catch{return[];}
-}
-
-async function populateCourseDropdowns() {
-  const courses=await loadCourses();
-  ['week-course','q-course','h-course','view-course','att-course','gr-course','lf-course','lf-view-course','hint-view-course'].forEach(id=>{
-    const el=document.getElementById(id);if(!el)return;
-    const cur=el.value;el.innerHTML='<option value="">Select course...</option>';
-    courses.forEach(c=>el.innerHTML+=`<option value="${c.id}" ${c.id===cur?'selected':''}>${c.name}</option>`);
-  });
-  updateCoursesTable(courses);
-  loadHintStats();
-}
-
-async function uploadLiveFile() {
-  const course=document.getElementById('lf-course').value;
-  const week=document.getElementById('lf-week').value;
-  const fileInput=document.getElementById('lf-file');
-  const status=document.getElementById('lf-status');
-  if(!course||!week){toast('Select course and week','error');return;}
-  if(!fileInput.files.length){toast('Choose a file','error');return;}
-  status.textContent='Uploading...';
-  const file=fileInput.files[0];
-  const reader=new FileReader();
-  reader.onload=async()=>{
-    const base64=reader.result.split(',')[1]||'';
-    const payload={
-      course,
-      week,
-      filename:file.name,
-      content_type:file.type||'application/octet-stream',
-      data_base64:base64
-    };
-    try{
-      const r=await fetch(`${API}/admin/live-file`,{
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify(payload)
-      });
-      const d=await r.json();
-      if(r.ok){toast('Live file uploaded!');fileInput.value='';loadLiveFileMeta();}
-      else toast(d.detail||'Upload failed','error');
-    }catch{toast('Failed to connect','error');}
-    status.textContent='';
-  };
-  reader.readAsDataURL(file);
-}
-
-async function loadLiveFileMeta() {
-  const course=document.getElementById('lf-view-course').value;
-  const week=document.getElementById('lf-view-week').value;
-  const el=document.getElementById('lf-meta');
-  if(!course||!week){el.textContent='Select a course and week to view the current live file.';return;}
-  try{
-    const r=await fetch(`${API}/admin/live-file/${course}/${week}`);
-    const d=await r.json();
-    if(!d){
-      el.textContent='No live file uploaded yet.';
-      return;
-    }
-    const link=`${API}/live-file/${course}/${week}`;
-    el.innerHTML=`<div><strong>File:</strong> ${d.filename}</div><div><strong>Type:</strong> ${d.content_type}</div><div><strong>Uploaded:</strong> ${d.uploaded_at}</div><div><a href="${link}" target="_blank" style="color:var(--accent);">Open live file</a></div>`;
-  }catch{
-    el.textContent='Failed to load live file.';
-  }
-}
-
-function updateCoursesTable(courses) {
-  const tbody=document.getElementById('courses-table-body');
-  if(!courses.length){tbody.innerHTML='<tr><td colspan="4" style="color:var(--muted);text-align:center;padding:20px;">No courses yet</td></tr>';return;}
-  tbody.innerHTML=courses.map(c=>`
-    <tr>
-      <td><span class="badge badge-blue">${c.icon||''} ${c.id}</span></td>
-      <td>${c.number||'—'}</td>
-      <td style="color:var(--muted);max-width:180px;">${c.description||'—'}</td>
-      <td style="display:flex;gap:6px;flex-wrap:wrap;">
-        <button class="btn btn-ghost btn-sm" onclick="openEditCourse('${c.id}')">✏️</button>
-        <button class="btn btn-ghost btn-sm" onclick="openWeeksModal('${c.id}')">📁 Weeks</button>
-        <a href="${APP}/${c.id}" target="_blank" class="btn btn-ghost btn-sm">↗</a>
-      </td>
-    </tr>`).join('');
-}
-
-async function loadGradesPanel() {
-  const courses=await loadCourses();
-  const grid=document.getElementById('grades-course-grid');
-  if(!courses.length){grid.innerHTML='<p style="color:var(--muted);">No courses found.</p>';return;}
-  grid.innerHTML=courses.map(c=>`
-    <div class="course-feature-card">
-      <h3><span class="badge badge-blue">${c.number||'—'}</span> ${c.name}</h3>
-      <div class="links">
-        <a href="${APP}/${c.id}/__grades__" target="_blank">🎓 Grade Report</a>
-        <a href="${APP}/${c.id}/__gradebook__" target="_blank">📋 Gradebook</a>
-      </div>
-    </div>`).join('');
-}
-
-async function loadQueuePanel() {
-  const courses=await loadCourses();
-  const grid=document.getElementById('queue-course-grid');
-  if(!courses.length){grid.innerHTML='<p style="color:var(--muted);">No courses found.</p>';return;}
-  grid.innerHTML=courses.map(c=>`
-    <div class="course-feature-card">
-      <h3><span class="badge badge-blue">${c.number||'—'}</span> ${c.name}</h3>
-      <div class="links">
-         <a href="${APP}/${c.id}/queue" target="_blank">🙋 Open Queue</a>
-         <a href="${APP}/${c.id}/queue?manage=1" target="_blank">⚙️ Manage Queue</a>
-      </div>
-    </div>`).join('');
-}
-
-async function loadWeekSettings() {
-  const course=document.getElementById('gr-course').value;
-  const week=document.getElementById('gr-week').value;
-  if(!course||!week){document.getElementById('week-settings-display').style.display='none';return;}
-  try{
-    const r=await fetch(`${API}/admin/courses/${course}/weeks`);
-    const d=await r.json();
-    const w=(d.weeks||[]).find(x=>x.id===week);
-    if(!w){return;}
-    document.getElementById('gr-due-date').value=w.due_date?.replace(' ','T')||'';
-    document.getElementById('gr-grace').value=w.grace_period||0;
-    document.getElementById('gr-penalty').value=w.lateness_penalty||0;
-    document.getElementById('gr-allow-late').checked=w.allow_late!==false;
-    document.getElementById('week-settings-display').style.display='block';
-  }catch{}
-}
-
-async function saveWeekSettings() {
-  const course=document.getElementById('gr-course').value;
-  const week=document.getElementById('gr-week').value;
-  if(!course||!week){toast('Select course and week','error');return;}
-  const due_date=document.getElementById('gr-due-date').value.replace('T',' ');
-  const grace_period=parseInt(document.getElementById('gr-grace').value)||0;
-  const lateness_penalty=parseFloat(document.getElementById('gr-penalty').value)||0;
-  const allow_late=document.getElementById('gr-allow-late').checked;
-  try{
-    const weeksRes=await fetch(`${API}/admin/courses/${course}/weeks`);
-    const weeksData=await weeksRes.json();
-    const w=(weeksData.weeks||[]).find(x=>x.id===week);
-    const r=await fetch(`${API}/admin/courses/${course}/weeks/${week}`,{
-      method:'PUT',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({title:w?.title||week,content:w?.content||'',lecture_title:w?.lecture_title||'',lecture_content:'',due_date,grace_period,lateness_penalty,allow_late})
-    });
-    if(r.ok)toast('Settings saved!');else toast('Error saving','error');
-  }catch{toast('Failed to connect','error');}
-}
-
-async function createCourse() {
-  const name=document.getElementById('course-name').value.trim();
-  const number=document.getElementById('course-number').value.trim();
-  const desc=document.getElementById('course-desc').value.trim();
-  const content=document.getElementById('course-content').value.trim();
-  const icon=document.getElementById('course-icon').value.trim();
-  if(!name){toast('Course name required','error');return;}
-  document.getElementById('course-status').textContent='Creating...';
-  try{
-    const r=await fetch(`${API}/admin/courses`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,number,description:desc,content,icon})});
-    const d=await r.json();
-    if(r.ok){toast(`"${name}" created!`);clearCourseForm();populateCourseDropdowns();}
-    else toast(d.detail||'Error','error');
-  }catch{toast('Failed to connect','error');}
-  document.getElementById('course-status').textContent='';
-}
-
-function clearCourseForm(){['course-name','course-number','course-desc','course-content','course-icon'].forEach(id=>document.getElementById(id).value='');document.getElementById('selected-icon-preview').textContent='';document.querySelectorAll('.icon-option').forEach(el=>el.classList.remove('selected'));}
-
-async function createWeek() {
-  const course=document.getElementById('week-course').value;
-  const weekId=document.getElementById('week-id').value.trim();
-  const title=document.getElementById('week-title').value.trim();
-  const content=document.getElementById('week-content').value.trim();
-  const lectureTitle=document.getElementById('lecture-title').value.trim();
-  const lectureContent=document.getElementById('lecture-content').value.trim();
-  const problems=getProblems();
-  const dueDate=document.getElementById('week-due-date').value.replace('T',' ');
-  const releaseDate=document.getElementById('week-release-date').value.replace('T',' ');
-  const gracePeriod=parseInt(document.getElementById('week-grace').value)||0;
-  const latenessPenalty=parseFloat(document.getElementById('week-penalty').value)||0;
-  const allowLate=document.getElementById('week-allow-late').checked;
-  if(!course||!weekId||!title){toast('Course, week ID and title required','error');return;}
-  document.getElementById('week-status').textContent='Creating all files...';
-  try{
-    const r=await fetch(`${API}/admin/courses/${course}/weeks`,{
-      method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({week_id:weekId,title,content,lecture_title:lectureTitle,lecture_content:lectureContent,practice_problems:problems,due_date:dueDate,release_date:releaseDate,grace_period:gracePeriod,lateness_penalty:latenessPenalty,allow_late:allowLate})
-    });
-    const d=await r.json();
-    if(r.ok){
-      toast(`Week "${title}" created! (${d.week_id})`);
-      ['week-id','week-title','week-content','lecture-title','lecture-content','week-due-date','week-grace','week-penalty'].forEach(id=>document.getElementById(id).value='');
-      document.getElementById('problems-list').innerHTML='';
-      document.getElementById('week-allow-late').checked=true;
-    }else toast(d.detail||'Error','error');
-  }catch{toast('Failed to connect','error');}
-  document.getElementById('week-status').textContent='';
-}
-
-async function loadWeeksForCourse(courseSelectId,weekSelectId) {
-  const courseId=document.getElementById(courseSelectId).value;
-  const weekSelect=document.getElementById(weekSelectId);
-  weekSelect.innerHTML='<option value="">Select week...</option>';
-  if(!courseId)return;
-  try{
-    const r=await fetch(`${API}/admin/courses/${courseId}/weeks`);
-    const d=await r.json();
-    (d.weeks||[]).forEach(w=>weekSelect.innerHTML+=`<option value="${w.id}">${w.title}</option>`);
-  }catch{}
-}
-
-async function openEditCourse(courseId) {
-  const courses=await loadCourses();
-  const c=courses.find(x=>x.id===courseId);if(!c)return;
-  document.getElementById('edit-course-id').value=courseId;
-  document.getElementById('edit-course-number').value=c.number||'';
-  document.getElementById('edit-course-desc').value=c.description||'';
-  document.getElementById('edit-course-content').value=c.content||'';
-  document.getElementById('edit-course-icon').value=c.icon||'';
-  document.getElementById('edit-selected-icon-preview').textContent=c.icon||'';
-  document.querySelectorAll('#edit-icon-picker .icon-option').forEach(el=>{
-    el.classList.toggle('selected',el.textContent===c.icon);
-  });
-  openModal('modal-edit-course');
-}
-
-async function saveCourseEdit() {
-  const id=document.getElementById('edit-course-id').value;
-  try{
-    const r=await fetch(`${API}/admin/courses/${id}`,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({number:document.getElementById('edit-course-number').value.trim(),description:document.getElementById('edit-course-desc').value.trim(),content:document.getElementById('edit-course-content').value.trim(),icon:document.getElementById('edit-course-icon').value.trim()})});
-    if(r.ok){toast('Course updated!');closeModal('modal-edit-course');populateCourseDropdowns();}
-    else toast('Error','error');
-  }catch{toast('Failed','error');}
-}
-
-async function openWeeksModal(courseId) {
-  document.getElementById('modal-weeks-course-name').textContent=courseId;
-  openModal('modal-weeks');
-  const tbody=document.getElementById('modal-weeks-body');
-  tbody.innerHTML='<tr><td colspan="4" style="color:var(--muted);text-align:center;">Loading...</td></tr>';
-  try{
-    const r=await fetch(`${API}/admin/courses/${courseId}/weeks`);
-    const d=await r.json();
-    const weeks=d.weeks||[];
-    if(!weeks.length){tbody.innerHTML='<tr><td colspan="5" style="color:var(--muted);text-align:center;padding:16px;">No weeks yet</td></tr>';return;}
-    tbody.innerHTML=weeks.map(w=>`
-      <tr>
-        <td><span class="badge badge-blue">${w.id}</span></td>
-        <td>${w.title}</td>
-        <td style="font-size:0.8em;color:var(--muted);">${w.release_date||'—'}</td>
-        <td style="font-size:0.8em;color:var(--muted);">${w.due_date||'—'}</td>
-        <td style="display:flex;gap:6px;">
-          <button class="btn btn-ghost btn-sm" onclick="openEditWeek('${courseId}','${w.id}')">✏️ Edit</button>
-          <a href="${APP}/${courseId}/${w.id}" target="_blank" class="btn btn-ghost btn-sm">↗</a>
-        </td>
-      </tr>`).join('');
-  }catch{tbody.innerHTML='<tr><td colspan="4" style="color:var(--muted);">Error</td></tr>';}
-}
-
-async function openEditWeek(courseId,weekId) {
-  try{
-    const r=await fetch(`${API}/admin/courses/${courseId}/weeks`);
-    const d=await r.json();
-    const w=(d.weeks||[]).find(x=>x.id===weekId);if(!w)return;
-    document.getElementById('edit-week-course-id').value=courseId;
-    document.getElementById('edit-week-id').value=weekId;
-    document.getElementById('edit-week-title').value=w.title||'';
-    document.getElementById('edit-week-content').value=w.content||'';
-    document.getElementById('edit-due-date').value=w.due_date?.replace(' ','T')||'';
-    document.getElementById('edit-release-date').value=w.release_date?.replace(' ','T')||'';
-    document.getElementById('edit-grace').value=w.grace_period||0;
-    document.getElementById('edit-penalty').value=w.lateness_penalty||0;
-    document.getElementById('edit-allow-late').checked=w.allow_late!==false;
-    document.getElementById('edit-lecture-title').value=w.lecture_title||'';
-    document.getElementById('edit-lecture-content').value='';
-    closeModal('modal-weeks');
-    openModal('modal-edit-week');
-  }catch{toast('Failed to load week','error');}
-}
-
-async function saveWeekEdit() {
-  const courseId=document.getElementById('edit-week-course-id').value;
-  const weekId=document.getElementById('edit-week-id').value;
-  const title=document.getElementById('edit-week-title').value.trim();
-  if(!title){toast('Title required','error');return;}
-  try{
-    const r=await fetch(`${API}/admin/courses/${courseId}/weeks/${weekId}`,{
-      method:'PUT',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        title,content:document.getElementById('edit-week-content').value.trim(),
-        lecture_title:document.getElementById('edit-lecture-title').value.trim(),
-        lecture_content:document.getElementById('edit-lecture-content').value.trim(),
-        due_date:document.getElementById('edit-due-date').value.replace('T',' '),
-        release_date:document.getElementById('edit-release-date').value.replace('T',' '),
-        grace_period:parseInt(document.getElementById('edit-grace').value)||0,
-        lateness_penalty:parseFloat(document.getElementById('edit-penalty').value)||0,
-        allow_late:document.getElementById('edit-allow-late').checked
-      })
-    });
-    if(r.ok){toast('Week updated!');closeModal('modal-edit-week');}
-    else toast('Error','error');
-  }catch{toast('Failed','error');}
-}
-
-function addOption(){const l=document.getElementById('options-list');const r=document.createElement('div');r.className='option-row';r.innerHTML='<input type="text" placeholder="Option"/><button class="remove-btn" onclick="removeOption(this)">✕</button>';l.appendChild(r);}
-function removeOption(b){b.parentElement.remove();}
-function toggleOptions(){const t=document.getElementById('q-type').value;const s=document.getElementById('options-section');if(t==='true_false'){document.getElementById('options-list').innerHTML='<div class="option-row"><input type="text" value="True" readonly/></div><div class="option-row"><input type="text" value="False" readonly/></div>';s.style.display='';}else if(t==='short_answer'){s.style.display='none';}else{s.style.display='';}}
-
-async function addQuestion(){
-  const course=document.getElementById('q-course').value;
-  const week=document.getElementById('q-week').value;
-  const text=document.getElementById('q-text').value.trim();
-  const type=document.getElementById('q-type').value;
-  const username=document.getElementById('q-username').value.trim()||'admin';
-  const correctRaw=document.getElementById('q-correct').value.trim();
-  if(!course||!week||!text||!correctRaw){toast('Fill all fields','error');return;}
-  const options=[...document.querySelectorAll('#options-list .option-row input')].map(i=>i.value.trim()).filter(Boolean);
-  const correct_answers=correctRaw.split(',').map(s=>s.trim());
-  try{
-    const r=await fetch(`${API}/${course}/${week}/example_questions`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username,text,type,options,correctAnswers:correct_answers})});
-    if(r.ok){toast('Question added!');document.getElementById('q-text').value='';document.getElementById('q-correct').value='';loadQuestionsView();}
-    else toast('Error','error');
-  }catch{toast('Failed','error');}
-}
-
-async function loadQuestionsView(){
-  const course=document.getElementById('view-course').value;
-  const week=document.getElementById('view-week').value;
-  const tbody=document.getElementById('questions-table-body');
-  if(!course||!week)return;
-  tbody.innerHTML='<tr><td colspan="4" style="color:var(--muted);text-align:center;">Loading...</td></tr>';
-  try{
-    const r=await fetch(`${API}/${course}/${week}/example_questions`);
-    const data=await r.json();
-    if(!data.length){tbody.innerHTML='<tr><td colspan="4" style="color:var(--muted);text-align:center;padding:16px;">No questions</td></tr>';return;}
-    tbody.innerHTML=data.map(q=>`<tr><td><span class="badge badge-blue">#${q.id}</span></td><td style="max-width:280px;">${q.text.substring(0,80)}${q.text.length>80?'...':''}</td><td><span class="badge badge-purple">${q.qtype}</span></td><td><button class="btn btn-danger btn-sm" onclick="deleteQuestion('${course}','${week}',${q.id})">Delete</button></td></tr>`).join('');
-  }catch{tbody.innerHTML='<tr><td colspan="4" style="color:var(--muted);">Error</td></tr>';}
-}
-
-async function deleteQuestion(c,w,id){if(!confirm('Delete?'))return;try{const r=await fetch(`${API}/${c}/${w}/example_questions/${id}`,{method:'DELETE'});if(r.ok){toast('Deleted');loadQuestionsView();}else toast('Error','error');}catch{toast('Failed','error');}}
-
-async function loadQuestionsForHints(){const c=document.getElementById('h-course').value;const w=document.getElementById('h-week').value;const s=document.getElementById('h-question');s.innerHTML='<option value="">Select question...</option>';if(!c||!w)return;try{const r=await fetch(`${API}/${c}/${w}/example_questions`);const d=await r.json();d.forEach(q=>s.innerHTML+=`<option value="${q.id}">${q.text.substring(0,60)}...</option>`);}catch{}}
-
-async function loadHintsTable(){const c=document.getElementById('hint-view-course').value;const w=document.getElementById('hint-view-week').value;const tb=document.getElementById('hints-table-body');if(!c||!w){tb.innerHTML='<tr><td colspan="5" style="color:var(--muted);text-align:center;padding:20px;">Select course and week</td></tr>';return;}tb.innerHTML='<tr><td colspan="5" style="color:var(--muted);text-align:center;">Loading...</td></tr>';try{const r=await fetch(`${API}/admin/questions/${c}/${w}/with-hints`);const d=await r.json();const qs=d.questions||[];if(!qs.length){tb.innerHTML='<tr><td colspan="5" style="color:var(--muted);text-align:center;padding:16px;">No questions</td></tr>';return;}tb.innerHTML=qs.map(q=>{const hintCount=q.hints?q.hints.length:0;const qType=Q_TYPES[q.qtype]||{label:q.qtype,badge:'q-type-sa'};return`<tr><td><span class="badge badge-blue">#${q.id}</span></td><td style="max-width:280px;">${q.text.substring(0,80)}${q.text.length>80?'...':''}</td><td><span class="badge ${qType.badge}">${qType.label}</span></td><td><span class="badge badge-yellow">${hintCount}</span></td><td><button class="btn btn-ghost btn-sm" onclick="editQuestionHints('${c}','${w}',${q.id})">Edit</button> <button class="btn btn-danger btn-sm" onclick="deleteQuestionHints(${q.id})">Delete</button></td></tr>`}).join('');}catch{tb.innerHTML='<tr><td colspan="5" style="color:var(--muted);">Error</td></tr>';}}
-
-async function loadExistingHints(){const qid=document.getElementById('h-question').value;['hint-1','hint-2','hint-3','hint-4','hint-5'].forEach(id=>document.getElementById(id).value='');if(!qid)return;try{const r=await fetch(`${API}/admin/hints/${qid}`);const d=await r.json();const hints=d.hints||[];hints.forEach(h=>{const el=document.getElementById('hint-'+h.number);if(el)el.value=h.text;});}catch{}}
-
-async function editQuestionHints(c,w,qid){document.getElementById('h-course').value=c;document.getElementById('h-week').value=w;await loadWeeksForCourse('h-course','h-week');document.getElementById('h-week').value=w;await loadQuestionsForHints();document.getElementById('h-question').value=qid;await loadExistingHints();document.querySelector('[onclick="showPanel(\'hints\')"]').click();}
-
-async function deleteQuestionHints(qid){if(!confirm('Delete all hints for this question?'))return;try{const r=await fetch(`${API}/admin/hints/${qid}`,{method:'DELETE'});if(r.ok){toast('Hints deleted');loadHintsTable();}else toast('Error','error');}catch{toast('Failed','error');}}
-
-async function deleteAllHints(){const qid=document.getElementById('h-question').value;if(!qid){toast('Select a question first','error');return;}if(!confirm('Delete ALL hints for this question?'))return;try{const r=await fetch(`${API}/admin/hints/${qid}`,{method:'DELETE'});if(r.ok){toast('All hints deleted!');['hint-1','hint-2','hint-3','hint-4','hint-5'].forEach(id=>document.getElementById(id).value='');loadHintsTable();}else toast('Error','error');}catch{toast('Failed','error');}}
-
-async function generateSingleHintAI(num){const qid=document.getElementById('h-question').value;const s=document.getElementById('h-question');const qt=s.options[s.selectedIndex]?.text;if(!qid){toast('Select a question first','error');return;}document.getElementById('h-status').textContent=`✨ Generating Hint ${num}...`;try{const r=await fetch(`${API}/admin/hints/generate-single`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({question_id:parseInt(qid),question_text:qt,hint_number:num})});const d=await r.json();if(r.ok&&d.hint){document.getElementById('hint-'+num).value=d.hint;toast(`Hint ${num} generated!`);}else toast(d.detail||'Error','error');}catch{toast('Failed','error');}document.getElementById('h-status').textContent='';}
-
-async function loadHintStats(){try{const r=await fetch(`${API}/admin/hints/stats`);const d=await r.json();document.getElementById('hint-total-questions').textContent=d.questions_with_hints||0;document.getElementById('hint-total-hints').textContent=d.total_hints||0;document.getElementById('hint-avg-usage').textContent=d.avg_hints_per_attempt?d.avg_hints_per_attempt.toFixed(1):'0';document.getElementById('hint-low-score').textContent=d.low_score_with_hints||0;}catch{}}
-
-async function saveHints(){const qid=document.getElementById('h-question').value;const hints=[];for(let i=1;i<=5;i++){const v=document.getElementById('hint-'+i).value.trim();if(v)hints.push(v);}if(!qid||!hints.length){toast('Select question and enter at least one hint','error');return;}try{const r=await fetch(`${API}/admin/hints`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({question_id:parseInt(qid),hints:hints})});if(r.ok)toast('Hints saved!');else toast('Error','error');}catch{toast('Failed','error');}}
-
-async function generateHintsAI(){const qid=document.getElementById('h-question').value;const s=document.getElementById('h-question');const qt=s.options[s.selectedIndex]?.text;if(!qid){toast('Select a question first','error');return;}document.getElementById('h-status').textContent='✨ Generating...';try{const r=await fetch(`${API}/admin/hints/generate`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({question_id:parseInt(qid),question_text:qt})});const d=await r.json();if(r.ok&&d.hints){['hint-1','hint-2','hint-3','hint-4','hint-5'].forEach(id=>document.getElementById(id).value='');d.hints.forEach((h,i)=>{const el=document.getElementById('hint-'+(i+1));if(el)el.value=h;});toast('Hints generated!');}else toast(d.detail||'Error','error');}catch{toast('Failed','error');}document.getElementById('h-status').textContent='';}
-
-async function loadAttempts(){const c=document.getElementById('att-course').value;const w=document.getElementById('att-week').value;const tb=document.getElementById('attempts-table-body');if(!c||!w)return;try{const r=await fetch(`${API}/${c}/${w}/all_attempts`);const d=await r.json();const a=d.attempts||[];if(!a.length){tb.innerHTML='<tr><td colspan="5" style="color:var(--muted);text-align:center;padding:16px;">No attempts</td></tr>';return;}tb.innerHTML=a.map(x=>`<tr><td>${x.username}</td><td><span class="badge badge-green">${x.score}/${x.total}</span></td><td>${x.seconds_spent?Math.round(x.seconds_spent/60)+' min':'—'}</td><td style="color:var(--muted);font-size:0.8em;">${x.submitted_at?.substring(0,16)||'—'}</td><td>${x.hint_count||0}</td></tr>`).join('');}catch{tb.innerHTML='<tr><td colspan="5" style="color:var(--muted);">Error</td></tr>';}}
-
-async function publishQuiz() {
-  const c=document.getElementById('view-course').value;
-  const w=document.getElementById('view-week').value;
-  const status=document.getElementById('publish-status');
-  if(!c||!w){toast('Select course and week','error');return;}
-  status.textContent='Publishing...';
-  try{
-    const r=await fetch(`${API}/admin/publish-quiz/${c}/${w}`,{method:'POST'});
-    const d=await r.json();
-    if(r.ok){toast(`Published ${d.question_count} questions to engine!`);status.textContent=`✓ ${d.question_count} questions`;}else toast(d.detail||'Error','error');
-  }catch{toast('Failed to publish','error');}
-  status.textContent='';
-}
-
-let liveSocket=null;
-let liveStudents={};
-
-function connectLiveSession() {
-  const course=document.getElementById('live-course').value;
-  const week=document.getElementById('live-week').value;
-  const status=document.getElementById('live-connection-status');
-  const grid=document.getElementById('live-student-grid');
-  const feed=document.getElementById('live-feed');
-  if(!course||!week){status.textContent='Select course and week to start monitoring.';grid.innerHTML='';return;}
-  if(liveSocket){liveSocket.close();liveSocket=null;}
-  liveStudents={};
-  status.textContent='🔄 Connecting...';
-  const wsUrl=API.replace('http://','').replace('https://','');
-  liveSocket=new WebSocket(`ws://${wsUrl}/ws`);
-  liveSocket.onopen=()=>{
-    liveSocket.send(JSON.stringify({type:'JOIN',username:'Instructor',room:course+'/'+week}));
-    status.textContent='🟢 Connected to '+course+'/'+week;
-    feed.innerHTML='<div style="color:var(--muted);padding:4px;">Connected. Waiting for student activity...</div>';
-    renderLiveGrid();
-  };
-  liveSocket.onclose=()=>{status.textContent='🔴 Disconnected';liveSocket=null;};
-  liveSocket.onmessage=(e)=>{
-    try{
-      const msg=JSON.parse(e.data);
-      const ts=new Date().toLocaleTimeString();
-      if(msg.type==='STUDENT_JOIN'){
-        if(!liveStudents[msg.username])liveStudents[msg.username]={username:msg.username,affect:'unknown',score:'—',hints:0,questions:0,lastSeen:Date.now()};
-        feed.innerHTML='<div style="color:var(--green);font-size:0.82em;">'+ts+' → '+msg.username+' joined</div>'+feed.innerHTML;
-      }else if(msg.type==='STUDENT_LEAVE'){
-        feed.innerHTML='<div style="color:var(--red);font-size:0.82em;">'+ts+' ← '+msg.username+' left</div>'+feed.innerHTML;
-        delete liveStudents[msg.username];
-      }else if(msg.type==='SUBMISSION'){
-        if(liveStudents[msg.username]){liveStudents[msg.username].score=msg.score||'✓';liveStudents[msg.username].questions=(liveStudents[msg.username].questions||0)+1;liveStudents[msg.username].lastSeen=Date.now();}
-        feed.innerHTML='<div style="color:var(--accent);font-size:0.82em;">'+ts+' 📝 '+msg.username+' '+(msg.score!==undefined?'scored '+msg.score:'submitted')+'</div>'+feed.innerHTML;
-      }else if(msg.type==='AFFECT_CHANGE'){
-        if(liveStudents[msg.username]){liveStudents[msg.username].affect=msg.affect_state;liveStudents[msg.username].lastSeen=Date.now();}
-        feed.innerHTML='<div style="font-size:0.82em;">'+ts+' 👤 '+msg.username+' → '+msg.affect_state+'</div>'+feed.innerHTML;
-      }else if(msg.type==='HINT_USED'){
-        if(liveStudents[msg.username]){liveStudents[msg.username].hints=(liveStudents[msg.username].hints||0)+1;liveStudents[msg.username].lastSeen=Date.now();}
-        feed.innerHTML='<div style="color:var(--yellow);font-size:0.82em;">'+ts+' 💡 '+msg.username+' used hint</div>'+feed.innerHTML;
-      }
-      if(feed.children.length>50)feed.removeChild(feed.lastChild);
-      renderLiveGrid();
-    }catch(e){}
-  };
-}
-
-function affectColor(state){
-  const colors={focused:'#22c55e',confused:'#f59e0b',disengaged:'#ef4444',distracted:'#64748b',fatigued:'#8b5cf6',unknown:'#64748b'};
-  return colors[state]||colors.unknown;
-}
-
-function renderLiveGrid(){
-  const grid=document.getElementById('live-student-grid');
-  const entries=Object.values(liveStudents);
-  if(!entries.length){grid.innerHTML='<div style="grid-column:1/-1;color:var(--muted);text-align:center;padding:20px;">No students connected yet</div>';return;}
-  grid.innerHTML=entries.map(s=>{
-    const color=affectColor(s.affect);
-    return '<div style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:12px;border-left:3px solid '+color+';">'+
-      '<div style="font-weight:600;font-size:0.9em;">'+s.username+'</div>'+
-      '<div style="display:flex;gap:12px;margin-top:6px;font-size:0.78em;color:var(--muted);">'+
-        '<span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:'+color+';margin-right:4px;"></span>'+s.affect+'</span>'+
-        '<span>📝 '+s.score+'</span>'+
-        '<span>💡 '+s.hints+'</span>'+
-      '</div>'+
-    '</div>';
-  }).join('');
-}
-
-async function loadOverview(){
-  const courses=await loadCourses();
-  document.getElementById('stat-courses').textContent=courses.length;
-  let totalWeeks=0;
-  for(const c of courses){
-    try{const r=await fetch(`${API}/admin/courses/${c.id}/weeks`);const d=await r.json();totalWeeks+=(d.weeks||[]).length;}catch{}
-  }
-  document.getElementById('stat-weeks').textContent=totalWeeks;
-}
-
-populateCourseDropdowns();
-
-const ICONS=['📘','📗','📙','📕','📓','📔','📒','📚','🎓','🔬','🧪','⚗️','🔭','🧮','📐','📏','🖥️','💻','⌨️','🖱️','🌐','🔢','➕','✖️','📊','📈','🧬','🦠','🌍','🌎','🌏','🗺️','📍','🧭','⚡','🔋','🔌','💡','🔦','📡','🛰️','🚀','🛸','🎯','🏆','🥇','📝','✏️','🖊️','🖋️'];
-
-function initIconPicker(containerId,hiddenId,previewId){
-  const container=document.getElementById(containerId);
-  if(!container)return;
-  container.innerHTML='';
-  ICONS.forEach(icon=>{
-    const el=document.createElement('span');
-    el.className='icon-option';
-    el.textContent=icon;
-    el.onclick=()=>{
-      container.querySelectorAll('.icon-option').forEach(e=>e.classList.remove('selected'));
-      el.classList.add('selected');
-      document.getElementById(hiddenId).value=icon;
-      document.getElementById(previewId).textContent=icon;
-    };
-    container.appendChild(el);
-  });
-}
-
-initIconPicker('icon-picker','course-icon','selected-icon-preview');
-initIconPicker('edit-icon-picker','edit-course-icon','edit-selected-icon-preview');
-</script>
+<script src="/static/admin/admin.js?v=5"></script>
 </body>
 </html>

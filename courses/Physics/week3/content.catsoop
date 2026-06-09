@@ -1,15 +1,11 @@
 <python>
-cs_content_header = "Week 3: Forces and Newton's Motion"
+cs_content_header = "Week 3: Work, Energy & Power"
 </python>
 
-#Welcome to the third week of our course! In this section, you'll learn about:
-
-* Course objectives
-* Learning approach
-* Assessment methods
+<p>This week introduces the concepts of <strong>work, energy, and power</strong> — three of the most important ideas in all of physics. You will learn how to calculate the work done by a force, distinguish between kinetic and potential energy, apply the law of conservation of energy to solve problems, and calculate power and efficiency. These concepts connect directly to Newton's laws and are essential for understanding everything from car engines to hydroelectric dams.</p>
 
 ## Learning Materials
 
 * [Lecture Notes](week3/lecture3)
-* [Practice Problem](week3/problem3)
+* [Practice Problems](week3/problem3)
 * [Quiz](week3/example_questions)

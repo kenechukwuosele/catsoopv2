@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CU Quiz — Lecturer Portal</title>
+<link rel="stylesheet" href="/static/admin/admin.css?v=5">
+<style>
+  .login-wrap {
+    display: flex; align-items: center; justify-content: center;
+    min-height: 100vh; background: var(--bg);
+  }
+  .login-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 40px 36px; width: 360px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+  }
+  .login-card h1 { font-size: 1.4em; margin: 0 0 4px; color: var(--text); }
+  .login-card p  { color: var(--muted); font-size: 0.85em; margin: 0 0 24px; }
+  .login-field { display: flex; flex-direction: column; gap: 4px; margin-bottom: 14px; }
+  .login-field label { font-size: 0.8em; color: var(--muted); }
+  .login-field input {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 6px; padding: 10px 12px; color: var(--text);
+    font-size: 0.95em; outline: none;
+  }
+  .login-field input:focus { border-color: var(--accent); }
+  #login-error { color: var(--red); font-size: 0.82em; margin-bottom: 10px; display: none; }
+  .copy-box {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 6px; padding: 10px 14px; font-family: var(--mono);
+    font-size: 1em; color: var(--text); margin: 10px 0;
+    display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  }
+  .copy-box span { flex: 1; }
+  .portal-wrap { display: none; }
+  .topbar-user { font-size: 0.82em; color: var(--muted); }
+</style>
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div class="login-wrap" id="login-wrap">
+  <div class="login-card">
+    <h1>Lecturer Portal</h1>
+    <p>CU Quiz App — sign in to manage your students</p>
+    <div class="login-field">
+      <label>Username</label>
+      <input type="text" id="lec-username" placeholder="your username" autocomplete="username"/>
+    </div>
+    <div class="login-field">
+      <label>Password</label>
+      <input type="password" id="lec-password" placeholder="••••••••" autocomplete="current-password"
+             onkeydown="if(event.key==='Enter')doLogin()"/>
+    </div>
+    <div id="login-error"></div>
+    <button class="btn btn-primary" style="width:100%;margin-top:4px;" onclick="doLogin()">Sign in</button>
+  </div>
+</div>
+
+<!-- PORTAL (shown after login) -->
+<div class="portal-wrap" id="portal-wrap">
+  <nav class="sidebar">
+    <div class="sidebar-logo">
+      <div class="app-name">CU Quiz App</div>
+      <div class="panel-label">Lecturer Portal</div>
+    </div>
+    <div class="sidebar-nav">
+      <div class="nav-section">My Courses</div>
+      <div class="nav-item active" onclick="showSection('students')"><span>👥</span> Students</div>
+    </div>
+    <div class="sidebar-footer">
+      <span id="lec-name-footer" style="font-size:0.78em;color:var(--muted);"></span>
+      <button class="btn btn-ghost btn-sm" style="margin-top:8px;width:100%;" onclick="doLogout()">Sign out</button>
+    </div>
+  </nav>
+
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-title">Lecturer / <span id="section-title">Students</span></div>
+      <span class="topbar-user" id="lec-name-topbar"></span>
+    </div>
+    <div class="content">
+
+      <!-- STUDENTS PANEL -->
+      <div class="panel active" id="section-students">
+        <div class="panel-header">
+          <h1>Students</h1>
+          <p>View and manage student accounts in your assigned courses</p>
+        </div>
+        <div class="card">
+          <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+            <select id="course-select" style="min-width:220px;" onchange="loadStudents()">
+              <option value="">Select a course…</option>
+            </select>
+            <span id="student-count" style="font-size:0.82em;color:var(--muted);"></span>
+          </div>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Username</th>
+                <th>Last Active</th>
+                <th style="text-align:right;">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="student-tbody">
+              <tr><td colspan="3" style="color:var(--muted);text-align:center;padding:20px;">Select a course above</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- RESET PASSWORD MODAL -->
+<div id="modal-reset" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:1000;align-items:center;justify-content:center;">
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:32px;width:380px;max-width:90vw;">
+    <h2 style="margin:0 0 6px;font-size:1.1em;">Reset Password</h2>
+    <p style="color:var(--muted);font-size:0.82em;margin:0 0 18px;">
+      Set a new password for <strong id="reset-username-label"></strong>.
+      Share it securely with the student.
+    </p>
+    <div class="login-field">
+      <label>New password (min 6 chars)</label>
+      <input type="password" id="reset-new-pw" placeholder="New password"
+             onkeydown="if(event.key==='Enter')doReset()"/>
+    </div>
+    <div class="login-field">
+      <label>Confirm password</label>
+      <input type="password" id="reset-confirm-pw" placeholder="Repeat password"
+             onkeydown="if(event.key==='Enter')doReset()"/>
+    </div>
+    <div id="reset-error" style="color:var(--red);font-size:0.82em;margin-bottom:10px;display:none;"></div>
+    <div id="reset-success" style="display:none;margin-bottom:12px;">
+      <p style="color:var(--green);font-size:0.82em;margin:0 0 6px;">Password updated. Share this securely:</p>
+      <div class="copy-box">
+        <span id="reset-pw-display"></span>
+        <button class="btn btn-ghost btn-sm" onclick="copyPw()">Copy</button>
+      </div>
+    </div>
+    <div style="display:flex;gap:8px;justify-content:flex-end;">
+      <button class="btn btn-ghost" onclick="closeReset()">Close</button>
+      <button class="btn btn-primary" id="reset-submit-btn" onclick="doReset()">Reset Password</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const API = window.location.origin;
+let _token = sessionStorage.getItem('cu_lec_token') || '';
+let _lecData = {};
+
+function escapeHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function toast(msg, type) {
+  const t = document.createElement('div');
+  t.textContent = msg;
+  t.style.cssText = `position:fixed;bottom:20px;right:20px;background:${type==='error'?'var(--red)':'var(--green)'};
+    color:#fff;padding:10px 18px;border-radius:8px;font-size:0.85em;z-index:9999;
+    box-shadow:0 2px 12px rgba(0,0,0,0.3);transition:opacity 0.4s;`;
+  document.body.appendChild(t);
+  setTimeout(()=>{ t.style.opacity='0'; setTimeout(()=>t.remove(),400); }, 3000);
+}
+
+async function doLogin() {
+  const uname = document.getElementById('lec-username').value.trim();
+  const pw    = document.getElementById('lec-password').value;
+  const err   = document.getElementById('login-error');
+  err.style.display = 'none';
+  if (!uname || !pw) { err.textContent='Enter username and password.'; err.style.display='block'; return; }
+  try {
+    const r = await fetch(API + '/lecturer/login', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({username: uname, password: pw})
+    });
+    const d = await r.json();
+    if (!r.ok) { err.textContent = d.detail || 'Login failed'; err.style.display='block'; return; }
+    _token = d.token;
+    _lecData = d;
+    sessionStorage.setItem('cu_lec_token', _token);
+    showPortal(d);
+  } catch(e) {
+    err.textContent = 'Server unreachable.'; err.style.display='block';
+  }
+}
+
+function showPortal(data) {
+  document.getElementById('login-wrap').style.display = 'none';
+  document.getElementById('portal-wrap').style.display = 'flex';
+  document.getElementById('lec-name-topbar').textContent = data.name || data.username;
+  document.getElementById('lec-name-footer').textContent = data.name || data.username;
+  const sel = document.getElementById('course-select');
+  sel.innerHTML = '<option value="">Select a course…</option>';
+  (data.courses || []).forEach(c => {
+    const o = document.createElement('option');
+    o.value = c; o.textContent = c;
+    sel.appendChild(o);
+  });
+  if ((data.courses || []).length === 1) {
+    sel.value = data.courses[0];
+    loadStudents();
+  }
+}
+
+function doLogout() {
+  sessionStorage.removeItem('cu_lec_token');
+  _token = ''; _lecData = {};
+  document.getElementById('portal-wrap').style.display = 'none';
+  document.getElementById('login-wrap').style.display = 'flex';
+  document.getElementById('lec-password').value = '';
+}
+
+function showSection(name) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('section-' + name).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  event && event.currentTarget && event.currentTarget.classList.add('active');
+  document.getElementById('section-title').textContent =
+    name.charAt(0).toUpperCase() + name.slice(1);
+}
+
+async function loadStudents() {
+  const course = document.getElementById('course-select').value;
+  const tbody = document.getElementById('student-tbody');
+  const countEl = document.getElementById('student-count');
+  if (!course) {
+    tbody.innerHTML = '<tr><td colspan="3" style="color:var(--muted);text-align:center;padding:20px;">Select a course above</td></tr>';
+    countEl.textContent = '';
+    return;
+  }
+  tbody.innerHTML = '<tr><td colspan="3" style="text-align:center;color:var(--muted);padding:20px;">Loading…</td></tr>';
+  try {
+    const r = await fetch(API + '/lecturer/students?course=' + encodeURIComponent(course), {
+      headers: {'Authorization': 'Bearer ' + _token}
+    });
+    if (!r.ok) { const d=await r.json(); toast(d.detail||'Error loading students','error'); return; }
+    const data = await r.json();
+    const students = data.students || [];
+    countEl.textContent = students.length + ' student' + (students.length !== 1 ? 's' : '');
+    if (!students.length) {
+      tbody.innerHTML = '<tr><td colspan="3" style="color:var(--muted);text-align:center;padding:20px;">No students in this course yet</td></tr>';
+      return;
+    }
+    tbody.innerHTML = students.map(s => {
+      const lastActive = s.last_active
+        ? new Date(s.last_active * 1000).toLocaleDateString()
+        : '—';
+      return `<tr>
+        <td style="font-family:var(--mono);font-weight:500;">${escapeHtml(s.username)}</td>
+        <td style="color:var(--muted);font-size:0.85em;">${escapeHtml(lastActive)}</td>
+        <td style="text-align:right;">
+          <button class="btn btn-ghost btn-sm" onclick="openReset('${escapeHtml(s.username)}')">🔑 Reset Password</button>
+        </td>
+      </tr>`;
+    }).join('');
+  } catch(e) { toast('Network error: ' + e.message, 'error'); }
+}
+
+let _resetTarget = '';
+
+function openReset(username) {
+  _resetTarget = username;
+  document.getElementById('reset-username-label').textContent = username;
+  document.getElementById('reset-new-pw').value = '';
+  document.getElementById('reset-confirm-pw').value = '';
+  document.getElementById('reset-error').style.display = 'none';
+  document.getElementById('reset-success').style.display = 'none';
+  document.getElementById('reset-submit-btn').style.display = '';
+  const m = document.getElementById('modal-reset');
+  m.style.display = 'flex';
+  setTimeout(() => document.getElementById('reset-new-pw').focus(), 50);
+}
+
+function closeReset() {
+  document.getElementById('modal-reset').style.display = 'none';
+}
+
+async function doReset() {
+  const pw1 = document.getElementById('reset-new-pw').value;
+  const pw2 = document.getElementById('reset-confirm-pw').value;
+  const err  = document.getElementById('reset-error');
+  err.style.display = 'none';
+  if (pw1.length < 6) { err.textContent='Password must be at least 6 characters.'; err.style.display='block'; return; }
+  if (pw1 !== pw2)    { err.textContent='Passwords do not match.'; err.style.display='block'; return; }
+  const course = document.getElementById('course-select').value;
+  const btn = document.getElementById('reset-submit-btn');
+  btn.disabled = true; btn.textContent = 'Resetting…';
+  try {
+    const r = await fetch(API + '/lecturer/students/' + encodeURIComponent(_resetTarget) + '/reset-password', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json','Authorization':'Bearer ' + _token},
+      body: JSON.stringify({course, new_password: pw1})
+    });
+    const d = await r.json();
+    if (!r.ok) { err.textContent = d.detail || 'Reset failed'; err.style.display='block'; btn.disabled=false; btn.textContent='Reset Password'; return; }
+    document.getElementById('reset-pw-display').textContent = pw1;
+    document.getElementById('reset-success').style.display = 'block';
+    btn.style.display = 'none';
+    toast('Password reset for ' + _resetTarget, 'success');
+  } catch(e) {
+    err.textContent = 'Network error.'; err.style.display='block';
+    btn.disabled=false; btn.textContent='Reset Password';
+  }
+}
+
+function copyPw() {
+  const pw = document.getElementById('reset-pw-display').textContent;
+  navigator.clipboard.writeText(pw).then(() => toast('Copied!', 'success'));
+}
+
+// Auto-restore session if token exists
+if (_token) {
+  fetch(API + '/lecturer/students?course=__probe__', {
+    headers: {'Authorization': 'Bearer ' + _token}
+  }).then(r => {
+    // 401 = token expired, stay on login; 403 = valid token (course not assigned = expected)
+    if (r.status === 403 || r.status === 200) {
+      // decode name/courses from token payload
+      try {
+        const payload = JSON.parse(atob(_token.split('.')[1]));
+        showPortal({token: _token, username: payload.sub, name: payload.sub, courses: payload.courses || []});
+      } catch(e) { sessionStorage.removeItem('cu_lec_token'); _token = ''; }
+    } else {
+      sessionStorage.removeItem('cu_lec_token'); _token = '';
+    }
+  }).catch(() => { sessionStorage.removeItem('cu_lec_token'); _token = ''; });
+}
+</script>
+</body>
+</html>
