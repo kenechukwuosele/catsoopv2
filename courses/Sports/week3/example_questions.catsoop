@@ -121,7 +121,7 @@ input[type="text"],textarea,select{width:100%;padding:8px;margin:5px 0;border:1p
 
 <script>
 var course = 'Sports', week = 'week3';
-const api = 'http://localhost:8000';
+const api = 'https://api.kenechukwuosele.me';
 const questionsUrl = api + '/admin/questions/' + course + '/' + week;
 const bulkImportUrl = api + '/admin/bulk-import/' + course + '/' + week;
 const gradesUrl = api + '/' + course + '/' + week + '/grades';

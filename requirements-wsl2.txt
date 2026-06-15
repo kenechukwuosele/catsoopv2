@@ -1,0 +1,17 @@
+fastapi==0.121.1
+uvicorn[standard]==0.38.0
+sqlalchemy==2.0.45
+pyjwt==2.13.0
+slowapi==0.1.9
+chromadb==1.5.9
+sentence-transformers==5.5.1
+httpx==0.28.1
+websockets==12.0
+python-multipart
+aiofiles
+catsoop==19.0.7
+bcrypt==5.0.0
+python-jose[cryptography]==3.5.0
+numpy==2.4.6
+requests==2.34.2
+python-dotenv==1.2.1

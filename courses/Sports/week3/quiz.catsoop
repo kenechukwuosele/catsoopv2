@@ -1,0 +1,960 @@
+<python>
+cs_content_header = "Quiz: Sports - week3"
+cs_show_due = True
+cs_update_questions_cache = True
+import json, os as _os
+_api_base = _os.environ.get("CU_QUIZ_BASE_URL", "https://api.kenechukwuosele.me")
+_cu_secret = _os.environ.get("CU_QUIZ_SECRET", "")
+_cu_admins = {u.strip() for u in _os.environ.get("CU_QUIZ_ADMINS", "").split(",") if u.strip()}
+_cu_token = ""
+if _cu_secret:
+    try:
+        import jwt as _jwt, time as _time
+        _cu_token = _jwt.encode(
+            {"sub": cs_username, "is_admin": cs_username in _cu_admins,
+              "iat": int(_time.time()), "exp": int(_time.time()) + 8*3600},
+            _cu_secret, algorithm="HS256")
+    except Exception:
+        _cu_token = ""
+print(f'<script data-username="{cs_username}">')
+print(f'window.__cs_username = "{cs_username}";')
+print(f'window.__cs_user_role = "{cs_user_info.get("role", "Student")}";')
+print(f'window.__quizQuestionNames = ["q_7522e879", "q_ac322f31", "q_7fdfadc3", "q_78978794", "q_b4817b7f", "q_b12c42a2", "q_168c0812", "q_e9aa6610", "q_8dbb4337", "q_5facc25c"];')
+print(f'window.__course = "Sports";')
+print(f'window.__week = "week3";')
+print(f'window.__CU_API_BASE = "{_api_base}";')
+print(f'window.__CU_TOKEN = "{_cu_token}";')
+print('</script>')
+print('<script>')
+print('(function(){ var t=window.__CU_TOKEN; if(!t) return; var _f=window.fetch.bind(window);')
+print('  window.fetch=function(url,opts){ opts=opts||{}; var u=typeof url==="string"?url:(url&&url.url)||"";')
+print('    if(u.indexOf(window.__CU_API_BASE)===0){ var h=new Headers(opts.headers||{}); if(!h.has("Authorization")) h.set("Authorization","Bearer "+t); opts.headers=h; }')
+print('    return _f(url,opts);')
+print('  };')
+print('})();')
+print('</script>')
+</python>
+
+<style>
+.question { margin-bottom: 1.5em; }
+.hint-btn-container { margin-top: 8px; }
+@keyframes __fa-shake {
+  0%,100%{ transform:translateX(0); }
+  20%{ transform:translateX(-8px); }
+  40%{ transform:translateX(8px); }
+  60%{ transform:translateX(-6px); }
+  80%{ transform:translateX(6px); }
+}
+#__xp-badge:hover { opacity:0.95; cursor:pointer; }
+#__xp-panel { display:none;position:fixed;top:48px;right:12px;z-index:998;background:#1a1f2e;border:1px solid #2d3748;border-radius:10px;padding:14px 18px;color:#fff;font-family:sans-serif;font-size:13px;min-width:200px;box-shadow:0 8px 24px rgba(0,0,0,0.5); }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@vladmandic/face-api@1.7.14/dist/face-api.js" defer></script>
+
+<div id="__quiz-timer-bar" style="display:none;position:sticky;top:0;z-index:1000;background:#1f2937;color:#fff;text-align:center;padding:8px;font-size:14px;font-family:sans-serif;">
+  ⏱ Time remaining: <span id="__quiz-timer-display">--:--</span>
+</div>
+
+<!-- Face authentication overlay -->
+<div id="__face-auth-overlay" style="position:fixed;inset:0;z-index:10000;background:rgba(10,12,20,0.96);display:flex;align-items:center;justify-content:center;">
+  <div id="__fa-card" style="background:#1a1f2e;border-radius:16px;padding:36px 32px;width:340px;text-align:center;box-shadow:0 24px 60px rgba(0,0,0,0.6);border:1px solid #2d3748;">
+    <div id="__fa-step" style="font-size:11px;color:#6b7280;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:14px;font-family:sans-serif;">Checking...</div>
+    <h2 id="__fa-title" style="color:#f9fafb;font-size:20px;margin:0 0 8px;font-family:sans-serif;font-weight:700;">🔐 Identity Check</h2>
+    <p id="__fa-subtitle" style="color:#9ca3af;font-size:13px;margin:0 0 22px;font-family:sans-serif;line-height:1.5;">Starting camera...</p>
+    <div style="position:relative;width:200px;height:200px;margin:0 auto 18px;">
+      <video id="__fa-video" style="width:200px;height:200px;border-radius:50%;object-fit:cover;transform:scaleX(-1);background:#000;" autoplay muted playsinline></video>
+      <svg style="position:absolute;top:0;left:0;width:200px;height:200px;pointer-events:none;" viewBox="0 0 200 200">
+        <ellipse cx="100" cy="100" rx="90" ry="97" fill="none" stroke-width="3" stroke-dasharray="6 3" id="__fa-oval-ring" stroke="#f59e0b"/>
+      </svg>
+    </div>
+    <div id="__fa-status" style="font-size:13px;color:#9ca3af;font-family:sans-serif;margin-bottom:18px;min-height:18px;"></div>
+    <button id="__fa-btn" style="display:none;background:linear-gradient(135deg,#4f8ef7,#3b7de8);color:#fff;border:none;border-radius:8px;padding:13px 0;font-size:15px;cursor:pointer;font-family:sans-serif;font-weight:600;width:100%;box-shadow:0 4px 12px rgba(79,142,247,0.4);transition:opacity 0.15s;" onclick="window.__faceAuthAction && window.__faceAuthAction()">Enroll Face</button>
+    <div style="margin-top:14px;font-size:11px;color:#4b5563;font-family:sans-serif;">Having trouble? Contact your instructor</div>
+  </div>
+</div>
+
+<div id="quiz-start-screen" style="display:none;text-align:center;padding:40px 20px;">
+  <h2 style="color:#2c3e50;margin-bottom:16px;">Quiz: week3</h2>
+  <p style="font-size:1.1em;color:#555;margin-bottom:8px;">This quiz contains <strong>10</strong> questions.</p>
+  <p style="font-size:0.95em;color:#777;margin-bottom:24px;">You can check and submit your answers when ready.</p>
+  <button onclick="document.getElementById('quiz-start-screen').style.display='none';document.getElementById('quiz-questions').style.display='block';" style="background:#4CAF50;color:white;padding:14px 36px;border:none;border-radius:6px;cursor:pointer;font-size:1.1em;">Start Quiz</button>
+</div>
+<div id="quiz-questions" style="display:none;">
+<question multiplechoice>
+csq_prompt = 'How many players are on the court per team in indoor volleyball?'
+csq_options = ['5', '6', '7', '4']
+csq_soln = '6'
+csq_renderer = 'radio'
+csq_name = 'q_7522e879'
+csq_npoints = 1
+csq_nsubmits = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = 'What scoring system is used in modern volleyball?'
+csq_options = ['Traditional sideout scoring', 'Rally scoring (a point is scored on every rally)', 'Set scoring', 'Timed scoring']
+csq_soln = 'Rally scoring (a point is scored on every rally)'
+csq_renderer = 'radio'
+csq_name = 'q_ac322f31'
+csq_npoints = 1
+csq_nsubmits = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = "What is the net height for men's indoor volleyball?"
+csq_options = ['2.24 m', '2.43 m', '2.55 m', '2.35 m']
+csq_soln = '2.43 m'
+csq_renderer = 'radio'
+csq_name = 'q_7fdfadc3'
+csq_npoints = 1
+csq_nsubmits = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = 'What does the libero position do in volleyball?'
+csq_options = ['Sets the ball only', 'Specializes in back-row defense; wears a different colored jersey', 'Serves as team captain', 'Blocks at the net']
+csq_soln = 'Specializes in back-row defense; wears a different colored jersey'
+csq_renderer = 'radio'
+csq_name = 'q_78978794'
+csq_npoints = 1
+csq_nsubmits = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = 'In volleyball, rotation occurs:'
+csq_options = ['After each point', 'Whenever the serving team wins a point', 'When a team wins the serve from the opposing team', 'Every 5 points']
+csq_soln = 'When a team wins the serve from the opposing team'
+csq_renderer = 'radio'
+csq_name = 'q_b4817b7f'
+csq_npoints = 1
+csq_nsubmits = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = 'How many sets does a team need to win to win a volleyball match (best of 5)?'
+csq_options = ['2', '3', '4', '5']
+csq_soln = '3'
+csq_renderer = 'radio'
+csq_name = 'q_b12c42a2'
+csq_npoints = 1
+csq_nsubmits = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = 'What is the maximum number of contacts allowed per team before the ball must cross the net?'
+csq_options = ['2', '3', '4', '5']
+csq_soln = '3'
+csq_renderer = 'radio'
+csq_name = 'q_168c0812'
+csq_npoints = 1
+csq_nsubmits = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = 'In beach volleyball, each team has how many players?'
+csq_options = ['3', '4', '2', '6']
+csq_soln = '2'
+csq_renderer = 'radio'
+csq_name = 'q_e9aa6610'
+csq_npoints = 1
+csq_nsubmits = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = 'A player who serves the ball so it is impossible to return is said to have scored:'
+csq_options = ['A spike', 'An ace', 'A block', 'A dig']
+csq_soln = 'An ace'
+csq_renderer = 'radio'
+csq_name = 'q_8dbb4337'
+csq_npoints = 1
+csq_nsubmits = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = 'Which of the following is a violation in volleyball?'
+csq_options = ['Jumping to spike', 'Rotating after winning the serve', 'Carrying or lifting the ball instead of hitting it cleanly', 'Setting the ball with two hands']
+csq_soln = 'Carrying or lifting the ball instead of hitting it cleanly'
+csq_renderer = 'radio'
+csq_name = 'q_5facc25c'
+csq_npoints = 1
+csq_nsubmits = 1
+csq_soln_mode = "value"
+</question>
+<div style="text-align:center;margin-top:32px;padding:16px 0;border-top:1px solid #e5e7eb;">
+  <button id="__quiz-done-btn" onclick="if(window.__triggerQuizDone)window.__triggerQuizDone()" style="background:#4CAF50;color:white;padding:12px 32px;border:none;border-radius:6px;cursor:pointer;font-size:1em;">✓ Mark as Done</button>
+  <p id="__quiz-done-msg" style="display:none;color:#22c55e;margin-top:8px;font-size:0.95em;">Quiz submitted! Your instructor has been notified.</p>
+</div>
+</div>
+<script>
+(function() {
+    const API = (function() {
+        const base = window.__CU_API_BASE || 'https://api.kenechukwuosele.me';
+        try {
+            const u = new URL(base);
+            const h = window.location.hostname;
+            if (h && h !== 'localhost' && h !== '127.0.0.1' &&
+                (u.hostname === 'localhost' || u.hostname === '127.0.0.1')) {
+                return window.location.protocol + '//' + h + ':' + u.port;
+            }
+        } catch(e) {}
+        return base;
+    })();
+    const course = window.__course || 'Sports';
+    const week = window.__week || 'week3';
+    const hintCache = {};
+    const hintLevel = {};
+
+    async function fetchHints(qname) {
+        if (hintCache[qname] !== undefined) return hintCache[qname];
+        try {
+            const r = await fetch(API + '/admin/hints/' + course + '/' + week + '/' + qname);
+            if (!r.ok) throw new Error();
+            const d = await r.json();
+            hintCache[qname] = d.hints || [];
+        } catch {
+            hintCache[qname] = [];
+        }
+        return hintCache[qname];
+    }
+
+    function addHintButton(qname, container) {
+        const btn = document.createElement('button');
+        btn.textContent = '💡 Hint';
+        btn.style.cssText = 'background:#f59e0b;color:white;padding:6px 12px;border:none;border-radius:4px;cursor:pointer;font-size:12px;margin-top:8px;';
+
+        const hintBox = document.createElement('div');
+        hintBox.style.cssText = 'display:none;margin-top:6px;padding:10px;border-radius:4px;background:#fffbeb;border:1px solid #fde68a;';
+
+        btn.onclick = async function() {
+            const hints = await fetchHints(qname);
+            if (!hints.length) {
+                hintBox.style.display = 'block';
+                hintBox.innerHTML = '<div style="font-size:13px;color:#92400e;">No hints available.</div>';
+                btn.disabled = true; btn.textContent = 'No hints';
+                return;
+            }
+            if (!hintLevel[qname]) hintLevel[qname] = 0;
+            if (hintLevel[qname] >= hints.length) return;
+            hintLevel[qname]++;
+            hintBox.style.display = 'block';
+            const div = document.createElement('div');
+            div.style.cssText = 'margin-bottom:6px;font-size:13px;color:#92400e;';
+            div.innerHTML = '<b>Hint ' + hintLevel[qname] + ' of ' + hints.length + ':</b> ' + hints[hintLevel[qname]-1].text;
+            hintBox.appendChild(div);
+            if (hintLevel[qname] >= hints.length) {
+                btn.disabled = true; btn.textContent = 'No more hints';
+            } else {
+                btn.textContent = 'Next Hint (' + hintLevel[qname] + '/' + hints.length + ')';
+            }
+        };
+        container.appendChild(btn);
+        container.appendChild(hintBox);
+    }
+
+    function initHints() {
+        const qnames = window.__quizQuestionNames || [];
+        qnames.forEach(function(qname) {
+            const div = document.getElementById('cs_qdiv_' + qname);
+            if (div) {
+                const container = document.createElement('div');
+                container.className = 'hint-btn-container';
+                container.style.cssText = 'margin-top:8px;';
+                div.appendChild(container);
+                addHintButton(qname, container);
+            }
+        });
+    }
+
+    function initWS() {
+        if (window.__liveWS) return;
+        const room = (window.__course || 'unknown') + '/' + (window.__week || 'unknown');
+        const username = window.__cs_username || 'anon';
+        const proto = location.protocol === 'https:' ? 'wss:' : 'ws:';
+        const wsHost = API.replace(/^https?:[/][/]/, '');
+        try {
+            const ws = new WebSocket(proto + '//' + wsHost + '/ws?token=' + encodeURIComponent(window.__CU_TOKEN || ''));
+            ws.onopen = () => { ws.send(JSON.stringify({ type: 'JOIN', username, room })); window.__liveWS = ws; };
+            ws.onmessage = e => {
+                try {
+                    const msg = JSON.parse(e.data);
+                    if (msg.type === 'PUSH_HINT' && msg.target_username === username) {
+                        const el = document.createElement('div');
+                        el.style.cssText = 'position:fixed;bottom:20px;right:20px;background:#fffbeb;border:1px solid #fde68a;border-radius:6px;padding:14px;font-size:14px;color:#92400e;z-index:9999;max-width:320px;box-shadow:0 4px 12px rgba(0,0,0,0.15);';
+                        el.innerHTML = '<b>💡 Instructor Hint:</b><br>' + msg.hint_text + '<br><button onclick="this.parentElement.remove()" style="margin-top:6px;padding:2px 10px;">Dismiss</button>';
+                        document.body.appendChild(el);
+                    }
+                } catch {}
+            };
+            ws.onclose = () => { window.__liveWS = null; };
+        } catch {}
+    }
+
+    function showBadgeToast(badges) {
+        badges.forEach(function(b, i) {
+            setTimeout(function() {
+                const toast = document.createElement('div');
+                toast.style.cssText = 'position:fixed;bottom:' + (20 + i * 80) + 'px;left:50%;transform:translateX(-50%);background:#1f2937;color:#fff;padding:12px 24px;border-radius:10px;font-size:15px;z-index:9999;box-shadow:0 4px 16px rgba(0,0,0,0.35);text-align:center;min-width:200px;';
+                toast.innerHTML = '<div style="font-size:28px;margin-bottom:4px;">' + b.icon + '</div><div style="font-weight:600;">Badge Unlocked!</div><div style="font-size:13px;opacity:0.8;margin-top:2px;">' + b.label + '</div>';
+                document.body.appendChild(toast);
+                setTimeout(function() { toast.remove(); }, 5000);
+            }, i * 600);
+        });
+    }
+
+    function initXPWidget() {
+        const badge = document.createElement('div');
+        badge.id = '__xp-badge';
+        badge.title = 'Click to see your stats';
+        badge.style.cssText = 'position:fixed;top:8px;right:12px;z-index:999;background:linear-gradient(135deg,#1f2937,#111827);color:#fff;padding:5px 16px;border-radius:20px;font-size:13px;font-family:sans-serif;display:flex;gap:10px;align-items:center;user-select:none;box-shadow:0 2px 10px rgba(0,0,0,0.45);border:1px solid #374151;';
+        badge.innerHTML = '<span>⭐ <span id="__xp-val" style="font-weight:700;">0</span> XP</span><span>🔥 <span id="__streak-val" style="font-weight:700;">0</span></span>';
+        const panel = document.createElement('div');
+        panel.id = '__xp-panel';
+        panel.innerHTML = '<div style="font-weight:700;margin-bottom:8px;color:#f9fafb;">Your Stats</div><div id="__xp-detail">Loading...</div><div id="__xp-badges-row" style="margin-top:8px;display:flex;flex-wrap:wrap;gap:6px;"></div>';
+        document.body.appendChild(badge);
+        document.body.appendChild(panel);
+        badge.addEventListener('click', function() {
+            panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+        });
+        document.addEventListener('click', function(e) {
+            if (!badge.contains(e.target) && !panel.contains(e.target)) panel.style.display = 'none';
+        });
+        const u = window.__cs_username || '';
+        const c = window.__course || '';
+        if (u && c) {
+            fetch(API + '/' + c + '/my-stats?username=' + encodeURIComponent(u))
+                .then(function(r) { return r.json(); })
+                .then(function(data) {
+                    const xEl = document.getElementById('__xp-val');
+                    const sEl = document.getElementById('__streak-val');
+                    const det = document.getElementById('__xp-detail');
+                    const br  = document.getElementById('__xp-badges-row');
+                    if (xEl) xEl.textContent = data.xp != null ? data.xp : 0;
+                    if (sEl) sEl.textContent = data.streak != null ? data.streak : 0;
+                    if (det) det.innerHTML = 'Rank <b>#' + (data.rank || '—') + '</b> &nbsp;·&nbsp; <b>' + (data.xp || 0) + ' XP</b> &nbsp;·&nbsp; 🔥 <b>' + (data.streak || 0) + ' days</b>';
+                    if (br && data.badges && data.badges.length) {
+                        br.innerHTML = data.badges.map(function(b) {
+                            return '<span style="padding:2px 10px;border-radius:12px;background:#2d3748;font-size:11px;">' + b.icon + ' ' + b.label + '</span>';
+                        }).join('');
+                    }
+                }).catch(function(err) { console.error('[xp-widget] my-stats failed:', err); });
+        }
+    }
+
+    function updateXPWidget(xp, streak) {
+        const xEl = document.getElementById('__xp-val');
+        const sEl = document.getElementById('__streak-val');
+        if (xEl) {
+            xEl.textContent = xp;
+            xEl.style.transition = 'transform 0.25s';
+            xEl.style.transform = 'scale(1.35)';
+            setTimeout(function() { xEl.style.transform = 'scale(1)'; }, 260);
+        }
+        if (sEl) sEl.textContent = streak;
+    }
+
+    async function initFaceAuth() {
+        const overlay = document.getElementById('__face-auth-overlay');
+        if (!overlay) return;
+        const PASS = function() {
+            if (stream) { stream.getTracks().forEach(function(t) { t.stop(); }); stream = null; }
+            overlay.style.transition = 'opacity 0.6s';
+            overlay.style.opacity = '0';
+            setTimeout(function() {
+                overlay.remove();
+                // If a timed quiz was already started, resume it instead of showing start screen
+                if (window.__checkResumeTimer && window.__checkResumeTimer()) return;
+                const qs = document.getElementById('quiz-start-screen');
+                if (qs) qs.style.display = 'block';
+            }, 650);
+        };
+        const username = window.__cs_username || '';
+        if (!username) { PASS(); return; }
+
+        const titleEl    = document.getElementById('__fa-title');
+        const subtitleEl = document.getElementById('__fa-subtitle');
+        const stepEl     = document.getElementById('__fa-step');
+        const statusEl   = document.getElementById('__fa-status');
+        const btnEl      = document.getElementById('__fa-btn');
+        const videoEl    = document.getElementById('__fa-video');
+        const ring       = document.getElementById('__fa-oval-ring');
+        const card       = document.getElementById('__fa-card');
+
+        function setStatus(t, col) { if (statusEl) { statusEl.innerHTML = t; statusEl.style.color = col || '#9ca3af'; } }
+        function setRing(col, dash) { if (ring) { ring.setAttribute('stroke', col); ring.setAttribute('stroke-dasharray', dash ? '6 3' : 'none'); } }
+
+        if (subtitleEl) subtitleEl.textContent = 'Checking identity...';
+
+        let enrolled = false;
+        try {
+            const ctrl = new AbortController();
+            const tid = setTimeout(function() { ctrl.abort(); }, 8000);
+            const r = await fetch(API + '/' + course + '/face-status?username=' + encodeURIComponent(username), {signal: ctrl.signal});
+            clearTimeout(tid);
+            enrolled = (await r.json()).enrolled;
+        } catch(e) {
+            console.error('[face-auth] face-status check failed:', e);
+            if (subtitleEl) subtitleEl.textContent = 'Verification server unreachable. Contact your instructor.';
+            setStatus('⚠️ Cannot reach verification server', '#ef4444');
+            return;
+        }
+
+        let stream = null;
+        try {
+            stream = await navigator.mediaDevices.getUserMedia({video: {facingMode:'user'}, audio:false});
+            videoEl.srcObject = stream;
+        } catch(e) {
+            console.error('[face-auth] camera access failed:', e);
+            if (subtitleEl) subtitleEl.textContent = 'Camera access denied. Enable camera and refresh.';
+            setStatus('⚠️ Camera required for identity check', '#ef4444');
+            return;
+        }
+
+        const MODEL_URL = API + '/static/models/';
+        const MAX_RETRIES = 4;
+        let modelsLoaded = false;
+        for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+            try {
+                if (subtitleEl) subtitleEl.textContent = attempt === 1
+                    ? 'Loading face models... (first visit only)'
+                    : 'Retrying model load (attempt ' + attempt + '/' + MAX_RETRIES + ')...';
+                setStatus('📡 Connecting to face recognition service...', '#9ca3af');
+                await Promise.all([
+                    faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL),
+                    faceapi.nets.faceLandmark68TinyNet.loadFromUri(MODEL_URL),
+                    faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL),
+                    faceapi.nets.faceExpressionNet.loadFromUri(MODEL_URL)
+                ]);
+                modelsLoaded = true;
+                break;
+            } catch(e) {
+                console.error('[face-auth] model load attempt ' + attempt + ' failed:', e);
+                if (attempt < MAX_RETRIES) {
+                    const wait = attempt * 3;
+                    if (subtitleEl) subtitleEl.textContent = '⚠️ Your network seems unstable, retrying in ' + wait + 's...';
+                    setStatus('⚠️ Network unstable, retrying...', '#f59e0b');
+                    await new Promise(function(res) { setTimeout(res, wait * 1000); });
+                }
+            }
+        }
+        if (!modelsLoaded) {
+            console.error('[face-auth] all model load attempts failed');
+            if (subtitleEl) subtitleEl.textContent = 'Could not load face models after ' + MAX_RETRIES + ' attempts. Your network may be unstable.';
+            setStatus('⚠️ Face recognition unavailable, quiz unlocked without verification', '#f59e0b');
+            if (btnEl) { btnEl.textContent = 'Skip (not recommended)'; btnEl.style.display = 'block'; btnEl.onclick = function() { PASS(); }; }
+            return;
+        }
+
+        if (stepEl) stepEl.textContent = enrolled ? 'Step 2 of 2' : 'Step 1 of 2 == First-time setup';
+        if (titleEl) titleEl.textContent = enrolled ? '🔐 Verify Your Identity' : '📸 Set Up Face ID';
+        if (subtitleEl) subtitleEl.textContent = enrolled
+            ? 'Look at the camera to confirm it is you.'
+            : 'Center your face in the circle. We will remember you for future quizzes.';
+        if (btnEl) btnEl.textContent = enrolled ? 'Verify Identity' : 'Enroll My Face';
+
+        let currentDescriptor = null;
+
+        var loop = setInterval(async function() {
+            try {
+                const det = await faceapi
+                    .detectSingleFace(videoEl, new faceapi.TinyFaceDetectorOptions())
+                    .withFaceLandmarks(true)
+                    .withFaceDescriptor();
+                if (det) {
+                    currentDescriptor = Array.from(det.descriptor);
+                    setRing('#22c55e', false);
+                    setStatus('✅ Face detected, click below to continue', '#22c55e');
+                    if (btnEl) btnEl.style.display = 'block';
+                } else {
+                    currentDescriptor = null;
+                    setRing('#f59e0b', true);
+                    setStatus('Position your face in the circle', '#9ca3af');
+                    if (btnEl) btnEl.style.display = 'none';
+                }
+            } catch(e) {}
+        }, 800);
+
+        const stopAll = function() { clearInterval(loop); if (stream) stream.getTracks().forEach(function(t) { t.stop(); }); };
+
+        async function captureMultiSample(n, intervalMs) {
+            const samples = [];
+            for (let i = 0; i < n; i++) {
+                setStatus('Hold still… ' + (n - i) + ' frame' + (n - i === 1 ? '' : 's') + ' left', '#9ca3af');
+                await new Promise(function(r) { setTimeout(r, intervalMs); });
+                try {
+                    const det = await faceapi
+                        .detectSingleFace(videoEl, new faceapi.TinyFaceDetectorOptions())
+                        .withFaceLandmarks(true)
+                        .withFaceDescriptor();
+                    if (det) samples.push(Array.from(det.descriptor));
+                } catch(e) {}
+            }
+            if (samples.length === 0) return null;
+            const avg = new Array(128).fill(0);
+            for (const s of samples) { for (let j = 0; j < 128; j++) avg[j] += s[j]; }
+            return avg.map(function(v) { return v / samples.length; });
+        }
+
+        window.__faceAuthAction = async function() {
+            if (!currentDescriptor) return;
+            if (btnEl) { btnEl.disabled = true; btnEl.textContent = enrolled ? 'Verifying...' : 'Capturing...'; }
+            try {
+                let descriptor;
+                if (!enrolled) {
+                    descriptor = await captureMultiSample(5, 600);
+                    if (!descriptor) {
+                        setStatus('Could not capture face clearly. Try again.', '#ef4444');
+                        if (btnEl) { btnEl.disabled = false; btnEl.textContent = 'Enroll My Face'; }
+                        return;
+                    }
+                } else {
+                    descriptor = currentDescriptor;
+                }
+                const endpoint = enrolled ? '/verify-face' : '/enroll-face';
+                const r = await fetch(API + '/' + course + endpoint, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({username: username, descriptor: descriptor})
+                });
+                if (r.status === 409) {
+                    setStatus('⚠️ Already enrolled. Contact your instructor to reset.', '#f59e0b');
+                    if (btnEl) { btnEl.disabled = false; btnEl.textContent = 'Enroll My Face'; }
+                    return;
+                }
+                const d = await r.json();
+                if (!enrolled || d.verified) {
+                    setStatus('✅ ' + (enrolled ? 'Identity confirmed!' : 'Enrolled! Welcome.'), '#22c55e');
+                    setRing('#22c55e', false);
+                    stopAll();
+                    setTimeout(PASS, 1100);
+                } else {
+                    if (btnEl) { btnEl.disabled = false; btnEl.textContent = 'Try Again'; }
+                    setStatus('❌ Face not recognised. Try adjusting your position.', '#ef4444');
+                    setRing('#ef4444', false);
+                    if (card) { card.style.animation = '__fa-shake 0.4s ease'; setTimeout(function() { card.style.animation = ''; }, 450); }
+                }
+            } catch(e) {
+                if (btnEl) { btnEl.disabled = false; btnEl.textContent = enrolled ? 'Try Again' : 'Enroll My Face'; }
+            }
+        };
+
+        // Clean up if overlay is removed externally
+        const obs = new MutationObserver(function() {
+            if (!document.getElementById('__face-auth-overlay')) { stopAll(); obs.disconnect(); }
+        });
+        obs.observe(document.body, {childList: true});
+    }
+
+    if (document.readyState !== 'complete') {
+        document.addEventListener('DOMContentLoaded', function() { initHints(); initWS(); initXPWidget(); initFaceAuth(); });
+    } else {
+        initHints(); initWS(); initXPWidget(); initFaceAuth();
+    }
+
+    window.__triggerQuizDone = async function() {
+        const btn = document.getElementById('__quiz-done-btn');
+        const msg = document.getElementById('__quiz-done-msg');
+        if (btn) { btn.disabled = true; btn.style.background = '#9ca3af'; }
+        if (msg) msg.style.display = 'block';
+        if (window.__liveWS && window.__liveWS.readyState === WebSocket.OPEN) {
+            window.__liveWS.send(JSON.stringify({
+                type: 'QUIZ_DONE',
+                username: window.__cs_username || 'unknown',
+                course: window.__course,
+                week: window.__week,
+                timestamp: new Date().toISOString()
+            }));
+        }
+        const u = window.__cs_username || '';
+        if (!u) return;
+        if (window.__quizTimerKey) localStorage.removeItem(window.__quizTimerKey);
+        try {
+            const r = await fetch(API + '/' + course + '/' + week + '/quiz-complete', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({username: u})
+            });
+            const data = await r.json();
+            console.log('[quiz-complete]', data);
+            if (data.status === 'already_processed') return;
+            if (data.new_total_xp != null) updateXPWidget(data.new_total_xp, data.streak || 0);
+            if (data.badges_earned && data.badges_earned.length > 0) {
+                showBadgeToast(data.badges_earned);
+            }
+        } catch(e) { console.error('[quiz-complete] error:', e); }
+    };
+})();
+</script>
+
+<div id="__affect-widget" style="position:fixed;bottom:12px;right:12px;z-index:9999;background:#111;border-radius:8px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.5);font-family:sans-serif;width:240px;">
+  <div id="__affect-header" style="display:flex;align-items:center;justify-content:space-between;padding:5px 8px;background:#1f2937;">
+    <span id="__affect-status-text" style="font-size:11px;color:#9ca3af;">📷 Loading…</span>
+    <button id="__affect-toggle" onclick="(function(){var b=document.getElementById('__affect-body'),t=document.getElementById('__affect-toggle'),h=b.style.display==='none';b.style.display=h?'block':'none';t.textContent=h?'▾':'▸';})()" style="background:none;border:none;color:#9ca3af;font-size:11px;cursor:pointer;padding:0 2px;line-height:1;">▾</button>
+  </div>
+  <div id="__affect-body">
+    <div style="position:relative;width:240px;height:180px;background:#000;">
+      <video id="__affect-video" width="240" height="180" muted playsinline style="display:block;transform:scaleX(-1);"></video>
+      <canvas id="__affect-canvas" width="240" height="180" style="position:absolute;top:0;left:0;pointer-events:none;"></canvas>
+    </div>
+    <div id="__affect-label" style="text-align:center;font-size:11px;padding:4px;color:#fff;background:#374151;">Initializing…</div>
+    <div id="__affect-expression-bar" style="display:flex;gap:2px;padding:3px 4px;background:#111;flex-wrap:wrap;"></div>
+  </div>
+</div>
+<script>
+(function() {
+if (window.__affectInjected) return;
+window.__affectInjected = true;
+
+const API = (function() {
+    const base = window.__CU_API_BASE || 'https://api.kenechukwuosele.me';
+    try {
+        const u = new URL(base);
+        const h = window.location.hostname;
+        if (h && h !== 'localhost' && h !== '127.0.0.1' &&
+            (u.hostname === 'localhost' || u.hostname === '127.0.0.1')) {
+            return window.location.protocol + '//' + h + ':' + u.port;
+        }
+    } catch(e) {}
+    return base;
+})();
+const attemptSessionId = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : String(Date.now()) + '-' + Math.random().toString(36).slice(2);
+let videoStream = null, videoEl = null, canvasEl = null, canvasCtx = null;
+let lastInteractionTime = Date.now(), lastEngagementSent = 0, lastAffectState = null;
+let pageClicks = 0, keypressCount = 0;
+let _consecutiveLowEAR = 0, _affectBuffer = [];
+
+document.addEventListener('click', () => { pageClicks++; lastInteractionTime = Date.now(); });
+document.addEventListener('keydown', () => { keypressCount++; lastInteractionTime = Date.now(); });
+
+const pathParts = window.location.pathname.split('/').filter(Boolean);
+let course = '', week = '';
+if (pathParts.length >= 2 && pathParts[0] !== 'courses') { course = pathParts[0]; week = pathParts[1]; }
+else if (pathParts.length >= 3 && pathParts[0] === 'courses') { course = pathParts[1]; week = pathParts[2]; }
+if (!course) course = 'unknown';
+if (!week) week = 'unknown';
+
+function __setStatus(text, color) {
+  const el = document.getElementById('__affect-status-text');
+  if (el) { el.textContent = text; el.style.color = color || '#9ca3af'; }
+}
+
+function __setLabel(text, bgColor) {
+  const el = document.getElementById('__affect-label');
+  if (el) { el.textContent = text; el.style.background = bgColor || '#374151'; }
+}
+
+function __setExprBar(expressions) {
+  const bar = document.getElementById('__affect-expression-bar');
+  if (!bar || !expressions) { if (bar) bar.innerHTML = ''; return; }
+  const top = Object.entries(expressions)
+    .filter(([,v]) => v > 0.1)
+    .sort(([,a],[,b]) => b - a)
+    .slice(0, 4);
+  const emojis = { happy:'😊', sad:'😞', angry:'😠', fearful:'😨', disgusted:'🤢', surprised:'😲', neutral:'😐' };
+  bar.innerHTML = top.map(([k, v]) =>
+    `<span style="font-size:10px;color:#9ca3af;">${emojis[k] || k[0]}${Math.round(v*100)}%</span>`
+  ).join('');
+}
+
+function affectColor(state) {
+  if (state === 'focused')    return '#22c55e';
+  if (state === 'confused')   return '#eab308';
+  if (state === 'struggling') return '#f97316';
+  if (state === 'disengaged') return '#f59e0b';
+  if (state === 'distracted') return '#ef4444';
+  return '#6b7280';
+}
+
+const AFFECT_LABELS = {
+  focused:    '✓ Focused',
+  confused:   '? Confused',
+  struggling: '! Struggling',
+  disengaged: '⚠ Disengaged',
+  distracted: '✕ Distracted',
+};
+
+// Detect face with landmarks + expressions when available.
+async function detectFaceRich() {
+  if (!window.faceapi || !videoEl || !videoStream) return null;
+  try {
+    if (!faceapi.nets.tinyFaceDetector.isLoaded) return null;
+    const hasLandmarks = faceapi.nets.faceLandmark68TinyNet.isLoaded;
+    const hasExpressions = faceapi.nets.faceExpressionNet.isLoaded;
+    const opts = new faceapi.TinyFaceDetectorOptions({ inputSize: 320, scoreThreshold: 0.2 });
+    if (hasLandmarks && hasExpressions) {
+      return await faceapi.detectSingleFace(videoEl, opts).withFaceLandmarks(true).withFaceExpressions() || null;
+    } else if (hasLandmarks) {
+      return await faceapi.detectSingleFace(videoEl, opts).withFaceLandmarks(true) || null;
+    } else {
+      const d = await faceapi.detectSingleFace(videoEl, opts) || null;
+      return d ? { detection: d, landmarks: null, expressions: null } : null;
+    }
+  } catch(e) { return null; }
+}
+
+function dist2d(a, b) { return Math.hypot(a.x - b.x, a.y - b.y); }
+
+// Eye Aspect Ratio from 6 eye landmark points
+function calcEAR(eyePts) {
+  if (!eyePts || eyePts.length < 6) return null;
+  const v1 = dist2d(eyePts[1], eyePts[5]);
+  const v2 = dist2d(eyePts[2], eyePts[4]);
+  const h  = dist2d(eyePts[0], eyePts[3]);
+  return h > 0 ? (v1 + v2) / (2 * h) : null;
+}
+
+// Mouth open ratio: inner lip vertical span / face height
+function calcMouthOpen(mouthPts, faceHeight) {
+  if (!mouthPts || mouthPts.length < 20 || !faceHeight) return null;
+  const inner = mouthPts.slice(12);
+  const topY = Math.min(...inner.map(p => p.y));
+  const botY = Math.max(...inner.map(p => p.y));
+  return (botY - topY) / faceHeight;
+}
+
+// Head roll in degrees from eye centre line
+function calcHeadRoll(landmarks) {
+  const le = landmarks.getLeftEye();
+  const re = landmarks.getRightEye();
+  const lcx = le.reduce((s,p)=>s+p.x,0)/le.length;
+  const lcy = le.reduce((s,p)=>s+p.y,0)/le.length;
+  const rcx = re.reduce((s,p)=>s+p.x,0)/re.length;
+  const rcy = re.reduce((s,p)=>s+p.y,0)/re.length;
+  return Math.atan2(rcy - lcy, rcx - lcx) * 180 / Math.PI;
+}
+
+function estimateHeadPoseFromBox(box) {
+  const cx = box.x + box.width / 2;
+  const cy = box.y + box.height / 2;
+  const vw = (videoEl && videoEl.videoWidth) || 240;
+  const vh = (videoEl && videoEl.videoHeight) || 180;
+  const normX = (cx / vw) - 0.5;
+  const normY = (cy / vh) - 0.5;
+  if (Math.abs(normX) < 0.2 && Math.abs(normY) < 0.2) return { pose: 'center', yaw: normX * 90, pitch: normY * 45 };
+  if (Math.abs(normX) > Math.abs(normY)) return { pose: normX < 0 ? 'right' : 'left', yaw: normX * 90, pitch: normY * 45 };
+  return { pose: 'down', yaw: normX * 90, pitch: normY * 45 };
+}
+
+function estimateHeadPoseFromLandmarks(landmarks, box) {
+  try {
+    const le = landmarks.getLeftEye();
+    const re = landmarks.getRightEye();
+    const noseArr = landmarks.getNose();
+    const lCx = le.reduce((s,p)=>s+p.x,0)/le.length;
+    const lCy = le.reduce((s,p)=>s+p.y,0)/le.length;
+    const rCx = re.reduce((s,p)=>s+p.x,0)/re.length;
+    const rCy = re.reduce((s,p)=>s+p.y,0)/re.length;
+    const eyeMidX = (lCx + rCx) / 2;
+    const eyeMidY = (lCy + rCy) / 2;
+    const faceW = dist2d({x:lCx,y:lCy}, {x:rCx,y:rCy});
+    const noseTip = noseArr[3] || noseArr[noseArr.length-1];
+    const yawNorm = faceW > 0 ? (noseTip.x - eyeMidX) / faceW : 0;
+    const pitchNorm = box ? ((eyeMidY - (box.y + box.height * 0.3)) / box.height) : 0;
+    const yaw = yawNorm * 90, pitch = pitchNorm * 45;
+    let pose = 'center';
+    if (Math.abs(yawNorm) >= 0.2 || Math.abs(pitchNorm) >= 0.2) {
+      pose = Math.abs(yawNorm) > Math.abs(pitchNorm)
+        ? (yawNorm > 0 ? 'left' : 'right') : 'down';
+    }
+    return { pose, yaw, pitch };
+  } catch(e) {
+    return estimateHeadPoseFromBox(box);
+  }
+}
+
+function computeEngagement(present, gaze, headPose, inactivity) {
+  let score = 100;
+  if (!present) score -= 45;
+  if (!gaze) score -= 20;
+  if (headPose === 'down') score -= 15;
+  else if (headPose === 'left' || headPose === 'right') score -= 10;
+  if (inactivity > 180) score -= 30; else if (inactivity > 90) score -= 15;
+  return Math.max(0, Math.min(100, score));
+}
+
+function _smoothState(rawState) {
+  _affectBuffer.push(rawState);
+  if (_affectBuffer.length > 2) _affectBuffer.shift();
+  if (_affectBuffer.length === 2 && _affectBuffer[0] === _affectBuffer[1]) return rawState;
+  return _affectBuffer.length === 1 ? rawState : _affectBuffer[0];
+}
+
+function computeAffect(score, inactivity, facePresent, expressions, rollDeg, ear) {
+  if (!facePresent || inactivity > 150) { _consecutiveLowEAR = 0; return _smoothState('distracted'); }
+  if (ear !== null && ear !== undefined && ear < 0.18) { _consecutiveLowEAR++; }
+  else { _consecutiveLowEAR = 0; }
+  if (_consecutiveLowEAR >= 2) return _smoothState('disengaged');
+  if (expressions) {
+    const angry = expressions.angry || 0;
+    const fearful = expressions.fearful || 0;
+    const surprised = expressions.surprised || 0;
+    if (angry > 0.25 || fearful > 0.25) return _smoothState('struggling');
+    if (surprised > 0.3 || Math.abs(rollDeg || 0) > 30) return _smoothState('confused');
+  }
+  if (inactivity > 90 || score < 30) return _smoothState('disengaged');
+  return _smoothState('focused');
+}
+
+async function ensureStream() {
+  if (videoStream) return true;
+  try {
+    videoStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+    videoEl = document.getElementById('__affect-video');
+    canvasEl = document.getElementById('__affect-canvas');
+    if (canvasEl) canvasCtx = canvasEl.getContext('2d');
+    videoEl.srcObject = videoStream;
+    await videoEl.play();
+    renderLoop();
+    return true;
+  } catch {
+    __setStatus('📷 Cam off', '#6b7280');
+    __setLabel('Camera unavailable', '#374151');
+    return false;
+  }
+}
+
+async function renderLoop() {
+  if (!videoEl || !videoStream) { setTimeout(renderLoop, 2000); return; }
+  const result = await detectFaceRich();
+  if (canvasCtx && canvasEl) {
+    const cw = canvasEl.width, ch = canvasEl.height;
+    canvasCtx.clearRect(0, 0, cw, ch);
+    if (result) {
+      const box = result.detection ? result.detection.box : result.box;
+      const inact = Math.floor((Date.now() - lastInteractionTime) / 1000);
+      const hp = result.landmarks ? estimateHeadPoseFromLandmarks(result.landmarks, box) : estimateHeadPoseFromBox(box);
+      const score = computeEngagement(true, hp.pose === 'center', hp.pose, inact);
+      let roll = null, renderEAR = null;
+      if (result.landmarks) {
+        try {
+          roll = calcHeadRoll(result.landmarks);
+          const earL = calcEAR(result.landmarks.getLeftEye());
+          const earR = calcEAR(result.landmarks.getRightEye());
+          if (earL !== null && earR !== null) renderEAR = (earL + earR) / 2;
+        } catch(e) {}
+      }
+      const state = computeAffect(score, inact, true, result.expressions, roll, renderEAR);
+      const color = affectColor(state);
+      const mx = cw - box.x - box.width;
+      canvasCtx.strokeStyle = color; canvasCtx.lineWidth = 2;
+      canvasCtx.strokeRect(mx, box.y, box.width, box.height);
+      canvasCtx.fillStyle = color + '22';
+      canvasCtx.fillRect(mx, box.y, box.width, box.height);
+      __setLabel(AFFECT_LABELS[state] || state, color);
+      __setStatus('📷 Monitoring', '#22c55e');
+      __setExprBar(result.expressions || null);
+    } else {
+      canvasCtx.strokeStyle = '#6b7280'; canvasCtx.lineWidth = 1;
+      canvasCtx.setLineDash([4, 4]);
+      canvasCtx.strokeRect(4, 4, cw - 8, ch - 8);
+      canvasCtx.setLineDash([]);
+      canvasCtx.fillStyle = 'rgba(107,114,128,0.7)';
+      canvasCtx.font = '11px sans-serif'; canvasCtx.textAlign = 'center';
+      canvasCtx.fillText('No face detected', cw / 2, ch / 2);
+      __setLabel('No face detected', '#374151');
+      __setStatus('📷 Monitoring', '#9ca3af');
+      __setExprBar(null);
+    }
+  }
+  setTimeout(renderLoop, 2000);
+}
+
+async function collectSample() {
+  if (!window.faceapi || !faceapi.nets.tinyFaceDetector.isLoaded) return;
+  const now = Date.now();
+  const isFirst = lastEngagementSent === 0;
+  if (!isFirst && now - lastEngagementSent < 20000) return;
+  lastEngagementSent = now;
+  const inactivity = Math.floor((now - lastInteractionTime) / 1000);
+  let facePresent = false, gazeCentered = false, headPose = 'center';
+  let yaw = null, pitch = null, roll = null;
+  let ear = null, mouthOpen = null, smileScore = null;
+  let expressions = null;
+
+  if (await ensureStream()) {
+    const result = await detectFaceRich();
+    if (result) {
+      facePresent = true;
+      const box = result.detection ? result.detection.box : result.box;
+      const hp = result.landmarks ? estimateHeadPoseFromLandmarks(result.landmarks, box) : estimateHeadPoseFromBox(box);
+      headPose = hp.pose; yaw = hp.yaw; pitch = hp.pitch;
+      gazeCentered = headPose === 'center';
+
+      if (result.landmarks) {
+        try {
+          roll = calcHeadRoll(result.landmarks);
+          const lEye = result.landmarks.getLeftEye();
+          const rEye = result.landmarks.getRightEye();
+          const earL = calcEAR(lEye);
+          const earR = calcEAR(rEye);
+          if (earL !== null && earR !== null) ear = (earL + earR) / 2;
+          const mouth = result.landmarks.getMouth();
+          const faceH = box.height;
+          mouthOpen = calcMouthOpen(mouth, faceH);
+        } catch(e) {}
+      }
+
+      if (result.expressions) {
+        expressions = result.expressions;
+        smileScore = expressions.happy || null;
+      }
+    }
+  }
+
+  const score = computeEngagement(facePresent, gazeCentered, headPose, inactivity);
+  const affectState = computeAffect(score, inactivity, facePresent, expressions, roll, ear);
+
+  if (affectState !== lastAffectState && window.__liveWS && window.__liveWS.readyState === WebSocket.OPEN) {
+    window.__liveWS.send(JSON.stringify({
+      type: 'AFFECT_CHANGE', username: window.__cs_username || 'unknown',
+      affect_state: affectState,
+      expressions: expressions ? Object.fromEntries(Object.entries(expressions).map(([k,v])=>[k,Math.round(v*100)/100])) : null
+    }));
+  }
+  lastAffectState = affectState;
+
+  const simplifyEl = document.getElementById('adaptiveSimplify');
+  const advancedEl = document.getElementById('adaptiveAdvanced');
+  const promptEl = document.getElementById('attentionPrompt');
+  if (simplifyEl) simplifyEl.style.display = score < 40 ? 'block' : 'none';
+  if (advancedEl) advancedEl.style.display = score > 80 ? 'block' : 'none';
+  if (promptEl) promptEl.style.display = inactivity > 120 ? 'block' : 'none';
+
+  fetch(API + '/' + course + '/' + week + '/engagement', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      attemptSessionId, username: window.__cs_username || 'unknown',
+      course, week, timestamp: new Date().toISOString(),
+      facePresent, gazeCentered, headPose,
+      inactivitySeconds: inactivity, engagementScore: score,
+      focusState: score >= 70 ? 'High' : score >= 40 ? 'Medium' : 'Low',
+      clickCount: pageClicks, typingCount: keypressCount,
+      eyeAspectRatio: ear, mouthOpenRatio: mouthOpen, smileScore: smileScore,
+      headYaw: yaw, headPitch: pitch, headRoll: roll, affectState
+    })
+  }).catch(() => {});
+}
+
+const unameScript = document.querySelector('script[data-username]');
+if (unameScript) window.__cs_username = unameScript.dataset.username;
+
+setTimeout(collectSample, 5000);
+setInterval(collectSample, 20000);
+(function tryStart() {
+  if (!videoStream) {
+    if (window.faceapi && faceapi.nets.tinyFaceDetector.isLoaded) {
+      ensureStream().then(function(ok) { if (ok) renderLoop(); });
+    } else {
+      setTimeout(tryStart, 500);
+    }
+  }
+})();
+})();
+</script>

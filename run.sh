@@ -12,6 +12,12 @@ CATSOOP_ENV="${CATSOOP_ENV:-/home/alex/catsoop-env}"
 HOST="${CU_QUIZ_HOST:-0.0.0.0}"
 PORT="${CU_QUIZ_PORT:-8000}"
 
+# Load tunnel/production URL overrides (sets CS_URL_ROOT, CU_QUIZ_BASE_URL, etc.)
+if [[ -f "$APP_DIR/.env.tunnel" ]]; then
+  source "$APP_DIR/.env.tunnel"
+  echo "Loaded tunnel config: CU_QUIZ_BASE_URL=$CU_QUIZ_BASE_URL"
+fi
+
 # Fail fast if CU_QUIZ_SECRET is not set (required for JWT signing)
 if [[ -z "$CU_QUIZ_SECRET" ]]; then
   echo "ERROR: CU_QUIZ_SECRET is not set. Generate one with: openssl rand -hex 32" >&2
@@ -49,7 +55,7 @@ if ! curl -s http://localhost:11434/api/tags > /dev/null 2>&1; then
 fi
 
 echo "Starting FastAPI on $HOST:$PORT..."
-uvicorn api.main:app --host "$HOST" --port "$PORT" --reload &
+uvicorn api.main:app --host "$HOST" --port "$PORT" --reload --proxy-headers --forwarded-allow-ips='*' &
 FASTAPI_PID=$!
 
 # Wait for FastAPI to be ready

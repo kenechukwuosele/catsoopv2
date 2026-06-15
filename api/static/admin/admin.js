@@ -322,10 +322,22 @@ async function loadLiveFileMeta() {
       return;
     }
     const link=`${API}/live-file/${course}/${week}`;
-    el.innerHTML=`<div><strong>File:</strong> ${d.filename}</div><div><strong>Type:</strong> ${d.content_type}</div><div><strong>Uploaded:</strong> ${d.uploaded_at}</div><div><a href="${link}" target="_blank" style="color:var(--accent);">Open live file</a></div>`;
+    el.innerHTML=`<div><strong>File:</strong> ${d.filename}</div><div><strong>Type:</strong> ${d.content_type}</div><div><strong>Uploaded:</strong> ${d.uploaded_at}</div><div style="margin-top:8px;display:flex;gap:8px;align-items:center;"><a href="${link}" target="_blank" style="color:var(--accent);">Open live file</a><button onclick="deleteLiveFile()" style="background:#c0392b;color:#fff;border:none;padding:4px 10px;border-radius:4px;cursor:pointer;">Remove</button></div>`;
   }catch{
     el.textContent='Failed to load live file.';
   }
+}
+
+async function deleteLiveFile() {
+  const course=document.getElementById('lf-view-course').value;
+  const week=document.getElementById('lf-view-week').value;
+  if(!course||!week){toast('Select course and week','error');return;}
+  if(!confirm(`Remove live file for ${course} / ${week}?`))return;
+  try{
+    const r=await fetch(`${API}/admin/live-file/${course}/${week}`,{method:'DELETE'});
+    if(r.ok){toast('Live file removed');loadLiveFileMeta();}
+    else{const d=await r.json();toast(d.detail||'Delete failed','error');}
+  }catch{toast('Failed to connect','error');}
 }
 
 function updateCoursesTable(courses) {

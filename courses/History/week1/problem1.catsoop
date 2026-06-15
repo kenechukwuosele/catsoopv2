@@ -1,0 +1,48 @@
+<python>
+cs_content_header = 'Week 1 Practice Problems: Biblical History & Ancient Civilizations'
+</python>
+
+<question multiplechoice>
+csq_prompt = 'The covenant God made with Abraham is sometimes called the Abrahamic Covenant. Which of the following was NOT part of this covenant?'
+csq_options = ["Land for Abraham's descendants", 'That Abraham would be a father of many nations', 'Immediate defeat of all his enemies', 'Blessing to all peoples through Abraham']
+csq_soln = 'Immediate defeat of all his enemies'
+csq_renderer = 'radio'
+csq_npoints = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = 'The Exodus, led by Moses, was primarily the liberation of the Israelites from:'
+csq_options = ['Babylonian captivity', 'Egyptian slavery', 'Assyrian conquest', 'Roman occupation']
+csq_soln = 'Egyptian slavery'
+csq_renderer = 'radio'
+csq_npoints = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = 'What was the significance of the Babylonian exile for the Jewish people?'
+csq_options = ['It led to the creation of the New Testament', 'It deepened their theological reflection on covenant, sin, and restoration', 'It caused them to abandon their faith entirely', 'It resulted in the destruction of the Torah']
+csq_soln = 'It deepened their theological reflection on covenant, sin, and restoration'
+csq_renderer = 'radio'
+csq_npoints = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = 'The Ancient Near East context of the Bible includes which major civilizations?'
+csq_options = ['Egypt, Mesopotamia (Babylon/Assyria), and Canaan', 'Greece, Rome, and Persia only', 'China, India, and Persia', 'Arabia, Ethiopia, and Turkey']
+csq_soln = 'Egypt, Mesopotamia (Babylon/Assyria), and Canaan'
+csq_renderer = 'radio'
+csq_npoints = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = 'The early Church began in Jerusalem on the Day of Pentecost. What miraculous event occurred on that day?'
+csq_options = ['Jesus rose from the dead', 'The Temple was rebuilt', 'The Holy Spirit descended on the disciples, enabling them to speak in other languages', 'Paul was converted on the road to Damascus']
+csq_soln = 'The Holy Spirit descended on the disciples, enabling them to speak in other languages'
+csq_renderer = 'radio'
+csq_npoints = 1
+csq_soln_mode = "value"
+</question>

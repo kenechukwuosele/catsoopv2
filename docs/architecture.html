@@ -1,0 +1,1339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CU Quiz App — Architecture Reference</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<style>
+:root {
+  --blue: #2572F5;
+  --blue-light: #e7f3ff;
+  --blue-dark: #1a4db5;
+  --sidebar-bg: #0f1117;
+  --sidebar-text: #c9d1d9;
+  --sidebar-active: #2572F5;
+  --bg: #ffffff;
+  --bg-alt: #f6f8fa;
+  --border: #d0d7de;
+  --text: #1f2328;
+  --text-muted: #656d76;
+  --code-bg: #f6f8fa;
+  --green: #1a7f37;
+  --orange: #b45309;
+  --red: #cf222e;
+  --sidebar-width: 260px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 15px; line-height: 1.6; color: var(--text); background: var(--bg); display: flex; }
+
+/* Sidebar */
+#sidebar {
+  width: var(--sidebar-width);
+  min-height: 100vh;
+  background: var(--sidebar-bg);
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  overflow-y: auto;
+  z-index: 100;
+  padding-bottom: 40px;
+}
+#sidebar .logo {
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid #2a2d35;
+  color: #fff;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.3px;
+}
+#sidebar .logo span { color: var(--blue); }
+#sidebar nav { padding: 12px 0; }
+#sidebar nav a {
+  display: block;
+  padding: 7px 20px;
+  color: var(--sidebar-text);
+  text-decoration: none;
+  font-size: 13px;
+  border-left: 3px solid transparent;
+  transition: all 0.15s;
+}
+#sidebar nav a:hover { color: #fff; background: rgba(255,255,255,0.05); }
+#sidebar nav a.active { color: #fff; border-left-color: var(--blue); background: rgba(37,114,245,0.12); }
+#sidebar .section-label {
+  padding: 14px 20px 4px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #555d6a;
+  font-weight: 600;
+}
+
+/* Main content */
+#main {
+  margin-left: var(--sidebar-width);
+  flex: 1;
+  min-width: 0;
+}
+.content-wrap { max-width: 960px; padding: 48px 48px 80px; }
+
+section { margin-bottom: 64px; scroll-margin-top: 20px; }
+section + section { border-top: 1px solid var(--border); padding-top: 48px; }
+
+h1 { font-size: 32px; font-weight: 700; color: var(--text); margin-bottom: 12px; }
+h2 { font-size: 22px; font-weight: 700; color: var(--text); margin: 32px 0 12px; padding-bottom: 8px; border-bottom: 2px solid var(--blue); }
+h3 { font-size: 17px; font-weight: 600; color: var(--text); margin: 24px 0 8px; }
+h4 { font-size: 14px; font-weight: 600; color: var(--text); margin: 16px 0 6px; }
+p { margin-bottom: 12px; color: var(--text); }
+ul, ol { padding-left: 22px; margin-bottom: 12px; }
+li { margin-bottom: 4px; }
+a { color: var(--blue); text-decoration: none; }
+a:hover { text-decoration: underline; }
+strong { font-weight: 600; }
+code { font-family: "SFMono-Regular", Consolas, monospace; font-size: 13px; background: var(--code-bg); border: 1px solid var(--border); border-radius: 4px; padding: 1px 5px; }
+pre { background: var(--code-bg); border: 1px solid var(--border); border-radius: 8px; padding: 16px; overflow-x: auto; margin: 12px 0; font-family: "SFMono-Regular", Consolas, monospace; font-size: 13px; line-height: 1.5; }
+pre code { background: none; border: none; padding: 0; font-size: inherit; }
+
+/* Callout boxes */
+.callout { border-left: 4px solid var(--blue); background: var(--blue-light); padding: 14px 16px; border-radius: 0 6px 6px 0; margin: 16px 0; }
+.callout.green { border-left-color: var(--green); background: #dafbe1; }
+.callout.orange { border-left-color: var(--orange); background: #fff8e1; }
+
+/* Tables */
+table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
+th { background: var(--blue); color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 13px; }
+td { padding: 9px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+tr:nth-child(even) td { background: var(--bg-alt); }
+tr:last-child td { border-bottom: none; }
+td code { font-size: 12px; }
+
+/* Mermaid container */
+.diagram { background: #fafbfc; border: 1px solid var(--border); border-radius: 8px; padding: 20px; margin: 16px 0; overflow-x: auto; text-align: center; }
+.diagram-label { font-size: 12px; color: var(--text-muted); text-align: center; margin-top: 6px; }
+
+/* File tree */
+.filetree { background: #0d1117; color: #c9d1d9; border-radius: 8px; padding: 20px 24px; font-family: "SFMono-Regular", Consolas, monospace; font-size: 13px; line-height: 1.7; overflow-x: auto; margin: 12px 0; }
+.filetree .dir { color: #79c0ff; font-weight: 600; }
+.filetree .ann { color: #8b949e; }
+.filetree .gen { color: #a5d6ff; }
+.filetree .key { color: #7ee787; }
+
+/* Badge tags */
+.badge { display: inline-block; padding: 1px 8px; border-radius: 20px; font-size: 11px; font-weight: 600; margin: 1px; }
+.badge.blue { background: #dbeafe; color: #1d4ed8; }
+.badge.green { background: #dcfce7; color: #15803d; }
+.badge.yellow { background: #fef9c3; color: #854d0e; }
+.badge.red { background: #fee2e2; color: #b91c1c; }
+.badge.gray { background: #f1f5f9; color: #475569; }
+
+/* Endpoint table */
+.ep-method { font-weight: 700; font-size: 12px; }
+.ep-method.get { color: #0969da; }
+.ep-method.post { color: #1a7f37; }
+.ep-method.put { color: #b45309; }
+.ep-method.delete { color: #cf222e; }
+.ep-method.ws { color: #8250df; }
+
+/* Hero section */
+.hero { background: linear-gradient(135deg, #0f1117 0%, #1a2236 100%); color: #fff; border-radius: 12px; padding: 40px; margin-bottom: 32px; }
+.hero h1 { color: #fff; font-size: 28px; }
+.hero h1 span { color: var(--blue); }
+.hero p { color: #adb5bd; margin-top: 10px; font-size: 15px; max-width: 680px; }
+.hero .badges { margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap; }
+.hero .pill { background: rgba(37,114,245,0.2); border: 1px solid rgba(37,114,245,0.4); color: #79c0ff; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 500; }
+
+/* Two column */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 16px 0; }
+.box { border: 1px solid var(--border); border-radius: 8px; padding: 16px; }
+.box h4 { margin-top: 0; color: var(--blue); }
+@media (max-width: 700px) { .two-col { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<aside id="sidebar">
+  <div class="logo">CU <span>Quiz</span> App</div>
+  <nav>
+    <div class="section-label">Getting Started</div>
+    <a href="#overview">1. Overview</a>
+    <a href="#architecture">2. System Architecture</a>
+    <a href="#startup">3. Startup &amp; Processes</a>
+    <div class="section-label">Codebase</div>
+    <a href="#filetree">4. Annotated File Tree</a>
+    <a href="#catsoop">5. CatSooP Layer</a>
+    <a href="#fastapi">6. FastAPI Layer</a>
+    <div class="section-label">Data &amp; Flows</div>
+    <a href="#dataflows">7. Key Data Flows</a>
+    <a href="#storage">8. Storage Systems</a>
+    <div class="section-label">Features</div>
+    <a href="#security">9. Security Model</a>
+    <a href="#templates">10. Template Generation</a>
+    <a href="#faceauth">11. Face Authentication</a>
+    <a href="#websocket">12. WebSocket Protocol</a>
+    <a href="#gamification">13. Gamification</a>
+    <div class="section-label">Reference</div>
+    <a href="#cheatsheet">14. API Cheat Sheet</a>
+    <a href="#refactor">15. Refactor Notes</a>
+  </nav>
+</aside>
+
+<div id="main">
+<div class="content-wrap">
+
+<!-- ═══════════════════════════════════════════════════════════
+     1. OVERVIEW
+══════════════════════════════════════════════════════════════ -->
+<section id="overview">
+  <div class="hero">
+    <h1>CU <span>Quiz</span> App — Architecture Reference</h1>
+    <p>A Covenant University quiz platform built on top of the CatSooP LMS (v19.0.6). Two cooperating services — CatSooP for content rendering and FastAPI for quiz logic — combine with AI hint generation, real-time engagement monitoring, face authentication, and a gamification layer.</p>
+    <div class="badges">
+      <span class="pill">CatSooP :7667</span>
+      <span class="pill">FastAPI :8000</span>
+      <span class="pill">SQLite</span>
+      <span class="pill">ChromaDB</span>
+      <span class="pill">Ollama LLM</span>
+      <span class="pill">face-api.js</span>
+      <span class="pill">WebSocket</span>
+    </div>
+  </div>
+
+  <h2>What This System Does</h2>
+  <div class="two-col">
+    <div class="box">
+      <h4>CatSooP (port 7667)</h4>
+      <ul>
+        <li>Renders <code>.catsoop</code> course pages</li>
+        <li>Authenticates students (PBKDF2 login)</li>
+        <li>Grades quiz submissions natively</li>
+        <li>Writes binary cslog files (scores)</li>
+        <li>Executes embedded Python blocks per-request</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h4>FastAPI (port 8000)</h4>
+      <ul>
+        <li>Admin panel for question/course management</li>
+        <li>AI hint generation (RAG + Ollama)</li>
+        <li>Gamification: XP, streaks, badges, leaderboard</li>
+        <li>Face biometric authentication</li>
+        <li>Real-time WebSocket room manager</li>
+        <li>Engagement monitoring (webcam + affect)</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>High-Level Request Routing</h2>
+  <div class="diagram">
+<div class="mermaid">
+graph LR
+    B["Browser"]
+    CS["CatSooP\n:7667"]
+    FA["FastAPI\n:8000"]
+    CF["courses/ files"]
+    LOG["_logs/ cslog"]
+    DB["questions.db"]
+    OL["Ollama\n:11434"]
+
+    B -->|"GET /Physics/week1/quiz\ncourse pages, auth"| CS
+    B -->|"REST + WebSocket\nAPI calls from quiz JS"| FA
+    CS -->|"reads .catsoop files"| CF
+    CS -->|"writes grade logs"| LOG
+    FA -->|"reads grades"| LOG
+    FA -->|"reads/writes quiz.catsoop"| CF
+    FA -->|"CRUD gamification\nengagement, lecturers"| DB
+    FA -->|"AI generation"| OL
+</div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     2. SYSTEM ARCHITECTURE
+══════════════════════════════════════════════════════════════ -->
+<section id="architecture">
+  <h2>System Architecture</h2>
+  <p>The full system spans the browser, two backend services, and multiple storage layers. The diagram below shows every major subsystem and the connections between them.</p>
+
+  <div class="diagram">
+<div class="mermaid">
+graph TB
+    subgraph BROWSER["Browser"]
+        QJS["quiz.catsoop JS\n(hints, XP, face auth)"]
+        AFF["Affect Widget\n(webcam, engagement)"]
+        ADMIN["admin.html SPA\n(8 JS modules + admin.css)"]
+        FAPI["face-api.js\n(TF.js models)"]
+    end
+
+    subgraph CATSOOP["CatSooP Engine  :7667"]
+        DISP["dispatch.py\n(URL routing)"]
+        LOAD["loader.py\n(exec .catsoop files)"]
+        HAND["default handler\n(render HTML)"]
+        CAUTH["__AUTH__/login\n(PBKDF2 auth)"]
+        QTYPE["__QTYPES__\n(13 question types)"]
+        CSLOG["cslog.py\n(binary log writer)"]
+    end
+
+    subgraph FASTAPI["FastAPI  :8000"]
+        subgraph ROUTES["Routes"]
+            RA["admin.py\nlogin + lecturer mgmt"]
+            RLF["live_files.py\nlive-file upload/download/delete"]
+            RFE["face_enrollments.py\nface enrollment admin"]
+            REP["repair.py\nPOST /admin/repair"]
+            RQ["file_questions.py\nquestion CRUD, grades"]
+            RC["courses.py\ncourse and week CRUD"]
+            RH["hints.py\nhint CRUD, engagement"]
+            RR["rag.py\nvector ingest, AI gen"]
+            RG["gamification.py\nXP, badges, face auth"]
+            RL["lecturer.py\ninstructor accounts"]
+            RW["websocket.py\nroom manager"]
+        end
+        subgraph SVC["Services"]
+            SG["gamification.py\naward_xp, streaks"]
+            SR["rag_service.py\nChromaDB + embeddings"]
+            SO["ollama_client.py\nasync LLM HTTP"]
+        end
+        subgraph TPL["Templates"]
+            TQ["quiz.py\ngenerate_native_quiz"]
+            TA["admin_panel.py\ngenerate_quiz_template"]
+            TC["content.py\nlecture, gradebook"]
+            TL["leaderboard.py\nleaderboard widget"]
+            TF["affect.py\nengage widget JS"]
+        end
+        AUTH["auth.py\nJWT mint/validate"]
+        VALID["validation.py\nregex + path checks"]
+    end
+
+    subgraph STORAGE["Storage"]
+        DB[("questions.db\nSQLite")]
+        CSLF["_logs/ cslog\nbinary grade files"]
+        HINT["_hint_store/\nJSON hints"]
+        LIVE["_live_files/\nuploads"]
+        CRSF["courses/\n.catsoop files"]
+        VEC[("_vectors/\nChromaDB HNSW")]
+    end
+
+    subgraph EXT["External Services"]
+        OLLAMA["Ollama\nphi3:mini / qwen2.5"]
+        SBERT["sentence-transformers\nall-MiniLM-L6-v2"]
+        TFMOD["face-api models\n_static/models/"]
+    end
+
+    BROWSER -->|"page loads"| CATSOOP
+    BROWSER -->|"fetch + WS"| FASTAPI
+    CATSOOP --> CRSF
+    CATSOOP --> CSLF
+    FASTAPI --> CSLF
+    FASTAPI --> CRSF
+    FASTAPI --> DB
+    FASTAPI --> HINT
+    FASTAPI --> LIVE
+    SR --> VEC
+    SR --> SBERT
+    SO --> OLLAMA
+    FAPI --> TFMOD
+</div>
+  </div>
+
+  <h2>Component Responsibilities Summary</h2>
+  <table>
+    <tr><th>Component</th><th>File(s)</th><th>Responsibility</th></tr>
+    <tr><td><code>dispatch.py</code></td><td>catsoop_engine/</td><td>Resolves HTTP URL to a course directory + .catsoop file path; blocks paths starting with <code>_</code> or <code>.</code></td></tr>
+    <tr><td><code>loader.py</code></td><td>catsoop_engine/</td><td>Executes the <code>&lt;python&gt;</code> blocks in .catsoop files and passes context variables to the handler</td></tr>
+    <tr><td><code>cslog.py</code></td><td>catsoop_engine/</td><td>Reads/writes the binary log format (8-byte length + lzma-pickled dict) used for grades and auth</td></tr>
+    <tr><td><code>auth.py</code> (FastAPI)</td><td>api/</td><td>Mints and validates HS256 JWTs; <code>require_user</code> / <code>require_admin</code> FastAPI dependencies</td></tr>
+    <tr><td><code>validation.py</code></td><td>api/</td><td>Regex allow-lists for course/week/question names; realpath containment for all file operations</td></tr>
+    <tr><td><code>websocket.py</code></td><td>api/</td><td>Room-based WS manager; 9 message types between student browsers and instructor dashboard</td></tr>
+    <tr><td><code>rag_service.py</code></td><td>api/services/</td><td>Lazy-initialised singleton; chunks .catsoop content, encodes with sentence-transformers, stores in ChromaDB</td></tr>
+    <tr><td><code>gamification.py</code></td><td>api/services/</td><td><code>award_xp()</code> — scores + streak bonus; idempotent badge inserts; <code>update_streak_only()</code> for re-submissions</td></tr>
+  </table>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     3. STARTUP & PROCESSES
+══════════════════════════════════════════════════════════════ -->
+<section id="startup">
+  <h2>Startup &amp; Process Model</h2>
+  <p><code>run.sh</code> orchestrates all three processes in sequence.</p>
+
+  <div class="diagram">
+<div class="mermaid">
+sequenceDiagram
+    participant SH as run.sh
+    participant OL as Ollama
+    participant FA as FastAPI
+    participant CS as CatSooP
+
+    SH->>SH: validate CU_QUIZ_SECRET (exit if unset)
+    SH->>SH: derive CU_QUIZ_BASE_URL from HOST:PORT
+    SH->>SH: set HF_HUB_OFFLINE=1 (use cached models)
+    SH->>OL: start ollama serve (if not already running)
+    SH->>FA: uvicorn api.main:app --host HOST --port 8000
+    FA->>FA: ensure_schema() - add missing DB columns
+    FA->>FA: migrate_hints_to_json() - one-time migration
+    FA->>FA: Base.metadata.create_all() - create tables
+    SH->>SH: poll http://HOST:8000/docs until 200 OK
+    SH->>CS: python -m catsoop_engine start (WSGI :7667)
+    Note over SH: trap EXIT - kill FastAPI PID on shutdown
+</div>
+  </div>
+
+  <h2>Environment Variables</h2>
+  <table>
+    <tr><th>Variable</th><th>Default</th><th>Required?</th><th>Purpose</th></tr>
+    <tr><td><code>CU_QUIZ_SECRET</code></td><td>—</td><td><span class="badge red">Required</span></td><td>HMAC secret for all JWT signing. Generate with <code>openssl rand -hex 32</code></td></tr>
+    <tr><td><code>CU_QUIZ_ADMIN_PASSWORD</code></td><td>—</td><td><span class="badge red">Required</span></td><td>Password for the system admin account (<code>POST /admin/login</code>)</td></tr>
+    <tr><td><code>CU_QUIZ_HOST</code></td><td><code>0.0.0.0</code></td><td><span class="badge gray">Optional</span></td><td>FastAPI bind address; also used to derive <code>CU_QUIZ_BASE_URL</code></td></tr>
+    <tr><td><code>CU_QUIZ_PORT</code></td><td><code>8000</code></td><td><span class="badge gray">Optional</span></td><td>FastAPI port</td></tr>
+    <tr><td><code>CU_QUIZ_BASE_URL</code></td><td>derived from HOST:PORT</td><td><span class="badge gray">Optional</span></td><td>URL that <em>browsers</em> use to reach the API; embedded in generated .catsoop files</td></tr>
+    <tr><td><code>CU_QUIZ_ADMINS</code></td><td><code>admin</code></td><td><span class="badge gray">Optional</span></td><td>Comma-separated usernames treated as admins in student JWTs</td></tr>
+    <tr><td><code>CU_QUIZ_ALLOWED_ORIGINS</code></td><td>localhost:7667</td><td><span class="badge gray">Optional</span></td><td>CORS allowed origins; <code>CU_QUIZ_BASE_URL</code> is always added automatically</td></tr>
+    <tr><td><code>OLLAMA_BASE_URL</code></td><td><code>http://localhost:11434</code></td><td><span class="badge gray">Optional</span></td><td>Ollama server endpoint for AI hint generation</td></tr>
+    <tr><td><code>OLLAMA_MODEL</code></td><td><code>phi3:mini</code></td><td><span class="badge gray">Optional</span></td><td>LLM model for hint/question generation</td></tr>
+    <tr><td><code>EMBED_MODEL_NAME</code></td><td><code>all-MiniLM-L6-v2</code></td><td><span class="badge gray">Optional</span></td><td>Sentence Transformers model for RAG embeddings (384-dim)</td></tr>
+    <tr><td><code>VECTOR_STORE_DIR</code></td><td><code>&lt;data_root&gt;/_vectors</code></td><td><span class="badge gray">Optional</span></td><td>ChromaDB persistence path</td></tr>
+    <tr><td><code>CATSOOP_COURSES_DIR</code></td><td><code>&lt;data_root&gt;/courses</code></td><td><span class="badge gray">Optional</span></td><td>Override course content directory</td></tr>
+    <tr><td><code>LIVE_FILES_DIR</code></td><td><code>&lt;data_root&gt;/_live_files</code></td><td><span class="badge gray">Optional</span></td><td>Directory for instructor-uploaded materials</td></tr>
+  </table>
+
+  <div class="callout">
+    <strong>Key constraint:</strong> <code>CU_QUIZ_BASE_URL</code> is baked into every generated <code>quiz.catsoop</code> and template file at creation time. If you change it, run <code>POST /admin/repair</code> to regenerate all files with the new URL.
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     4. ANNOTATED FILE TREE
+══════════════════════════════════════════════════════════════ -->
+<section id="filetree">
+  <h2>Annotated File Tree</h2>
+  <p>Every file in the project with a one-line annotation. <span style="color:#79c0ff">Blue</span> = directories, <span style="color:#7ee787">green</span> = key entry points, <span style="color:#a5d6ff">light blue</span> = generated files.</p>
+
+  <div class="filetree">
+<span class="dir">~/.local/share/catsoop/</span>
+├── <span class="key">run.sh</span>                              <span class="ann">— startup orchestrator: Ollama → FastAPI → CatSooP</span>
+│
+├── <span class="dir">api/</span>                                <span class="ann">— FastAPI service (port 8000)</span>
+│   ├── <span class="key">main.py</span>                         <span class="ann">— app factory; registers routers; runs startup migrations</span>
+│   ├── config.py                       <span class="ann">— env-var constants: paths, URLs, model names</span>
+│   ├── auth.py                         <span class="ann">— JWT mint/validate; require_user / require_admin dependencies</span>
+│   ├── database.py                     <span class="ann">— SQLAlchemy engine + SessionLocal factory</span>
+│   ├── models.py                       <span class="ann">— ORM: LiveFile, EngagementSample, StudentProfile, Badge, …</span>
+│   ├── schemas.py                      <span class="ann">— Pydantic request/response models</span>
+│   ├── validation.py                   <span class="ann">— safe_course/week/qname/filename + ensure_within (path traversal)</span>
+│   ├── limiter.py                      <span class="ann">— shared slowapi rate limiter singleton</span>
+│   ├── websocket.py                    <span class="ann">— /ws endpoint; ConnectionManager; 9 message types</span>
+│   ├── admin.html                      <span class="ann">— admin SPA shell (HTML structure only; logic in static/)</span>
+│   ├── lecturer.html                   <span class="ann">— lecturer dashboard UI</span>
+│   │
+│   ├── <span class="dir">routes/</span>
+│   │   ├── admin.py                    <span class="ann">— login (3-step auth chain) + lecturer CRUD; auth helpers</span>
+│   │   ├── live_files.py               <span class="ann">— live-file upload/download/delete; own get_db() for test isolation</span>
+│   │   ├── face_enrollments.py         <span class="ann">— GET/DELETE /admin/face-enrollments; own get_db()</span>
+│   │   ├── repair.py                   <span class="ann">— POST /admin/repair; regenerates all .catsoop templates</span>
+│   │   ├── file_questions.py           <span class="ann">— question CRUD (reads/writes quiz.catsoop); grade reader from cslog</span>
+│   │   ├── courses.py                  <span class="ann">— course/week CRUD; scaffolds filesystem structure on create</span>
+│   │   ├── hints.py                    <span class="ann">— hint JSON CRUD; engagement logger; AI generation via RAG+Ollama</span>
+│   │   ├── rag.py                      <span class="ann">— vector ingest/query; AI question generation from course content</span>
+│   │   ├── gamification.py             <span class="ann">— quiz-complete handler; XP/streak/badges; face enroll/verify</span>
+│   │   └── lecturer.py                 <span class="ann">— lecturer login; student list; password reset</span>
+│   │
+│   ├── <span class="dir">services/</span>
+│   │   ├── gamification.py             <span class="ann">— award_xp(), update_streak_only(), BADGE_META constants</span>
+│   │   ├── rag_service.py              <span class="ann">— lazy-init singleton: sentence-transformers + ChromaDB</span>
+│   │   └── ollama_client.py            <span class="ann">— async httpx client for Ollama /api/generate</span>
+│   │
+│   ├── <span class="dir">templates/</span>
+│   │   ├── __init__.py                 <span class="ann">— re-exports all 10 public generator functions</span>
+│   │   ├── quiz.py                     <span class="ann">— generate_native_quiz() → full quiz.catsoop with face-auth + hints + XP</span>
+│   │   ├── admin_panel.py              <span class="ann">— generate_quiz_template() → example_questions.catsoop (admin CRUD UI)</span>
+│   │   ├── leaderboard.py              <span class="ann">— generate_leaderboard_page/widget(); LEADERBOARD_SENTINEL constant</span>
+│   │   ├── content.py                  <span class="ann">— generate_lecture/problems/gradebook/live_file_panel templates</span>
+│   │   └── affect.py                   <span class="ann">— generate_affect_script() → engagement widget JS (webcam + face detect)</span>
+│   │
+│   ├── <span class="dir">tests/</span>
+│   │   ├── __init__.py                 <span class="ann">— empty package marker</span>
+│   │   ├── conftest.py                 <span class="ann">— TestClient fixture; in-memory SQLite; forces test credentials; patches ADMIN_PASSWORD</span>
+│   │   ├── test_auth.py                <span class="ann">— 7 tests: login success/failure, JWT token, auto-token, protected endpoints</span>
+│   │   ├── test_live_files.py          <span class="ann">— 6 tests: upload, get metadata, public info, delete, 404, auth-required</span>
+│   │   └── test_questions.py           <span class="ann">— 4 tests: list empty, add + list, delete one, delete all</span>
+│   │
+│   └── <span class="dir">static/</span>
+│       ├── <span class="dir">admin/</span>
+│       │   ├── admin.css               <span class="ann">— admin SPA styles (~488 lines; sidebar, tables, modals)</span>
+│       │   ├── auth.js                 <span class="ann">— token helpers, login/logout, fetch interceptor, session restore IIFE</span>
+│       │   ├── ui-core.js              <span class="ann">— Q_TYPES, escapeHtml, toast, openModal/closeModal, mdInsert/mdWrap</span>
+│       │   ├── courses.js              <span class="ann">— course/week CRUD UI, icon picker, grades panel, week settings</span>
+│       │   ├── questions-hints.js      <span class="ann">— question builder/CRUD, hint CRUD, AI hint generation, attempts loader</span>
+│       │   ├── monitoring.js           <span class="ann">— WebSocket live grid, live file upload/remove, monitoring panel</span>
+│       │   ├── gamification.js         <span class="ann">— leaderboard panel, face-auth panel, performance panel</span>
+│       │   ├── students.js             <span class="ann">— student list, password reset, lecturer CRUD, sync CatSooP instructors</span>
+│       │   └── app.js                  <span class="ann">— showPanel(), initApp() orchestrator; startup IIFE — loaded last</span>
+│       └── <span class="dir">models/</span>                     <span class="ann">— 7 TF.js face-api model files (6.8 MB total, served locally)</span>
+│           ├── tiny_face_detector_model-shard1
+│           ├── tiny_face_detector_model-weights_manifest.json
+│           ├── face_landmark_68_tiny_model-shard1
+│           ├── face_landmark_68_tiny_model-weights_manifest.json
+│           ├── face_recognition_model-shard1
+│           ├── face_recognition_model-shard2
+│           └── face_recognition_model-weights_manifest.json
+│
+├── <span class="dir">courses/</span>                            <span class="ann">— all CatSooP course content lives here</span>
+│   ├── <span class="dir">Econs/</span>                          <span class="ann">— ECO 101 Introduction to Economics</span>
+│   │   ├── __INFO__.py                 <span class="ann">— cs_long_name, cs_course_number, cs_course_description</span>
+│   │   ├── preload.py                  <span class="ann">— cs_view_without_auth = False (login required)</span>
+│   │   ├── content.catsoop             <span class="ann">— course homepage + leaderboard widget (LEADERBOARD_SENTINEL)</span>
+│   │   ├── gradebook.catsoop           <span class="ann">— instructor grade overview (generated by templates/content.py)</span>
+│   │   └── <span class="dir">week1/</span>
+│   │       ├── __INFO__.py             <span class="ann">— cs_long_name="Law of demand and supply", due_date, allow_late</span>
+│   │       ├── content.catsoop         <span class="ann">— week overview with links to lecture, quiz, problems</span>
+│   │       ├── lecture1.catsoop        <span class="ann">— educational HTML: demand/supply law, equilibrium, PED</span>
+│   │       ├── <span class="gen">quiz.catsoop</span>            <span class="ann">— GENERATED: face-auth overlay + CatSooP questions + hint JS + XP widget</span>
+│   │       └── <span class="gen">example_questions.catsoop</span>  <span class="ann">— GENERATED: admin question CRUD UI (students see redirect)</span>
+│   │
+│   ├── <span class="dir">Physics/</span>                        <span class="ann">— PHY 101: week1–4 (Newton, Work/Energy, Kinetic Theory)</span>
+│   ├── <span class="dir">Programming/</span>                    <span class="ann">— CSC 101: week1–3 (Python basics, control flow, functions)</span>
+│   ├── <span class="dir">Finance/</span>                        <span class="ann">— FIN 101: week1 (Richest Man in Babylon)</span>
+│   ├── <span class="dir">History/</span>                        <span class="ann">— HIS 101: week1 (Biblical history)</span>
+│   ├── <span class="dir">Sports/</span>                         <span class="ann">— SPE 101: week1–3 (Football, Basketball, Volleyball)</span>
+│   └── <span class="dir">Engine/</span>                         <span class="ann">— ENG-000: instructor-only diagnostics page</span>
+│
+├── <span class="dir">catsoop_engine/</span>                     <span class="ann">— CatSooP LMS (local copy used at runtime via PYTHONPATH)</span>
+│   ├── dispatch.py                     <span class="ann">— HTTP routing; resolves URL to course dir + file path</span>
+│   ├── loader.py                       <span class="ann">— dynamic .catsoop file executor; injects cs_* context vars</span>
+│   ├── cslog.py                        <span class="ann">— binary log: 8-byte LE len + lzma pickle + 8-byte len (per entry)</span>
+│   ├── auth.py                         <span class="ann">— pluggable auth loader; dispatches to __AUTH__/{type}/{type}.py</span>
+│   ├── check.py                        <span class="ann">— answer-checking logic for question types</span>
+│   ├── wsgi.py                         <span class="ann">— WSGI interface entry point</span>
+│   ├── <span class="dir">__AUTH__/login/</span>                 <span class="ann">— username/password auth (PBKDF2-SHA256 client, PBKDF2-SHA512 server)</span>
+│   ├── <span class="dir">__HANDLERS__/default/</span>           <span class="ann">— main content renderer; cs_timer.js, cs_ajax.js</span>
+│   └── <span class="dir">__QTYPES__/</span>                     <span class="ann">— 13 question types: multiplechoice, smallbox, expression, pythoncode, …</span>
+│
+├── <span class="dir">_hint_store/</span>                        <span class="ann">— AI hints: one JSON file per course/week/question</span>
+│   └── Econs/week1/q_53e23174.json     <span class="ann">— [{number:1, text:"…"}, {number:2,…}, {number:3,…}]</span>
+│
+├── <span class="dir">_vectors/</span>                           <span class="ann">— ChromaDB HNSW vector index (2 collections, 384-dim embeddings)</span>
+│
+├── <span class="dir">_live_files/</span>                        <span class="ann">— instructor-uploaded PDFs/images served at /live-file/{c}/{w}</span>
+│
+├── <span class="dir">_logs/</span>                              <span class="ann">— CatSooP binary logs</span>
+│   ├── _courses/{c}/{u}/{w}/quiz/problemactions.log  <span class="ann">— grade submissions per student</span>
+│   └── _logininfo/{username}.log       <span class="ann">— user auth data (hashed password, role, confirmed)</span>
+│
+├── questions.db                        <span class="ann">— SQLite: 8 tables for gamification, engagement, lecturers, face</span>
+│
+└── <span class="dir">~/.config/catsoop/config.py</span>         <span class="ann">— CatSooP global config: navbar JS, course discovery, auth type</span>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     5. CATSOOP LAYER
+══════════════════════════════════════════════════════════════ -->
+<section id="catsoop">
+  <h2>CatSooP Layer</h2>
+  <p>CatSooP is an open-source LMS that renders course content from <code>.catsoop</code> files — Python-embedded HTML templates. It handles authentication, quiz grading, and binary log storage.</p>
+
+  <h3>Request Flow Through CatSooP</h3>
+  <div class="diagram">
+<div class="mermaid">
+sequenceDiagram
+    participant B as Browser
+    participant W as wsgi.py
+    participant D as dispatch.py
+    participant L as loader.py
+    participant H as default handler
+    participant A as __AUTH__/login
+    participant CS as cslog.py
+
+    B->>W: HTTP GET /Physics/week1/quiz
+    W->>D: route(path)
+    D->>D: resolve URL to courses/Physics/week1/quiz.catsoop
+    D->>L: load(file_path, context)
+    L->>A: check session / login state
+    A-->>L: cs_user_info (username, role, email)
+    L->>L: exec Python blocks, inject cs_username etc
+    L->>H: render(context, html_output)
+    H-->>B: full HTML page response
+
+    Note over B: Student submits answer
+    B->>W: POST /Physics/week1/quiz (answer)
+    W->>D: route to quiz handler
+    D->>L: evaluate answer via __QTYPES__
+    L->>CS: append score to problemactions.log
+    CS->>CS: lzma-pickle dict, write 8B+data+8B
+    H-->>B: result HTML (correct/incorrect)
+</div>
+  </div>
+
+  <h3>The .catsoop File Format</h3>
+  <p>Every page in the system is a <code>.catsoop</code> file — plain text with interspersed Python blocks and HTML.</p>
+  <pre><code>&lt;python&gt;
+cs_content_header = "Lecture 1: Newton's Laws"   # page title
+# All cs_* variables set here are available to CatSooP
+# cs_username, cs_user_info are injected automatically by CatSooP
+import jwt
+token = jwt.encode({"sub": cs_username, "is_admin": False}, SECRET, "HS256")
+print(f"&lt;script&gt;window.__CU_TOKEN = '{token}';&lt;/script&gt;")
+&lt;/python&gt;
+
+&lt;!-- Regular HTML follows --&gt;
+&lt;h1&gt;Newton's Laws&lt;/h1&gt;
+&lt;p&gt;Content here...&lt;/p&gt;
+
+&lt;!-- Native CatSooP question block --&gt;
+&lt;question multiplechoice csq_name="q_abc123"&gt;
+csq_prompt = "What is Newton's first law about?"
+csq_options = ["Inertia", "F=ma", "Action-Reaction"]
+csq_soln = 0
+&lt;/question&gt;</code></pre>
+
+  <h3>cslog Binary Format</h3>
+  <p>All grades and authentication data are stored in CatSooP's binary log format.</p>
+  <div class="callout">
+    <strong>Format per entry:</strong> <code>[8-byte LE length] [LZMA-compressed pickle dict] [8-byte LE length]</code> — repeated N times. The same 8-byte length appears before and after each entry (for bidirectional traversal).
+  </div>
+  <pre><code># Grade data in a submit entry looks like:
+{
+  "action": "submit",
+  "username": "johndoe",
+  "scores": {"q_abc123": 1.0, "q_def456": 0.0},   # 0.0–1.0 per question
+  "time": 1717027200.0
+}
+
+# Paths:
+# Grades:  _logs/_courses/{course}/{username}/{week}/quiz/problemactions.log
+# Auth:    _logs/_logininfo/{username}.log</code></pre>
+
+  <h3>CatSooP Configuration (<code>~/.config/catsoop/config.py</code>)</h3>
+  <table>
+    <tr><th>Setting</th><th>Value</th><th>Effect</th></tr>
+    <tr><td><code>cs_data_root</code></td><td><code>~/.local/share/catsoop</code></td><td>Root for all courses, logs, and cache</td></tr>
+    <tr><td><code>cs_wsgi_server_port</code></td><td><code>7667</code></td><td>HTTP server port</td></tr>
+    <tr><td><code>cs_auth_type</code></td><td><code>'login'</code></td><td>Uses PBKDF2 username/password auth</td></tr>
+    <tr><td><code>cs_allow_registration</code></td><td><code>True</code></td><td>Students can self-register</td></tr>
+    <tr><td><code>cs_scripts</code></td><td>navbar JS + CSS</td><td>Injects global navbar with streak pill and auth buttons into every page</td></tr>
+  </table>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     6. FASTAPI LAYER
+══════════════════════════════════════════════════════════════ -->
+<section id="fastapi">
+  <h2>FastAPI Layer</h2>
+  <p>The FastAPI service is the brain of the system — it manages questions, generates AI hints, tracks gamification, and provides the admin interface. It is stateless with respect to HTTP sessions; all state is in SQLite, files, or JWTs.</p>
+
+  <h3>Router Map</h3>
+  <table>
+    <tr><th>Router file</th><th>Prefix / endpoints</th><th>Auth dependency</th><th>DB?</th><th>Rate limit</th></tr>
+    <tr><td><code>routes/admin.py</code></td><td><code>/admin/login</code>, <code>/admin/auto-token</code>, <code>/admin</code>, <code>/admin/lecturers/*</code>, <code>/admin/sync-instructors</code></td><td><code>require_admin</code> (except login)</td><td>Lecturer</td><td>—</td></tr>
+    <tr><td><code>routes/live_files.py</code></td><td><code>/admin/live-file/*</code>, <code>/live-file-info/*</code>, <code>/live-file/*</code></td><td><code>require_admin</code> (upload/delete only)</td><td>LiveFile</td><td>—</td></tr>
+    <tr><td><code>routes/face_enrollments.py</code></td><td><code>/admin/face-enrollments</code>, <code>/admin/face-enrollments/{u}</code></td><td><code>require_admin</code></td><td>FaceEnrollment</td><td>—</td></tr>
+    <tr><td><code>routes/repair.py</code></td><td><code>/admin/repair</code></td><td><code>require_admin</code></td><td>—</td><td>—</td></tr>
+    <tr><td><code>routes/file_questions.py</code></td><td><code>/admin/questions/*</code>, <code>/grades</code></td><td><code>require_admin</code></td><td>file-based</td><td>—</td></tr>
+    <tr><td><code>routes/courses.py</code></td><td><code>/admin/courses/*</code>, <code>/admin/performance</code></td><td><code>require_admin</code></td><td>indirect</td><td>—</td></tr>
+    <tr><td><code>routes/hints.py</code></td><td><code>/admin/hints/*</code>, <code>/engagement</code></td><td>admin / user mix</td><td>EngagementSample</td><td>30/min (AI gen)</td></tr>
+    <tr><td><code>routes/rag.py</code></td><td><code>/admin/rag/*</code></td><td><code>require_admin</code></td><td>ContentChunk</td><td>—</td></tr>
+    <tr><td><code>routes/gamification.py</code></td><td><code>/{c}/{w}/quiz-complete</code>, <code>/leaderboard</code>, <code>/face-*</code></td><td><code>require_user</code></td><td>StudentProfile, Badge</td><td>5/min (quiz-complete)</td></tr>
+    <tr><td><code>routes/lecturer.py</code></td><td><code>/lecturer/*</code></td><td>custom dep</td><td>Lecturer</td><td>—</td></tr>
+    <tr><td><code>websocket.py</code></td><td><code>/ws</code></td><td>JWT query param</td><td>—</td><td>—</td></tr>
+  </table>
+
+  <h3>Admin Login — 3-Step Auth Chain</h3>
+  <div class="diagram">
+<div class="mermaid">
+graph TD
+    REQ["POST /admin/login\nbody: {username, password}"]
+    C1{"username is blank or 'admin'\nAND password == CU_QUIZ_ADMIN_PASSWORD?"}
+    C2{"username found in\nlecturers table\nAND SHA-256 matches?"}
+    C3{"username in\n_logininfo cslog\nAND confirmed=True\nAND role=Instructor\nAND PBKDF2 matches?"}
+    OK["Return JWT\n{sub, is_admin:true, exp}"]
+    FAIL["401 Unauthorized"]
+
+    REQ --> C1
+    C1 -->|yes| OK
+    C1 -->|no| C2
+    C2 -->|yes| OK
+    C2 -->|no| C3
+    C3 -->|yes| OK
+    C3 -->|no| FAIL
+</div>
+  </div>
+
+  <h3>JWT Structure</h3>
+  <table>
+    <tr><th>Claim</th><th>Value</th><th>Notes</th></tr>
+    <tr><td><code>sub</code></td><td>username string</td><td>Used as identity in all API calls</td></tr>
+    <tr><td><code>is_admin</code></td><td>true / false</td><td>true for admin panel and lecturer logins</td></tr>
+    <tr><td><code>exp</code></td><td>now + 8 hours</td><td>Standard expiry</td></tr>
+    <tr><td><code>iat</code></td><td>now</td><td>Issued-at</td></tr>
+  </table>
+  <p><strong>Two token minting paths:</strong></p>
+  <ul>
+    <li><strong>Student quizzes:</strong> The <code>&lt;python&gt;</code> block in <code>quiz.catsoop</code> calls PyJWT with <code>CU_QUIZ_SECRET</code> and injects the token as <code>window.__CU_TOKEN</code>. A fetch interceptor then auto-attaches <code>Authorization: Bearer &lt;token&gt;</code> to every API call.</li>
+    <li><strong>Admin panel:</strong> <code>POST /admin/login</code> returns a JWT which is stored in <code>localStorage</code>. <code>auth.js</code> attaches it on every fetch via its own interceptor.</li>
+  </ul>
+
+  <h3>Admin SPA — JS Module Breakdown</h3>
+  <p>The admin panel JavaScript was refactored from a single <code>admin.js</code> (~1180 lines) into 8 focused modules loaded in dependency order via plain <code>&lt;script&gt;</code> tags (no bundler). All functions remain global.</p>
+  <table>
+    <tr><th>File</th><th>Load order</th><th>Contents</th></tr>
+    <tr><td><code>auth.js</code></td><td>1st</td><td><code>getToken/setToken/clearToken</code>, <code>showLogin/hideLogin</code>, <code>doLogin/doLogout</code>, <code>applyRole</code>, fetch interceptor IIFE, <code>window.__rawFetch</code></td></tr>
+    <tr><td><code>ui-core.js</code></td><td>2nd</td><td><code>Q_TYPES</code>, <code>escapeHtml</code>, <code>toast</code>, <code>openModal/closeModal</code>, <code>mdInsert/mdWrap</code></td></tr>
+    <tr><td><code>courses.js</code></td><td>3rd</td><td><code>loadCourses</code>, <code>populateCourseDropdowns</code>, course/week CRUD, icon picker, grades panel, week settings, <code>loadOverview</code></td></tr>
+    <tr><td><code>questions-hints.js</code></td><td>4th</td><td>Question builder/form helpers, question CRUD, bulk import, hint CRUD, AI hint generation, <code>loadAttempts</code>, <code>publishQuiz</code></td></tr>
+    <tr><td><code>monitoring.js</code></td><td>5th</td><td><code>liveSocket/liveStudents</code> globals, WebSocket live grid, live file upload/remove, monitoring panel</td></tr>
+    <tr><td><code>gamification.js</code></td><td>6th</td><td><code>loadGamificationPanel</code>, <code>loadFaceAuthPanel</code>, <code>resetFaceEnroll</code>, <code>loadPerformance</code></td></tr>
+    <tr><td><code>students.js</code></td><td>7th</td><td><code>loadStudentsPanel</code>, password reset flow, lecturer CRUD, <code>syncCatSooPInstructors</code></td></tr>
+    <tr><td><code>app.js</code></td><td>8th (last)</td><td><code>showPanel</code>, <code>initApp</code>, icon picker init calls, startup IIFE that restores session from localStorage</td></tr>
+  </table>
+  <div class="callout">
+    <strong>Load order matters:</strong> <code>app.js</code> must be last because its startup IIFE calls <code>initApp()</code>, which calls <code>populateCourseDropdowns()</code> and <code>loadOverview()</code> — both defined in <code>courses.js</code>. Loading order follows dependency direction.
+  </div>
+
+  <h3>Test Suite (<code>api/tests/</code>)</h3>
+  <p>pytest + FastAPI <code>TestClient</code> + in-memory SQLite. Run with:</p>
+  <pre><code>cd ~/.local/share/catsoop && source ~/catsoop-env/bin/activate
+python -m pytest api/tests/ -v   # 17 tests, ~1s</code></pre>
+  <table>
+    <tr><th>File</th><th>Tests</th><th>What it covers</th></tr>
+    <tr><td><code>test_auth.py</code></td><td>7</td><td>Login success/failure/empty, HTML panel, protected endpoint (no token / with token), auto-token blocked when password set</td></tr>
+    <tr><td><code>test_live_files.py</code></td><td>6</td><td>Missing file returns null, upload + get, delete + confirm null, 404 on delete-nonexistent, upload requires auth, public <code>/live-file-info</code></td></tr>
+    <tr><td><code>test_questions.py</code></td><td>4</td><td>Empty list, add + list, delete one, delete all</td></tr>
+  </table>
+  <div class="callout orange">
+    <strong>Test isolation:</strong> Each route file (<code>live_files.py</code>, <code>face_enrollments.py</code>) has its own <code>get_db()</code> so <code>app.dependency_overrides</code> can target the exact function object. <code>conftest.py</code> force-sets <code>CU_QUIZ_ADMIN_PASSWORD</code> with <code>os.environ["..."] = "testpass"</code> (not <code>setdefault</code>) and patches the already-imported module constants to guarantee the test password is in effect.
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     7. KEY DATA FLOWS
+══════════════════════════════════════════════════════════════ -->
+<section id="dataflows">
+  <h2>Key Data Flows</h2>
+
+  <h3>A. Student Takes a Quiz</h3>
+  <div class="diagram">
+<div class="mermaid">
+sequenceDiagram
+    participant B as Browser
+    participant CS as CatSooP :7667
+    participant FA as FastAPI :8000
+    participant DB as Storage
+
+    B->>CS: GET /Physics/week1/quiz
+    CS->>CS: exec Python block, mint JWT via PyJWT
+    CS-->>B: HTML with face-auth overlay + window.__CU_TOKEN
+
+    Note over B: Face authentication phase
+    B->>FA: GET /{course}/face-status?username=X
+    FA-->>B: {enrolled: true/false}
+    B->>B: face-api loads models from /static/models/
+    B->>FA: POST /{course}/verify-face {descriptor:[128 floats]}
+    FA->>FA: Euclidean distance vs stored descriptor
+    FA-->>B: {verified: true, distance: 0.34}
+    B->>B: overlay fades, quiz-start-screen revealed
+
+    Note over B: Student answers
+    B->>CS: POST /Physics/week1/quiz (answer submission)
+    CS->>DB: write to _logs/…/problemactions.log (cslog)
+    CS-->>B: correct/incorrect feedback
+
+    Note over B: Quiz completion
+    B->>FA: POST /{course}/{week}/quiz-complete {username}
+    FA->>FA: sleep 1.5s, read cslog, extract scores
+    FA->>FA: award_xp(db, username, course, percent)
+    FA->>DB: UPDATE student_profiles (xp, streak)
+    FA->>DB: INSERT badges (if conditions met)
+    FA-->>B: {xp_earned, total_xp, streak, badges}
+    B->>B: XP widget animates, badge toast shown
+
+    loop Every 20 seconds
+        B->>FA: POST /{course}/{week}/engagement (affect data)
+        FA->>DB: INSERT engagement_samples
+    end
+</div>
+  </div>
+
+  <h3>B. Admin Creates Questions and Generates AI Hints</h3>
+  <div class="diagram">
+<div class="mermaid">
+sequenceDiagram
+    participant A as Admin Browser
+    participant FA as FastAPI
+    participant QF as quiz.catsoop file
+    participant RS as RAGService
+    participant CH as ChromaDB
+    participant OL as Ollama
+    participant HS as _hint_store JSON
+
+    A->>FA: POST /admin/login {password}
+    FA-->>A: JWT stored in localStorage
+
+    A->>FA: GET /admin/questions/{c}/{w}
+    FA->>QF: parse question blocks (regex)
+    FA-->>A: [{csq_name, question_text, type, options}]
+
+    A->>FA: POST /admin/questions/{c}/{w} {question_text, type, options, correct}
+    FA->>FA: validation.safe_course, safe_week
+    FA->>QF: append question block + regenerate file
+    FA-->>A: {csq_name: "q_abc12345"}
+
+    A->>FA: POST /admin/hints/generate/{c}/{w}/q_abc12345 {question_text}
+    FA->>RS: retrieve_similar(question_text, n=5)
+    RS->>CH: HNSW vector search (384-dim)
+    CH-->>RS: top-5 similar content chunks
+    RS->>FA: similar_qa + content_chunks
+    FA->>OL: generate(prompt_level_1)
+    FA->>OL: generate(prompt_level_2)
+    FA->>OL: generate(prompt_level_3)
+    OL-->>FA: hint texts x3
+    FA->>HS: write [{number:1,text},{number:2,text},{number:3,text}]
+    FA-->>A: {hints: [...]}
+
+    Note over A: Student later requests hints
+    A->>FA: GET /admin/hints/{c}/{w}/q_abc12345
+    FA->>HS: read JSON file
+    FA-->>A: progressive hints array
+</div>
+  </div>
+
+  <h3>C. Course and Week Creation (File Scaffolding)</h3>
+  <div class="diagram">
+<div class="mermaid">
+sequenceDiagram
+    participant A as Admin
+    participant FA as FastAPI
+    participant FS as Filesystem
+    participant TPL as templates/
+
+    A->>FA: POST /admin/courses {name, number, desc, icon}
+    FA->>FS: mkdir courses/NewCourse/
+    FA->>FS: write __INFO__.py, __init__.py, preload.py
+    FA->>TPL: generate_gradebook_template(course)
+    FA->>FS: write gradebook.catsoop
+    FA->>TPL: generate_leaderboard_widget(course)
+    FA->>FS: write content.catsoop + inject LEADERBOARD_SENTINEL
+
+    A->>FA: POST /admin/courses/NewCourse/weeks {title, due_date, time_limit}
+    FA->>FS: mkdir courses/NewCourse/week1/
+    FA->>FS: write __INFO__.py (dates, penalties)
+    FA->>TPL: generate_lecture_template(title, "")
+    FA->>FS: write lecture1.catsoop
+    FA->>TPL: generate_problems_template(title, [])
+    FA->>FS: write problem1.catsoop
+    FA->>TPL: generate_native_quiz(course, week1, [], 0)
+    FA->>FS: write quiz.catsoop
+    FA->>TPL: generate_quiz_template(course, week1)
+    FA->>FS: write example_questions.catsoop
+    FA->>FS: update content.catsoop (insert week link before SENTINEL)
+</div>
+  </div>
+
+  <h3>D. RAG Ingest Pipeline</h3>
+  <div class="diagram">
+<div class="mermaid">
+sequenceDiagram
+    participant A as Admin
+    participant FA as FastAPI
+    participant RS as RAGService
+    participant FS as Filesystem
+    participant ST as SentenceTransformer
+    participant CH as ChromaDB
+    participant DB as SQLite
+
+    A->>FA: POST /admin/rag/ingest/{course}/{week}
+    FA->>RS: ingest_course_content(course, week, dir)
+    RS->>FS: read all .catsoop files in week dir
+    RS->>RS: _chunk_text(content, chunk_size=500, overlap=50)
+    RS->>ST: encode(chunks) -> 384-dim vectors
+    ST-->>RS: embeddings array
+    RS->>CH: collection.upsert(ids, embeddings, documents, metadata)
+    RS->>DB: INSERT content_chunks (metadata only)
+
+    RS->>FS: read _hint_store/{course}/{week}/*.json
+    RS->>RS: format Q+A+hints as text
+    RS->>ST: encode(qa_texts)
+    RS->>CH: upsert into qa collection
+    CH-->>FA: ingest complete
+    FA-->>A: {chunks_indexed: 120, qa_pairs: 18}
+</div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     8. STORAGE SYSTEMS
+══════════════════════════════════════════════════════════════ -->
+<section id="storage">
+  <h2>Storage Systems</h2>
+
+  <h3>SQLite — questions.db</h3>
+  <p>Eight tables managed by SQLAlchemy ORM (<code>api/models.py</code>). Schema evolves via <code>ensure_schema()</code> in <code>main.py</code> (ALTER TABLE, no Alembic).</p>
+  <table>
+    <tr><th>Table</th><th>Key columns</th><th>Purpose</th></tr>
+    <tr><td><code>live_files</code></td><td>course, week, filename, content_type, data (blob)</td><td>Instructor-uploaded PDFs/images served at <code>/live-file/{c}/{w}</code></td></tr>
+    <tr><td><code>content_chunks</code></td><td>course, week, source_file, chunk_index, chunk_text</td><td>RAG vector metadata (ChromaDB holds the actual vectors)</td></tr>
+    <tr><td><code>engagement_samples</code></td><td>username, course, week, face_present, gaze_centered, affect_state, engagement_score, …16 fields</td><td>Student engagement data from webcam monitoring widget</td></tr>
+    <tr><td><code>student_profiles</code></td><td>username, course, xp, streak, last_active — UNIQUE(username, course)</td><td>Gamification state per student per course</td></tr>
+    <tr><td><code>badges</code></td><td>username, course, badge_type — UNIQUE(username, course, type)</td><td>Earned badges; unique constraint makes all inserts idempotent</td></tr>
+    <tr><td><code>processed_quiz_events</code></td><td>username, course, week — UNIQUE(username, course, week)</td><td>Deduplication gate for <code>quiz-complete</code>; prevents double XP awards</td></tr>
+    <tr><td><code>face_enrollments</code></td><td>username — UNIQUE; descriptor (JSON text, 128 floats)</td><td>FaceNet face descriptor for biometric verification</td></tr>
+    <tr><td><code>lecturers</code></td><td>username, name, email, password_hash, courses (JSON array), registered_at</td><td>FastAPI lecturer accounts (separate from CatSooP user accounts)</td></tr>
+  </table>
+
+  <h3>CatSooP cslog Files</h3>
+  <pre><code>Format per entry:
+┌────────────────────────────────────────────────────────────────┐
+│  8 bytes (LE uint64): byte-length of payload                   │
+│  N bytes: LZMA-compressed pickle of Python dict                │
+│  8 bytes (LE uint64): byte-length again (for reverse traversal)│
+└────────────────────────────────────────────────────────────────┘
+
+Grade submission dict structure:
+{
+  "action": "submit",
+  "scores": {"q_abc12345": 1.0, "q_def67890": 0.0},  # 0.0–1.0
+  "time": 1717027200.0,
+  "username": "johndoe"
+}
+
+Paths:
+  Grades: _logs/_courses/{course}/{username}/{week}/quiz/problemactions.log
+  Auth:   _logs/_logininfo/{username}.log</code></pre>
+
+  <h3>JSON Hint Store</h3>
+  <pre><code># Path: _hint_store/{course}/{week}/{csq_name}.json
+# Example: _hint_store/Econs/week1/q_53e23174.json
+[
+  {"number": 1, "text": "Consider what happens to buyer behaviour when price increases..."},
+  {"number": 2, "text": "The demand curve slopes downward. Think about the price on the y-axis..."},
+  {"number": 3, "text": "At higher prices, fewer units are demanded. The answer is the inverse relationship..."}
+]</code></pre>
+
+  <h3>ChromaDB Vector Store (<code>_vectors/</code>)</h3>
+  <p>Two HNSW (Hierarchical Navigable Small World) collections:</p>
+  <ul>
+    <li><strong>course_content</strong> — chunks of <code>.catsoop</code> lecture/problem files, 384-dim embeddings</li>
+    <li><strong>qa_pairs</strong> — question text + answer + hints formatted as documents</li>
+  </ul>
+  <p>Embeddings produced by <code>all-MiniLM-L6-v2</code> (sentence-transformers). Falls back to MD5-based pseudo-embeddings if the model is unavailable.</p>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     9. SECURITY MODEL
+══════════════════════════════════════════════════════════════ -->
+<section id="security">
+  <h2>Security Model</h2>
+
+  <h3>Input Validation (<code>api/validation.py</code>)</h3>
+  <table>
+    <tr><th>Function</th><th>Pattern</th><th>Applied to</th></tr>
+    <tr><td><code>safe_course(v)</code></td><td><code>^[A-Za-z0-9_-]{1,64}$</code></td><td>All course path segments</td></tr>
+    <tr><td><code>safe_week(v)</code></td><td><code>^[A-Za-z0-9_-]{1,64}$</code></td><td>All week path segments</td></tr>
+    <tr><td><code>safe_qname(v)</code></td><td><code>^q_[A-Za-z0-9]{1,32}$</code></td><td>Question csq_name identifiers</td></tr>
+    <tr><td><code>safe_filename(v)</code></td><td><code>^[A-Za-z0-9._-]{1,128}$</code> + blocks <code>.</code> / <code>..</code></td><td>Uploaded file names</td></tr>
+    <tr><td><code>ensure_within(base, candidate)</code></td><td><code>realpath(candidate).startswith(realpath(base))</code></td><td>Every file operation (path traversal defence)</td></tr>
+  </table>
+
+  <h3>Rate Limits</h3>
+  <table>
+    <tr><th>Endpoint</th><th>Limit</th><th>Reason</th></tr>
+    <tr><td><code>POST /{c}/{w}/quiz-complete</code></td><td>5 / min / IP</td><td>Prevent XP farming</td></tr>
+    <tr><td><code>POST /{c}/verify-face</code></td><td>10 / min / IP</td><td>Prevent brute-force face matching</td></tr>
+    <tr><td><code>POST /admin/hints/generate/*</code></td><td>30 / min / IP</td><td>Ollama is a shared resource</td></tr>
+    <tr><td><code>POST /admin/hints/generate-single/*</code></td><td>30 / min / IP</td><td>Same</td></tr>
+  </table>
+
+  <h3>Gradebook Access Control</h3>
+  <p>Access to <code>/{course}/gradebook</code> is granted if the user satisfies <em>any</em> of:</p>
+  <ol>
+    <li>Username is in <code>CU_QUIZ_ADMINS</code> environment variable</li>
+    <li>CatSooP <code>cs_user_info["role"] == "Instructor"</code></li>
+    <li><code>GET /{course}/is-lecturer?username=</code> returns <code>{is_lecturer: true}</code></li>
+  </ol>
+
+  <h3>WebSocket Authentication</h3>
+  <p>The <code>/ws</code> endpoint requires a <code>?token=</code> query parameter. The token is validated <em>before</em> <code>accept()</code> is called. <code>PUSH_HINT</code> and <code>INSTRUCTOR_MESSAGE</code> message types are rejected unless <code>ws_is_admin</code> is true in the decoded token.</p>
+
+  <h3>CatSooP Password Scheme</h3>
+  <p>Registration uses a two-hop hash to prevent server exposure of the raw password:</p>
+  <ol>
+    <li>Client computes: <code>PBKDF2-HMAC-SHA256(password, password+username, 100000, 32)</code> — hex digest</li>
+    <li>Server stores: <code>PBKDF2-HMAC-SHA512(client_hash, random_salt, 500000)</code></li>
+  </ol>
+  <p>The FastAPI admin login verifies CatSooP instructors by replicating this exact chain in <code>_verify_catsoop_instructor()</code> in <code>routes/admin.py</code>.</p>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     10. TEMPLATE GENERATION SYSTEM
+══════════════════════════════════════════════════════════════ -->
+<section id="templates">
+  <h2>Template Generation System</h2>
+  <p>The <code>api/templates/</code> package generates <code>.catsoop</code> files programmatically. This is the bridge between the FastAPI admin panel and the CatSooP frontend — creating or updating files that CatSooP renders for students.</p>
+
+  <table>
+    <tr><th>Generator function</th><th>Produces</th><th>Called by</th><th>When re-generated</th></tr>
+    <tr><td><code>generate_native_quiz()</code></td><td><code>quiz.catsoop</code></td><td>courses.py (create_week), file_questions.py (every Q CRUD op), POST /repair</td><td>Every time a question is added or deleted</td></tr>
+    <tr><td><code>generate_quiz_template()</code></td><td><code>example_questions.catsoop</code></td><td>courses.py (create_week), POST /repair</td><td>POST /repair only (not on Q changes)</td></tr>
+    <tr><td><code>generate_lecture_template()</code></td><td><code>lectureN.catsoop</code></td><td>courses.py (create_week)</td><td>Created once at week creation; then hand-edited</td></tr>
+    <tr><td><code>generate_problems_template()</code></td><td><code>problemN.catsoop</code></td><td>courses.py (create_week)</td><td>Created once; hand-edited thereafter</td></tr>
+    <tr><td><code>generate_gradebook_template()</code></td><td><code>gradebook.catsoop</code></td><td>courses.py (create_course), POST /repair</td><td>POST /repair or new course creation</td></tr>
+    <tr><td><code>generate_leaderboard_widget()</code></td><td>HTML injected into <code>content.catsoop</code></td><td>courses.py (create_course)</td><td>Once on course creation; marked by SENTINEL</td></tr>
+    <tr><td><code>generate_affect_script()</code></td><td>JS block inside <code>quiz.catsoop</code></td><td>templates/quiz.py (called internally)</td><td>Part of generate_native_quiz</td></tr>
+  </table>
+
+  <div class="callout">
+    <strong>The LEADERBOARD_SENTINEL</strong> (<code>&lt;!-- __CU_LEADERBOARD__ --&gt;</code>) is a marker injected into every <code>content.catsoop</code>. New week links are inserted <em>before</em> the sentinel (keeping the leaderboard at the bottom). <code>POST /admin/repair</code> backfills the sentinel onto any course that lacks it.
+  </div>
+
+  <h3>What generate_native_quiz() Produces</h3>
+  <p>The most important generator. Every call to add or delete a question triggers a full regeneration of <code>quiz.catsoop</code> with these sections in order:</p>
+  <ol>
+    <li><strong>Python header</strong> — mints JWT from <code>cs_user_info</code>, injects <code>window.__CU_TOKEN</code>, <code>window.__quizQuestionNames</code>, <code>window.__course</code>, <code>window.__week</code>; sets up fetch interceptor</li>
+    <li><strong>CSS styles</strong> — question margins, hint containers, XP badge, timer bar, affect panel</li>
+    <li><strong>Face-auth overlay</strong> (<code>#__face-auth-overlay</code>) — shown before quiz; includes video feed, enroll/verify UI, retry logic</li>
+    <li><strong>Quiz start screen</strong> (<code>#quiz-start-screen</code>) — hidden until face auth passes</li>
+    <li><strong>Timer bar</strong> — sticky countdown (only when <code>time_limit_minutes &gt; 0</code>); start time saved to <code>localStorage</code></li>
+    <li><strong>Native <code>&lt;question&gt;</code> blocks</strong> — one per question; graded by CatSooP natively</li>
+    <li><strong>Mark as Done button</strong> — sends <code>QUIZ_DONE</code> WebSocket + triggers <code>__triggerQuizDone()</code></li>
+    <li><strong>Hint JS</strong> — fetches from <code>/admin/hints/{c}/{w}/{csq_name}</code>, shows progressive hints</li>
+    <li><strong>XP badge widget</strong> — bottom-left pill: ⭐ XP / 🔥 streak; expandable to show rank + badges</li>
+    <li><strong>Affect widget</strong> — from <code>generate_affect_script()</code>; webcam + face detection loop</li>
+  </ol>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     11. FACE AUTHENTICATION
+══════════════════════════════════════════════════════════════ -->
+<section id="faceauth">
+  <h2>Face Authentication</h2>
+  <p>Every quiz page requires face verification before the student can begin. The overlay is injected by <code>generate_native_quiz()</code> and runs entirely client-side using <code>face-api.js</code> with models served from <code>/static/models/</code>.</p>
+
+  <div class="diagram">
+<div class="mermaid">
+graph TD
+    LOAD["Page loads\nquiz.catsoop"]
+    MODELS["Load face-api models\nfrom /static/models/"]
+    RETRY{"Load failed?\nRetry 1-4 with\n3s/6s/9s delays"}
+    ALLFAIL["All retries failed\nShow Skip button"]
+    SKIP["Student clicks Skip\nor is Instructor"]
+    CHECK{"GET /face-status\nenrolled?"}
+    ENROLL["Enrollment flow\ncapture 5 samples over 3s\naverage descriptor"]
+    VERIFY["Verification flow\ncapture 1 descriptor"]
+    EAPI["POST /enroll-face\n{descriptor: [128 floats]}"]
+    VAPI["POST /verify-face\n{descriptor: [128 floats]}"]
+    VDIST{"Server: Euclidean\ndistance < 0.5?"}
+    PASS["PASS()\nfade overlay\nreveal quiz-start-screen"]
+    BLOCK["Block: show error\nCamera denied or\nServer unreachable"]
+    RETRY2["Show retry option"]
+
+    LOAD --> MODELS
+    MODELS --> RETRY
+    RETRY -->|ok| CHECK
+    RETRY -->|fail| ALLFAIL
+    ALLFAIL --> SKIP
+    SKIP --> PASS
+    CHECK -->|not enrolled| ENROLL
+    CHECK -->|enrolled| VERIFY
+    ENROLL --> EAPI
+    EAPI --> PASS
+    VERIFY --> VAPI
+    VAPI --> VDIST
+    VDIST -->|yes| PASS
+    VDIST -->|no| RETRY2
+    RETRY2 --> VERIFY
+</div>
+  </div>
+
+  <h3>Face Models Used</h3>
+  <table>
+    <tr><th>Model</th><th>Size</th><th>Purpose</th></tr>
+    <tr><td>tinyFaceDetector</td><td>~190 KB</td><td>Detects face bounding box (fast, low-resource)</td></tr>
+    <tr><td>faceLandmark68TinyNet</td><td>~80 KB</td><td>Locates 68 facial landmarks (eyes, nose, mouth, jawline)</td></tr>
+    <tr><td>faceRecognitionNet</td><td>~6.2 MB</td><td>Encodes face into 128-dimensional descriptor vector (FaceNet-style)</td></tr>
+  </table>
+
+  <div class="callout green">
+    <strong>Verification threshold:</strong> Euclidean distance between stored and live descriptor must be &lt; 0.5. The server computes the distance; the descriptor floats travel over HTTPS.
+  </div>
+
+  <h3>Intentional PASS() paths (bypass)</h3>
+  <ul>
+    <li>No <code>cs_username</code> available (instructor previewing quiz)</li>
+    <li>All model load retries exhausted and student clicks Skip</li>
+    <li>Camera permission denied (quiz is blocked with error, not silently passed — unless Skip shown)</li>
+  </ul>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     12. WEBSOCKET PROTOCOL
+══════════════════════════════════════════════════════════════ -->
+<section id="websocket">
+  <h2>WebSocket Protocol</h2>
+  <p>The <code>/ws</code> endpoint uses room-based broadcasting. Rooms are named <code>{course}/{week}</code>. Token is required as a query param: <code>/ws?token=&lt;JWT&gt;</code>.</p>
+
+  <h3>Message Types</h3>
+  <table>
+    <tr><th>Type</th><th>Direction</th><th>Payload fields</th><th>Purpose</th></tr>
+    <tr><td><code>JOIN</code></td><td>client → server</td><td><code>username</code>, <code>room</code></td><td>Student enters a quiz room; server broadcasts <code>STUDENT_JOIN</code></td></tr>
+    <tr><td><code>LEAVE</code></td><td>client → server</td><td><code>username</code></td><td>Student leaves; server broadcasts <code>STUDENT_LEAVE</code></td></tr>
+    <tr><td><code>SUBMISSION</code></td><td>client → server</td><td><code>username</code>, <code>score</code>, <code>question</code></td><td>Student submits an answer; instructor dashboard shows live feed</td></tr>
+    <tr><td><code>AFFECT_CHANGE</code></td><td>client → server</td><td><code>username</code>, <code>affect_state</code></td><td>Engagement state changed (focused/confused/struggling/disengaged/distracted)</td></tr>
+    <tr><td><code>HINT_USED</code></td><td>client → server</td><td><code>username</code>, <code>hint_level</code></td><td>Student requested a hint; logged for monitoring</td></tr>
+    <tr><td><code>PUSH_HINT</code></td><td>client → server</td><td><code>target_username</code>, <code>hint_text</code></td><td><span class="badge red">Admin only</span> Instructor pushes a specific hint to a student</td></tr>
+    <tr><td><code>INSTRUCTOR_MESSAGE</code></td><td>client → server</td><td><code>text</code></td><td><span class="badge red">Admin only</span> Broadcast a message to all students in the room</td></tr>
+    <tr><td><code>QUIZ_DONE</code></td><td>client → server</td><td><code>username</code></td><td>Student clicked "Mark as Done" or timer expired; triggers quiz-complete flow</td></tr>
+    <tr><td><code>NEW_SUBMISSION</code></td><td>server → client</td><td><code>username</code>, <code>score</code></td><td>Broadcast to instructor dashboard when any student submits</td></tr>
+  </table>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     13. GAMIFICATION SYSTEM
+══════════════════════════════════════════════════════════════ -->
+<section id="gamification">
+  <h2>Gamification System</h2>
+  <p>XP, streaks, and badges are awarded when a student completes a quiz (<code>POST /{course}/{week}/quiz-complete</code>). The system is fully idempotent — re-submissions on the same day update streaks but award no extra XP.</p>
+
+  <div class="diagram">
+<div class="mermaid">
+graph TD
+    DONE["Mark as Done OR timer expires\nwindow.__triggerQuizDone()"]
+    WS["Send QUIZ_DONE via WebSocket"]
+    POST["POST /{c}/{w}/quiz-complete\n{username}"]
+    GATE{"ProcessedQuizEvent\nalready exists?"}
+    STREAK_ONLY["update_streak_only()\napply date logic, no XP"]
+    SLEEP["sleep 1.5s\nthen read cslog"]
+    RETRY{"score == 0?\nretry once after 1s"}
+    XP["base_xp = round(percent * 100)\nstreak_bonus = min(streak * 10, 50)\ntotal = base_xp + streak_bonus"]
+    STREAK["Streak logic:\nyesterday -> streak+1\ntoday -> unchanged\nelse -> reset to 1"]
+    BADGES{"Check badge conditions"}
+    B1["first_attempt (any score)"]
+    B2["streak_3 (3-day streak)"]
+    B3["streak_7 (7-day streak)"]
+    B4["top_class (rank #1 on leaderboard)"]
+    RESP["Return {xp_earned, total_xp, streak, badges, rank}"]
+    ANIM["Browser: XP widget animates\nbadge toast shown"]
+
+    DONE --> WS
+    DONE --> POST
+    POST --> GATE
+    GATE -->|yes, duplicate| STREAK_ONLY
+    GATE -->|no| SLEEP
+    SLEEP --> RETRY
+    RETRY -->|ok| XP
+    XP --> STREAK
+    STREAK --> BADGES
+    BADGES --> B1
+    BADGES --> B2
+    BADGES --> B3
+    BADGES --> B4
+    BADGES --> RESP
+    RESP --> ANIM
+</div>
+  </div>
+
+  <h3>XP Formula</h3>
+  <pre><code>base_xp    = round(percent_correct * 100)   # 0–100
+streak_bonus = min(streak * 10, 50)          # 10, 20, 30, 40, 50 (capped)
+total_xp   = base_xp + streak_bonus
+
+# Example: 80% score on day 4 of a streak
+# base = 80, bonus = min(40, 50) = 40 → total = 120 XP</code></pre>
+
+  <h3>Badge Types</h3>
+  <table>
+    <tr><th>Badge</th><th>Icon</th><th>Condition</th></tr>
+    <tr><td><code>first_attempt</code></td><td>🎯</td><td>First quiz submitted in any course (any score)</td></tr>
+    <tr><td><code>streak_3</code></td><td>🔥</td><td>Active streak reaches 3 consecutive days</td></tr>
+    <tr><td><code>streak_7</code></td><td>🌟</td><td>Active streak reaches 7 consecutive days</td></tr>
+    <tr><td><code>top_class</code></td><td>🏆</td><td>Holds rank #1 on the course leaderboard at time of quiz completion</td></tr>
+  </table>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     14. API CHEAT SHEET
+══════════════════════════════════════════════════════════════ -->
+<section id="cheatsheet">
+  <h2>API Quick Reference</h2>
+  <p>Every FastAPI endpoint. <span class="badge blue">admin</span> = requires admin JWT. <span class="badge green">user</span> = requires any valid JWT. <span class="badge gray">public</span> = no auth.</p>
+
+  <h3>Questions</h3>
+  <table>
+    <tr><th>Method</th><th>Path</th><th>Auth</th><th>Description</th></tr>
+    <tr><td><span class="ep-method get">GET</span></td><td><code>/admin/questions/{c}/{w}</code></td><td><span class="badge blue">admin</span></td><td>List all questions parsed from quiz.catsoop</td></tr>
+    <tr><td><span class="ep-method post">POST</span></td><td><code>/admin/questions/{c}/{w}</code></td><td><span class="badge blue">admin</span></td><td>Add one question; regenerates quiz.catsoop</td></tr>
+    <tr><td><span class="ep-method delete">DELETE</span></td><td><code>/admin/questions/{c}/{w}/{csq_name}</code></td><td><span class="badge blue">admin</span></td><td>Remove one question; regenerates quiz.catsoop</td></tr>
+    <tr><td><span class="ep-method delete">DELETE</span></td><td><code>/admin/questions/{c}/{w}</code></td><td><span class="badge blue">admin</span></td><td>Clear all questions for a week</td></tr>
+    <tr><td><span class="ep-method post">POST</span></td><td><code>/admin/bulk-import/{c}/{w}</code></td><td><span class="badge blue">admin</span></td><td>Import JSON array of questions; optional clear_existing</td></tr>
+  </table>
+
+  <h3>Hints</h3>
+  <table>
+    <tr><th>Method</th><th>Path</th><th>Auth</th><th>Description</th></tr>
+    <tr><td><span class="ep-method get">GET</span></td><td><code>/admin/hints/{c}/{w}/{csq_name}</code></td><td><span class="badge green">user</span></td><td>Get hints array for a question</td></tr>
+    <tr><td><span class="ep-method post">POST</span></td><td><code>/admin/hints/{c}/{w}/{csq_name}</code></td><td><span class="badge blue">admin</span></td><td>Save hints array (overwrites)</td></tr>
+    <tr><td><span class="ep-method delete">DELETE</span></td><td><code>/admin/hints/{c}/{w}/{csq_name}</code></td><td><span class="badge blue">admin</span></td><td>Delete hint file</td></tr>
+    <tr><td><span class="ep-method get">GET</span></td><td><code>/admin/hints/stats/{c}/{w}</code></td><td><span class="badge blue">admin</span></td><td>Count questions with hints + total hint count</td></tr>
+    <tr><td><span class="ep-method post">POST</span></td><td><code>/admin/hints/generate/{c}/{w}/{csq_name}</code></td><td><span class="badge blue">admin</span></td><td>AI-generate 3 progressive hints (RAG + Ollama) — 30/min</td></tr>
+    <tr><td><span class="ep-method post">POST</span></td><td><code>/admin/hints/generate-single/{c}/{w}/{csq_name}</code></td><td><span class="badge blue">admin</span></td><td>AI-generate one specific hint level — 30/min</td></tr>
+  </table>
+
+  <h3>Courses &amp; Weeks</h3>
+  <table>
+    <tr><th>Method</th><th>Path</th><th>Auth</th><th>Description</th></tr>
+    <tr><td><span class="ep-method get">GET</span></td><td><code>/admin/courses</code></td><td><span class="badge blue">admin</span></td><td>List all courses with metadata</td></tr>
+    <tr><td><span class="ep-method post">POST</span></td><td><code>/admin/courses</code></td><td><span class="badge blue">admin</span></td><td>Create course; scaffolds filesystem</td></tr>
+    <tr><td><span class="ep-method put">PUT</span></td><td><code>/admin/courses/{id}</code></td><td><span class="badge blue">admin</span></td><td>Edit course metadata</td></tr>
+    <tr><td><span class="ep-method delete">DELETE</span></td><td><code>/admin/courses/{id}</code></td><td><span class="badge blue">admin</span></td><td>Delete course directory</td></tr>
+    <tr><td><span class="ep-method get">GET</span></td><td><code>/admin/courses/{id}/weeks</code></td><td><span class="badge blue">admin</span></td><td>List weeks with config (dates, time limit, penalties)</td></tr>
+    <tr><td><span class="ep-method post">POST</span></td><td><code>/admin/courses/{id}/weeks</code></td><td><span class="badge blue">admin</span></td><td>Create week; scaffolds all .catsoop files</td></tr>
+    <tr><td><span class="ep-method put">PUT</span></td><td><code>/admin/courses/{id}/weeks/{w}</code></td><td><span class="badge blue">admin</span></td><td>Edit week metadata (dates, penalty, time limit)</td></tr>
+    <tr><td><span class="ep-method delete">DELETE</span></td><td><code>/admin/courses/{id}/weeks/{w}</code></td><td><span class="badge blue">admin</span></td><td>Delete week directory</td></tr>
+  </table>
+
+  <h3>Grades &amp; Performance</h3>
+  <table>
+    <tr><th>Method</th><th>Path</th><th>Auth</th><th>Description</th></tr>
+    <tr><td><span class="ep-method get">GET</span></td><td><code>/{c}/{w}/grades</code></td><td><span class="badge blue">admin</span></td><td>Read cslog; aggregate per-student scores</td></tr>
+    <tr><td><span class="ep-method get">GET</span></td><td><code>/admin/performance</code></td><td><span class="badge blue">admin</span></td><td>Cross-course stats (avg, min, max score per week)</td></tr>
+    <tr><td><span class="ep-method get">GET</span></td><td><code>/{c}/gradebook</code></td><td>Instructor / admin</td><td>CatSooP gradebook page (generated HTML)</td></tr>
+  </table>
+
+  <h3>Gamification &amp; Leaderboard</h3>
+  <table>
+    <tr><th>Method</th><th>Path</th><th>Auth</th><th>Description</th></tr>
+    <tr><td><span class="ep-method post">POST</span></td><td><code>/{c}/{w}/quiz-complete</code></td><td><span class="badge green">user</span></td><td>Award XP/streak/badges after quiz; deduped — 5/min</td></tr>
+    <tr><td><span class="ep-method get">GET</span></td><td><code>/{c}/leaderboard</code></td><td><span class="badge gray">public</span></td><td>Top 10 students by XP for a course</td></tr>
+    <tr><td><span class="ep-method get">GET</span></td><td><code>/{c}/my-stats</code></td><td><span class="badge gray">public</span></td><td>XP, streak, rank, badges for ?username=</td></tr>
+    <tr><td><span class="ep-method get">GET</span></td><td><code>/{c}/is-lecturer</code></td><td><span class="badge gray">public</span></td><td>Check if ?username= is admin or assigned lecturer</td></tr>
+  </table>
+
+  <h3>Face Authentication</h3>
+  <table>
+    <tr><th>Method</th><th>Path</th><th>Auth</th><th>Description</th></tr>
+    <tr><td><span class="ep-method get">GET</span></td><td><code>/{c}/face-status</code></td><td><span class="badge gray">public</span></td><td>Check if ?username= has a stored face descriptor</td></tr>
+    <tr><td><span class="ep-method post">POST</span></td><td><code>/{c}/enroll-face</code></td><td><span class="badge green">user</span></td><td>Store 128-float face descriptor; username from JWT sub</td></tr>
+    <tr><td><span class="ep-method post">POST</span></td><td><code>/{c}/verify-face</code></td><td><span class="badge green">user</span></td><td>Compare descriptor; returns {verified, distance} — 10/min</td></tr>
+    <tr><td><span class="ep-method get">GET</span></td><td><code>/admin/face-enrollments</code></td><td><span class="badge blue">admin</span></td><td>List all enrolled usernames with timestamps</td></tr>
+    <tr><td><span class="ep-method delete">DELETE</span></td><td><code>/admin/face-enrollments/{username}</code></td><td><span class="badge blue">admin</span></td><td>Delete a face enrollment</td></tr>
+  </table>
+
+  <h3>RAG / AI</h3>
+  <table>
+    <tr><th>Method</th><th>Path</th><th>Auth</th><th>Description</th></tr>
+    <tr><td><span class="ep-method post">POST</span></td><td><code>/admin/rag/ingest/{c}/{w}</code></td><td><span class="badge blue">admin</span></td><td>Chunk + embed course .catsoop files into ChromaDB</td></tr>
+    <tr><td><span class="ep-method post">POST</span></td><td><code>/admin/rag/generate-hint</code></td><td><span class="badge blue">admin</span></td><td>Semantic search + Ollama hint generation</td></tr>
+    <tr><td><span class="ep-method post">POST</span></td><td><code>/admin/rag/generate-questions/{c}/{w}</code></td><td><span class="badge blue">admin</span></td><td>AI-generate quiz questions from course content</td></tr>
+    <tr><td><span class="ep-method get">GET</span></td><td><code>/admin/rag/status</code></td><td><span class="badge blue">admin</span></td><td>Vector store health: model, collection sizes</td></tr>
+    <tr><td><span class="ep-method delete">DELETE</span></td><td><code>/admin/rag/clear</code></td><td><span class="badge blue">admin</span></td><td>Wipe all vector collections</td></tr>
+  </table>
+
+  <h3>Admin &amp; Live Files</h3>
+  <table>
+    <tr><th>Method</th><th>Path</th><th>Auth</th><th>Description</th></tr>
+    <tr><td><span class="ep-method get">GET</span></td><td><code>/admin</code></td><td><span class="badge gray">public</span></td><td>Admin SPA shell (login client-side)</td></tr>
+    <tr><td><span class="ep-method post">POST</span></td><td><code>/admin/login</code></td><td><span class="badge gray">public</span></td><td>3-step auth (admin password → lecturer DB → CatSooP instructor)</td></tr>
+    <tr><td><span class="ep-method post">POST</span></td><td><code>/admin/repair</code></td><td><span class="badge blue">admin</span></td><td>Regenerate all quiz.catsoop + example_questions.catsoop; backfill leaderboard + gradebook</td></tr>
+    <tr><td><span class="ep-method post">POST</span></td><td><code>/admin/live-file</code></td><td><span class="badge blue">admin</span></td><td>Upload file (base64 body, max 20 MB); stored in _live_files/; course+week in body</td></tr>
+    <tr><td><span class="ep-method get">GET</span></td><td><code>/admin/live-file/{c}/{w}</code></td><td><span class="badge blue">admin</span></td><td>Get file metadata (filename, content_type, uploaded_at)</td></tr>
+    <tr><td><span class="ep-method delete">DELETE</span></td><td><code>/admin/live-file/{c}/{w}</code></td><td><span class="badge blue">admin</span></td><td>Remove live file from DB + disk; 404 if none uploaded</td></tr>
+    <tr><td><span class="ep-method get">GET</span></td><td><code>/live-file-info/{c}/{w}</code></td><td><span class="badge gray">public</span></td><td>Get metadata without auth (for student-side display)</td></tr>
+    <tr><td><span class="ep-method get">GET</span></td><td><code>/live-file/{c}/{w}</code></td><td><span class="badge gray">public</span></td><td>Download live file (?download=1 forces attachment)</td></tr>
+    <tr><td><span class="ep-method post">POST</span></td><td><code>/{c}/{w}/engagement</code></td><td><span class="badge green">user</span></td><td>Log engagement sample (affect, face, gaze data)</td></tr>
+    <tr><td><span class="ep-method get">GET</span></td><td><code>/admin/engagement/{c}/{w}</code></td><td><span class="badge blue">admin</span></td><td>Per-student engagement stats for monitoring panel</td></tr>
+    <tr><td><span class="ep-method ws">WS</span></td><td><code>/ws?token=JWT</code></td><td><span class="badge green">user</span></td><td>Room-based WebSocket; 9 message types</td></tr>
+  </table>
+
+  <h3>Lecturers</h3>
+  <table>
+    <tr><th>Method</th><th>Path</th><th>Auth</th><th>Description</th></tr>
+    <tr><td><span class="ep-method get">GET</span></td><td><code>/admin/lecturers</code></td><td><span class="badge blue">admin</span></td><td>List all lecturer accounts</td></tr>
+    <tr><td><span class="ep-method post">POST</span></td><td><code>/admin/lecturers</code></td><td><span class="badge blue">admin</span></td><td>Register a lecturer with SHA-256 password</td></tr>
+    <tr><td><span class="ep-method delete">DELETE</span></td><td><code>/admin/lecturers/{username}</code></td><td><span class="badge blue">admin</span></td><td>Remove a lecturer account</td></tr>
+    <tr><td><span class="ep-method post">POST</span></td><td><code>/admin/sync-instructors</code></td><td><span class="badge blue">admin</span></td><td>Import CatSooP Instructor-role users into lecturers table (idempotent)</td></tr>
+  </table>
+
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     15. REFACTOR NOTES
+══════════════════════════════════════════════════════════════ -->
+<section id="refactor">
+  <h2>Refactor Summary (June 2026)</h2>
+  <p>Three areas were refactored for maintainability. No behavior was changed.</p>
+
+  <h3>1 — admin.js Split (1180 lines → 8 modules)</h3>
+  <p>The monolithic <code>api/static/admin/admin.js</code> was split into 8 focused files loaded in dependency order via plain <code>&lt;script&gt;</code> tags in <code>admin.html</code>. All functions remain global — no bundler, no ES modules.</p>
+  <table>
+    <tr><th>Was</th><th>Now</th></tr>
+    <tr><td><code>admin.js</code> (~1180 lines, everything)</td><td><code>auth.js</code>, <code>ui-core.js</code>, <code>courses.js</code>, <code>questions-hints.js</code>, <code>monitoring.js</code>, <code>gamification.js</code>, <code>students.js</code>, <code>app.js</code></td></tr>
+  </table>
+  <div class="callout">
+    The startup IIFE and <code>initApp()</code> were moved to <code>app.js</code> (loaded last) because they call functions from <code>courses.js</code> — those must exist before the IIFE runs.
+  </div>
+
+  <h3>2 — routes/admin.py Split (monolith → 4 focused files)</h3>
+  <p>Live-file routes, face-enrollment routes, and the repair route were extracted from <code>admin.py</code> into their own files. Each new file has its own <code>get_db()</code> function to support per-module <code>dependency_overrides</code> in tests.</p>
+  <table>
+    <tr><th>New file</th><th>Routes moved from admin.py</th></tr>
+    <tr><td><code>routes/live_files.py</code></td><td><code>POST /admin/live-file</code>, <code>GET /admin/live-file/{c}/{w}</code>, <code>DELETE /admin/live-file/{c}/{w}</code>, <code>GET /live-file-info/{c}/{w}</code>, <code>GET /live-file/{c}/{w}</code></td></tr>
+    <tr><td><code>routes/face_enrollments.py</code></td><td><code>GET /admin/face-enrollments</code>, <code>DELETE /admin/face-enrollments/{username}</code></td></tr>
+    <tr><td><code>routes/repair.py</code></td><td><code>POST /admin/repair</code></td></tr>
+  </table>
+  <p><code>admin.py</code> now contains only: <code>POST /admin/login</code> (3-step auth chain), <code>GET /admin/auto-token</code>, <code>GET /admin</code> (HTML shell), and lecturer management routes.</p>
+
+  <h3>3 — FastAPI Test Suite Added</h3>
+  <p>17 pytest tests in <code>api/tests/</code> covering auth, live files, and question CRUD. Uses <code>TestClient</code> with an in-memory SQLite override. All 17 pass in under 1 second.</p>
+
+  <h3>Bug Fixed During Refactor</h3>
+  <div class="callout orange">
+    <strong><code>mint_token()</code> signature mismatch</strong> — The refactored <code>admin.py</code> was calling <code>mint_token({"sub": "admin", ...})</code> (passing a dict) but <code>api/auth.py</code> defines <code>mint_token(username: str, is_admin: bool)</code>. This would have caused a <code>TypeError</code> on every admin login in production. Fixed by changing all 4 call sites to <code>mint_token("admin", True)</code> / <code>mint_token(lec.username, True)</code>.
+  </div>
+
+  <h3>New Endpoint Added</h3>
+  <table>
+    <tr><th>Method</th><th>Path</th><th>Description</th></tr>
+    <tr><td><span class="ep-method delete">DELETE</span></td><td><code>/admin/live-file/{course}/{week}</code></td><td>Remove a live file from the DB and disk. Returns <code>{status: "deleted"}</code> or 404 if no file exists.</td></tr>
+  </table>
+</section>
+
+</div><!-- .content-wrap -->
+</div><!-- #main -->
+
+<script>
+mermaid.initialize({
+  startOnLoad: true,
+  theme: 'base',
+  themeVariables: {
+    primaryColor: '#e7f3ff',
+    primaryTextColor: '#1f2328',
+    primaryBorderColor: '#2572F5',
+    lineColor: '#656d76',
+    secondaryColor: '#f6f8fa',
+    tertiaryColor: '#fff8e1',
+    background: '#ffffff',
+    mainBkg: '#e7f3ff',
+    nodeBorder: '#2572F5',
+    clusterBkg: '#f6f8fa',
+    titleColor: '#1f2328',
+    edgeLabelBackground: '#ffffff',
+    fontFamily: '-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif',
+    fontSize: '13px'
+  },
+  flowchart: { useMaxWidth: true, htmlLabels: true },
+  sequence: { useMaxWidth: true, showSequenceNumbers: false }
+});
+
+// Highlight active nav link on scroll
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('#sidebar nav a');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.id;
+      navLinks.forEach(a => {
+        a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+      });
+    }
+  });
+}, { rootMargin: '-20% 0px -70% 0px' });
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

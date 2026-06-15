@@ -3,7 +3,7 @@ cs_content_header = "Quiz: Physics - week2"
 cs_show_due = True
 cs_update_questions_cache = True
 import json, os as _os
-_api_base = _os.environ.get("CU_QUIZ_BASE_URL", "http://localhost:8000")
+_api_base = _os.environ.get("CU_QUIZ_BASE_URL", "https://api.kenechukwuosele.me")
 _cu_secret = _os.environ.get("CU_QUIZ_SECRET", "")
 _cu_admins = {u.strip() for u in _os.environ.get("CU_QUIZ_ADMINS", "").split(",") if u.strip()}
 _cu_token = ""
@@ -19,7 +19,7 @@ if _cu_secret:
 print(f'<script data-username="{cs_username}">')
 print(f'window.__cs_username = "{cs_username}";')
 print(f'window.__cs_user_role = "{cs_user_info.get("role", "Student")}";')
-print(f'window.__quizQuestionNames = ["q_9"];')
+print(f'window.__quizQuestionNames = ["q_250c8db3", "q_4ffc4e42", "q_3f79b35f", "q_aabb11a2", "q_8911d5df", "q_11c8c617", "q_97344145", "q_a311680e", "q_e0f80d7d", "q_2189cc24"];')
 print(f'window.__course = "Physics";')
 print(f'window.__week = "week2";')
 print(f'window.__CU_API_BASE = "{_api_base}";')
@@ -74,18 +74,119 @@ print('</script>')
 
 <div id="quiz-start-screen" style="display:none;text-align:center;padding:40px 20px;">
   <h2 style="color:#2c3e50;margin-bottom:16px;">Quiz: week2</h2>
-  <p style="font-size:1.1em;color:#555;margin-bottom:8px;">This quiz contains <strong>1</strong> question.</p>
+  <p style="font-size:1.1em;color:#555;margin-bottom:8px;">This quiz contains <strong>10</strong> questions.</p>
   <p style="font-size:0.95em;color:#777;margin-bottom:24px;">You can check and submit your answers when ready.</p>
   <button onclick="document.getElementById('quiz-start-screen').style.display='none';document.getElementById('quiz-questions').style.display='block';" style="background:#4CAF50;color:white;padding:14px 36px;border:none;border-radius:6px;cursor:pointer;font-size:1.1em;">Start Quiz</button>
 </div>
 <div id="quiz-questions" style="display:none;">
-<question smallbox>
-csq_prompt = 'what is einstein theory of relativity'
-csq_soln = 'e = mc^2'
-csq_name = 'q_9'
+<question multiplechoice>
+csq_prompt = "Newton's First Law states that an object at rest remains at rest unless acted upon by:"
+csq_options = ['Gravity', 'A net external force', 'Friction', 'Air resistance']
+csq_soln = 'A net external force'
+csq_renderer = 'radio'
+csq_name = 'q_250c8db3'
 csq_npoints = 1
 csq_nsubmits = 1
-csq_size = 30
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = 'What is the SI unit of force?'
+csq_options = ['kg', 'm/s', 'Newton (N)', 'Joule (J)']
+csq_soln = 'Newton (N)'
+csq_renderer = 'radio'
+csq_name = 'q_4ffc4e42'
+csq_npoints = 1
+csq_nsubmits = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = 'If a 10 kg object has a net force of 50 N applied to it, what is its acceleration?'
+csq_options = ['500 m/s²', '0.2 m/s²', '5 m/s²', '50 m/s²']
+csq_soln = '5 m/s²'
+csq_renderer = 'radio'
+csq_name = 'q_3f79b35f'
+csq_npoints = 1
+csq_nsubmits = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = "Newton's Third Law states that for every action there is:"
+csq_options = ['A larger reaction', 'An equal and opposite reaction', 'A smaller reaction', 'No reaction in a vacuum']
+csq_soln = 'An equal and opposite reaction'
+csq_renderer = 'radio'
+csq_name = 'q_aabb11a2'
+csq_npoints = 1
+csq_nsubmits = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = 'What force acts perpendicular to the surface on a resting object?'
+csq_options = ['Friction', 'Weight', 'Normal force', 'Tension']
+csq_soln = 'Normal force'
+csq_renderer = 'radio'
+csq_name = 'q_8911d5df'
+csq_npoints = 1
+csq_nsubmits = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = 'Static friction is generally _____ kinetic friction.'
+csq_options = ['Less than', 'Equal to', 'Greater than', 'Unrelated to']
+csq_soln = 'Greater than'
+csq_renderer = 'radio'
+csq_name = 'q_11c8c617'
+csq_npoints = 1
+csq_nsubmits = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = 'The weight of an object is:'
+csq_options = ['Its mass in kilograms', 'The gravitational force on it (mg)', 'Its velocity times mass', 'Independent of gravity']
+csq_soln = 'The gravitational force on it (mg)'
+csq_renderer = 'radio'
+csq_name = 'q_97344145'
+csq_npoints = 1
+csq_nsubmits = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = 'On a free body diagram, all forces acting on an object are drawn from:'
+csq_options = ["The object's edges", "The object's center", 'The ground', 'The direction of motion']
+csq_soln = "The object's center"
+csq_renderer = 'radio'
+csq_name = 'q_a311680e'
+csq_npoints = 1
+csq_nsubmits = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = 'A 5 kg block is on a frictionless surface with a 20 N force applied. Acceleration is:'
+csq_options = ['100 m/s²', '4 m/s²', '0.25 m/s²', '20 m/s²']
+csq_soln = '4 m/s²'
+csq_renderer = 'radio'
+csq_name = 'q_e0f80d7d'
+csq_npoints = 1
+csq_nsubmits = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = "Inertia is an object's tendency to:"
+csq_options = ['Accelerate under force', 'Resist changes in its state of motion', 'Attract other masses', 'Gain speed over time']
+csq_soln = 'Resist changes in its state of motion'
+csq_renderer = 'radio'
+csq_name = 'q_2189cc24'
+csq_npoints = 1
+csq_nsubmits = 1
+csq_soln_mode = "value"
 </question>
 <div style="text-align:center;margin-top:32px;padding:16px 0;border-top:1px solid #e5e7eb;">
   <button id="__quiz-done-btn" onclick="if(window.__triggerQuizDone)window.__triggerQuizDone()" style="background:#4CAF50;color:white;padding:12px 32px;border:none;border-radius:6px;cursor:pointer;font-size:1em;">✓ Mark as Done</button>
@@ -95,7 +196,7 @@ csq_size = 30
 <script>
 (function() {
     const API = (function() {
-        const base = window.__CU_API_BASE || 'http://localhost:8000';
+        const base = window.__CU_API_BASE || 'https://api.kenechukwuosele.me';
         try {
             const u = new URL(base);
             const h = window.location.hostname;
@@ -337,8 +438,8 @@ csq_size = 30
                 console.error('[face-auth] model load attempt ' + attempt + ' failed:', e);
                 if (attempt < MAX_RETRIES) {
                     const wait = attempt * 3;
-                    if (subtitleEl) subtitleEl.textContent = '⚠️ Your network seems unstable — retrying in ' + wait + 's...';
-                    setStatus('⚠️ Network unstable — retrying...', '#f59e0b');
+                    if (subtitleEl) subtitleEl.textContent = '⚠️ Your network seems unstable, retrying in ' + wait + 's...';
+                    setStatus('⚠️ Network unstable, retrying...', '#f59e0b');
                     await new Promise(function(res) { setTimeout(res, wait * 1000); });
                 }
             }
@@ -346,12 +447,12 @@ csq_size = 30
         if (!modelsLoaded) {
             console.error('[face-auth] all model load attempts failed');
             if (subtitleEl) subtitleEl.textContent = 'Could not load face models after ' + MAX_RETRIES + ' attempts. Your network may be unstable.';
-            setStatus('⚠️ Face recognition unavailable — quiz unlocked without verification', '#f59e0b');
+            setStatus('⚠️ Face recognition unavailable, quiz unlocked without verification', '#f59e0b');
             if (btnEl) { btnEl.textContent = 'Skip (not recommended)'; btnEl.style.display = 'block'; btnEl.onclick = function() { PASS(); }; }
             return;
         }
 
-        if (stepEl) stepEl.textContent = enrolled ? 'Step 2 of 2' : 'Step 1 of 2 — First-time setup';
+        if (stepEl) stepEl.textContent = enrolled ? 'Step 2 of 2' : 'Step 1 of 2 == First-time setup';
         if (titleEl) titleEl.textContent = enrolled ? '🔐 Verify Your Identity' : '📸 Set Up Face ID';
         if (subtitleEl) subtitleEl.textContent = enrolled
             ? 'Look at the camera to confirm it is you.'
@@ -369,7 +470,7 @@ csq_size = 30
                 if (det) {
                     currentDescriptor = Array.from(det.descriptor);
                     setRing('#22c55e', false);
-                    setStatus('✅ Face detected — click below to continue', '#22c55e');
+                    setStatus('✅ Face detected, click below to continue', '#22c55e');
                     if (btnEl) btnEl.style.display = 'block';
                 } else {
                     currentDescriptor = null;
@@ -512,7 +613,7 @@ if (window.__affectInjected) return;
 window.__affectInjected = true;
 
 const API = (function() {
-    const base = window.__CU_API_BASE || 'http://localhost:8000';
+    const base = window.__CU_API_BASE || 'https://api.kenechukwuosele.me';
     try {
         const u = new URL(base);
         const h = window.location.hostname;
@@ -527,6 +628,7 @@ const attemptSessionId = (window.crypto && crypto.randomUUID) ? crypto.randomUUI
 let videoStream = null, videoEl = null, canvasEl = null, canvasCtx = null;
 let lastInteractionTime = Date.now(), lastEngagementSent = 0, lastAffectState = null;
 let pageClicks = 0, keypressCount = 0;
+let _consecutiveLowEAR = 0, _affectBuffer = [];
 
 document.addEventListener('click', () => { pageClicks++; lastInteractionTime = Date.now(); });
 document.addEventListener('keydown', () => { keypressCount++; lastInteractionTime = Date.now(); });
@@ -585,7 +687,7 @@ async function detectFaceRich() {
     if (!faceapi.nets.tinyFaceDetector.isLoaded) return null;
     const hasLandmarks = faceapi.nets.faceLandmark68TinyNet.isLoaded;
     const hasExpressions = faceapi.nets.faceExpressionNet.isLoaded;
-    const opts = new faceapi.TinyFaceDetectorOptions({ inputSize: 224, scoreThreshold: 0.2 });
+    const opts = new faceapi.TinyFaceDetectorOptions({ inputSize: 320, scoreThreshold: 0.2 });
     if (hasLandmarks && hasExpressions) {
       return await faceapi.detectSingleFace(videoEl, opts).withFaceLandmarks(true).withFaceExpressions() || null;
     } else if (hasLandmarks) {
@@ -640,27 +742,64 @@ function estimateHeadPoseFromBox(box) {
   return { pose: 'down', yaw: normX * 90, pitch: normY * 45 };
 }
 
+function estimateHeadPoseFromLandmarks(landmarks, box) {
+  try {
+    const le = landmarks.getLeftEye();
+    const re = landmarks.getRightEye();
+    const noseArr = landmarks.getNose();
+    const lCx = le.reduce((s,p)=>s+p.x,0)/le.length;
+    const lCy = le.reduce((s,p)=>s+p.y,0)/le.length;
+    const rCx = re.reduce((s,p)=>s+p.x,0)/re.length;
+    const rCy = re.reduce((s,p)=>s+p.y,0)/re.length;
+    const eyeMidX = (lCx + rCx) / 2;
+    const eyeMidY = (lCy + rCy) / 2;
+    const faceW = dist2d({x:lCx,y:lCy}, {x:rCx,y:rCy});
+    const noseTip = noseArr[3] || noseArr[noseArr.length-1];
+    const yawNorm = faceW > 0 ? (noseTip.x - eyeMidX) / faceW : 0;
+    const pitchNorm = box ? ((eyeMidY - (box.y + box.height * 0.3)) / box.height) : 0;
+    const yaw = yawNorm * 90, pitch = pitchNorm * 45;
+    let pose = 'center';
+    if (Math.abs(yawNorm) >= 0.2 || Math.abs(pitchNorm) >= 0.2) {
+      pose = Math.abs(yawNorm) > Math.abs(pitchNorm)
+        ? (yawNorm > 0 ? 'left' : 'right') : 'down';
+    }
+    return { pose, yaw, pitch };
+  } catch(e) {
+    return estimateHeadPoseFromBox(box);
+  }
+}
+
 function computeEngagement(present, gaze, headPose, inactivity) {
   let score = 100;
   if (!present) score -= 45;
   if (!gaze) score -= 20;
   if (headPose === 'down') score -= 15;
   else if (headPose === 'left' || headPose === 'right') score -= 10;
-  if (inactivity > 120) score -= 30; else if (inactivity > 60) score -= 15;
+  if (inactivity > 180) score -= 30; else if (inactivity > 90) score -= 15;
   return Math.max(0, Math.min(100, score));
 }
 
-function computeAffect(score, inactivity, facePresent, expressions, rollDeg) {
-  if (!facePresent || inactivity > 90) return 'distracted';
+function _smoothState(rawState) {
+  _affectBuffer.push(rawState);
+  if (_affectBuffer.length > 2) _affectBuffer.shift();
+  if (_affectBuffer.length === 2 && _affectBuffer[0] === _affectBuffer[1]) return rawState;
+  return _affectBuffer.length === 1 ? rawState : _affectBuffer[0];
+}
+
+function computeAffect(score, inactivity, facePresent, expressions, rollDeg, ear) {
+  if (!facePresent || inactivity > 150) { _consecutiveLowEAR = 0; return _smoothState('distracted'); }
+  if (ear !== null && ear !== undefined && ear < 0.18) { _consecutiveLowEAR++; }
+  else { _consecutiveLowEAR = 0; }
+  if (_consecutiveLowEAR >= 2) return _smoothState('disengaged');
   if (expressions) {
     const angry = expressions.angry || 0;
     const fearful = expressions.fearful || 0;
     const surprised = expressions.surprised || 0;
-    if (angry > 0.25 || fearful > 0.25) return 'struggling';
-    if (surprised > 0.3 || Math.abs(rollDeg || 0) > 20) return 'confused';
+    if (angry > 0.25 || fearful > 0.25) return _smoothState('struggling');
+    if (surprised > 0.3 || Math.abs(rollDeg || 0) > 30) return _smoothState('confused');
   }
-  if (inactivity > 60 || score < 30) return 'disengaged';
-  return 'focused';
+  if (inactivity > 90 || score < 30) return _smoothState('disengaged');
+  return _smoothState('focused');
 }
 
 async function ensureStream() {
@@ -690,11 +829,18 @@ async function renderLoop() {
     if (result) {
       const box = result.detection ? result.detection.box : result.box;
       const inact = Math.floor((Date.now() - lastInteractionTime) / 1000);
-      const hp = estimateHeadPoseFromBox(box);
+      const hp = result.landmarks ? estimateHeadPoseFromLandmarks(result.landmarks, box) : estimateHeadPoseFromBox(box);
       const score = computeEngagement(true, hp.pose === 'center', hp.pose, inact);
-      let roll = null;
-      if (result.landmarks) { try { roll = calcHeadRoll(result.landmarks); } catch(e) {} }
-      const state = computeAffect(score, inact, true, result.expressions, roll);
+      let roll = null, renderEAR = null;
+      if (result.landmarks) {
+        try {
+          roll = calcHeadRoll(result.landmarks);
+          const earL = calcEAR(result.landmarks.getLeftEye());
+          const earR = calcEAR(result.landmarks.getRightEye());
+          if (earL !== null && earR !== null) renderEAR = (earL + earR) / 2;
+        } catch(e) {}
+      }
+      const state = computeAffect(score, inact, true, result.expressions, roll, renderEAR);
       const color = affectColor(state);
       const mx = cw - box.x - box.width;
       canvasCtx.strokeStyle = color; canvasCtx.lineWidth = 2;
@@ -737,7 +883,7 @@ async function collectSample() {
     if (result) {
       facePresent = true;
       const box = result.detection ? result.detection.box : result.box;
-      const hp = estimateHeadPoseFromBox(box);
+      const hp = result.landmarks ? estimateHeadPoseFromLandmarks(result.landmarks, box) : estimateHeadPoseFromBox(box);
       headPose = hp.pose; yaw = hp.yaw; pitch = hp.pitch;
       gazeCentered = headPose === 'center';
 
@@ -763,7 +909,7 @@ async function collectSample() {
   }
 
   const score = computeEngagement(facePresent, gazeCentered, headPose, inactivity);
-  const affectState = computeAffect(score, inactivity, facePresent, expressions, roll);
+  const affectState = computeAffect(score, inactivity, facePresent, expressions, roll, ear);
 
   if (affectState !== lastAffectState && window.__liveWS && window.__liveWS.readyState === WebSocket.OPEN) {
     window.__liveWS.send(JSON.stringify({

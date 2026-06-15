@@ -1,0 +1,48 @@
+<python>
+cs_content_header = 'Week 1 Practice Problems: The Death of Lady Antoinette'
+</python>
+
+<question multiplechoice>
+csq_prompt = "In stories featuring a tragic heroine like Lady Antoinette, the character's downfall is typically caused by:"
+csq_options = ['Pure bad luck with no connection to character traits', 'A combination of circumstance, fate, and sometimes personal flaws', 'Another character who is clearly evil', "The hero's intentional betrayal"]
+csq_soln = 'A combination of circumstance, fate, and sometimes personal flaws'
+csq_renderer = 'radio'
+csq_npoints = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = "When an author writes 'the clock ticked like a heartbeat slowly dying', this is an example of:"
+csq_options = ['Metaphor', 'Onomatopoeia and simile combined', 'Alliteration', 'Hyperbole']
+csq_soln = 'Onomatopoeia and simile combined'
+csq_renderer = 'radio'
+csq_npoints = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = 'An omniscient narrator is one who:'
+csq_options = ['Only reports what one character sees and hears', "Has full knowledge of all characters' thoughts, feelings, and events", 'Speaks in the first person as a participant', 'Only describes physical events without interpreting them']
+csq_soln = "Has full knowledge of all characters' thoughts, feelings, and events"
+csq_renderer = 'radio'
+csq_npoints = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = "'Foreshadowing' in a story means:"
+csq_options = ['A summary of past events', 'Hints or clues that suggest future events in the plot', 'The climax of the story', 'A description of the setting']
+csq_soln = 'Hints or clues that suggest future events in the plot'
+csq_renderer = 'radio'
+csq_npoints = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = "Which of the following best describes the theme of 'the fragility of social status'?"
+csq_options = ['Characters gain wealth quickly through hard work', "High social standing can be lost suddenly due to forces beyond one's control", 'Only the poor suffer in society', 'Education is the key to maintaining status']
+csq_soln = "High social standing can be lost suddenly due to forces beyond one's control"
+csq_renderer = 'radio'
+csq_npoints = 1
+csq_soln_mode = "value"
+</question>

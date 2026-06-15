@@ -1,0 +1,304 @@
+<python>
+cs_content_header = "Lecture 4: Kinetic Theory of Gases"
+</python>
+
+<style>
+h1,h2,h3{color:#333;}
+h1{border-bottom:3px solid #2572F5;padding-bottom:10px;}
+h2{color:#2572F5;margin-top:30px;}
+.highlight{background:#e7f3ff;border-left:4px solid #2572F5;padding:15px;margin:20px 0;border-radius:5px;}
+table{width:100%;border-collapse:collapse;margin:20px 0;}
+th,td{border:1px solid #ddd;padding:12px;text-align:left;}
+th{background:#2572F5;color:white;}
+tr:nth-child(even){background:#f2f2f2;}
+code{background:#f4f4f4;padding:2px 6px;border-radius:3px;color:#d63384;}
+pre{background:#f4f4f4;padding:16px;border-radius:6px;overflow-x:auto;}
+.formula{background:#f0f8ff;border:2px solid #2572F5;padding:15px;margin:15px 0;border-radius:8px;text-align:center;font-size:1.15em;}
+.worked{background:#f8f9fa;border:1px solid #e9ecef;border-radius:6px;padding:15px;margin:15px 0;}
+.worked h4{color:#28a745;margin-top:0;}
+</style>
+
+<h1>Kinetic Theory of Gases</h1>
+
+<p>The kinetic theory of gases explains the macroscopic properties of gases — pressure, temperature, and volume — in terms of the microscopic behaviour of their constituent molecules. It provides a molecular foundation for the experimentally-derived gas laws and connects thermodynamics to Newtonian mechanics.</p>
+
+<h2>1. The Ideal Gas Model</h2>
+
+<p>To make analysis tractable, kinetic theory begins with an idealised model. A gas is said to behave as an <strong>ideal gas</strong> when the following five assumptions hold:</p>
+
+<div class="highlight">
+  <strong>Five Assumptions of the Ideal Gas Model:</strong>
+  <ol>
+    <li>The gas consists of a very large number of identical molecules moving randomly in all directions.</li>
+    <li>The volume of each molecule is negligibly small compared with the volume of the container (molecules are treated as point masses).</li>
+    <li>Collisions between molecules and between molecules and the container walls are perfectly elastic — kinetic energy is conserved.</li>
+    <li>There are no intermolecular forces except during brief collisions; molecules travel in straight lines between collisions.</li>
+    <li>The time spent in a collision is negligible compared to the time between collisions.</li>
+  </ol>
+</div>
+
+<p>Real gases approach ideal behaviour at <strong>low pressures</strong> and <strong>high temperatures</strong> — conditions under which molecules are far apart and intermolecular forces become negligible.</p>
+
+<h2>2. Gas Pressure: A Molecular View</h2>
+
+<p><strong>Pressure</strong> arises from the continuous bombardment of gas molecules against the walls of a container. Each individual collision exerts a tiny force; collectively, billions of collisions per second produce the measurable pressure we observe.</p>
+
+<div class="formula">
+  P = F / A
+</div>
+
+<p>Where <strong>P</strong> = pressure (Pa), <strong>F</strong> = total force exerted on the wall (N), <strong>A</strong> = area of the wall (m²).</p>
+
+<p>From kinetic theory it can be derived that:</p>
+
+<div class="formula">
+  P = &frac13; &rho; &lt;c&sup2;&gt;
+</div>
+
+<p>Where <strong>&rho;</strong> = density of the gas (kg/m³) and <strong>&lt;c²&gt;</strong> = mean square speed of the molecules (m²/s²).</p>
+
+<h2>3. Boyle's Law</h2>
+
+<p><strong>Robert Boyle</strong> (1662) discovered that, at constant temperature, the pressure of a fixed mass of gas is inversely proportional to its volume.</p>
+
+<div class="formula">
+  P &prop; 1/V &nbsp;&nbsp; (constant T, n)<br><br>
+  P<sub>1</sub>V<sub>1</sub> = P<sub>2</sub>V<sub>2</sub>
+</div>
+
+<p><strong>Molecular explanation:</strong> If you halve the volume, the same number of molecules is packed into half the space. They collide with the walls twice as frequently, doubling the pressure.</p>
+
+<div class="worked">
+  <h4>Worked Example — A Syringe</h4>
+  <p>A sealed syringe contains air at a pressure of 100 kPa and a volume of 60 cm³. The piston is pushed in until the volume is 20 cm³. Assuming temperature is constant, what is the new pressure?</p>
+  <p><strong>Given:</strong> P<sub>1</sub> = 100 kPa, V<sub>1</sub> = 60 cm³, V<sub>2</sub> = 20 cm³</p>
+  <p><strong>Using Boyle's Law:</strong><br>
+  P<sub>1</sub>V<sub>1</sub> = P<sub>2</sub>V<sub>2</sub><br>
+  100 &times; 60 = P<sub>2</sub> &times; 20<br>
+  P<sub>2</sub> = 6000 / 20 = <strong>300 kPa</strong></p>
+  <p><em>The pressure triples as the volume is reduced to one-third. This is Boyle's Law in action.</em></p>
+</div>
+
+<h2>4. Charles' Law</h2>
+
+<p><strong>Jacques Charles</strong> (1787) showed that, at constant pressure, the volume of a fixed mass of gas is directly proportional to its <em>absolute temperature</em> (measured in Kelvin).</p>
+
+<div class="formula">
+  V &prop; T &nbsp;&nbsp; (constant P, n)<br><br>
+  V<sub>1</sub> / T<sub>1</sub> = V<sub>2</sub> / T<sub>2</sub>
+</div>
+
+<div class="highlight">
+  <strong>Temperature conversion:</strong> T(K) = T(&deg;C) + 273.15<br>
+  Always use Kelvin in gas law calculations. At absolute zero (0 K = &minus;273 &deg;C), an ideal gas would have zero volume — this is the theoretical lower limit of temperature.
+</div>
+
+<div class="worked">
+  <h4>Worked Example — Gas Heated in a Piston</h4>
+  <p>A sample of gas occupies 4.0 L at 27 &deg;C. It is heated at constant pressure to 127 &deg;C. What is the new volume?</p>
+  <p><strong>Convert to Kelvin:</strong> T<sub>1</sub> = 27 + 273 = 300 K &nbsp;&nbsp; T<sub>2</sub> = 127 + 273 = 400 K</p>
+  <p><strong>Using Charles' Law:</strong><br>
+  V<sub>1</sub> / T<sub>1</sub> = V<sub>2</sub> / T<sub>2</sub><br>
+  4.0 / 300 = V<sub>2</sub> / 400<br>
+  V<sub>2</sub> = 4.0 &times; 400 / 300 = <strong>5.33 L</strong></p>
+  <p><em>The gas expands because faster-moving molecules push the piston outward at higher temperature.</em></p>
+</div>
+
+<h2>5. Gay-Lussac's Law (Pressure Law)</h2>
+
+<p><strong>Joseph Gay-Lussac</strong> (1809) showed that, at constant volume, the pressure of a fixed mass of gas is directly proportional to its absolute temperature.</p>
+
+<div class="formula">
+  P &prop; T &nbsp;&nbsp; (constant V, n)<br><br>
+  P<sub>1</sub> / T<sub>1</sub> = P<sub>2</sub> / T<sub>2</sub>
+</div>
+
+<div class="worked">
+  <h4>Worked Example — Car Tyre Pressure</h4>
+  <p>A car tyre contains air at 220 kPa when the tyre temperature is 15 &deg;C. After a long drive, the tyre temperature rises to 45 &deg;C. What is the new tyre pressure? (Assume volume is constant.)</p>
+  <p><strong>Convert:</strong> T<sub>1</sub> = 15 + 273 = 288 K &nbsp;&nbsp; T<sub>2</sub> = 45 + 273 = 318 K</p>
+  <p>P<sub>1</sub> / T<sub>1</sub> = P<sub>2</sub> / T<sub>2</sub><br>
+  220 / 288 = P<sub>2</sub> / 318<br>
+  P<sub>2</sub> = 220 &times; 318 / 288 = <strong>243 kPa</strong></p>
+  <p><em>This is why car manufacturers recommend checking tyre pressure when tyres are cold — heat from driving artificially inflates the reading.</em></p>
+</div>
+
+<h2>6. The Ideal Gas Law</h2>
+
+<p>Combining Boyle's, Charles', and Gay-Lussac's laws yields the <strong>Ideal Gas Law</strong>, which relates pressure, volume, temperature, and amount of gas in a single equation.</p>
+
+<div class="formula">
+  PV = nRT
+</div>
+
+<table>
+  <tr><th>Symbol</th><th>Quantity</th><th>SI Unit</th></tr>
+  <tr><td>P</td><td>Pressure</td><td>Pascal (Pa) &nbsp; [1 atm = 101,325 Pa]</td></tr>
+  <tr><td>V</td><td>Volume</td><td>cubic metres (m³)</td></tr>
+  <tr><td>n</td><td>Number of moles of gas</td><td>mol</td></tr>
+  <tr><td>R</td><td>Universal gas constant</td><td>8.314 J mol⁻¹ K⁻¹</td></tr>
+  <tr><td>T</td><td>Absolute temperature</td><td>Kelvin (K)</td></tr>
+</table>
+
+<div class="worked">
+  <h4>Worked Example — Moles of Air in a Classroom</h4>
+  <p>Estimate the number of moles of air in a classroom measuring 8 m &times; 6 m &times; 3 m at atmospheric pressure (101,325 Pa) and 25 &deg;C.</p>
+  <p><strong>Given:</strong> V = 144 m³, P = 101,325 Pa, T = 298 K, R = 8.314 J mol⁻¹ K⁻¹</p>
+  <p>n = PV / RT = (101,325 &times; 144) / (8.314 &times; 298)<br>
+  n = 14,590,800 / 2,477.6 = <strong>5,889 mol &approx; 5,900 mol</strong></p>
+  <p><em>A typical classroom contains roughly 5,900 moles of air — about 170 kg of gas — nearly invisible but always pressing on every surface at 101 kPa.</em></p>
+</div>
+
+<h2>7. Temperature and Kinetic Energy</h2>
+
+<p>One of kinetic theory's most powerful results is the direct connection between temperature and the average translational kinetic energy of gas molecules.</p>
+
+<div class="formula">
+  Average KE per molecule = &frac12;m&lt;c&sup2;&gt; = &frac32;k<sub>B</sub>T
+</div>
+
+<p>Where <strong>k<sub>B</sub> = 1.38 &times; 10⁻²³ J K⁻¹</strong> is the Boltzmann constant and <strong>T</strong> is the absolute temperature in Kelvin.</p>
+
+<div class="highlight">
+  <strong>Key insight:</strong> Temperature is a direct measure of the average kinetic energy of gas molecules. Doubling the absolute temperature doubles the average kinetic energy — and increases the RMS speed by a factor of &radic;2.
+</div>
+
+<h3>Root Mean Square (RMS) Speed</h3>
+
+<p>The <strong>RMS speed</strong> is the square root of the mean of the squared molecular speeds. It is the standard way to characterise how fast molecules move on average:</p>
+
+<div class="formula">
+  c<sub>rms</sub> = &radic;(3RT / M)
+</div>
+
+<p>Where <strong>M</strong> is the molar mass of the gas in kg mol⁻¹ (e.g., for O<sub>2</sub>, M = 0.032 kg mol⁻¹).</p>
+
+<table>
+  <tr><th>Gas</th><th>Molar mass (g/mol)</th><th>c<sub>rms</sub> at 25 &deg;C (m/s)</th></tr>
+  <tr><td>Hydrogen (H<sub>2</sub>)</td><td>2</td><td>1,920</td></tr>
+  <tr><td>Nitrogen (N<sub>2</sub>)</td><td>28</td><td>515</td></tr>
+  <tr><td>Oxygen (O<sub>2</sub>)</td><td>32</td><td>482</td></tr>
+  <tr><td>Carbon dioxide (CO<sub>2</sub>)</td><td>44</td><td>411</td></tr>
+</table>
+
+<div class="highlight">
+  <strong>Why does hydrogen escape Earth's atmosphere?</strong> Hydrogen molecules move at ~1,920 m/s at room temperature. A significant fraction of molecules exceed Earth's escape velocity (~11,200 m/s) — especially when solar radiation heats the upper atmosphere. Heavier gases like N<sub>2</sub> and O<sub>2</sub> move much more slowly and are gravitationally retained.
+</div>
+
+<div class="worked">
+  <h4>Worked Example — RMS Speed of Nitrogen</h4>
+  <p>Calculate the RMS speed of nitrogen (N<sub>2</sub>) molecules at 27 &deg;C.</p>
+  <p><strong>Given:</strong> M = 28 g/mol = 0.028 kg/mol, T = 300 K, R = 8.314 J mol⁻¹ K⁻¹</p>
+  <p>c<sub>rms</sub> = &radic;(3 &times; 8.314 &times; 300 / 0.028)<br>
+  = &radic;(7,482.6 / 0.028)<br>
+  = &radic;(267,236)<br>
+  = <strong>517 m/s</strong></p>
+  <p><em>Nitrogen molecules in air at room temperature move at roughly 517 m/s — about 1,860 km/h — yet we feel no wind indoors because the motion is random in all directions and molecules constantly collide with each other.</em></p>
+</div>
+
+<h2>8. Real Gases and Deviations from Ideal Behaviour</h2>
+
+<p>Real gases deviate from ideal behaviour because:</p>
+<ul>
+  <li>Molecules have a non-zero volume (they are not truly point masses).</li>
+  <li>There are attractive intermolecular forces (van der Waals forces) that become significant at high pressure and low temperature.</li>
+</ul>
+
+<p>The <strong>van der Waals equation</strong> corrects for both effects:</p>
+
+<div class="formula">
+  (P + a/V<sub>m</sub>&sup2;)(V<sub>m</sub> &minus; b) = RT<br>
+  <small>per mole; <em>a</em> corrects for intermolecular attraction, <em>b</em> for molecular volume</small>
+</div>
+
+<table>
+  <tr><th>Condition</th><th>Behaviour vs ideal gas</th><th>Dominant effect</th></tr>
+  <tr><td>High pressure</td><td>Volume is <em>smaller</em> than PV = nRT predicts</td><td>Molecular volume becomes significant</td></tr>
+  <tr><td>Low temperature</td><td>Pressure is <em>lower</em> than PV = nRT predicts</td><td>Intermolecular attraction slows molecules before impact</td></tr>
+  <tr><td>Low pressure, high temperature</td><td>Approaches ideal gas behaviour</td><td>Neither effect significant — molecules far apart</td></tr>
+</table>
+
+<h2>Summary of Gas Laws</h2>
+
+<table>
+  <tr><th>Law</th><th>What is held constant</th><th>Relationship</th><th>Formula</th></tr>
+  <tr><td><strong>Boyle's Law</strong></td><td>T and n</td><td>P and V inversely proportional</td><td>P<sub>1</sub>V<sub>1</sub> = P<sub>2</sub>V<sub>2</sub></td></tr>
+  <tr><td><strong>Charles' Law</strong></td><td>P and n</td><td>V and T directly proportional</td><td>V<sub>1</sub>/T<sub>1</sub> = V<sub>2</sub>/T<sub>2</sub></td></tr>
+  <tr><td><strong>Gay-Lussac's Law</strong></td><td>V and n</td><td>P and T directly proportional</td><td>P<sub>1</sub>/T<sub>1</sub> = P<sub>2</sub>/T<sub>2</sub></td></tr>
+  <tr><td><strong>Ideal Gas Law</strong></td><td>—</td><td>Combines all three laws</td><td>PV = nRT</td></tr>
+  <tr><td><strong>KE–Temperature Link</strong></td><td>—</td><td>Avg KE proportional to T</td><td>&frac12;m&lt;c&sup2;&gt; = &frac32;k<sub>B</sub>T</td></tr>
+</table>
+
+<div class="highlight">
+  <strong>Key takeaway:</strong> Kinetic theory bridges the invisible world of molecules and the measurable properties of gases. Temperature is molecular kinetic energy; pressure is molecular bombardment. The gas laws are not arbitrary empirical rules — they follow inevitably from Newton's laws applied to vast numbers of rapidly moving particles.
+</div>
+
+<div id="live-file-panel" style="display:none;margin:20px 0;padding:16px;border:1px solid #ddd;border-radius:6px;background:#f9f9f9;">
+  <strong>Live File</strong>
+  <div id="live-file-content" style="margin-top:8px;color:#555;"></div>
+</div>
+<script>
+(function(){
+  const parts = window.location.pathname.split('/').filter(Boolean);
+  const apiBase = 'https://api.kenechukwuosele.me';
+  let course = '', week = '';
+  if(parts.length >= 3 && parts[0] === 'courses'){
+    course = parts[1];
+    week = parts[2];
+  } else if(parts.length >= 2 && parts[0] !== 'courses'){
+    course = parts[0];
+    week = parts[1];
+  } else {
+    return;
+  }
+  course = course.trim();
+  week = week.trim();
+  if(!course || !week) return;
+  const panel = document.getElementById('live-file-panel');
+  const content = document.getElementById('live-file-content');
+  function renderFile(meta){
+    if(!meta){
+      panel.style.display = 'none';
+      return;
+    }
+    const url = apiBase + '/live-file/' + course + '/' + week;
+    const dlUrl = url + '?download=1';
+    const type = meta.content_type || '';
+    const safeName = meta.filename || 'file';
+    let html = '<div><a href="' + dlUrl + '" style="color:#2572F5;text-decoration:underline;cursor:pointer;">Download ' + safeName + '</a></div>';
+    if(type.startsWith('image/')){
+      fetch(url).then(r=>r.blob()).then(b=>{
+        const el = document.getElementById('live-file-img');
+        if(el) el.src = URL.createObjectURL(b);
+      });
+      html += '<div style="margin-top:10px;"><img id="live-file-img" src="" alt="' + safeName + '" style="max-width:100%;height:auto;border:1px solid #ddd;border-radius:4px;"/></div>';
+    } else if(type === 'application/pdf'){
+      fetch(url).then(r=>r.blob()).then(b=>{
+        const el = document.getElementById('live-file-iframe');
+        if(el) el.src = URL.createObjectURL(b);
+      });
+      html += '<div style="margin-top:10px;"><iframe id="live-file-iframe" src="" style="width:100%;height:480px;border:1px solid #ddd;border-radius:4px;"></iframe></div>';
+    } else if(type.startsWith('text/')){
+      fetch(url).then(r=>r.blob()).then(b=>{
+        const el = document.getElementById('live-file-iframe');
+        if(el) el.src = URL.createObjectURL(b);
+      });
+      html += '<div style="margin-top:10px;"><iframe id="live-file-iframe" src="" style="width:100%;height:320px;border:1px solid #ddd;border-radius:4px;background:#fff;"></iframe></div>';
+    }
+    content.innerHTML = html;
+    panel.style.display = 'block';
+  }
+  async function load(){
+    try{
+      const r = await fetch(apiBase + '/live-file-info/' + course + '/' + week);
+      if(!r.ok){renderFile(null);return;}
+      const d = await r.json();
+      renderFile(d || null);
+    }catch{
+      renderFile(null);
+    }
+  }
+  load();
+  setInterval(load, 15000);
+})();
+</script>

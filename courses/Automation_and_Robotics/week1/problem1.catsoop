@@ -1,0 +1,48 @@
+<python>
+cs_content_header = 'Week 1 Practice Problems: Introduction to Automation & Robotics'
+</python>
+
+<question multiplechoice>
+csq_prompt = 'A factory replaces a human worker who manually inspects products with a camera-based vision system. This is an example of:'
+csq_options = ['Manual automation', 'Artificial intelligence replacing creativity', 'Industrial automation improving quality control', 'Human-robot collaboration (cobots)']
+csq_soln = 'Industrial automation improving quality control'
+csq_renderer = 'radio'
+csq_npoints = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = 'A robot has 3 revolute joints and 1 prismatic joint. How many degrees of freedom does it have?'
+csq_options = ['3', '4', '1', '7']
+csq_soln = '4'
+csq_renderer = 'radio'
+csq_npoints = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = 'Which of the following best describes a CLOSED-LOOP control system?'
+csq_options = ['A system that runs without measuring output', 'A system that uses sensors to measure output and adjusts the input accordingly', 'A system with no actuators', 'A system controlled entirely by a human operator']
+csq_soln = 'A system that uses sensors to measure output and adjusts the input accordingly'
+csq_renderer = 'radio'
+csq_npoints = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = 'A gripper on a robot arm that can open and close to pick up objects is an example of:'
+csq_options = ['An actuator', 'An end-effector', 'A sensor', 'A controller']
+csq_soln = 'An end-effector'
+csq_renderer = 'radio'
+csq_npoints = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = 'Which of the following is a key risk of full automation in an industry?'
+csq_options = ['Increased product quality', 'Job displacement for workers performing repetitive tasks', 'Faster production cycles', 'Reduced error rates']
+csq_soln = 'Job displacement for workers performing repetitive tasks'
+csq_renderer = 'radio'
+csq_npoints = 1
+csq_soln_mode = "value"
+</question>

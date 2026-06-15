@@ -1,78 +1,48 @@
 <python>
-cs_content_header = "Week 1 Practice Problems: Personal Finance Fundamentals"
+cs_content_header = 'Week 1 Practice Problems: The Richest Man in Babylon'
 </python>
 
-<style>
-  body { font-family: Arial, sans-serif; padding: 20px; background: #f9f9f9; }
-  .card { background: white; border: 1px solid #ccc; padding: 16px; margin-bottom: 30px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-  .correct { color: green; font-weight: bold; }
-  .incorrect { color: red; font-weight: bold; }
-  input[type="text"] { width: 100%; padding: 8px; margin-top: 10px; box-sizing: border-box; }
-  button { margin-top: 10px; padding: 8px 16px; cursor: pointer; }
-</style>
+<question multiplechoice>
+csq_prompt = "Kobi saves ₦1,000 per month. He keeps ₦900 for all his expenses and saves ₦100. Which principle from 'The Richest Man in Babylon' is he applying?"
+csq_options = ['The Five Laws of Gold', 'Pay Yourself First (save 10% of income)', 'The Clay Tablets debt plan', 'The Golden Opportunity principle']
+csq_soln = 'Pay Yourself First (save 10% of income)'
+csq_renderer = 'radio'
+csq_npoints = 1
+csq_soln_mode = "value"
+</question>
 
-<!-- Example -->
-<div class="card">
-  <h2>Example: Savings Rate Calculation</h2>
-  <p>If you earn ₦80,000 per month and follow the "pay yourself first" principle by saving 10%, your monthly savings amount is:</p>
-  <p><code>Savings = 10% × ₦80,000 = ₦8,000 per month</code></p>
-  <p>Over 12 months, that is ₦96,000 saved — without touching any investment growth.</p>
-</div>
+<question multiplechoice>
+csq_prompt = "Temi invests ₦50,000 in a scheme that promises to double her money in a week with no risk. According to the book's wisdom, she should:"
+csq_options = ['Invest immediately to get rich fast', 'Decline, because quick-rich schemes violate the laws of gold', 'Borrow more money to invest more', 'Ask her friends to invest too']
+csq_soln = 'Decline, because quick-rich schemes violate the laws of gold'
+csq_renderer = 'radio'
+csq_npoints = 1
+csq_soln_mode = "value"
+</question>
 
-<!-- Question 1 -->
-<div class="card">
-  <h2>Question 1</h2>
-  <p><strong>Question:</strong> According to the first cure, what minimum percentage of your income should you save before spending on anything else?</p>
-  <input type="text" id="answer1" placeholder="Type your answer here (e.g. 10%)">
-  <button onclick="checkAnswer('answer1', 'result1', '10%')">Submit</button>
-  <div id="result1"></div>
-</div>
+<question multiplechoice>
+csq_prompt = 'If you earn ₦200,000 a month but spend ₦210,000, which lesson from the book are you violating?'
+csq_options = ['The law of compound interest', 'The goddess of luck', 'Live on less than you earn', 'The clay tablets plan']
+csq_soln = 'Live on less than you earn'
+csq_renderer = 'radio'
+csq_npoints = 1
+csq_soln_mode = "value"
+</question>
 
-<!-- Question 2 -->
-<div class="card">
-  <h2>Question 2</h2>
-  <p><strong>Question:</strong> You earn ₦150,000 per month. If you save 10% first and budget the rest, how much is available for all your expenses?</p>
-  <input type="text" id="answer2" placeholder="Type your answer here (in ₦)">
-  <button onclick="checkAnswer('answer2', 'result2', '₦135,000')">Submit</button>
-  <div id="result2"></div>
-</div>
+<question multiplechoice>
+csq_prompt = "According to the book, which of the following best helps money 'breed' more money?"
+csq_options = ['Spending on luxury to show wealth', 'Keeping cash under the mattress', 'Investing savings so that earnings also earn returns (compound growth)', 'Lending money to friends freely']
+csq_soln = 'Investing savings so that earnings also earn returns (compound growth)'
+csq_renderer = 'radio'
+csq_npoints = 1
+csq_soln_mode = "value"
+</question>
 
-<!-- Question 3 -->
-<div class="card">
-  <h2>Question 3</h2>
-  <p><strong>Question:</strong> Compound interest means you earn interest on both your principal and the _____ already accumulated. Fill in the blank.</p>
-  <input type="text" id="answer3" placeholder="Type your answer here">
-  <button onclick="checkAnswer('answer3', 'result3', 'interest')">Submit</button>
-  <div id="result3"></div>
-</div>
-
-<!-- Question 4 -->
-<div class="card">
-  <h2>Question 4</h2>
-  <p><strong>Question:</strong> An investment scheme promises you a 100% return in 30 days with no risk. According to the fourth cure, what should you do?</p>
-  <input type="text" id="answer4" placeholder="Type your answer here">
-  <button onclick="checkAnswer('answer4', 'result4', 'avoid it')">Submit</button>
-  <div id="result4"></div>
-</div>
-
-<!-- Question 5 -->
-<div class="card">
-  <h2>Question 5</h2>
-  <p><strong>Question:</strong> The seventh cure advises you to increase your ability to earn by continuously investing in your own ______.</p>
-  <input type="text" id="answer5" placeholder="Type your answer here">
-  <button onclick="checkAnswer('answer5', 'result5', 'skills')">Submit</button>
-  <div id="result5"></div>
-</div>
-
-<script>
-  function checkAnswer(inputId, resultId, correctAnswer) {
-    const userInput = document.getElementById(inputId).value.trim().toLowerCase();
-    const resultDiv = document.getElementById(resultId);
-    const expected = correctAnswer.toLowerCase();
-    if (userInput === expected) {
-      resultDiv.innerHTML = '<p class="correct">&#10003; Correct!</p>';
-    } else {
-      resultDiv.innerHTML = '<p class="incorrect">&#10007; Incorrect.</p><p>The correct answer is: <code>' + correctAnswer + '</code></p>';
-    }
-  }
-</script>
+<question multiplechoice>
+csq_prompt = "A key difference between a 'fat purse' and a 'lean purse' in the book is:"
+csq_options = ['The fat purse owner earns more money', 'The fat purse grows because its owner systematically saves and invests; the lean purse shrinks through undisciplined spending', 'The fat purse owner inherited wealth', 'The lean purse owner is unlucky']
+csq_soln = 'The fat purse grows because its owner systematically saves and invests; the lean purse shrinks through undisciplined spending'
+csq_renderer = 'radio'
+csq_npoints = 1
+csq_soln_mode = "value"
+</question>

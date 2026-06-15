@@ -35,7 +35,7 @@ print('<script>window.__cs_username = "' + cs_username + '";</script>')
 
 <script>
 (function() {
-  const BASE = 'http://localhost:8000';
+  const BASE = 'https://api.kenechukwuosele.me';
   const COURSE = 'Physics';
   const username = window.__cs_username || '';
 

@@ -1,0 +1,60 @@
+<python>
+cs_content_header = 'Basics2'
+</python>
+
+## Python Programming Basics Lecture Notes
+
+---
+
+### Overview
+- Introduction to programming concepts and the use of a high-level language, specifically Python.
+- Emphasis on fundamental building blocks essential for writing simple programs from scratch.
+
+### Main Concepts:
+- **Programming** is creating precise instructions that computers execute using logical processes.
+  - Programs are composed of variables (containers storing data), operators (performing calculations or comparisons).
+  
+- **Python as a Learning Tool** for beginners due to its readable syntax and ease in understanding the core programming concepts without complex jargon.
+
+### Key Concept Callouts:
+- Variables are essential elements that store information which can be manipulated throughout your program's execution.
+  - Data types define what kind of data a variable stores, such as integers (int), floating points (float), or strings (str).
+  
+- Operators in Python include arithmetic (+, -, *, /), comparison (==, !=) and logical operators (and, or, not).
+
+### Examples from the Material:
+- A simple program that asks for user input using `input()` function.
+  ```python
+  name = input("What is your name? ")
+  print(f"Hello, {name}!")
+  ```
+  
+- Example of defining a variable and assigning it an integer value in Python:
+  ```python0
+    age = int(input("How old are you? "))
+    years_left = 18 - age
+    print(f"You have {years_left} years left until legal drinking age.")
+  ```
+  
+- Using comparison operators to compare two variables:
+  ```python0
+    x, y = float(input("Enter a number for X: ")), float(input("Enter another number for Y: "))
+    if x > y:
+        print(f"{x} is greater than {y}.")
+    elif x == y:
+        print(f"{x} and {y} are equal.")
+    else:
+        print(f"{y} is greater than {x}.")
+  ```
+  
+### Brief Summary of the Week's Content on Python Basics:
+- This week, students will learn about variables (types), data types and their operations. They also get to practice writing simple programs using basic input/output functions in Python. By understanding these concepts, they are equipped with foundational knowledge for more complex programming tasks ahead. 
+
+---
+
+## Fundamentals of Functions and Data Structures Lecture Notes
+
+---
+
+### Overview:
+- Introduction to the conceptual tools that enh

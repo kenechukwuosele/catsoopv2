@@ -35,6 +35,7 @@ const attemptSessionId = (window.crypto && crypto.randomUUID) ? crypto.randomUUI
 let videoStream = null, videoEl = null, canvasEl = null, canvasCtx = null;
 let lastInteractionTime = Date.now(), lastEngagementSent = 0, lastAffectState = null;
 let pageClicks = 0, keypressCount = 0;
+let _consecutiveLowEAR = 0, _affectBuffer = [];
 
 document.addEventListener('click', () => {{ pageClicks++; lastInteractionTime = Date.now(); }});
 document.addEventListener('keydown', () => {{ keypressCount++; lastInteractionTime = Date.now(); }});
@@ -93,7 +94,7 @@ async function detectFaceRich() {{
     if (!faceapi.nets.tinyFaceDetector.isLoaded) return null;
     const hasLandmarks = faceapi.nets.faceLandmark68TinyNet.isLoaded;
     const hasExpressions = faceapi.nets.faceExpressionNet.isLoaded;
-    const opts = new faceapi.TinyFaceDetectorOptions({{ inputSize: 224, scoreThreshold: 0.2 }});
+    const opts = new faceapi.TinyFaceDetectorOptions({{ inputSize: 320, scoreThreshold: 0.2 }});
     if (hasLandmarks && hasExpressions) {{
       return await faceapi.detectSingleFace(videoEl, opts).withFaceLandmarks(true).withFaceExpressions() || null;
     }} else if (hasLandmarks) {{
@@ -148,27 +149,64 @@ function estimateHeadPoseFromBox(box) {{
   return {{ pose: 'down', yaw: normX * 90, pitch: normY * 45 }};
 }}
 
+function estimateHeadPoseFromLandmarks(landmarks, box) {{
+  try {{
+    const le = landmarks.getLeftEye();
+    const re = landmarks.getRightEye();
+    const noseArr = landmarks.getNose();
+    const lCx = le.reduce((s,p)=>s+p.x,0)/le.length;
+    const lCy = le.reduce((s,p)=>s+p.y,0)/le.length;
+    const rCx = re.reduce((s,p)=>s+p.x,0)/re.length;
+    const rCy = re.reduce((s,p)=>s+p.y,0)/re.length;
+    const eyeMidX = (lCx + rCx) / 2;
+    const eyeMidY = (lCy + rCy) / 2;
+    const faceW = dist2d({{x:lCx,y:lCy}}, {{x:rCx,y:rCy}});
+    const noseTip = noseArr[3] || noseArr[noseArr.length-1];
+    const yawNorm = faceW > 0 ? (noseTip.x - eyeMidX) / faceW : 0;
+    const pitchNorm = box ? ((eyeMidY - (box.y + box.height * 0.3)) / box.height) : 0;
+    const yaw = yawNorm * 90, pitch = pitchNorm * 45;
+    let pose = 'center';
+    if (Math.abs(yawNorm) >= 0.2 || Math.abs(pitchNorm) >= 0.2) {{
+      pose = Math.abs(yawNorm) > Math.abs(pitchNorm)
+        ? (yawNorm > 0 ? 'left' : 'right') : 'down';
+    }}
+    return {{ pose, yaw, pitch }};
+  }} catch(e) {{
+    return estimateHeadPoseFromBox(box);
+  }}
+}}
+
 function computeEngagement(present, gaze, headPose, inactivity) {{
   let score = 100;
   if (!present) score -= 45;
   if (!gaze) score -= 20;
   if (headPose === 'down') score -= 15;
   else if (headPose === 'left' || headPose === 'right') score -= 10;
-  if (inactivity > 120) score -= 30; else if (inactivity > 60) score -= 15;
+  if (inactivity > 180) score -= 30; else if (inactivity > 90) score -= 15;
   return Math.max(0, Math.min(100, score));
 }}
 
-function computeAffect(score, inactivity, facePresent, expressions, rollDeg) {{
-  if (!facePresent || inactivity > 90) return 'distracted';
+function _smoothState(rawState) {{
+  _affectBuffer.push(rawState);
+  if (_affectBuffer.length > 2) _affectBuffer.shift();
+  if (_affectBuffer.length === 2 && _affectBuffer[0] === _affectBuffer[1]) return rawState;
+  return _affectBuffer.length === 1 ? rawState : _affectBuffer[0];
+}}
+
+function computeAffect(score, inactivity, facePresent, expressions, rollDeg, ear) {{
+  if (!facePresent || inactivity > 150) {{ _consecutiveLowEAR = 0; return _smoothState('distracted'); }}
+  if (ear !== null && ear !== undefined && ear < 0.18) {{ _consecutiveLowEAR++; }}
+  else {{ _consecutiveLowEAR = 0; }}
+  if (_consecutiveLowEAR >= 2) return _smoothState('disengaged');
   if (expressions) {{
     const angry = expressions.angry || 0;
     const fearful = expressions.fearful || 0;
     const surprised = expressions.surprised || 0;
-    if (angry > 0.25 || fearful > 0.25) return 'struggling';
-    if (surprised > 0.3 || Math.abs(rollDeg || 0) > 20) return 'confused';
+    if (angry > 0.25 || fearful > 0.25) return _smoothState('struggling');
+    if (surprised > 0.3 || Math.abs(rollDeg || 0) > 30) return _smoothState('confused');
   }}
-  if (inactivity > 60 || score < 30) return 'disengaged';
-  return 'focused';
+  if (inactivity > 90 || score < 30) return _smoothState('disengaged');
+  return _smoothState('focused');
 }}
 
 async function ensureStream() {{
@@ -198,11 +236,18 @@ async function renderLoop() {{
     if (result) {{
       const box = result.detection ? result.detection.box : result.box;
       const inact = Math.floor((Date.now() - lastInteractionTime) / 1000);
-      const hp = estimateHeadPoseFromBox(box);
+      const hp = result.landmarks ? estimateHeadPoseFromLandmarks(result.landmarks, box) : estimateHeadPoseFromBox(box);
       const score = computeEngagement(true, hp.pose === 'center', hp.pose, inact);
-      let roll = null;
-      if (result.landmarks) {{ try {{ roll = calcHeadRoll(result.landmarks); }} catch(e) {{}} }}
-      const state = computeAffect(score, inact, true, result.expressions, roll);
+      let roll = null, renderEAR = null;
+      if (result.landmarks) {{
+        try {{
+          roll = calcHeadRoll(result.landmarks);
+          const earL = calcEAR(result.landmarks.getLeftEye());
+          const earR = calcEAR(result.landmarks.getRightEye());
+          if (earL !== null && earR !== null) renderEAR = (earL + earR) / 2;
+        }} catch(e) {{}}
+      }}
+      const state = computeAffect(score, inact, true, result.expressions, roll, renderEAR);
       const color = affectColor(state);
       const mx = cw - box.x - box.width;
       canvasCtx.strokeStyle = color; canvasCtx.lineWidth = 2;
@@ -245,7 +290,7 @@ async function collectSample() {{
     if (result) {{
       facePresent = true;
       const box = result.detection ? result.detection.box : result.box;
-      const hp = estimateHeadPoseFromBox(box);
+      const hp = result.landmarks ? estimateHeadPoseFromLandmarks(result.landmarks, box) : estimateHeadPoseFromBox(box);
       headPose = hp.pose; yaw = hp.yaw; pitch = hp.pitch;
       gazeCentered = headPose === 'center';
 
@@ -271,7 +316,7 @@ async function collectSample() {{
   }}
 
   const score = computeEngagement(facePresent, gazeCentered, headPose, inactivity);
-  const affectState = computeAffect(score, inactivity, facePresent, expressions, roll);
+  const affectState = computeAffect(score, inactivity, facePresent, expressions, roll, ear);
 
   if (affectState !== lastAffectState && window.__liveWS && window.__liveWS.readyState === WebSocket.OPEN) {{
     window.__liveWS.send(JSON.stringify({{

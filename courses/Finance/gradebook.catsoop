@@ -1,6 +1,6 @@
 <python>
 import os as _os
-_api_base = _os.environ.get("CU_QUIZ_BASE_URL", "http://localhost:8000")
+_api_base = _os.environ.get("CU_QUIZ_BASE_URL", "https://api.kenechukwuosele.me")
 _cu_secret = _os.environ.get("CU_QUIZ_SECRET", "")
 _cu_admins = {u.strip() for u in _os.environ.get("CU_QUIZ_ADMINS", "admin").split(",") if u.strip()}
 _is_admin = cs_username in _cu_admins or cs_user_info.get("role", "") == "Instructor"

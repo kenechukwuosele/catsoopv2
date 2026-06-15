@@ -1,115 +1,48 @@
 <python>
-cs_content_header = "Forces and Newton's Laws Practice Problems"
+cs_content_header = 'Week 3 Practice Problems: Work, Energy & Power'
 </python>
 
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    padding: 20px;
-    background: #f9f9f9;
-  }
-  .card {
-    background: white;
-    border: 1px solid #ccc;
-    padding: 16px;
-    margin-bottom: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-  }
-  .correct {
-    color: green;
-    font-weight: bold;
-  }
-  .incorrect {
-    color: red;
-    font-weight: bold;
-  }
-  input[type="text"] {
-    width: 100%;
-    padding: 8px;
-    margin-top: 10px;
-  }
-  button {
-    margin-top: 10px;
-    padding: 8px 16px;
-  }
-</style>
+<question multiplechoice>
+csq_prompt = 'A force of 50 N pushes a box 10 m along a frictionless floor. How much work is done?'
+csq_options = ['500 J', '60 J', '5 J', '5000 J']
+csq_soln = '500 J'
+csq_renderer = 'radio'
+csq_npoints = 1
+csq_soln_mode = "value"
+</question>
 
-<!-- Example -->
-<div class="card">
-  <h2>Example</h2>
-  <p><strong>Example:</strong></p>
-  <pre>
-Newton's First Law states: An object will remain at rest or move with constant velocity unless acted upon by an external force.
+<question multiplechoice>
+csq_prompt = 'A 2 kg object moves at 6 m/s. What is its kinetic energy?'
+csq_options = ['12 J', '36 J', '24 J', '6 J']
+csq_soln = '36 J'
+csq_renderer = 'radio'
+csq_npoints = 1
+csq_soln_mode = "value"
+</question>
 
-Newton's Second Law is given by: 
-F = ma
-Where:
-  F = Force (in Newtons)
-  m = mass (in kilograms)
-  a = acceleration (in m/s²)
+<question multiplechoice>
+csq_prompt = 'A 5 kg ball is raised to a height of 4 m (g = 10 m/s²). What is its gravitational potential energy?'
+csq_options = ['20 J', '200 J', '50 J', '400 J']
+csq_soln = '200 J'
+csq_renderer = 'radio'
+csq_npoints = 1
+csq_soln_mode = "value"
+</question>
 
-Newton's Third Law states: For every action, there is an equal and opposite reaction.
-</pre>
-  <p>For example, if a 2 kg object accelerates at 3 m/s², the force acting on it is:<br>
-  <code>F = 2 × 3 = 6 N</code></p>
-</div>
+<question multiplechoice>
+csq_prompt = 'A machine does 1500 J of work in 30 seconds. What is its power output?'
+csq_options = ['50 W', '45000 W', '1500 W', '0.02 W']
+csq_soln = '50 W'
+csq_renderer = 'radio'
+csq_npoints = 1
+csq_soln_mode = "value"
+</question>
 
-<!-- Question 1 -->
-<div class="card">
-  <h2>Question 1</h2>
-  <p><strong>Question:</strong> What is Newton's First Law also known as?</p>
-  <input type="text" id="answer1" placeholder='Type your answer here'>
-  <button onclick="checkAnswer('answer1', 'result1', 'law of inertia')">Submit</button>
-  <div id="result1"></div>
-</div>
-
-<!-- Question 2 -->
-<div class="card">
-  <h2>Question 2</h2>
-  <p><strong>Question:</strong> What is the force acting on a 4 kg object accelerating at 2 m/s²?</p>
-  <input type="text" id="answer2" placeholder='Type your answer here'>
-  <button onclick="checkAnswer('answer2', 'result2', '8')">Submit</button>
-  <div id="result2"></div>
-</div>
-
-<!-- Question 3 -->
-<div class="card">
-  <h2>Question 3</h2>
-  <p><strong>Question:</strong> What is the SI unit of force?</p>
-  <input type="text" id="answer3" placeholder='Type your answer here'>
-  <button onclick="checkAnswer('answer3', 'result3', 'newton')">Submit</button>
-  <div id="result3"></div>
-</div>
-
-<!-- Question 4 -->
-<div class="card">
-  <h2>Question 4</h2>
-  <p><strong>Question:</strong> State Newton's Third Law of Motion.</p>
-  <input type="text" id="answer4" placeholder='Type your answer here'>
-  <button onclick="checkAnswer('answer4', 'result4', 'for every action there is an equal and opposite reaction')">Submit</button>
-  <div id="result4"></div>
-</div>
-
-<!-- Question 5 -->
-<div class="card">
-  <h2>Question 5</h2>
-  <p><strong>Question:</strong> A force of 15 N acts on a 5 kg mass. What is the acceleration of the object?</p>
-  <input type="text" id="answer5" placeholder='Type your answer here'>
-  <button onclick="checkAnswer('answer5', 'result5', '3')">Submit</button>
-  <div id="result5"></div>
-</div>
-
-<script>
-  function checkAnswer(inputId, resultId, correctAnswer) {
-    const userInput = document.getElementById(inputId).value.trim().toLowerCase();
-    const resultDiv = document.getElementById(resultId);
-    const expected = correctAnswer.toLowerCase();
-
-    if (userInput === expected) {
-      resultDiv.innerHTML = '<p class="correct">✅ Correct!</p>';
-    } else {
-      resultDiv.innerHTML = `<p class="incorrect">❌ Incorrect.</p><p>The correct answer is: <code>${correctAnswer}</code></p>`;
-    }
-  }
-</script>
+<question multiplechoice>
+csq_prompt = 'A roller coaster car starts from rest at the top of a 20 m hill (g = 10 m/s²). Assuming no friction, what is its speed at the bottom?'
+csq_options = ['10 m/s', '20 m/s', '40 m/s', '200 m/s']
+csq_soln = '20 m/s'
+csq_renderer = 'radio'
+csq_npoints = 1
+csq_soln_mode = "value"
+</question>

@@ -1,190 +1,48 @@
 <python>
-cs_content_header = "Football Practice Questions"
+cs_content_header = 'Week 1 Practice Problems: Introduction to Football (Soccer)'
 </python>
 
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    padding: 20px;
-    background: #f9f9f9;
-  }
-  .card {
-    background: white;
-    border: 1px solid #ccc;
-    padding: 16px;
-    margin-bottom: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-  }
-  .correct {
-    color: green;
-    font-weight: bold;
-  }
-  .incorrect {
-    color: red;
-    font-weight: bold;
-  }
-  input[type="text"] {
-    width: 100%;
-    padding: 8px;
-    margin-top: 10px;
-  }
-  button {
-    margin-top: 10px;
-    padding: 8px 16px;
-  }
-</style>
+<question multiplechoice>
+csq_prompt = 'A forward receives the ball when he is level with the last defender. Is he offside?'
+csq_options = ['Yes, because he is near the goal', 'No, because being level with the last defender means he is onside', "Yes, because he is in the opponent's half", 'No, if the ball was played to him by an opponent']
+csq_soln = 'No, because being level with the last defender means he is onside'
+csq_renderer = 'radio'
+csq_npoints = 1
+csq_soln_mode = "value"
+</question>
 
-<!-- Question 1 -->
-<div class="card">
-  <h2>Question 1</h2>
-  <p><strong>Question:</strong> Which country has won the most FIFA World Cups?</p>
-  <input type="text" id="answer1" placeholder='Type your answer here'>
-  <button onclick="checkAnswer('answer1', 'result1', 'Brazil')">Submit</button>
-  <div id="result1"></div>
-</div>
+<question multiplechoice>
+csq_prompt = 'A player receives a second yellow card in the same match. What happens?'
+csq_options = ['He receives a warning only', 'He is substituted off', 'He receives a red card and is sent off', 'Nothing — only red cards result in expulsion']
+csq_soln = 'He receives a red card and is sent off'
+csq_renderer = 'radio'
+csq_npoints = 1
+csq_soln_mode = "value"
+</question>
 
-<!-- Question 2 -->
-<div class="card">
-  <h2>Question 2</h2>
-  <p><strong>Question:</strong> Who is known as "The Egyptian King" in the Premier League?</p>
-  <input type="text" id="answer2" placeholder='Type your answer here'>
-  <button onclick="checkAnswer('answer2', 'result2', 'Mohamed Salah')">Submit</button>
-  <div id="result2"></div>
-</div>
+<question multiplechoice>
+csq_prompt = 'The goalkeeper catches the ball from a deliberate back-pass kicked by a teammate. The referee should award:'
+csq_options = ['A corner kick', 'A yellow card to the goalkeeper', 'An indirect free kick to the opposing team at the spot of the infringement', 'A penalty kick']
+csq_soln = 'An indirect free kick to the opposing team at the spot of the infringement'
+csq_renderer = 'radio'
+csq_npoints = 1
+csq_soln_mode = "value"
+</question>
 
-<!-- Question 3 -->
-<div class="card">
-  <h2>Question 3</h2>
-  <p><strong>Question:</strong> How many players are on the field for one football team during a match?</p>
-  <input type="text" id="answer3" placeholder='Type your answer here'>
-  <button onclick="checkAnswer('answer3', 'result3', '11')">Submit</button>
-  <div id="result3"></div>
-</div>
+<question multiplechoice>
+csq_prompt = 'In football, when a player is injured during open play, the referee:'
+csq_options = ['Immediately stops the game', 'May allow play to continue until the ball is out of play or a stoppage occurs naturally', 'Must stop play immediately by law', 'Awards a free kick']
+csq_soln = 'May allow play to continue until the ball is out of play or a stoppage occurs naturally'
+csq_renderer = 'radio'
+csq_npoints = 1
+csq_soln_mode = "value"
+</question>
 
-<!-- Question 4 -->
-<div class="card">
-  <h2>Question 4</h2>
-  <p><strong>Question:</strong> Which club does Lionel Messi currently play for (as of 2024)?</p>
-  <input type="text" id="answer4" placeholder='Type your answer here'>
-  <button onclick="checkAnswer('answer4', 'result4', 'Inter Miami')">Submit</button>
-  <div id="result4"></div>
-</div>
-
-<!-- Question 5 -->
-<div class="card">
-  <h2>Question 5</h2>
-  <p><strong>Question:</strong> What is the name of the competition played between European national football teams every 4 years?</p>
-  <input type="text" id="answer5" placeholder='Type your answer here'>
-  <button onclick="checkAnswer('answer5', 'result5', 'UEFA Euro')">Submit</button>
-  <div id="result5"></div>
-</div>
-
-<script>
-  function checkAnswer(inputId, resultId, correctAnswer) {
-    const userInput = document.getElementById(inputId).value.trim().toLowerCase();
-    const resultDiv = document.getElementById(resultId);
-    const expected = correctAnswer.toLowerCase();
-
-    if (userInput === expected) {
-      resultDiv.innerHTML = '<p class="correct">✅ Correct!</p>';
-    } else {
-      resultDiv.innerHTML = `<p class="incorrect">❌ Incorrect.</p><p>The correct answer is: <code>${correctAnswer}</code></p>`;
-    }
-  }
-</script>
-<python>
-cs_content_header = "Football Practice Questions"
-</python>
-
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    padding: 20px;
-    background: #f9f9f9;
-  }
-  .card {
-    background: white;
-    border: 1px solid #ccc;
-    padding: 16px;
-    margin-bottom: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-  }
-  .correct {
-    color: green;
-    font-weight: bold;
-  }
-  .incorrect {
-    color: red;
-    font-weight: bold;
-  }
-  input[type="text"] {
-    width: 100%;
-    padding: 8px;
-    margin-top: 10px;
-  }
-  button {
-    margin-top: 10px;
-    padding: 8px 16px;
-  }
-</style>
-
-<!-- Question 1 -->
-<div class="card">
-  <h2>Question 1</h2>
-  <p><strong>Question:</strong> Which country has won the most FIFA World Cups?</p>
-  <input type="text" id="answer1" placeholder='Type your answer here'>
-  <button onclick="checkAnswer('answer1', 'result1', 'Brazil')">Submit</button>
-  <div id="result1"></div>
-</div>
-
-<!-- Question 2 -->
-<div class="card">
-  <h2>Question 2</h2>
-  <p><strong>Question:</strong> Who is known as "The Egyptian King" in the Premier League?</p>
-  <input type="text" id="answer2" placeholder='Type your answer here'>
-  <button onclick="checkAnswer('answer2', 'result2', 'Mohamed Salah')">Submit</button>
-  <div id="result2"></div>
-</div>
-
-<!-- Question 3 -->
-<div class="card">
-  <h2>Question 3</h2>
-  <p><strong>Question:</strong> How many players are on the field for one football team during a match?</p>
-  <input type="text" id="answer3" placeholder='Type your answer here'>
-  <button onclick="checkAnswer('answer3', 'result3', '11')">Submit</button>
-  <div id="result3"></div>
-</div>
-
-<!-- Question 4 -->
-<div class="card">
-  <h2>Question 4</h2>
-  <p><strong>Question:</strong> Which club does Lionel Messi currently play for (as of 2024)?</p>
-  <input type="text" id="answer4" placeholder='Type your answer here'>
-  <button onclick="checkAnswer('answer4', 'result4', 'Inter Miami')">Submit</button>
-  <div id="result4"></div>
-</div>
-
-<!-- Question 5 -->
-<div class="card">
-  <h2>Question 5</h2>
-  <p><strong>Question:</strong> What is the name of the competition played between European national football teams every 4 years?</p>
-  <input type="text" id="answer5" placeholder='Type your answer here'>
-  <button onclick="checkAnswer('answer5', 'result5', 'UEFA Euro')">Submit</button>
-  <div id="result5"></div>
-</div>
-
-<script>
-  function checkAnswer(inputId, resultId, correctAnswer) {
-    const userInput = document.getElementById(inputId).value.trim().toLowerCase();
-    const resultDiv = document.getElementById(resultId);
-    const expected = correctAnswer.toLowerCase();
-
-    if (userInput === expected) {
-      resultDiv.innerHTML = '<p class="correct">✅ Correct!</p>';
-    } else {
-      resultDiv.innerHTML = `<p class="incorrect">❌ Incorrect.</p><p>The correct answer is: <code>${correctAnswer}</code></p>`;
-    }
-  }
-</script>
+<question multiplechoice>
+csq_prompt = 'Which of the following correctly describes the role of a CENTRE-BACK in football?'
+csq_options = ['Scores goals from the striker position', 'Primarily defends the central areas in front of the goalkeeper and marks opposing forwards', 'Delivers crosses from wide positions', 'Operates in midfield to control possession']
+csq_soln = 'Primarily defends the central areas in front of the goalkeeper and marks opposing forwards'
+csq_renderer = 'radio'
+csq_npoints = 1
+csq_soln_mode = "value"
+</question>

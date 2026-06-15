@@ -1,0 +1,48 @@
+<python>
+cs_content_header = 'Week 4 Practice Problems: Kinetic Theory of Gases'
+</python>
+
+<question multiplechoice>
+csq_prompt = 'An ideal gas occupies 2 L at 1 atm. If pressure doubles at constant temperature, what is the new volume?'
+csq_options = ['4 L', '2 L', '1 L', '0.5 L']
+csq_soln = '1 L'
+csq_renderer = 'radio'
+csq_npoints = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = 'A gas at 300 K is heated to 600 K at constant volume. By what factor does its pressure change?'
+csq_options = ['Stays the same', 'Doubles', 'Halves', 'Quadruples']
+csq_soln = 'Doubles'
+csq_renderer = 'radio'
+csq_npoints = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = 'Which quantity is directly proportional to the absolute temperature of an ideal gas?'
+csq_options = ['Volume (at constant P and n)', 'Average kinetic energy of molecules', 'Pressure (at constant T and n)', 'Molar mass']
+csq_soln = 'Average kinetic energy of molecules'
+csq_renderer = 'radio'
+csq_npoints = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = 'If n = 2 mol, R = 8.31 J/(mol·K), T = 300 K, and V = 0.05 m³, what is the pressure of the ideal gas?'
+csq_options = ['99720 Pa', '49860 Pa', '8310 Pa', '16620 Pa']
+csq_soln = '99720 Pa'
+csq_renderer = 'radio'
+csq_npoints = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = 'Increasing temperature causes gas molecules to move:'
+csq_options = ['Slower', 'Faster', 'At the same speed', 'Stop moving']
+csq_soln = 'Faster'
+csq_renderer = 'radio'
+csq_npoints = 1
+csq_soln_mode = "value"
+</question>

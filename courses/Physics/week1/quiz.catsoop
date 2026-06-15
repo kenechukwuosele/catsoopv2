@@ -3,7 +3,7 @@ cs_content_header = "Quiz: Physics - week1"
 cs_show_due = True
 cs_update_questions_cache = True
 import json, os as _os
-_api_base = _os.environ.get("CU_QUIZ_BASE_URL", "http://localhost:8000")
+_api_base = _os.environ.get("CU_QUIZ_BASE_URL", "https://api.kenechukwuosele.me")
 _cu_secret = _os.environ.get("CU_QUIZ_SECRET", "")
 _cu_admins = {u.strip() for u in _os.environ.get("CU_QUIZ_ADMINS", "").split(",") if u.strip()}
 _cu_token = ""
@@ -19,7 +19,7 @@ if _cu_secret:
 print(f'<script data-username="{cs_username}">')
 print(f'window.__cs_username = "{cs_username}";')
 print(f'window.__cs_user_role = "{cs_user_info.get("role", "Student")}";')
-print(f'window.__quizQuestionNames = ["q_8", "q_10"];')
+print(f'window.__quizQuestionNames = ["q_3d6991a5", "q_8c2259c9", "q_10fbcb66", "q_02f31a7f", "q_3281b337", "q_13a95b45", "q_f81f0698", "q_b158042c", "q_06d43dcc", "q_e3e0901c"];')
 print(f'window.__course = "Physics";')
 print(f'window.__week = "week1";')
 print(f'window.__CU_API_BASE = "{_api_base}";')
@@ -74,26 +74,116 @@ print('</script>')
 
 <div id="quiz-start-screen" style="display:none;text-align:center;padding:40px 20px;">
   <h2 style="color:#2c3e50;margin-bottom:16px;">Quiz: week1</h2>
-  <p style="font-size:1.1em;color:#555;margin-bottom:8px;">This quiz contains <strong>2</strong> questions.</p>
+  <p style="font-size:1.1em;color:#555;margin-bottom:8px;">This quiz contains <strong>10</strong> questions.</p>
   <p style="font-size:0.95em;color:#777;margin-bottom:24px;">You can check and submit your answers when ready.</p>
   <button onclick="document.getElementById('quiz-start-screen').style.display='none';document.getElementById('quiz-questions').style.display='block';" style="background:#4CAF50;color:white;padding:14px 36px;border:none;border-radius:6px;cursor:pointer;font-size:1.1em;">Start Quiz</button>
 </div>
 <div id="quiz-questions" style="display:none;">
-<question smallbox>
-csq_prompt = 'who postulated theory of relativity'
-csq_soln = 'einstein'
-csq_name = 'q_8'
+<question multiplechoice>
+csq_prompt = 'Which of the following is a VECTOR quantity?'
+csq_options = ['Speed', 'Distance', 'Mass', 'Displacement']
+csq_soln = 'Displacement'
+csq_renderer = 'radio'
+csq_name = 'q_3d6991a5'
 csq_npoints = 1
 csq_nsubmits = 1
-csq_size = 30
+csq_soln_mode = "value"
 </question>
 
 <question multiplechoice>
-csq_prompt = 'which is faster, speed of light or speed of sound?'
-csq_options = ['speed of light', 'speed of sound']
-csq_soln = 'speed of light'
+csq_prompt = 'A car travels 100 m in 5 s. What is its average speed?'
+csq_options = ['10 m/s', '20 m/s', '500 m/s', '0.05 m/s']
+csq_soln = '20 m/s'
 csq_renderer = 'radio'
-csq_name = 'q_10'
+csq_name = 'q_8c2259c9'
+csq_npoints = 1
+csq_nsubmits = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = 'Which equation relates displacement, initial velocity, time and acceleration in uniform acceleration?'
+csq_options = ['s = ut', 's = ut + ½at²', 'v = u + t', 's = vt - at²']
+csq_soln = 's = ut + ½at²'
+csq_renderer = 'radio'
+csq_name = 'q_10fbcb66'
+csq_npoints = 1
+csq_nsubmits = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = "An object in free fall near Earth's surface accelerates at approximately:"
+csq_options = ['9.8 m/s²', '9.8 m/s', '10 km/s²', '0 m/s²']
+csq_soln = '9.8 m/s²'
+csq_renderer = 'radio'
+csq_name = 'q_02f31a7f'
+csq_npoints = 1
+csq_nsubmits = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = 'Displacement is best described as:'
+csq_options = ['Total path length', 'Change in position with direction', 'Speed over time', 'Acceleration times time']
+csq_soln = 'Change in position with direction'
+csq_renderer = 'radio'
+csq_name = 'q_3281b337'
+csq_npoints = 1
+csq_nsubmits = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = 'A ball is thrown horizontally. Its horizontal velocity (ignoring air resistance):'
+csq_options = ['Increases due to gravity', 'Decreases due to gravity', 'Remains constant', 'First increases then decreases']
+csq_soln = 'Remains constant'
+csq_renderer = 'radio'
+csq_name = 'q_13a95b45'
+csq_npoints = 1
+csq_nsubmits = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = 'If initial velocity is 0 and acceleration is 5 m/s², what is velocity after 4 s?'
+csq_options = ['20 m/s', '10 m/s', '5 m/s', '25 m/s']
+csq_soln = '20 m/s'
+csq_renderer = 'radio'
+csq_name = 'q_f81f0698'
+csq_npoints = 1
+csq_nsubmits = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = 'On a velocity-time graph, the area under the curve represents:'
+csq_options = ['Acceleration', 'Displacement', 'Speed', 'Force']
+csq_soln = 'Displacement'
+csq_renderer = 'radio'
+csq_name = 'q_b158042c'
+csq_npoints = 1
+csq_nsubmits = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = 'Which of the following has SI unit m/s²?'
+csq_options = ['Velocity', 'Displacement', 'Acceleration', 'Speed']
+csq_soln = 'Acceleration'
+csq_renderer = 'radio'
+csq_name = 'q_06d43dcc'
+csq_npoints = 1
+csq_nsubmits = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = 'Relative velocity is the velocity of an object:'
+csq_options = ['Relative to the ground', 'Relative to another moving object', 'At maximum speed', 'At zero acceleration']
+csq_soln = 'Relative to another moving object'
+csq_renderer = 'radio'
+csq_name = 'q_e3e0901c'
 csq_npoints = 1
 csq_nsubmits = 1
 csq_soln_mode = "value"
@@ -106,7 +196,7 @@ csq_soln_mode = "value"
 <script>
 (function() {
     const API = (function() {
-        const base = window.__CU_API_BASE || 'http://localhost:8000';
+        const base = window.__CU_API_BASE || 'https://api.kenechukwuosele.me';
         try {
             const u = new URL(base);
             const h = window.location.hostname;
@@ -348,8 +438,8 @@ csq_soln_mode = "value"
                 console.error('[face-auth] model load attempt ' + attempt + ' failed:', e);
                 if (attempt < MAX_RETRIES) {
                     const wait = attempt * 3;
-                    if (subtitleEl) subtitleEl.textContent = '⚠️ Your network seems unstable — retrying in ' + wait + 's...';
-                    setStatus('⚠️ Network unstable — retrying...', '#f59e0b');
+                    if (subtitleEl) subtitleEl.textContent = '⚠️ Your network seems unstable, retrying in ' + wait + 's...';
+                    setStatus('⚠️ Network unstable, retrying...', '#f59e0b');
                     await new Promise(function(res) { setTimeout(res, wait * 1000); });
                 }
             }
@@ -357,12 +447,12 @@ csq_soln_mode = "value"
         if (!modelsLoaded) {
             console.error('[face-auth] all model load attempts failed');
             if (subtitleEl) subtitleEl.textContent = 'Could not load face models after ' + MAX_RETRIES + ' attempts. Your network may be unstable.';
-            setStatus('⚠️ Face recognition unavailable — quiz unlocked without verification', '#f59e0b');
+            setStatus('⚠️ Face recognition unavailable, quiz unlocked without verification', '#f59e0b');
             if (btnEl) { btnEl.textContent = 'Skip (not recommended)'; btnEl.style.display = 'block'; btnEl.onclick = function() { PASS(); }; }
             return;
         }
 
-        if (stepEl) stepEl.textContent = enrolled ? 'Step 2 of 2' : 'Step 1 of 2 — First-time setup';
+        if (stepEl) stepEl.textContent = enrolled ? 'Step 2 of 2' : 'Step 1 of 2 == First-time setup';
         if (titleEl) titleEl.textContent = enrolled ? '🔐 Verify Your Identity' : '📸 Set Up Face ID';
         if (subtitleEl) subtitleEl.textContent = enrolled
             ? 'Look at the camera to confirm it is you.'
@@ -380,7 +470,7 @@ csq_soln_mode = "value"
                 if (det) {
                     currentDescriptor = Array.from(det.descriptor);
                     setRing('#22c55e', false);
-                    setStatus('✅ Face detected — click below to continue', '#22c55e');
+                    setStatus('✅ Face detected, click below to continue', '#22c55e');
                     if (btnEl) btnEl.style.display = 'block';
                 } else {
                     currentDescriptor = null;
@@ -523,7 +613,7 @@ if (window.__affectInjected) return;
 window.__affectInjected = true;
 
 const API = (function() {
-    const base = window.__CU_API_BASE || 'http://localhost:8000';
+    const base = window.__CU_API_BASE || 'https://api.kenechukwuosele.me';
     try {
         const u = new URL(base);
         const h = window.location.hostname;
@@ -538,6 +628,7 @@ const attemptSessionId = (window.crypto && crypto.randomUUID) ? crypto.randomUUI
 let videoStream = null, videoEl = null, canvasEl = null, canvasCtx = null;
 let lastInteractionTime = Date.now(), lastEngagementSent = 0, lastAffectState = null;
 let pageClicks = 0, keypressCount = 0;
+let _consecutiveLowEAR = 0, _affectBuffer = [];
 
 document.addEventListener('click', () => { pageClicks++; lastInteractionTime = Date.now(); });
 document.addEventListener('keydown', () => { keypressCount++; lastInteractionTime = Date.now(); });
@@ -596,7 +687,7 @@ async function detectFaceRich() {
     if (!faceapi.nets.tinyFaceDetector.isLoaded) return null;
     const hasLandmarks = faceapi.nets.faceLandmark68TinyNet.isLoaded;
     const hasExpressions = faceapi.nets.faceExpressionNet.isLoaded;
-    const opts = new faceapi.TinyFaceDetectorOptions({ inputSize: 224, scoreThreshold: 0.2 });
+    const opts = new faceapi.TinyFaceDetectorOptions({ inputSize: 320, scoreThreshold: 0.2 });
     if (hasLandmarks && hasExpressions) {
       return await faceapi.detectSingleFace(videoEl, opts).withFaceLandmarks(true).withFaceExpressions() || null;
     } else if (hasLandmarks) {
@@ -651,27 +742,64 @@ function estimateHeadPoseFromBox(box) {
   return { pose: 'down', yaw: normX * 90, pitch: normY * 45 };
 }
 
+function estimateHeadPoseFromLandmarks(landmarks, box) {
+  try {
+    const le = landmarks.getLeftEye();
+    const re = landmarks.getRightEye();
+    const noseArr = landmarks.getNose();
+    const lCx = le.reduce((s,p)=>s+p.x,0)/le.length;
+    const lCy = le.reduce((s,p)=>s+p.y,0)/le.length;
+    const rCx = re.reduce((s,p)=>s+p.x,0)/re.length;
+    const rCy = re.reduce((s,p)=>s+p.y,0)/re.length;
+    const eyeMidX = (lCx + rCx) / 2;
+    const eyeMidY = (lCy + rCy) / 2;
+    const faceW = dist2d({x:lCx,y:lCy}, {x:rCx,y:rCy});
+    const noseTip = noseArr[3] || noseArr[noseArr.length-1];
+    const yawNorm = faceW > 0 ? (noseTip.x - eyeMidX) / faceW : 0;
+    const pitchNorm = box ? ((eyeMidY - (box.y + box.height * 0.3)) / box.height) : 0;
+    const yaw = yawNorm * 90, pitch = pitchNorm * 45;
+    let pose = 'center';
+    if (Math.abs(yawNorm) >= 0.2 || Math.abs(pitchNorm) >= 0.2) {
+      pose = Math.abs(yawNorm) > Math.abs(pitchNorm)
+        ? (yawNorm > 0 ? 'left' : 'right') : 'down';
+    }
+    return { pose, yaw, pitch };
+  } catch(e) {
+    return estimateHeadPoseFromBox(box);
+  }
+}
+
 function computeEngagement(present, gaze, headPose, inactivity) {
   let score = 100;
   if (!present) score -= 45;
   if (!gaze) score -= 20;
   if (headPose === 'down') score -= 15;
   else if (headPose === 'left' || headPose === 'right') score -= 10;
-  if (inactivity > 120) score -= 30; else if (inactivity > 60) score -= 15;
+  if (inactivity > 180) score -= 30; else if (inactivity > 90) score -= 15;
   return Math.max(0, Math.min(100, score));
 }
 
-function computeAffect(score, inactivity, facePresent, expressions, rollDeg) {
-  if (!facePresent || inactivity > 90) return 'distracted';
+function _smoothState(rawState) {
+  _affectBuffer.push(rawState);
+  if (_affectBuffer.length > 2) _affectBuffer.shift();
+  if (_affectBuffer.length === 2 && _affectBuffer[0] === _affectBuffer[1]) return rawState;
+  return _affectBuffer.length === 1 ? rawState : _affectBuffer[0];
+}
+
+function computeAffect(score, inactivity, facePresent, expressions, rollDeg, ear) {
+  if (!facePresent || inactivity > 150) { _consecutiveLowEAR = 0; return _smoothState('distracted'); }
+  if (ear !== null && ear !== undefined && ear < 0.18) { _consecutiveLowEAR++; }
+  else { _consecutiveLowEAR = 0; }
+  if (_consecutiveLowEAR >= 2) return _smoothState('disengaged');
   if (expressions) {
     const angry = expressions.angry || 0;
     const fearful = expressions.fearful || 0;
     const surprised = expressions.surprised || 0;
-    if (angry > 0.25 || fearful > 0.25) return 'struggling';
-    if (surprised > 0.3 || Math.abs(rollDeg || 0) > 20) return 'confused';
+    if (angry > 0.25 || fearful > 0.25) return _smoothState('struggling');
+    if (surprised > 0.3 || Math.abs(rollDeg || 0) > 30) return _smoothState('confused');
   }
-  if (inactivity > 60 || score < 30) return 'disengaged';
-  return 'focused';
+  if (inactivity > 90 || score < 30) return _smoothState('disengaged');
+  return _smoothState('focused');
 }
 
 async function ensureStream() {
@@ -701,11 +829,18 @@ async function renderLoop() {
     if (result) {
       const box = result.detection ? result.detection.box : result.box;
       const inact = Math.floor((Date.now() - lastInteractionTime) / 1000);
-      const hp = estimateHeadPoseFromBox(box);
+      const hp = result.landmarks ? estimateHeadPoseFromLandmarks(result.landmarks, box) : estimateHeadPoseFromBox(box);
       const score = computeEngagement(true, hp.pose === 'center', hp.pose, inact);
-      let roll = null;
-      if (result.landmarks) { try { roll = calcHeadRoll(result.landmarks); } catch(e) {} }
-      const state = computeAffect(score, inact, true, result.expressions, roll);
+      let roll = null, renderEAR = null;
+      if (result.landmarks) {
+        try {
+          roll = calcHeadRoll(result.landmarks);
+          const earL = calcEAR(result.landmarks.getLeftEye());
+          const earR = calcEAR(result.landmarks.getRightEye());
+          if (earL !== null && earR !== null) renderEAR = (earL + earR) / 2;
+        } catch(e) {}
+      }
+      const state = computeAffect(score, inact, true, result.expressions, roll, renderEAR);
       const color = affectColor(state);
       const mx = cw - box.x - box.width;
       canvasCtx.strokeStyle = color; canvasCtx.lineWidth = 2;
@@ -748,7 +883,7 @@ async function collectSample() {
     if (result) {
       facePresent = true;
       const box = result.detection ? result.detection.box : result.box;
-      const hp = estimateHeadPoseFromBox(box);
+      const hp = result.landmarks ? estimateHeadPoseFromLandmarks(result.landmarks, box) : estimateHeadPoseFromBox(box);
       headPose = hp.pose; yaw = hp.yaw; pitch = hp.pitch;
       gazeCentered = headPose === 'center';
 
@@ -774,7 +909,7 @@ async function collectSample() {
   }
 
   const score = computeEngagement(facePresent, gazeCentered, headPose, inactivity);
-  const affectState = computeAffect(score, inactivity, facePresent, expressions, roll);
+  const affectState = computeAffect(score, inactivity, facePresent, expressions, roll, ear);
 
   if (affectState !== lastAffectState && window.__liveWS && window.__liveWS.readyState === WebSocket.OPEN) {
     window.__liveWS.send(JSON.stringify({

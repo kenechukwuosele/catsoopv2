@@ -1,0 +1,194 @@
+<python>
+import os as _os
+_api_base = _os.environ.get("CU_QUIZ_BASE_URL", "https://api.kenechukwuosele.me")
+_cu_secret = _os.environ.get("CU_QUIZ_SECRET", "")
+_cu_admins = {u.strip() for u in _os.environ.get("CU_QUIZ_ADMINS", "admin").split(",") if u.strip()}
+_is_admin = cs_username in _cu_admins or cs_user_info.get("role", "") == "Instructor"
+if not _is_admin and _api_base and cs_username:
+    try:
+        import urllib.request as _ur, json as _jj
+        _lc = _ur.urlopen(_api_base + '/Automation_and_Robotics/is-lecturer?username=' + cs_username, timeout=2)
+        _is_admin = _jj.loads(_lc.read()).get('is_lecturer', False)
+    except Exception:
+        pass
+_cu_token = ""
+if _cu_secret and _is_admin:
+    try:
+        import jwt as _jwt, datetime as _dt
+        _cu_token = _jwt.encode(
+            {"sub": cs_username, "is_admin": True,
+              "exp": _dt.datetime.utcnow() + _dt.timedelta(hours=8)},
+            _cu_secret, algorithm="HS256")
+    except Exception:
+        pass
+cs_content_header = "Gradebook"
+print('<script>var gbIsAdmin='+str(_is_admin).lower()+';var gbApiBase="'+_api_base+'";var gbToken="'+_cu_token+'";var gbCourse="Automation_and_Robotics";</script>')
+</python>
+
+<div id="gb-denied" style="display:none;padding:40px;text-align:center;">
+  <h2 style="color:#c0392b;">Access Denied</h2>
+  <p style="color:#333;">Only instructors can view the gradebook.</p>
+</div>
+
+<div id="gb-main" style="display:none;color:#333;">
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;flex-wrap:wrap;">
+    <label style="font-weight:600;color:#333;">Week:</label>
+    <select id="gb-week" onchange="gbLoad()"
+      style="padding:6px 12px;border:1px solid #ddd;border-radius:6px;font-size:14px;min-width:160px;"></select>
+    <button onclick="gbExportCSV()"
+      style="margin-left:auto;padding:7px 16px;background:#2572F5;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:13px;">
+      &#11015; Export CSV</button>
+  </div>
+  <div id="gb-summary"
+    style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px;"></div>
+  <div id="gb-table-wrap" style="overflow-x:auto;"></div>
+</div>
+
+<script>
+(function() {
+  var H = {"Authorization": "Bearer " + gbToken};
+
+  function card(label, val) {
+    return '<div style="background:#f8f9fa;border:1px solid #e9ecef;border-radius:8px;'
+      + 'padding:14px;text-align:center;color:#333;">'
+      + '<div style="font-size:22px;font-weight:700;color:#2572F5;">' + val + '</div>'
+      + '<div style="font-size:12px;color:#666;margin-top:4px;">' + label + '</div></div>';
+  }
+
+  function chip(pct) {
+    if (pct === null || pct === undefined) return '<span style="color:#aaa;">&#8212;</span>';
+    var c = pct >= 70 ? '#27ae60' : pct >= 40 ? '#e67e22' : '#e74c3c';
+    return '<span style="background:' + c + ';color:#fff;padding:2px 7px;'
+      + 'border-radius:10px;font-size:12px;">' + Math.round(pct) + '%</span>';
+  }
+
+  var _grades = [], _questions = [];
+
+  async function gbLoad() {
+    var week = document.getElementById('gb-week').value;
+    if (!week) return;
+    var wrap = document.getElementById('gb-table-wrap');
+    wrap.innerHTML = '<p style="color:#999;padding:20px;">Loading&#8230;</p>';
+    document.getElementById('gb-summary').innerHTML = '';
+    try {
+      var responses = await Promise.all([
+        fetch(gbApiBase + '/' + gbCourse + '/' + week + '/grades', {headers: H}),
+        fetch(gbApiBase + '/admin/questions/' + gbCourse + '/' + week, {headers: H})
+      ]);
+      var grRes = responses[0], qRes = responses[1];
+      if (!grRes.ok) {
+        wrap.innerHTML = '<p style="color:red;padding:20px;">Failed to load grades (HTTP '
+          + grRes.status + ')</p>';
+        return;
+      }
+      var grData = await grRes.json();
+      var qData = qRes.ok ? await qRes.json() : {};
+      _grades = grData.grades || [];
+      _questions = qData.questions || [];
+      gbRender();
+    } catch(e) {
+      wrap.innerHTML = '<p style="color:red;padding:20px;">Error: ' + e.message + '</p>';
+    }
+  }
+
+  function gbRender() {
+    var qs = _questions, gs = _grades;
+    var total = gs.length;
+    var avg = total ? gs.reduce(function(s, r) { return s + r.percent; }, 0) / total : 0;
+    var passing = gs.filter(function(r) { return r.percent >= 70; }).length;
+    var top = total ? Math.max.apply(null, gs.map(function(r) { return r.percent; })) : 0;
+    document.getElementById('gb-summary').innerHTML =
+      card('Students', total) +
+      card('Class Average', Math.round(avg) + '%') +
+      card('Pass Rate (&ge;70%)', total ? Math.round(passing / total * 100) + '%' : '&mdash;') +
+      card('Top Score', Math.round(top) + '%');
+
+    var thStyle = 'padding:8px 12px;background:#f8f9fa;border-bottom:2px solid #dee2e6;white-space:nowrap;color:#333;';
+    var th = '<th style="' + thStyle + 'text-align:left;">Username</th>';
+    qs.forEach(function(q, i) {
+      th += '<th style="' + thStyle + 'text-align:center;">Q' + (i + 1) + '</th>';
+    });
+    th += '<th style="' + thStyle + 'text-align:center;">Total %</th>';
+    th += '<th style="' + thStyle + 'text-align:left;">Last Submit</th>';
+
+    var rows = gs.map(function(r) {
+      var cells = '<td style="padding:8px 12px;font-weight:500;color:#222;">' + r.username + '</td>';
+      qs.forEach(function(q) {
+        var sc = r.question_scores && r.question_scores[q.csq_name];
+        cells += '<td style="padding:8px 12px;text-align:center;">' + chip(sc != null ? sc * 100 : null) + '</td>';
+      });
+      cells += '<td style="padding:8px 12px;text-align:center;">' + chip(r.percent) + '</td>';
+      var d = r.last_submit ? r.last_submit.split('T')[0] : '&mdash;';
+      cells += '<td style="padding:8px 12px;color:#666;font-size:12px;">' + d + '</td>';
+      return '<tr style="border-bottom:1px solid #f0f0f0;">' + cells + '</tr>';
+    }).join('');
+
+    if (!rows) {
+      rows = '<tr><td colspan="' + (qs.length + 3)
+        + '" style="padding:24px;text-align:center;color:#999;">No submissions yet for this week.</td></tr>';
+    }
+    document.getElementById('gb-table-wrap').innerHTML =
+      '<table style="width:100%;border-collapse:collapse;font-size:14px;">'
+      + '<thead><tr>' + th + '</tr></thead>'
+      + '<tbody>' + rows + '</tbody></table>';
+  }
+
+  window.gbExportCSV = function() {
+    var week = document.getElementById('gb-week').value || 'unknown';
+    var qs = _questions, gs = _grades;
+    if (!gs.length) { alert('No data to export.'); return; }
+    var header = ['Username'].concat(qs.map(function(q, i) { return 'Q' + (i + 1); }))
+      .concat(['Total%', 'LastSubmit']).join(',');
+    var rowsCSV = gs.map(function(r) {
+      var cells = [r.username];
+      qs.forEach(function(q) {
+        var sc = r.question_scores && r.question_scores[q.csq_name];
+        cells.push(sc != null ? Math.round(sc * 100) : '');
+      });
+      cells.push(Math.round(r.percent));
+      cells.push(r.last_submit ? r.last_submit.split('T')[0] : '');
+      return cells.join(',');
+    });
+    var csv = [header].concat(rowsCSV).join('\n');
+    var a = document.createElement('a');
+    a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+    a.download = gbCourse + '_' + week + '_grades.csv';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  };
+
+  window.gbLoad = gbLoad;
+
+  async function init() {
+    if (!gbIsAdmin) {
+      document.getElementById('gb-denied').style.display = 'block';
+      return;
+    }
+    document.getElementById('gb-main').style.display = 'block';
+    try {
+      var r = await fetch(gbApiBase + '/admin/courses/' + gbCourse + '/weeks', {headers: H});
+      if (!r.ok) {
+        document.getElementById('gb-table-wrap').innerHTML =
+          '<p style="color:red;padding:20px;">Could not load weeks (HTTP ' + r.status + ')</p>';
+        return;
+      }
+      var data = await r.json();
+      var weeks = data.weeks || [];
+      var sel = document.getElementById('gb-week');
+      if (!weeks.length) {
+        sel.innerHTML = '<option value="">No weeks found</option>';
+        return;
+      }
+      sel.innerHTML = weeks.map(function(w) {
+        return '<option value="' + w.id + '">' + w.title + '</option>';
+      }).join('');
+      gbLoad();
+    } catch(e) {
+      console.error('Gradebook init error', e);
+    }
+  }
+
+  init();
+})();
+</script>

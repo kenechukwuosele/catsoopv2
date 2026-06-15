@@ -1,105 +1,48 @@
 <python>
-cs_content_header = "Introduction to Physics Practice Problems"
+cs_content_header = 'Week 1 Practice Problems: Kinematics'
 </python>
 
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    padding: 20px;
-    background: #f9f9f9;
-  }
-  .card {
-    background: white;
-    border: 1px solid #ccc;
-    padding: 16px;
-    margin-bottom: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-  }
-  .correct {
-    color: green;
-    font-weight: bold;
-  }
-  .incorrect {
-    color: red;
-    font-weight: bold;
-  }
-  input[type="text"] {
-    width: 100%;
-    padding: 8px;
-    margin-top: 10px;
-  }
-  button {
-    margin-top: 10px;
-    padding: 8px 16px;
-  }
-</style>
+<question multiplechoice>
+csq_prompt = 'A car starts from rest and accelerates uniformly at 3 m/s² for 5 seconds. What is its final velocity?'
+csq_options = ['3 m/s', '8 m/s', '15 m/s', '10 m/s']
+csq_soln = '15 m/s'
+csq_renderer = 'radio'
+csq_npoints = 1
+csq_soln_mode = "value"
+</question>
 
-<!-- Example -->
-<div class="card">
-  <h2>Example</h2>
-  <p><strong>Example:</strong></p>
-  <pre>In physics, speed is defined as the distance traveled divided by the time taken. 
-Formula: speed = distance / time</pre>
-  
-  <p>For example, if a car travels 100 meters in 20 seconds, the speed is: <br><code>speed = 100 / 20 = 5 m/s</code></p>
-</div>
+<question multiplechoice>
+csq_prompt = 'A ball is thrown upward at 20 m/s. Using g = 10 m/s², how long does it take to reach the highest point?'
+csq_options = ['1 s', '2 s', '3 s', '4 s']
+csq_soln = '2 s'
+csq_renderer = 'radio'
+csq_npoints = 1
+csq_soln_mode = "value"
+</question>
 
-<!-- Question 1 -->
-<div class="card">
-  <h2>Question 1</h2>
-  <p><strong>Question:</strong> What is the SI unit of force?</p>
-  <input type="text" id="answer1" placeholder='Type your answer here'>
-  <button onclick="checkAnswer('answer1', 'result1', 'newton')">Submit</button>
-  <div id="result1"></div>
-</div>
+<question multiplechoice>
+csq_prompt = 'A train travels 300 m in 15 s. What is its average speed?'
+csq_options = ['15 m/s', '20 m/s', '30 m/s', '10 m/s']
+csq_soln = '20 m/s'
+csq_renderer = 'radio'
+csq_npoints = 1
+csq_soln_mode = "value"
+</question>
 
-<!-- Question 2 -->
-<div class="card">
-  <h2>Question 2</h2>
-  <p><strong>Question:</strong> Who is known as the father of modern physics?</p>
-  <input type="text" id="answer2" placeholder='Type your answer here'>
-  <button onclick="checkAnswer('answer2', 'result2', 'albert einstein')">Submit</button>
-  <div id="result2"></div>
-</div>
+<question multiplechoice>
+csq_prompt = 'An object is dropped from rest. After 3 s (g = 10 m/s²), how far has it fallen?'
+csq_options = ['30 m', '45 m', '90 m', '15 m']
+csq_soln = '45 m'
+csq_renderer = 'radio'
+csq_npoints = 1
+csq_soln_mode = "value"
+</question>
 
-<!-- Question 3 -->
-<div class="card">
-  <h2>Question 3</h2>
-  <p><strong>Question:</strong> What quantity does a speedometer measure?</p>
-  <input type="text" id="answer3" placeholder='Type your answer here'>
-  <button onclick="checkAnswer('answer3', 'result3', 'speed')">Submit</button>
-  <div id="result3"></div>
-</div>
-
-<!-- Question 4 -->
-<div class="card">
-  <h2>Question 4</h2>
-  <p><strong>Question:</strong> What is the acceleration due to gravity on Earth (in m/s²)?</p>
-  <input type="text" id="answer4" placeholder='Type your answer here'>
-  <button onclick="checkAnswer('answer4', 'result4', '9.8')">Submit</button>
-  <div id="result4"></div>
-</div>
-
-<!-- Question 5 -->
-<div class="card">
-  <h2>Question 5</h2>
-  <p><strong>Question:</strong> What is the formula for calculating work done?</p>
-  <input type="text" id="answer5" placeholder='Type your answer here'>
-  <button onclick="checkAnswer('answer5', 'result5', 'work = force × distance')">Submit</button>
-  <div id="result5"></div>
-</div>
-
-<script>
-  function checkAnswer(inputId, resultId, correctAnswer) {
-    const userInput = document.getElementById(inputId).value.trim().toLowerCase();
-    const resultDiv = document.getElementById(resultId);
-    const expected = correctAnswer.toLowerCase();
-
-    if (userInput === expected) {
-      resultDiv.innerHTML = '<p class="correct">✅ Correct!</p>';
-    } else {
-      resultDiv.innerHTML = `<p class="incorrect">❌ Incorrect.</p><p>The correct answer is: <code>${correctAnswer}</code></p>`;
-    }
-  }
-</script>
+<question multiplechoice>
+csq_prompt = 'A car travelling at 30 m/s brakes and decelerates at 5 m/s². How long before it stops?'
+csq_options = ['3 s', '5 s', '6 s', '10 s']
+csq_soln = '6 s'
+csq_renderer = 'radio'
+csq_npoints = 1
+csq_soln_mode = "value"
+</question>

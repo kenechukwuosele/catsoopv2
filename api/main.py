@@ -20,6 +20,9 @@ from .database import engine
 from .websocket import get_router as get_ws_router
 from .routes.file_questions import get_router as get_file_questions_router
 from .routes.admin import get_router as get_admin_router
+from .routes.live_files import get_router as get_live_files_router
+from .routes.face_enrollments import get_router as get_face_enrollments_router
+from .routes.repair import get_router as get_repair_router
 from .routes.courses import get_router as get_courses_router
 from .routes.hints import get_router as get_hints_router
 from .routes.rag import get_router as get_rag_router
@@ -124,6 +127,9 @@ app.mount("/static/admin", StaticFiles(directory=_admin_static_dir), name="admin
 app.include_router(get_ws_router())
 app.include_router(get_file_questions_router())
 app.include_router(get_admin_router())
+app.include_router(get_live_files_router())
+app.include_router(get_face_enrollments_router())
+app.include_router(get_repair_router())
 app.include_router(get_courses_router())
 app.include_router(get_hints_router())
 app.include_router(get_rag_router())

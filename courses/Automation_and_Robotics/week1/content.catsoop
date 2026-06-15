@@ -1,0 +1,19 @@
+<python>
+cs_content_header = 'Introduction to Automation and Robotics'
+</python>
+
+Automation is the creation of technology and its application in order to control and monitor the production and delivery of various goods and services.
+It performs tasks that were previously performed by humans
+## Automation is being used in a number of areas such as ---
+* manufacturing,
+*  transport, 
+* utilities,
+*  defense,
+*  facilities,
+*  operations
+*  information technology
+
+## Learning Materials
+* [Lecture Notes](week1/lecture1)
+* [Practice Problems](week1/problem1)
+* [Quiz](week1/quiz)

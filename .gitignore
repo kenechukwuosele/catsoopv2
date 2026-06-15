@@ -12,3 +12,6 @@ _logs/
 _vectors/
 SESSION_CONTEXT.md
 *.docx
+.env.tunnel
+catsoop-bundle.tar.gz
+*.tar.gz

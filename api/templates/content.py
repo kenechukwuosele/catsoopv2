@@ -41,7 +41,7 @@ def generate_live_file_panel() -> str:
   }
   async function load(){
     try{
-      const r = await fetch(apiBase + '/admin/live-file/' + course + '/' + week);
+      const r = await fetch(apiBase + '/live-file-info/' + course + '/' + week);
       renderFile(r.ok ? await r.json() : null);
     }catch{ renderFile(null); }
   }

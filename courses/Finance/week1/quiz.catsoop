@@ -3,7 +3,7 @@ cs_content_header = "Quiz: Finance - week1"
 cs_show_due = True
 cs_update_questions_cache = True
 import json, os as _os
-_api_base = _os.environ.get("CU_QUIZ_BASE_URL", "http://localhost:8000")
+_api_base = _os.environ.get("CU_QUIZ_BASE_URL", "https://api.kenechukwuosele.me")
 _cu_secret = _os.environ.get("CU_QUIZ_SECRET", "")
 _cu_admins = {u.strip() for u in _os.environ.get("CU_QUIZ_ADMINS", "").split(",") if u.strip()}
 _cu_token = ""
@@ -19,7 +19,7 @@ if _cu_secret:
 print(f'<script data-username="{cs_username}">')
 print(f'window.__cs_username = "{cs_username}";')
 print(f'window.__cs_user_role = "{cs_user_info.get("role", "Student")}";')
-print(f'window.__quizQuestionNames = ["q_13", "q_6ef83afb", "q_4f707939"];')
+print(f'window.__quizQuestionNames = ["q_dde94f60", "q_0852aa8d", "q_ee7e267c", "q_2ddeba14", "q_1e0c26d4", "q_3df31953", "q_1dbb57e0", "q_a3eda7e8", "q_1d94f7a4", "q_8243bcd4"];')
 print(f'window.__course = "Finance";')
 print(f'window.__week = "week1";')
 print(f'window.__CU_API_BASE = "{_api_base}";')
@@ -74,35 +74,116 @@ print('</script>')
 
 <div id="quiz-start-screen" style="display:none;text-align:center;padding:40px 20px;">
   <h2 style="color:#2c3e50;margin-bottom:16px;">Quiz: week1</h2>
-  <p style="font-size:1.1em;color:#555;margin-bottom:8px;">This quiz contains <strong>3</strong> questions.</p>
+  <p style="font-size:1.1em;color:#555;margin-bottom:8px;">This quiz contains <strong>10</strong> questions.</p>
   <p style="font-size:0.95em;color:#777;margin-bottom:24px;">You can check and submit your answers when ready.</p>
   <button onclick="document.getElementById('quiz-start-screen').style.display='none';document.getElementById('quiz-questions').style.display='block';" style="background:#4CAF50;color:white;padding:14px 36px;border:none;border-radius:6px;cursor:pointer;font-size:1.1em;">Start Quiz</button>
 </div>
 <div id="quiz-questions" style="display:none;">
-<question smallbox>
-csq_prompt = 'who was the richest man in babylon?'
-csq_soln = 'Arkad'
-csq_name = 'q_13'
+<question multiplechoice>
+csq_prompt = "According to 'The Richest Man in Babylon', what percentage of earnings should you save first?"
+csq_options = ['5%', '10%', '15%', '20%']
+csq_soln = '10%'
+csq_renderer = 'radio'
+csq_name = 'q_dde94f60'
 csq_npoints = 1
 csq_nsubmits = 1
-csq_size = 30
-</question>
-
-<question smallbox>
-csq_prompt = 'how many ways to achieve a lean purse'
-csq_soln = '7'
-csq_name = 'q_6ef83afb'
-csq_npoints = 1
-csq_nsubmits = 1
-csq_size = 30
+csq_soln_mode = "value"
 </question>
 
 <question multiplechoice>
-csq_prompt = 'who was the richest man in babylon?'
-csq_options = ['joahu', 'Arkad', 'Kenshi', 'john']
-csq_soln = 'Arkad'
+csq_prompt = "Which of the following best describes the 'Pay Yourself First' principle?"
+csq_options = ['Spend on necessities before saving', 'Set aside savings before paying any expenses', 'Invest all income immediately', 'Give to charity before saving']
+csq_soln = 'Set aside savings before paying any expenses'
 csq_renderer = 'radio'
-csq_name = 'q_4f707939'
+csq_name = 'q_0852aa8d'
+csq_npoints = 1
+csq_nsubmits = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = 'In the book, Arkad became rich primarily by:'
+csq_options = ['Inheriting wealth', 'Winning a lottery', 'Saving a portion of every earning and letting it grow', 'Starting a business with borrowed money']
+csq_soln = 'Saving a portion of every earning and letting it grow'
+csq_renderer = 'radio'
+csq_name = 'q_ee7e267c'
+csq_npoints = 1
+csq_nsubmits = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = "The 'Five Laws of Gold' in the book state that gold flees from:"
+csq_options = ['Those who save it', 'Those who invest it wisely', 'Those who invest in businesses they do not understand', 'Those who work hard']
+csq_soln = 'Those who invest in businesses they do not understand'
+csq_renderer = 'radio'
+csq_name = 'q_2ddeba14'
+csq_npoints = 1
+csq_nsubmits = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = 'Compound interest is best described as:'
+csq_options = ['Interest earned only on the principal', 'Interest earned on both principal and previously earned interest', 'A fixed payment each year', 'A government tax on savings']
+csq_soln = 'Interest earned on both principal and previously earned interest'
+csq_renderer = 'radio'
+csq_name = 'q_1e0c26d4'
+csq_npoints = 1
+csq_nsubmits = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = "According to the book, a 'fat purse' is built by:"
+csq_options = ['Spending less than you earn', 'Working multiple jobs', 'Borrowing wisely', 'Spending on luxury to attract wealth']
+csq_soln = 'Spending less than you earn'
+csq_renderer = 'radio'
+csq_name = 'q_3df31953'
+csq_npoints = 1
+csq_nsubmits = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = "Which of the following is a key lesson from the 'Clay Tablets' story in the book?"
+csq_options = ['Avoid all debt completely', 'A systematic plan can eliminate debt over time', 'Borrow as much as possible to invest', 'Wealth is only for the privileged']
+csq_soln = 'A systematic plan can eliminate debt over time'
+csq_renderer = 'radio'
+csq_name = 'q_1dbb57e0'
+csq_npoints = 1
+csq_nsubmits = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = 'The book was set in which ancient city?'
+csq_options = ['Jerusalem', 'Rome', 'Babylon', 'Athens']
+csq_soln = 'Babylon'
+csq_renderer = 'radio'
+csq_name = 'q_a3eda7e8'
+csq_npoints = 1
+csq_nsubmits = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = "'The Goddess of Good Luck' chapter teaches that opportunity comes to those who:"
+csq_options = ['Are born wealthy', 'Are prepared and take action', 'Wait patiently for fortune', 'Pray consistently']
+csq_soln = 'Are prepared and take action'
+csq_renderer = 'radio'
+csq_name = 'q_1d94f7a4'
+csq_npoints = 1
+csq_nsubmits = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = 'Living on less than you earn primarily helps to:'
+csq_options = ['Impress others', 'Build a surplus that can be saved and invested', 'Pay off loans faster', 'Reduce your tax burden']
+csq_soln = 'Build a surplus that can be saved and invested'
+csq_renderer = 'radio'
+csq_name = 'q_8243bcd4'
 csq_npoints = 1
 csq_nsubmits = 1
 csq_soln_mode = "value"
@@ -115,7 +196,7 @@ csq_soln_mode = "value"
 <script>
 (function() {
     const API = (function() {
-        const base = window.__CU_API_BASE || 'http://localhost:8000';
+        const base = window.__CU_API_BASE || 'https://api.kenechukwuosele.me';
         try {
             const u = new URL(base);
             const h = window.location.hostname;
@@ -357,8 +438,8 @@ csq_soln_mode = "value"
                 console.error('[face-auth] model load attempt ' + attempt + ' failed:', e);
                 if (attempt < MAX_RETRIES) {
                     const wait = attempt * 3;
-                    if (subtitleEl) subtitleEl.textContent = '⚠️ Your network seems unstable — retrying in ' + wait + 's...';
-                    setStatus('⚠️ Network unstable — retrying...', '#f59e0b');
+                    if (subtitleEl) subtitleEl.textContent = '⚠️ Your network seems unstable, retrying in ' + wait + 's...';
+                    setStatus('⚠️ Network unstable, retrying...', '#f59e0b');
                     await new Promise(function(res) { setTimeout(res, wait * 1000); });
                 }
             }
@@ -366,12 +447,12 @@ csq_soln_mode = "value"
         if (!modelsLoaded) {
             console.error('[face-auth] all model load attempts failed');
             if (subtitleEl) subtitleEl.textContent = 'Could not load face models after ' + MAX_RETRIES + ' attempts. Your network may be unstable.';
-            setStatus('⚠️ Face recognition unavailable — quiz unlocked without verification', '#f59e0b');
+            setStatus('⚠️ Face recognition unavailable, quiz unlocked without verification', '#f59e0b');
             if (btnEl) { btnEl.textContent = 'Skip (not recommended)'; btnEl.style.display = 'block'; btnEl.onclick = function() { PASS(); }; }
             return;
         }
 
-        if (stepEl) stepEl.textContent = enrolled ? 'Step 2 of 2' : 'Step 1 of 2 — First-time setup';
+        if (stepEl) stepEl.textContent = enrolled ? 'Step 2 of 2' : 'Step 1 of 2 == First-time setup';
         if (titleEl) titleEl.textContent = enrolled ? '🔐 Verify Your Identity' : '📸 Set Up Face ID';
         if (subtitleEl) subtitleEl.textContent = enrolled
             ? 'Look at the camera to confirm it is you.'
@@ -389,7 +470,7 @@ csq_soln_mode = "value"
                 if (det) {
                     currentDescriptor = Array.from(det.descriptor);
                     setRing('#22c55e', false);
-                    setStatus('✅ Face detected — click below to continue', '#22c55e');
+                    setStatus('✅ Face detected, click below to continue', '#22c55e');
                     if (btnEl) btnEl.style.display = 'block';
                 } else {
                     currentDescriptor = null;
@@ -532,7 +613,7 @@ if (window.__affectInjected) return;
 window.__affectInjected = true;
 
 const API = (function() {
-    const base = window.__CU_API_BASE || 'http://localhost:8000';
+    const base = window.__CU_API_BASE || 'https://api.kenechukwuosele.me';
     try {
         const u = new URL(base);
         const h = window.location.hostname;
@@ -547,6 +628,7 @@ const attemptSessionId = (window.crypto && crypto.randomUUID) ? crypto.randomUUI
 let videoStream = null, videoEl = null, canvasEl = null, canvasCtx = null;
 let lastInteractionTime = Date.now(), lastEngagementSent = 0, lastAffectState = null;
 let pageClicks = 0, keypressCount = 0;
+let _consecutiveLowEAR = 0, _affectBuffer = [];
 
 document.addEventListener('click', () => { pageClicks++; lastInteractionTime = Date.now(); });
 document.addEventListener('keydown', () => { keypressCount++; lastInteractionTime = Date.now(); });
@@ -605,7 +687,7 @@ async function detectFaceRich() {
     if (!faceapi.nets.tinyFaceDetector.isLoaded) return null;
     const hasLandmarks = faceapi.nets.faceLandmark68TinyNet.isLoaded;
     const hasExpressions = faceapi.nets.faceExpressionNet.isLoaded;
-    const opts = new faceapi.TinyFaceDetectorOptions({ inputSize: 224, scoreThreshold: 0.2 });
+    const opts = new faceapi.TinyFaceDetectorOptions({ inputSize: 320, scoreThreshold: 0.2 });
     if (hasLandmarks && hasExpressions) {
       return await faceapi.detectSingleFace(videoEl, opts).withFaceLandmarks(true).withFaceExpressions() || null;
     } else if (hasLandmarks) {
@@ -660,27 +742,64 @@ function estimateHeadPoseFromBox(box) {
   return { pose: 'down', yaw: normX * 90, pitch: normY * 45 };
 }
 
+function estimateHeadPoseFromLandmarks(landmarks, box) {
+  try {
+    const le = landmarks.getLeftEye();
+    const re = landmarks.getRightEye();
+    const noseArr = landmarks.getNose();
+    const lCx = le.reduce((s,p)=>s+p.x,0)/le.length;
+    const lCy = le.reduce((s,p)=>s+p.y,0)/le.length;
+    const rCx = re.reduce((s,p)=>s+p.x,0)/re.length;
+    const rCy = re.reduce((s,p)=>s+p.y,0)/re.length;
+    const eyeMidX = (lCx + rCx) / 2;
+    const eyeMidY = (lCy + rCy) / 2;
+    const faceW = dist2d({x:lCx,y:lCy}, {x:rCx,y:rCy});
+    const noseTip = noseArr[3] || noseArr[noseArr.length-1];
+    const yawNorm = faceW > 0 ? (noseTip.x - eyeMidX) / faceW : 0;
+    const pitchNorm = box ? ((eyeMidY - (box.y + box.height * 0.3)) / box.height) : 0;
+    const yaw = yawNorm * 90, pitch = pitchNorm * 45;
+    let pose = 'center';
+    if (Math.abs(yawNorm) >= 0.2 || Math.abs(pitchNorm) >= 0.2) {
+      pose = Math.abs(yawNorm) > Math.abs(pitchNorm)
+        ? (yawNorm > 0 ? 'left' : 'right') : 'down';
+    }
+    return { pose, yaw, pitch };
+  } catch(e) {
+    return estimateHeadPoseFromBox(box);
+  }
+}
+
 function computeEngagement(present, gaze, headPose, inactivity) {
   let score = 100;
   if (!present) score -= 45;
   if (!gaze) score -= 20;
   if (headPose === 'down') score -= 15;
   else if (headPose === 'left' || headPose === 'right') score -= 10;
-  if (inactivity > 120) score -= 30; else if (inactivity > 60) score -= 15;
+  if (inactivity > 180) score -= 30; else if (inactivity > 90) score -= 15;
   return Math.max(0, Math.min(100, score));
 }
 
-function computeAffect(score, inactivity, facePresent, expressions, rollDeg) {
-  if (!facePresent || inactivity > 90) return 'distracted';
+function _smoothState(rawState) {
+  _affectBuffer.push(rawState);
+  if (_affectBuffer.length > 2) _affectBuffer.shift();
+  if (_affectBuffer.length === 2 && _affectBuffer[0] === _affectBuffer[1]) return rawState;
+  return _affectBuffer.length === 1 ? rawState : _affectBuffer[0];
+}
+
+function computeAffect(score, inactivity, facePresent, expressions, rollDeg, ear) {
+  if (!facePresent || inactivity > 150) { _consecutiveLowEAR = 0; return _smoothState('distracted'); }
+  if (ear !== null && ear !== undefined && ear < 0.18) { _consecutiveLowEAR++; }
+  else { _consecutiveLowEAR = 0; }
+  if (_consecutiveLowEAR >= 2) return _smoothState('disengaged');
   if (expressions) {
     const angry = expressions.angry || 0;
     const fearful = expressions.fearful || 0;
     const surprised = expressions.surprised || 0;
-    if (angry > 0.25 || fearful > 0.25) return 'struggling';
-    if (surprised > 0.3 || Math.abs(rollDeg || 0) > 20) return 'confused';
+    if (angry > 0.25 || fearful > 0.25) return _smoothState('struggling');
+    if (surprised > 0.3 || Math.abs(rollDeg || 0) > 30) return _smoothState('confused');
   }
-  if (inactivity > 60 || score < 30) return 'disengaged';
-  return 'focused';
+  if (inactivity > 90 || score < 30) return _smoothState('disengaged');
+  return _smoothState('focused');
 }
 
 async function ensureStream() {
@@ -710,11 +829,18 @@ async function renderLoop() {
     if (result) {
       const box = result.detection ? result.detection.box : result.box;
       const inact = Math.floor((Date.now() - lastInteractionTime) / 1000);
-      const hp = estimateHeadPoseFromBox(box);
+      const hp = result.landmarks ? estimateHeadPoseFromLandmarks(result.landmarks, box) : estimateHeadPoseFromBox(box);
       const score = computeEngagement(true, hp.pose === 'center', hp.pose, inact);
-      let roll = null;
-      if (result.landmarks) { try { roll = calcHeadRoll(result.landmarks); } catch(e) {} }
-      const state = computeAffect(score, inact, true, result.expressions, roll);
+      let roll = null, renderEAR = null;
+      if (result.landmarks) {
+        try {
+          roll = calcHeadRoll(result.landmarks);
+          const earL = calcEAR(result.landmarks.getLeftEye());
+          const earR = calcEAR(result.landmarks.getRightEye());
+          if (earL !== null && earR !== null) renderEAR = (earL + earR) / 2;
+        } catch(e) {}
+      }
+      const state = computeAffect(score, inact, true, result.expressions, roll, renderEAR);
       const color = affectColor(state);
       const mx = cw - box.x - box.width;
       canvasCtx.strokeStyle = color; canvasCtx.lineWidth = 2;
@@ -757,7 +883,7 @@ async function collectSample() {
     if (result) {
       facePresent = true;
       const box = result.detection ? result.detection.box : result.box;
-      const hp = estimateHeadPoseFromBox(box);
+      const hp = result.landmarks ? estimateHeadPoseFromLandmarks(result.landmarks, box) : estimateHeadPoseFromBox(box);
       headPose = hp.pose; yaw = hp.yaw; pitch = hp.pitch;
       gazeCentered = headPose === 'center';
 
@@ -783,7 +909,7 @@ async function collectSample() {
   }
 
   const score = computeEngagement(facePresent, gazeCentered, headPose, inactivity);
-  const affectState = computeAffect(score, inactivity, facePresent, expressions, roll);
+  const affectState = computeAffect(score, inactivity, facePresent, expressions, roll, ear);
 
   if (affectState !== lastAffectState && window.__liveWS && window.__liveWS.readyState === WebSocket.OPEN) {
     window.__liveWS.send(JSON.stringify({

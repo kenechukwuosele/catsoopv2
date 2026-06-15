@@ -1,0 +1,48 @@
+<python>
+cs_content_header = 'Week 2 Practice Problems: AI in Robotics'
+</python>
+
+<question multiplechoice>
+csq_prompt = 'A robot learns to navigate a maze by trying different paths and receiving a reward when it reaches the exit. This is an example of:'
+csq_options = ['Supervised learning', 'Unsupervised learning', 'Reinforcement learning', 'Transfer learning']
+csq_soln = 'Reinforcement learning'
+csq_renderer = 'radio'
+csq_npoints = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = 'In a self-driving car, the system identifies pedestrians from camera images. Which AI technique is primarily being used?'
+csq_options = ['Natural language processing', 'Computer vision with deep learning', 'Genetic algorithms', 'Fuzzy logic only']
+csq_soln = 'Computer vision with deep learning'
+csq_renderer = 'radio'
+csq_npoints = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = 'What problem does SLAM (Simultaneous Localization and Mapping) solve for a robot?'
+csq_options = ['Recognizing human faces', 'Building a map of an unknown environment while tracking its own position within it', 'Translating human speech to commands', "Controlling the robot's joint angles"]
+csq_soln = 'Building a map of an unknown environment while tracking its own position within it'
+csq_renderer = 'radio'
+csq_npoints = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = 'A training dataset for a supervised learning model to detect defective products would contain:'
+csq_options = ['Only images of perfect products', 'Images of both defective and non-defective products with labels', 'Unlabeled images of random objects', 'Audio recordings of the factory']
+csq_soln = 'Images of both defective and non-defective products with labels'
+csq_renderer = 'radio'
+csq_npoints = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = 'Why is AI ethics important in robotics and automation?'
+csq_options = ['It is not important — efficiency is all that matters', 'Because AI systems can embed biases, cause harm, or displace workers if designed irresponsibly', 'Because AI makes machines too slow', 'Because AI cannot make decisions without human oversight in all cases']
+csq_soln = 'Because AI systems can embed biases, cause harm, or displace workers if designed irresponsibly'
+csq_renderer = 'radio'
+csq_npoints = 1
+csq_soln_mode = "value"
+</question>

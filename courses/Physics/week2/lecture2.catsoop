@@ -182,7 +182,7 @@ pre{background:#f4f4f4;padding:16px;border-radius:6px;overflow-x:auto;}
 <script>
 (function(){
   const parts = window.location.pathname.split('/').filter(Boolean);
-  const apiBase = 'http://172.31.184.39:8000';
+  const apiBase = 'https://api.kenechukwuosele.me';
   let course = '', week = '';
   if(parts.length >= 3 && parts[0] === 'courses'){
     course = parts[1];
@@ -232,7 +232,7 @@ pre{background:#f4f4f4;padding:16px;border-radius:6px;overflow-x:auto;}
   }
   async function load(){
     try{
-      const r = await fetch(apiBase + '/admin/live-file/' + course + '/' + week);
+      const r = await fetch(apiBase + '/live-file-info/' + course + '/' + week);
       if(!r.ok){renderFile(null);return;}
       const d = await r.json();
       renderFile(d || null);

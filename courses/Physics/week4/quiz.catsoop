@@ -3,7 +3,7 @@ cs_content_header = "Quiz: Physics - week4"
 cs_show_due = True
 cs_update_questions_cache = True
 import json, os as _os
-_api_base = _os.environ.get("CU_QUIZ_BASE_URL", "http://localhost:8000")
+_api_base = _os.environ.get("CU_QUIZ_BASE_URL", "https://api.kenechukwuosele.me")
 _cu_secret = _os.environ.get("CU_QUIZ_SECRET", "")
 _cu_admins = {u.strip() for u in _os.environ.get("CU_QUIZ_ADMINS", "").split(",") if u.strip()}
 _cu_token = ""
@@ -19,7 +19,7 @@ if _cu_secret:
 print(f'<script data-username="{cs_username}">')
 print(f'window.__cs_username = "{cs_username}";')
 print(f'window.__cs_user_role = "{cs_user_info.get("role", "Student")}";')
-print(f'window.__quizQuestionNames = ["q_c465f145", "q_c23b59e7", "q_14392527"];')
+print(f'window.__quizQuestionNames = ["q_e6e1a6a9", "q_b012a5ce", "q_cf677705", "q_1ef13683", "q_3668cba6", "q_aefdbbed", "q_a1f33d83", "q_d10507f8", "q_62c3dd16", "q_90874d76"];')
 print(f'window.__course = "Physics";')
 print(f'window.__week = "week4";')
 print(f'window.__CU_API_BASE = "{_api_base}";')
@@ -74,39 +74,116 @@ print('</script>')
 
 <div id="quiz-start-screen" style="display:none;text-align:center;padding:40px 20px;">
   <h2 style="color:#2c3e50;margin-bottom:16px;">Quiz: week4</h2>
-  <p style="font-size:1.1em;color:#555;margin-bottom:8px;">This quiz contains <strong>3</strong> questions.</p>
+  <p style="font-size:1.1em;color:#555;margin-bottom:8px;">This quiz contains <strong>10</strong> questions.</p>
   <p style="font-size:0.95em;color:#777;margin-bottom:24px;">You can check and submit your answers when ready.</p>
   <button onclick="document.getElementById('quiz-start-screen').style.display='none';document.getElementById('quiz-questions').style.display='block';" style="background:#4CAF50;color:white;padding:14px 36px;border:none;border-radius:6px;cursor:pointer;font-size:1.1em;">Start Quiz</button>
 </div>
 <div id="quiz-questions" style="display:none;">
 <question multiplechoice>
-csq_prompt = 'According to the kinetic theory of gases, which assumption is NOT part of this model?'
-csq_options = ['Gas particles move in constant random motion.', 'Collisions between gas molecules are perfectly elastic.', 'All collisions occur only at angles greater than 90 degrees to the collision surface.', 'The average kinetic energy of gas particles is proportional to the temperature.']
-csq_soln = 'All collisions occur only at angles greater than 90 degrees to the collision surface.'
+csq_prompt = 'The ideal gas law is expressed as:'
+csq_options = ['PV = nRT', 'PV = mRT', 'P = nRT/V² ', 'PV² = nRT']
+csq_soln = 'PV = nRT'
 csq_renderer = 'radio'
-csq_name = 'q_c465f145'
+csq_name = 'q_e6e1a6a9'
 csq_npoints = 1
 csq_nsubmits = 1
 csq_soln_mode = "value"
 </question>
 
 <question multiplechoice>
-csq_prompt = 'According to the kinetic theory of gases, which assumption is NOT part of this model?'
-csq_options = ['Gas particles move in constant random motion.', 'The collisions between gas molecules are perfectly elastic.', "All atoms or molecules occupy a negligible volume compared to the container's volume.", 'Atoms or molecules exert forces on each other except during collisions.']
-csq_soln = 'Atoms or molecules exert forces on each other except during collisions.'
+csq_prompt = 'In the ideal gas law PV = nRT, R is the:'
+csq_options = ['Boltzmann constant', 'Universal gas constant', 'Reynolds number', 'Ratio of pressures']
+csq_soln = 'Universal gas constant'
 csq_renderer = 'radio'
-csq_name = 'q_c23b59e7'
+csq_name = 'q_b012a5ce'
 csq_npoints = 1
 csq_nsubmits = 1
 csq_soln_mode = "value"
 </question>
 
 <question multiplechoice>
-csq_prompt = 'Which statement best describes how temperature relates to molecular kinetic energy according to the kinetic theory of gases?'
-csq_options = ['Temperature is directly proportional to the average translational kinetic energy per molecule.', 'Temperature increases as gas particles slow down and move in a more ordered pattern.', 'Higher temperatures result from increased potential energy between gas molecules, not their motion.', 'The temperature of a gas is independent of its internal molecular activity.']
-csq_soln = 'Temperature is directly proportional to the average translational kinetic energy per molecule.'
+csq_prompt = 'At constant temperature, doubling the volume of an ideal gas will:'
+csq_options = ['Double the pressure', 'Halve the pressure', 'Keep pressure the same', 'Triple the pressure']
+csq_soln = 'Halve the pressure'
 csq_renderer = 'radio'
-csq_name = 'q_14392527'
+csq_name = 'q_cf677705'
+csq_npoints = 1
+csq_nsubmits = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = 'The root-mean-square speed of gas molecules is proportional to:'
+csq_options = ['√T', 'T', 'T²', '1/T']
+csq_soln = '√T'
+csq_renderer = 'radio'
+csq_name = 'q_1ef13683'
+csq_npoints = 1
+csq_nsubmits = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = 'Which of the following increases the pressure of a gas in a fixed container?'
+csq_options = ['Decreasing temperature', 'Removing molecules', 'Adding more gas molecules', 'Increasing volume']
+csq_soln = 'Adding more gas molecules'
+csq_renderer = 'radio'
+csq_name = 'q_3668cba6'
+csq_npoints = 1
+csq_nsubmits = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = 'The average kinetic energy of gas molecules is proportional to:'
+csq_options = ['Pressure', 'Volume', 'Absolute temperature', 'Molar mass']
+csq_soln = 'Absolute temperature'
+csq_renderer = 'radio'
+csq_name = 'q_aefdbbed'
+csq_npoints = 1
+csq_nsubmits = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = 'In an isothermal process:'
+csq_options = ['Temperature is constant', 'Pressure is constant', 'Volume is constant', 'No heat is exchanged']
+csq_soln = 'Temperature is constant'
+csq_renderer = 'radio'
+csq_name = 'q_a1f33d83'
+csq_npoints = 1
+csq_nsubmits = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = 'Which gas law states that PV = constant at constant temperature?'
+csq_options = ["Charles's Law", "Gay-Lussac's Law", "Boyle's Law", "Avogadro's Law"]
+csq_soln = "Boyle's Law"
+csq_renderer = 'radio'
+csq_name = 'q_d10507f8'
+csq_npoints = 1
+csq_nsubmits = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = 'The number of molecules in one mole of any substance is approximately:'
+csq_options = ['6.02 × 10²³', '3.14 × 10²³', '1.38 × 10⁻²³', '8.31 × 10²³']
+csq_soln = '6.02 × 10²³'
+csq_renderer = 'radio'
+csq_name = 'q_62c3dd16'
+csq_npoints = 1
+csq_nsubmits = 1
+csq_soln_mode = "value"
+</question>
+
+<question multiplechoice>
+csq_prompt = 'Internal energy of an ideal gas depends only on:'
+csq_options = ['Pressure', 'Volume', 'Temperature', 'Number of moles only']
+csq_soln = 'Temperature'
+csq_renderer = 'radio'
+csq_name = 'q_90874d76'
 csq_npoints = 1
 csq_nsubmits = 1
 csq_soln_mode = "value"
@@ -119,7 +196,7 @@ csq_soln_mode = "value"
 <script>
 (function() {
     const API = (function() {
-        const base = window.__CU_API_BASE || 'http://localhost:8000';
+        const base = window.__CU_API_BASE || 'https://api.kenechukwuosele.me';
         try {
             const u = new URL(base);
             const h = window.location.hostname;
@@ -361,8 +438,8 @@ csq_soln_mode = "value"
                 console.error('[face-auth] model load attempt ' + attempt + ' failed:', e);
                 if (attempt < MAX_RETRIES) {
                     const wait = attempt * 3;
-                    if (subtitleEl) subtitleEl.textContent = '⚠️ Your network seems unstable — retrying in ' + wait + 's...';
-                    setStatus('⚠️ Network unstable — retrying...', '#f59e0b');
+                    if (subtitleEl) subtitleEl.textContent = '⚠️ Your network seems unstable, retrying in ' + wait + 's...';
+                    setStatus('⚠️ Network unstable, retrying...', '#f59e0b');
                     await new Promise(function(res) { setTimeout(res, wait * 1000); });
                 }
             }
@@ -370,12 +447,12 @@ csq_soln_mode = "value"
         if (!modelsLoaded) {
             console.error('[face-auth] all model load attempts failed');
             if (subtitleEl) subtitleEl.textContent = 'Could not load face models after ' + MAX_RETRIES + ' attempts. Your network may be unstable.';
-            setStatus('⚠️ Face recognition unavailable — quiz unlocked without verification', '#f59e0b');
+            setStatus('⚠️ Face recognition unavailable, quiz unlocked without verification', '#f59e0b');
             if (btnEl) { btnEl.textContent = 'Skip (not recommended)'; btnEl.style.display = 'block'; btnEl.onclick = function() { PASS(); }; }
             return;
         }
 
-        if (stepEl) stepEl.textContent = enrolled ? 'Step 2 of 2' : 'Step 1 of 2 — First-time setup';
+        if (stepEl) stepEl.textContent = enrolled ? 'Step 2 of 2' : 'Step 1 of 2 == First-time setup';
         if (titleEl) titleEl.textContent = enrolled ? '🔐 Verify Your Identity' : '📸 Set Up Face ID';
         if (subtitleEl) subtitleEl.textContent = enrolled
             ? 'Look at the camera to confirm it is you.'
@@ -393,7 +470,7 @@ csq_soln_mode = "value"
                 if (det) {
                     currentDescriptor = Array.from(det.descriptor);
                     setRing('#22c55e', false);
-                    setStatus('✅ Face detected — click below to continue', '#22c55e');
+                    setStatus('✅ Face detected, click below to continue', '#22c55e');
                     if (btnEl) btnEl.style.display = 'block';
                 } else {
                     currentDescriptor = null;
@@ -536,7 +613,7 @@ if (window.__affectInjected) return;
 window.__affectInjected = true;
 
 const API = (function() {
-    const base = window.__CU_API_BASE || 'http://localhost:8000';
+    const base = window.__CU_API_BASE || 'https://api.kenechukwuosele.me';
     try {
         const u = new URL(base);
         const h = window.location.hostname;
@@ -551,6 +628,7 @@ const attemptSessionId = (window.crypto && crypto.randomUUID) ? crypto.randomUUI
 let videoStream = null, videoEl = null, canvasEl = null, canvasCtx = null;
 let lastInteractionTime = Date.now(), lastEngagementSent = 0, lastAffectState = null;
 let pageClicks = 0, keypressCount = 0;
+let _consecutiveLowEAR = 0, _affectBuffer = [];
 
 document.addEventListener('click', () => { pageClicks++; lastInteractionTime = Date.now(); });
 document.addEventListener('keydown', () => { keypressCount++; lastInteractionTime = Date.now(); });
@@ -609,7 +687,7 @@ async function detectFaceRich() {
     if (!faceapi.nets.tinyFaceDetector.isLoaded) return null;
     const hasLandmarks = faceapi.nets.faceLandmark68TinyNet.isLoaded;
     const hasExpressions = faceapi.nets.faceExpressionNet.isLoaded;
-    const opts = new faceapi.TinyFaceDetectorOptions({ inputSize: 224, scoreThreshold: 0.2 });
+    const opts = new faceapi.TinyFaceDetectorOptions({ inputSize: 320, scoreThreshold: 0.2 });
     if (hasLandmarks && hasExpressions) {
       return await faceapi.detectSingleFace(videoEl, opts).withFaceLandmarks(true).withFaceExpressions() || null;
     } else if (hasLandmarks) {
@@ -664,27 +742,64 @@ function estimateHeadPoseFromBox(box) {
   return { pose: 'down', yaw: normX * 90, pitch: normY * 45 };
 }
 
+function estimateHeadPoseFromLandmarks(landmarks, box) {
+  try {
+    const le = landmarks.getLeftEye();
+    const re = landmarks.getRightEye();
+    const noseArr = landmarks.getNose();
+    const lCx = le.reduce((s,p)=>s+p.x,0)/le.length;
+    const lCy = le.reduce((s,p)=>s+p.y,0)/le.length;
+    const rCx = re.reduce((s,p)=>s+p.x,0)/re.length;
+    const rCy = re.reduce((s,p)=>s+p.y,0)/re.length;
+    const eyeMidX = (lCx + rCx) / 2;
+    const eyeMidY = (lCy + rCy) / 2;
+    const faceW = dist2d({x:lCx,y:lCy}, {x:rCx,y:rCy});
+    const noseTip = noseArr[3] || noseArr[noseArr.length-1];
+    const yawNorm = faceW > 0 ? (noseTip.x - eyeMidX) / faceW : 0;
+    const pitchNorm = box ? ((eyeMidY - (box.y + box.height * 0.3)) / box.height) : 0;
+    const yaw = yawNorm * 90, pitch = pitchNorm * 45;
+    let pose = 'center';
+    if (Math.abs(yawNorm) >= 0.2 || Math.abs(pitchNorm) >= 0.2) {
+      pose = Math.abs(yawNorm) > Math.abs(pitchNorm)
+        ? (yawNorm > 0 ? 'left' : 'right') : 'down';
+    }
+    return { pose, yaw, pitch };
+  } catch(e) {
+    return estimateHeadPoseFromBox(box);
+  }
+}
+
 function computeEngagement(present, gaze, headPose, inactivity) {
   let score = 100;
   if (!present) score -= 45;
   if (!gaze) score -= 20;
   if (headPose === 'down') score -= 15;
   else if (headPose === 'left' || headPose === 'right') score -= 10;
-  if (inactivity > 120) score -= 30; else if (inactivity > 60) score -= 15;
+  if (inactivity > 180) score -= 30; else if (inactivity > 90) score -= 15;
   return Math.max(0, Math.min(100, score));
 }
 
-function computeAffect(score, inactivity, facePresent, expressions, rollDeg) {
-  if (!facePresent || inactivity > 90) return 'distracted';
+function _smoothState(rawState) {
+  _affectBuffer.push(rawState);
+  if (_affectBuffer.length > 2) _affectBuffer.shift();
+  if (_affectBuffer.length === 2 && _affectBuffer[0] === _affectBuffer[1]) return rawState;
+  return _affectBuffer.length === 1 ? rawState : _affectBuffer[0];
+}
+
+function computeAffect(score, inactivity, facePresent, expressions, rollDeg, ear) {
+  if (!facePresent || inactivity > 150) { _consecutiveLowEAR = 0; return _smoothState('distracted'); }
+  if (ear !== null && ear !== undefined && ear < 0.18) { _consecutiveLowEAR++; }
+  else { _consecutiveLowEAR = 0; }
+  if (_consecutiveLowEAR >= 2) return _smoothState('disengaged');
   if (expressions) {
     const angry = expressions.angry || 0;
     const fearful = expressions.fearful || 0;
     const surprised = expressions.surprised || 0;
-    if (angry > 0.25 || fearful > 0.25) return 'struggling';
-    if (surprised > 0.3 || Math.abs(rollDeg || 0) > 20) return 'confused';
+    if (angry > 0.25 || fearful > 0.25) return _smoothState('struggling');
+    if (surprised > 0.3 || Math.abs(rollDeg || 0) > 30) return _smoothState('confused');
   }
-  if (inactivity > 60 || score < 30) return 'disengaged';
-  return 'focused';
+  if (inactivity > 90 || score < 30) return _smoothState('disengaged');
+  return _smoothState('focused');
 }
 
 async function ensureStream() {
@@ -714,11 +829,18 @@ async function renderLoop() {
     if (result) {
       const box = result.detection ? result.detection.box : result.box;
       const inact = Math.floor((Date.now() - lastInteractionTime) / 1000);
-      const hp = estimateHeadPoseFromBox(box);
+      const hp = result.landmarks ? estimateHeadPoseFromLandmarks(result.landmarks, box) : estimateHeadPoseFromBox(box);
       const score = computeEngagement(true, hp.pose === 'center', hp.pose, inact);
-      let roll = null;
-      if (result.landmarks) { try { roll = calcHeadRoll(result.landmarks); } catch(e) {} }
-      const state = computeAffect(score, inact, true, result.expressions, roll);
+      let roll = null, renderEAR = null;
+      if (result.landmarks) {
+        try {
+          roll = calcHeadRoll(result.landmarks);
+          const earL = calcEAR(result.landmarks.getLeftEye());
+          const earR = calcEAR(result.landmarks.getRightEye());
+          if (earL !== null && earR !== null) renderEAR = (earL + earR) / 2;
+        } catch(e) {}
+      }
+      const state = computeAffect(score, inact, true, result.expressions, roll, renderEAR);
       const color = affectColor(state);
       const mx = cw - box.x - box.width;
       canvasCtx.strokeStyle = color; canvasCtx.lineWidth = 2;
@@ -761,7 +883,7 @@ async function collectSample() {
     if (result) {
       facePresent = true;
       const box = result.detection ? result.detection.box : result.box;
-      const hp = estimateHeadPoseFromBox(box);
+      const hp = result.landmarks ? estimateHeadPoseFromLandmarks(result.landmarks, box) : estimateHeadPoseFromBox(box);
       headPose = hp.pose; yaw = hp.yaw; pitch = hp.pitch;
       gazeCentered = headPose === 'center';
 
@@ -787,7 +909,7 @@ async function collectSample() {
   }
 
   const score = computeEngagement(facePresent, gazeCentered, headPose, inactivity);
-  const affectState = computeAffect(score, inactivity, facePresent, expressions, roll);
+  const affectState = computeAffect(score, inactivity, facePresent, expressions, roll, ear);
 
   if (affectState !== lastAffectState && window.__liveWS && window.__liveWS.readyState === WebSocket.OPEN) {
     window.__liveWS.send(JSON.stringify({

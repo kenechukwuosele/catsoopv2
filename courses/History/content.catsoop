@@ -39,7 +39,7 @@ if cs_username and _cu_secret:
                                  _cu_secret, algorithm="HS256")
     except Exception:
         _cu_token = ""
-print('<script>window.__cs_username = window.__cs_username || "' + cs_username + '"; window.__CU_TOKEN = window.__CU_TOKEN || "' + _cu_token + '"; window.__CU_API_BASE = window.__CU_API_BASE || "http://172.31.184.39:8000";</script>')
+print('<script>window.__cs_username = window.__cs_username || "' + cs_username + '"; window.__CU_TOKEN = window.__CU_TOKEN || "' + _cu_token + '"; window.__CU_API_BASE = window.__CU_API_BASE || "https://api.kenechukwuosele.me";</script>')
 print('<script>(function(){if(window.__cuFetchInstalled)return;window.__cuFetchInstalled=true;var t=window.__CU_TOKEN;if(!t)return;var _f=window.fetch.bind(window);window.fetch=function(u,o){o=o||{};var us=typeof u==="string"?u:(u&&u.url)||"";if(us.indexOf(window.__CU_API_BASE)===0){var h=new Headers(o.headers||{});if(!h.has("Authorization"))h.set("Authorization","Bearer "+t);o.headers=h;}return _f(u,o);};})();</script>')
 </python>
 <python>
@@ -59,7 +59,7 @@ if cs_username and _cu_secret:
                                  _cu_secret, algorithm="HS256")
     except Exception:
         _cu_token = ""
-print('<script>window.__cs_username = window.__cs_username || "' + cs_username + '"; window.__CU_TOKEN = window.__CU_TOKEN || "' + _cu_token + '"; window.__CU_API_BASE = window.__CU_API_BASE || "http://172.31.184.39:8000";</script>')
+print('<script>window.__cs_username = window.__cs_username || "' + cs_username + '"; window.__CU_TOKEN = window.__CU_TOKEN || "' + _cu_token + '"; window.__CU_API_BASE = window.__CU_API_BASE || "https://api.kenechukwuosele.me";</script>')
 print('<script>(function(){if(window.__cuFetchInstalled)return;window.__cuFetchInstalled=true;var t=window.__CU_TOKEN;if(!t)return;var _f=window.fetch.bind(window);window.fetch=function(u,o){o=o||{};var us=typeof u==="string"?u:(u&&u.url)||"";if(us.indexOf(window.__CU_API_BASE)===0){var h=new Headers(o.headers||{});if(!h.has("Authorization"))h.set("Authorization","Bearer "+t);o.headers=h;}return _f(u,o);};})();</script>')
 </python>
 <python>
@@ -79,7 +79,7 @@ if cs_username and _cu_secret:
                                  _cu_secret, algorithm="HS256")
     except Exception:
         _cu_token = ""
-print('<script>window.__cs_username = window.__cs_username || "' + cs_username + '"; window.__CU_TOKEN = window.__CU_TOKEN || "' + _cu_token + '"; window.__CU_API_BASE = window.__CU_API_BASE || "http://172.31.184.39:8000";</script>')
+print('<script>window.__cs_username = window.__cs_username || "' + cs_username + '"; window.__CU_TOKEN = window.__CU_TOKEN || "' + _cu_token + '"; window.__CU_API_BASE = window.__CU_API_BASE || "https://api.kenechukwuosele.me";</script>')
 print('<script>(function(){if(window.__cuFetchInstalled)return;window.__cuFetchInstalled=true;var t=window.__CU_TOKEN;if(!t)return;var _f=window.fetch.bind(window);window.fetch=function(u,o){o=o||{};var us=typeof u==="string"?u:(u&&u.url)||"";if(us.indexOf(window.__CU_API_BASE)===0){var h=new Headers(o.headers||{});if(!h.has("Authorization"))h.set("Authorization","Bearer "+t);o.headers=h;}return _f(u,o);};})();</script>')
 </python>
 <python>
@@ -99,7 +99,7 @@ if cs_username and _cu_secret:
                                  _cu_secret, algorithm="HS256")
     except Exception:
         _cu_token = ""
-print('<script>window.__cs_username = window.__cs_username || "' + cs_username + '"; window.__CU_TOKEN = window.__CU_TOKEN || "' + _cu_token + '"; window.__CU_API_BASE = window.__CU_API_BASE || "http://localhost:8000";</script>')
+print('<script>window.__cs_username = window.__cs_username || "' + cs_username + '"; window.__CU_TOKEN = window.__CU_TOKEN || "' + _cu_token + '"; window.__CU_API_BASE = window.__CU_API_BASE || "https://api.kenechukwuosele.me";</script>')
 print('<script>(function(){if(window.__cuFetchInstalled)return;window.__cuFetchInstalled=true;var t=window.__CU_TOKEN;if(!t)return;var _f=window.fetch.bind(window);window.fetch=function(u,o){o=o||{};var us=typeof u==="string"?u:(u&&u.url)||"";if(us.indexOf(window.__CU_API_BASE)===0){var h=new Headers(o.headers||{});if(!h.has("Authorization"))h.set("Authorization","Bearer "+t);o.headers=h;}return _f(u,o);};})();</script>')
 </python>
 <python>
@@ -119,7 +119,7 @@ if cs_username and _cu_secret:
                                  _cu_secret, algorithm="HS256")
     except Exception:
         _cu_token = ""
-print('<script>window.__cs_username = window.__cs_username || "' + cs_username + '"; window.__CU_TOKEN = window.__CU_TOKEN || "' + _cu_token + '"; window.__CU_API_BASE = window.__CU_API_BASE || "http://localhost:8000";</script>')
+print('<script>window.__cs_username = window.__cs_username || "' + cs_username + '"; window.__CU_TOKEN = window.__CU_TOKEN || "' + _cu_token + '"; window.__CU_API_BASE = window.__CU_API_BASE || "https://api.kenechukwuosele.me";</script>')
 print('<script>(function(){if(window.__cuFetchInstalled)return;window.__cuFetchInstalled=true;var t=window.__CU_TOKEN;if(!t)return;var _f=window.fetch.bind(window);window.fetch=function(u,o){o=o||{};var us=typeof u==="string"?u:(u&&u.url)||"";if(us.indexOf(window.__CU_API_BASE)===0){var h=new Headers(o.headers||{});if(!h.has("Authorization"))h.set("Authorization","Bearer "+t);o.headers=h;}return _f(u,o);};})();</script>')
 </python>
 <python>
@@ -139,7 +139,7 @@ if cs_username and _cu_secret:
                                  _cu_secret, algorithm="HS256")
     except Exception:
         _cu_token = ""
-print('<script>window.__cs_username = window.__cs_username || "' + cs_username + '"; window.__CU_TOKEN = window.__CU_TOKEN || "' + _cu_token + '"; window.__CU_API_BASE = window.__CU_API_BASE || "http://localhost:8000";</script>')
+print('<script>window.__cs_username = window.__cs_username || "' + cs_username + '"; window.__CU_TOKEN = window.__CU_TOKEN || "' + _cu_token + '"; window.__CU_API_BASE = window.__CU_API_BASE || "https://api.kenechukwuosele.me";</script>')
 print('<script>(function(){if(window.__cuFetchInstalled)return;window.__cuFetchInstalled=true;var t=window.__CU_TOKEN;if(!t)return;var _f=window.fetch.bind(window);window.fetch=function(u,o){o=o||{};var us=typeof u==="string"?u:(u&&u.url)||"";if(us.indexOf(window.__CU_API_BASE)===0){var h=new Headers(o.headers||{});if(!h.has("Authorization"))h.set("Authorization","Bearer "+t);o.headers=h;}return _f(u,o);};})();</script>')
 </python>
 <python>
@@ -159,7 +159,7 @@ if cs_username and _cu_secret:
                                  _cu_secret, algorithm="HS256")
     except Exception:
         _cu_token = ""
-print('<script>window.__cs_username = window.__cs_username || "' + cs_username + '"; window.__CU_TOKEN = window.__CU_TOKEN || "' + _cu_token + '"; window.__CU_API_BASE = window.__CU_API_BASE || "http://localhost:8000";</script>')
+print('<script>window.__cs_username = window.__cs_username || "' + cs_username + '"; window.__CU_TOKEN = window.__CU_TOKEN || "' + _cu_token + '"; window.__CU_API_BASE = window.__CU_API_BASE || "https://api.kenechukwuosele.me";</script>')
 print('<script>(function(){if(window.__cuFetchInstalled)return;window.__cuFetchInstalled=true;var t=window.__CU_TOKEN;if(!t)return;var _f=window.fetch.bind(window);window.fetch=function(u,o){o=o||{};var us=typeof u==="string"?u:(u&&u.url)||"";if(us.indexOf(window.__CU_API_BASE)===0){var h=new Headers(o.headers||{});if(!h.has("Authorization"))h.set("Authorization","Bearer "+t);o.headers=h;}return _f(u,o);};})();</script>')
 </python>
 <python>
@@ -179,7 +179,87 @@ if cs_username and _cu_secret:
                                  _cu_secret, algorithm="HS256")
     except Exception:
         _cu_token = ""
-print('<script>window.__cs_username = window.__cs_username || "' + cs_username + '"; window.__CU_TOKEN = window.__CU_TOKEN || "' + _cu_token + '"; window.__CU_API_BASE = window.__CU_API_BASE || "http://localhost:8000";</script>')
+print('<script>window.__cs_username = window.__cs_username || "' + cs_username + '"; window.__CU_TOKEN = window.__CU_TOKEN || "' + _cu_token + '"; window.__CU_API_BASE = window.__CU_API_BASE || "https://api.kenechukwuosele.me";</script>')
+print('<script>(function(){if(window.__cuFetchInstalled)return;window.__cuFetchInstalled=true;var t=window.__CU_TOKEN;if(!t)return;var _f=window.fetch.bind(window);window.fetch=function(u,o){o=o||{};var us=typeof u==="string"?u:(u&&u.url)||"";if(us.indexOf(window.__CU_API_BASE)===0){var h=new Headers(o.headers||{});if(!h.has("Authorization"))h.set("Authorization","Bearer "+t);o.headers=h;}return _f(u,o);};})();</script>')
+</python>
+<python>
+import os as _os
+try:
+    cs_username = cs_user_info.get('username', '')
+except Exception:
+    cs_username = ''
+_cu_secret = _os.environ.get("CU_QUIZ_SECRET", "")
+_cu_admins = {u.strip() for u in _os.environ.get("CU_QUIZ_ADMINS", "").split(",") if u.strip()}
+_cu_token = ""
+if cs_username and _cu_secret:
+    try:
+        import jwt as _jwt, time as _time
+        _cu_token = _jwt.encode({"sub": cs_username, "is_admin": cs_username in _cu_admins,
+                                  "iat": int(_time.time()), "exp": int(_time.time())+8*3600},
+                                 _cu_secret, algorithm="HS256")
+    except Exception:
+        _cu_token = ""
+print('<script>window.__cs_username = window.__cs_username || "' + cs_username + '"; window.__CU_TOKEN = window.__CU_TOKEN || "' + _cu_token + '"; window.__CU_API_BASE = window.__CU_API_BASE || "https://api.kenechukwuosele.me";</script>')
+print('<script>(function(){if(window.__cuFetchInstalled)return;window.__cuFetchInstalled=true;var t=window.__CU_TOKEN;if(!t)return;var _f=window.fetch.bind(window);window.fetch=function(u,o){o=o||{};var us=typeof u==="string"?u:(u&&u.url)||"";if(us.indexOf(window.__CU_API_BASE)===0){var h=new Headers(o.headers||{});if(!h.has("Authorization"))h.set("Authorization","Bearer "+t);o.headers=h;}return _f(u,o);};})();</script>')
+</python>
+<python>
+import os as _os
+try:
+    cs_username = cs_user_info.get('username', '')
+except Exception:
+    cs_username = ''
+_cu_secret = _os.environ.get("CU_QUIZ_SECRET", "")
+_cu_admins = {u.strip() for u in _os.environ.get("CU_QUIZ_ADMINS", "").split(",") if u.strip()}
+_cu_token = ""
+if cs_username and _cu_secret:
+    try:
+        import jwt as _jwt, time as _time
+        _cu_token = _jwt.encode({"sub": cs_username, "is_admin": cs_username in _cu_admins,
+                                  "iat": int(_time.time()), "exp": int(_time.time())+8*3600},
+                                 _cu_secret, algorithm="HS256")
+    except Exception:
+        _cu_token = ""
+print('<script>window.__cs_username = window.__cs_username || "' + cs_username + '"; window.__CU_TOKEN = window.__CU_TOKEN || "' + _cu_token + '"; window.__CU_API_BASE = window.__CU_API_BASE || "https://api.kenechukwuosele.me";</script>')
+print('<script>(function(){if(window.__cuFetchInstalled)return;window.__cuFetchInstalled=true;var t=window.__CU_TOKEN;if(!t)return;var _f=window.fetch.bind(window);window.fetch=function(u,o){o=o||{};var us=typeof u==="string"?u:(u&&u.url)||"";if(us.indexOf(window.__CU_API_BASE)===0){var h=new Headers(o.headers||{});if(!h.has("Authorization"))h.set("Authorization","Bearer "+t);o.headers=h;}return _f(u,o);};})();</script>')
+</python>
+<python>
+import os as _os
+try:
+    cs_username = cs_user_info.get('username', '')
+except Exception:
+    cs_username = ''
+_cu_secret = _os.environ.get("CU_QUIZ_SECRET", "")
+_cu_admins = {u.strip() for u in _os.environ.get("CU_QUIZ_ADMINS", "").split(",") if u.strip()}
+_cu_token = ""
+if cs_username and _cu_secret:
+    try:
+        import jwt as _jwt, time as _time
+        _cu_token = _jwt.encode({"sub": cs_username, "is_admin": cs_username in _cu_admins,
+                                  "iat": int(_time.time()), "exp": int(_time.time())+8*3600},
+                                 _cu_secret, algorithm="HS256")
+    except Exception:
+        _cu_token = ""
+print('<script>window.__cs_username = window.__cs_username || "' + cs_username + '"; window.__CU_TOKEN = window.__CU_TOKEN || "' + _cu_token + '"; window.__CU_API_BASE = window.__CU_API_BASE || "https://api.kenechukwuosele.me";</script>')
+print('<script>(function(){if(window.__cuFetchInstalled)return;window.__cuFetchInstalled=true;var t=window.__CU_TOKEN;if(!t)return;var _f=window.fetch.bind(window);window.fetch=function(u,o){o=o||{};var us=typeof u==="string"?u:(u&&u.url)||"";if(us.indexOf(window.__CU_API_BASE)===0){var h=new Headers(o.headers||{});if(!h.has("Authorization"))h.set("Authorization","Bearer "+t);o.headers=h;}return _f(u,o);};})();</script>')
+</python>
+<python>
+import os as _os
+try:
+    cs_username = cs_user_info.get('username', '')
+except Exception:
+    cs_username = ''
+_cu_secret = _os.environ.get("CU_QUIZ_SECRET", "")
+_cu_admins = {u.strip() for u in _os.environ.get("CU_QUIZ_ADMINS", "").split(",") if u.strip()}
+_cu_token = ""
+if cs_username and _cu_secret:
+    try:
+        import jwt as _jwt, time as _time
+        _cu_token = _jwt.encode({"sub": cs_username, "is_admin": cs_username in _cu_admins,
+                                  "iat": int(_time.time()), "exp": int(_time.time())+8*3600},
+                                 _cu_secret, algorithm="HS256")
+    except Exception:
+        _cu_token = ""
+print('<script>window.__cs_username = window.__cs_username || "' + cs_username + '"; window.__CU_TOKEN = window.__CU_TOKEN || "' + _cu_token + '"; window.__CU_API_BASE = window.__CU_API_BASE || "https://api.kenechukwuosele.me";</script>')
 print('<script>(function(){if(window.__cuFetchInstalled)return;window.__cuFetchInstalled=true;var t=window.__CU_TOKEN;if(!t)return;var _f=window.fetch.bind(window);window.fetch=function(u,o){o=o||{};var us=typeof u==="string"?u:(u&&u.url)||"";if(us.indexOf(window.__CU_API_BASE)===0){var h=new Headers(o.headers||{});if(!h.has("Authorization"))h.set("Authorization","Bearer "+t);o.headers=h;}return _f(u,o);};})();</script>')
 </python>
 <!-- __CU_LEADERBOARD__ -->
@@ -306,7 +386,7 @@ print('<script>(function(){if(window.__cuFetchInstalled)return;window.__cuFetchI
 
 <script>
 (function() {
-  var BASE = 'http://localhost:8000';
+  var BASE = 'https://api.kenechukwuosele.me';
   var COURSE = 'History';
   var username = '';
   try { username = window.__cs_username || ''; } catch(e) {}

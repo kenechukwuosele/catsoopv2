@@ -3,7 +3,7 @@ cs_content_header = "Quiz: Econs - week1"
 cs_show_due = True
 cs_update_questions_cache = True
 import json, os as _os
-_api_base = _os.environ.get("CU_QUIZ_BASE_URL", "http://localhost:8000")
+_api_base = _os.environ.get("CU_QUIZ_BASE_URL", "https://api.kenechukwuosele.me")
 _cu_secret = _os.environ.get("CU_QUIZ_SECRET", "")
 _cu_admins = {u.strip() for u in _os.environ.get("CU_QUIZ_ADMINS", "").split(",") if u.strip()}
 _cu_token = ""
@@ -19,7 +19,7 @@ if _cu_secret:
 print(f'<script data-username="{cs_username}">')
 print(f'window.__cs_username = "{cs_username}";')
 print(f'window.__cs_user_role = "{cs_user_info.get("role", "Student")}";')
-print(f'window.__quizQuestionNames = ["q_9e5f83d4", "q_53277a57", "q_b7140d7b", "q_53e23174", "q_bbf49be2", "q_18f6b988", "q_bb3f05ec", "q_fbd5dd01", "q_083df98d", "q_539b7fce"];')
+print(f'window.__quizQuestionNames = ["q_1b97c7aa", "q_4393d131", "q_b877fb30", "q_16d3fb6f", "q_ed59acc0", "q_ede79dff", "q_b5bb8ae2", "q_3552f05c", "q_2d7f3c18", "q_4ad11258"];')
 print(f'window.__course = "Econs";')
 print(f'window.__week = "week1";')
 print(f'window.__CU_API_BASE = "{_api_base}";')
@@ -80,110 +80,110 @@ print('</script>')
 </div>
 <div id="quiz-questions" style="display:none;">
 <question multiplechoice>
-csq_prompt = 'According to the Law of Demand, when the price of a good increases (holding all else constant), what happens to the quantity demanded?'
-csq_options = ['It increases', 'It decreases', 'It stays the same', 'It first increases then decreases']
+csq_prompt = 'According to the Law of Demand, when the price of a good increases (all else equal), what happens to quantity demanded?'
+csq_options = ['It increases', 'It decreases', 'It stays the same', 'It fluctuates unpredictably']
 csq_soln = 'It decreases'
 csq_renderer = 'radio'
-csq_name = 'q_9e5f83d4'
+csq_name = 'q_1b97c7aa'
 csq_npoints = 1
 csq_nsubmits = 1
 csq_soln_mode = "value"
 </question>
 
 <question multiplechoice>
-csq_prompt = 'Which of the following would cause the demand curve for petrol to shift to the RIGHT?'
-csq_options = ['A decrease in the price of petrol', 'An increase in average household income', 'A fall in the number of car owners', 'A government campaign to use public transport']
-csq_soln = 'An increase in average household income'
+csq_prompt = 'Which of the following would shift the demand curve for petrol to the RIGHT?'
+csq_options = ['A decrease in petrol price', 'An increase in household income', 'A fall in the number of car owners', 'A government campaign to use public transport']
+csq_soln = 'An increase in household income'
 csq_renderer = 'radio'
-csq_name = 'q_53277a57'
+csq_name = 'q_4393d131'
 csq_npoints = 1
 csq_nsubmits = 1
 csq_soln_mode = "value"
 </question>
 
 <question multiplechoice>
-csq_prompt = 'The Law of Supply states that, all else equal, as the price of a good rises, producers will supply _______ of it.'
+csq_prompt = 'The Law of Supply states that, all else equal, as price rises, producers will supply _____ of a good.'
 csq_options = ['Less', 'More', 'The same amount', 'An unpredictable amount']
 csq_soln = 'More'
 csq_renderer = 'radio'
-csq_name = 'q_b7140d7b'
+csq_name = 'q_b877fb30'
 csq_npoints = 1
 csq_nsubmits = 1
 csq_soln_mode = "value"
 </question>
 
 <question multiplechoice>
-csq_prompt = 'At market equilibrium, which of the following is TRUE?'
-csq_options = ['Quantity demanded exceeds quantity supplied', 'Quantity supplied exceeds quantity demanded', 'Quantity demanded equals quantity supplied', 'The price is set by the government']
+csq_prompt = 'At market equilibrium, which statement is TRUE?'
+csq_options = ['Quantity demanded exceeds quantity supplied', 'Quantity supplied exceeds quantity demanded', 'Quantity demanded equals quantity supplied', 'Price is set by the government']
 csq_soln = 'Quantity demanded equals quantity supplied'
 csq_renderer = 'radio'
-csq_name = 'q_53e23174'
+csq_name = 'q_16d3fb6f'
 csq_npoints = 1
 csq_nsubmits = 1
 csq_soln_mode = "value"
 </question>
 
 <question multiplechoice>
-csq_prompt = 'If the current market price is ABOVE the equilibrium price, there will be a:'
-csq_options = ['Shortage — consumers want more than producers supply', 'Surplus — producers supply more than consumers want', 'Equilibrium — the market is balanced', 'Decrease in supply']
-csq_soln = 'Shortage — consumers want more than producers supply'
+csq_prompt = 'If the market price is ABOVE equilibrium, there is a:'
+csq_options = ['Shortage', 'Surplus', 'Equilibrium', 'Decrease in supply']
+csq_soln = 'Surplus'
 csq_renderer = 'radio'
-csq_name = 'q_bbf49be2'
+csq_name = 'q_ed59acc0'
 csq_npoints = 1
 csq_nsubmits = 1
 csq_soln_mode = "value"
 </question>
 
 <question multiplechoice>
-csq_prompt = 'A movement ALONG the demand curve is caused by:'
-csq_options = ['A change in consumer income', 'A change in the price of the good itself', 'A change in consumer tastes', 'A change in the price of a substitute good']
-csq_soln = 'A change in the price of the good itself'
+csq_prompt = 'Which factor does NOT shift the demand curve for a normal good?'
+csq_options = ['A change in consumer income', "A change in the good's own price", 'A change in price of substitutes', 'A change in consumer tastes']
+csq_soln = "A change in the good's own price"
 csq_renderer = 'radio'
-csq_name = 'q_18f6b988'
+csq_name = 'q_ede79dff'
 csq_npoints = 1
 csq_nsubmits = 1
 csq_soln_mode = "value"
 </question>
 
 <question multiplechoice>
-csq_prompt = 'Goods that can be used in place of each other (e.g., butter and margarine) are called:'
-csq_options = ['Complementary goods', 'Inferior goods', 'Substitute goods', 'Normal goods']
-csq_soln = 'Substitute goods'
+csq_prompt = 'Price elasticity of demand measures:'
+csq_options = ['How much supply changes with income', 'How responsive quantity demanded is to a price change', 'The speed at which prices adjust', 'The cost of producing one more unit']
+csq_soln = 'How responsive quantity demanded is to a price change'
 csq_renderer = 'radio'
-csq_name = 'q_bb3f05ec'
+csq_name = 'q_b5bb8ae2'
 csq_npoints = 1
 csq_nsubmits = 1
 csq_soln_mode = "value"
 </question>
 
 <question multiplechoice>
-csq_prompt = 'When the price of a good falls and demand for a COMPLEMENTARY good rises, this is an example of:'
-csq_options = ['A substitute relationship', 'A complementary relationship', 'A Giffen good relationship', 'An inferior good relationship']
-csq_soln = 'A complementary relationship'
+csq_prompt = 'A price FLOOR set below the equilibrium price will:'
+csq_options = ['Create a surplus', 'Create a shortage', 'Have no effect on the market', 'Lower the equilibrium price']
+csq_soln = 'Have no effect on the market'
 csq_renderer = 'radio'
-csq_name = 'q_fbd5dd01'
+csq_name = 'q_3552f05c'
 csq_npoints = 1
 csq_nsubmits = 1
 csq_soln_mode = "value"
 </question>
 
 <question multiplechoice>
-csq_prompt = 'An increase in the cost of raw materials used to produce smartphones would most likely:'
-csq_options = ['Shift the supply curve for smartphones to the right', 'Shift the supply curve for smartphones to the left', 'Move producers along the existing supply curve', 'Increase equilibrium quantity of smartphones']
-csq_soln = 'Shift the supply curve for smartphones to the left'
+csq_prompt = 'Goods X and Y are substitutes. If the price of Good X rises, the demand for Good Y will:'
+csq_options = ['Decrease', 'Increase', 'Stay the same', 'First increase then decrease']
+csq_soln = 'Increase'
 csq_renderer = 'radio'
-csq_name = 'q_083df98d'
+csq_name = 'q_2d7f3c18'
 csq_npoints = 1
 csq_nsubmits = 1
 csq_soln_mode = "value"
 </question>
 
 <question multiplechoice>
-csq_prompt = 'Consumer surplus is best defined as:'
-csq_options = ['The extra profit earned by producers above cost', 'The difference between what consumers are WILLING to pay and what they ACTUALLY pay', 'The total amount spent by all consumers in a market', 'The revenue earned when supply exceeds demand']
-csq_soln = 'The difference between what consumers are WILLING to pay and what they ACTUALLY pay'
+csq_prompt = 'Which of the following best describes a complement good?'
+csq_options = ['A good used instead of another good', 'A good used together with another good', 'A good with no close alternatives', 'A good whose demand falls as income rises']
+csq_soln = 'A good used together with another good'
 csq_renderer = 'radio'
-csq_name = 'q_539b7fce'
+csq_name = 'q_4ad11258'
 csq_npoints = 1
 csq_nsubmits = 1
 csq_soln_mode = "value"
@@ -196,7 +196,7 @@ csq_soln_mode = "value"
 <script>
 (function() {
     const API = (function() {
-        const base = window.__CU_API_BASE || 'http://localhost:8000';
+        const base = window.__CU_API_BASE || 'https://api.kenechukwuosele.me';
         try {
             const u = new URL(base);
             const h = window.location.hostname;
@@ -438,8 +438,8 @@ csq_soln_mode = "value"
                 console.error('[face-auth] model load attempt ' + attempt + ' failed:', e);
                 if (attempt < MAX_RETRIES) {
                     const wait = attempt * 3;
-                    if (subtitleEl) subtitleEl.textContent = '⚠️ Your network seems unstable — retrying in ' + wait + 's...';
-                    setStatus('⚠️ Network unstable — retrying...', '#f59e0b');
+                    if (subtitleEl) subtitleEl.textContent = '⚠️ Your network seems unstable, retrying in ' + wait + 's...';
+                    setStatus('⚠️ Network unstable, retrying...', '#f59e0b');
                     await new Promise(function(res) { setTimeout(res, wait * 1000); });
                 }
             }
@@ -447,12 +447,12 @@ csq_soln_mode = "value"
         if (!modelsLoaded) {
             console.error('[face-auth] all model load attempts failed');
             if (subtitleEl) subtitleEl.textContent = 'Could not load face models after ' + MAX_RETRIES + ' attempts. Your network may be unstable.';
-            setStatus('⚠️ Face recognition unavailable — quiz unlocked without verification', '#f59e0b');
+            setStatus('⚠️ Face recognition unavailable, quiz unlocked without verification', '#f59e0b');
             if (btnEl) { btnEl.textContent = 'Skip (not recommended)'; btnEl.style.display = 'block'; btnEl.onclick = function() { PASS(); }; }
             return;
         }
 
-        if (stepEl) stepEl.textContent = enrolled ? 'Step 2 of 2' : 'Step 1 of 2 — First-time setup';
+        if (stepEl) stepEl.textContent = enrolled ? 'Step 2 of 2' : 'Step 1 of 2 == First-time setup';
         if (titleEl) titleEl.textContent = enrolled ? '🔐 Verify Your Identity' : '📸 Set Up Face ID';
         if (subtitleEl) subtitleEl.textContent = enrolled
             ? 'Look at the camera to confirm it is you.'
@@ -470,7 +470,7 @@ csq_soln_mode = "value"
                 if (det) {
                     currentDescriptor = Array.from(det.descriptor);
                     setRing('#22c55e', false);
-                    setStatus('✅ Face detected — click below to continue', '#22c55e');
+                    setStatus('✅ Face detected, click below to continue', '#22c55e');
                     if (btnEl) btnEl.style.display = 'block';
                 } else {
                     currentDescriptor = null;
@@ -613,7 +613,7 @@ if (window.__affectInjected) return;
 window.__affectInjected = true;
 
 const API = (function() {
-    const base = window.__CU_API_BASE || 'http://localhost:8000';
+    const base = window.__CU_API_BASE || 'https://api.kenechukwuosele.me';
     try {
         const u = new URL(base);
         const h = window.location.hostname;
@@ -628,6 +628,7 @@ const attemptSessionId = (window.crypto && crypto.randomUUID) ? crypto.randomUUI
 let videoStream = null, videoEl = null, canvasEl = null, canvasCtx = null;
 let lastInteractionTime = Date.now(), lastEngagementSent = 0, lastAffectState = null;
 let pageClicks = 0, keypressCount = 0;
+let _consecutiveLowEAR = 0, _affectBuffer = [];
 
 document.addEventListener('click', () => { pageClicks++; lastInteractionTime = Date.now(); });
 document.addEventListener('keydown', () => { keypressCount++; lastInteractionTime = Date.now(); });
@@ -686,7 +687,7 @@ async function detectFaceRich() {
     if (!faceapi.nets.tinyFaceDetector.isLoaded) return null;
     const hasLandmarks = faceapi.nets.faceLandmark68TinyNet.isLoaded;
     const hasExpressions = faceapi.nets.faceExpressionNet.isLoaded;
-    const opts = new faceapi.TinyFaceDetectorOptions({ inputSize: 224, scoreThreshold: 0.2 });
+    const opts = new faceapi.TinyFaceDetectorOptions({ inputSize: 320, scoreThreshold: 0.2 });
     if (hasLandmarks && hasExpressions) {
       return await faceapi.detectSingleFace(videoEl, opts).withFaceLandmarks(true).withFaceExpressions() || null;
     } else if (hasLandmarks) {
@@ -741,27 +742,64 @@ function estimateHeadPoseFromBox(box) {
   return { pose: 'down', yaw: normX * 90, pitch: normY * 45 };
 }
 
+function estimateHeadPoseFromLandmarks(landmarks, box) {
+  try {
+    const le = landmarks.getLeftEye();
+    const re = landmarks.getRightEye();
+    const noseArr = landmarks.getNose();
+    const lCx = le.reduce((s,p)=>s+p.x,0)/le.length;
+    const lCy = le.reduce((s,p)=>s+p.y,0)/le.length;
+    const rCx = re.reduce((s,p)=>s+p.x,0)/re.length;
+    const rCy = re.reduce((s,p)=>s+p.y,0)/re.length;
+    const eyeMidX = (lCx + rCx) / 2;
+    const eyeMidY = (lCy + rCy) / 2;
+    const faceW = dist2d({x:lCx,y:lCy}, {x:rCx,y:rCy});
+    const noseTip = noseArr[3] || noseArr[noseArr.length-1];
+    const yawNorm = faceW > 0 ? (noseTip.x - eyeMidX) / faceW : 0;
+    const pitchNorm = box ? ((eyeMidY - (box.y + box.height * 0.3)) / box.height) : 0;
+    const yaw = yawNorm * 90, pitch = pitchNorm * 45;
+    let pose = 'center';
+    if (Math.abs(yawNorm) >= 0.2 || Math.abs(pitchNorm) >= 0.2) {
+      pose = Math.abs(yawNorm) > Math.abs(pitchNorm)
+        ? (yawNorm > 0 ? 'left' : 'right') : 'down';
+    }
+    return { pose, yaw, pitch };
+  } catch(e) {
+    return estimateHeadPoseFromBox(box);
+  }
+}
+
 function computeEngagement(present, gaze, headPose, inactivity) {
   let score = 100;
   if (!present) score -= 45;
   if (!gaze) score -= 20;
   if (headPose === 'down') score -= 15;
   else if (headPose === 'left' || headPose === 'right') score -= 10;
-  if (inactivity > 120) score -= 30; else if (inactivity > 60) score -= 15;
+  if (inactivity > 180) score -= 30; else if (inactivity > 90) score -= 15;
   return Math.max(0, Math.min(100, score));
 }
 
-function computeAffect(score, inactivity, facePresent, expressions, rollDeg) {
-  if (!facePresent || inactivity > 90) return 'distracted';
+function _smoothState(rawState) {
+  _affectBuffer.push(rawState);
+  if (_affectBuffer.length > 2) _affectBuffer.shift();
+  if (_affectBuffer.length === 2 && _affectBuffer[0] === _affectBuffer[1]) return rawState;
+  return _affectBuffer.length === 1 ? rawState : _affectBuffer[0];
+}
+
+function computeAffect(score, inactivity, facePresent, expressions, rollDeg, ear) {
+  if (!facePresent || inactivity > 150) { _consecutiveLowEAR = 0; return _smoothState('distracted'); }
+  if (ear !== null && ear !== undefined && ear < 0.18) { _consecutiveLowEAR++; }
+  else { _consecutiveLowEAR = 0; }
+  if (_consecutiveLowEAR >= 2) return _smoothState('disengaged');
   if (expressions) {
     const angry = expressions.angry || 0;
     const fearful = expressions.fearful || 0;
     const surprised = expressions.surprised || 0;
-    if (angry > 0.25 || fearful > 0.25) return 'struggling';
-    if (surprised > 0.3 || Math.abs(rollDeg || 0) > 20) return 'confused';
+    if (angry > 0.25 || fearful > 0.25) return _smoothState('struggling');
+    if (surprised > 0.3 || Math.abs(rollDeg || 0) > 30) return _smoothState('confused');
   }
-  if (inactivity > 60 || score < 30) return 'disengaged';
-  return 'focused';
+  if (inactivity > 90 || score < 30) return _smoothState('disengaged');
+  return _smoothState('focused');
 }
 
 async function ensureStream() {
@@ -791,11 +829,18 @@ async function renderLoop() {
     if (result) {
       const box = result.detection ? result.detection.box : result.box;
       const inact = Math.floor((Date.now() - lastInteractionTime) / 1000);
-      const hp = estimateHeadPoseFromBox(box);
+      const hp = result.landmarks ? estimateHeadPoseFromLandmarks(result.landmarks, box) : estimateHeadPoseFromBox(box);
       const score = computeEngagement(true, hp.pose === 'center', hp.pose, inact);
-      let roll = null;
-      if (result.landmarks) { try { roll = calcHeadRoll(result.landmarks); } catch(e) {} }
-      const state = computeAffect(score, inact, true, result.expressions, roll);
+      let roll = null, renderEAR = null;
+      if (result.landmarks) {
+        try {
+          roll = calcHeadRoll(result.landmarks);
+          const earL = calcEAR(result.landmarks.getLeftEye());
+          const earR = calcEAR(result.landmarks.getRightEye());
+          if (earL !== null && earR !== null) renderEAR = (earL + earR) / 2;
+        } catch(e) {}
+      }
+      const state = computeAffect(score, inact, true, result.expressions, roll, renderEAR);
       const color = affectColor(state);
       const mx = cw - box.x - box.width;
       canvasCtx.strokeStyle = color; canvasCtx.lineWidth = 2;
@@ -838,7 +883,7 @@ async function collectSample() {
     if (result) {
       facePresent = true;
       const box = result.detection ? result.detection.box : result.box;
-      const hp = estimateHeadPoseFromBox(box);
+      const hp = result.landmarks ? estimateHeadPoseFromLandmarks(result.landmarks, box) : estimateHeadPoseFromBox(box);
       headPose = hp.pose; yaw = hp.yaw; pitch = hp.pitch;
       gazeCentered = headPose === 'center';
 
@@ -864,7 +909,7 @@ async function collectSample() {
   }
 
   const score = computeEngagement(facePresent, gazeCentered, headPose, inactivity);
-  const affectState = computeAffect(score, inactivity, facePresent, expressions, roll);
+  const affectState = computeAffect(score, inactivity, facePresent, expressions, roll, ear);
 
   if (affectState !== lastAffectState && window.__liveWS && window.__liveWS.readyState === WebSocket.OPEN) {
     window.__liveWS.send(JSON.stringify({

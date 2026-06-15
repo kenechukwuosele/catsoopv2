@@ -1,0 +1,60 @@
+<python>
+cs_content_header = "Lecture 2: ai"
+</python>
+<style>
+h1,h2,h3{color:#333;}
+h1{border-bottom:3px solid #2572F5;padding-bottom:10px;}
+h2{color:#2572F5;margin-top:30px;}
+.highlight{background:#e7f3ff;border-left:4px solid #2572F5;padding:15px;margin:20px 0;border-radius:5px;}
+table{width:100%;border-collapse:collapse;margin:20px 0;}
+th,td{border:1px solid #ddd;padding:12px;text-align:left;}
+th{background:#2572F5;color:white;}
+tr:nth-child(even){background:#f2f2f2;}
+code{background:#f4f4f4;padding:2px 6px;border-radius:3px;color:#d63384;}
+</style>
+
+
+<div id="live-file-panel" style="display:none;margin:20px 0;padding:16px;border:1px solid #ddd;border-radius:6px;background:#f9f9f9;">
+  <strong>Live File</strong>
+  <div id="live-file-content" style="margin-top:8px;color:#555;"></div>
+</div>
+<script>
+(function(){
+  const parts = window.location.pathname.split('/').filter(Boolean);
+  const apiBase = 'https://api.kenechukwuosele.me';
+  let course = '', week = '';
+  if(parts.length >= 3 && parts[0] === 'courses'){
+    course = parts[1]; week = parts[2];
+  } else if(parts.length >= 2 && parts[0] !== 'courses'){
+    course = parts[0]; week = parts[1];
+  } else { return; }
+  course = course.trim(); week = week.trim();
+  if(!course || !week) return;
+  const panel = document.getElementById('live-file-panel');
+  const content = document.getElementById('live-file-content');
+  function renderFile(meta){
+    if(!meta){ panel.style.display = 'none'; return; }
+    const url = apiBase + '/live-file/' + course + '/' + week;
+    const dlUrl = url + '?download=1';
+    const type = meta.content_type || '';
+    const safeName = meta.filename || 'file';
+    let html = '<div><a href="' + dlUrl + '" style="color:#2572F5;text-decoration:underline;">' + safeName + '</a></div>';
+    if(type.startsWith('image/')){
+      fetch(url).then(r=>r.blob()).then(b=>{ const el=document.getElementById('live-file-img'); if(el) el.src=URL.createObjectURL(b); });
+      html += '<img id="live-file-img" src="" style="max-width:100%;margin-top:10px;border:1px solid #ddd;border-radius:4px;"/>';
+    } else if(type==='application/pdf' || type.startsWith('text/')){
+      fetch(url).then(r=>r.blob()).then(b=>{ const el=document.getElementById('live-file-iframe'); if(el) el.src=URL.createObjectURL(b); });
+      html += '<iframe id="live-file-iframe" src="" style="width:100%;height:480px;margin-top:10px;border:1px solid #ddd;border-radius:4px;"></iframe>';
+    }
+    content.innerHTML = html;
+    panel.style.display = 'block';
+  }
+  async function load(){
+    try{
+      const r = await fetch(apiBase + '/live-file-info/' + course + '/' + week);
+      renderFile(r.ok ? await r.json() : null);
+    }catch{ renderFile(null); }
+  }
+  load();
+})();
+</script>
